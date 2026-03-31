@@ -715,7 +715,7 @@
       transHeading.innerHTML =
         'You have an AMS to store data.<br>' +
         'You have an email tool to send messages.<br>' +
-        '<span style="color:#F47C2C">But you still need better member data<br>and engagement, right?</span>';
+        '<span style="background:linear-gradient(135deg,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">But you still need better member data<br>and engagement, right?</span>';
     }
 
     // Add logo + loop SVG to Welcome to PropFuel section
