@@ -134,6 +134,11 @@
       '.pf-footer a,.pf-footer-link{color:#8C8479!important}' +
       '.pf-footer-link:hover{color:#F47C2C!important}' +
 
+      /* Value section background video */
+      '.vbg-video{position:absolute;top:50%;left:50%;min-width:100%;min-height:100%;width:auto;height:auto;' +
+        'transform:translate(-50%,-50%);object-fit:cover;z-index:0}' +
+      '.vbg-overlay{position:absolute;inset:0;background:rgba(26,23,19,.55);z-index:1}' +
+
       /* Logo carousel */
       '.lc-label{font-size:13px;font-weight:600;color:#8C8479;letter-spacing:.06em;text-transform:uppercase;text-align:center;margin-bottom:32px}' +
       '.lc-carousel{position:relative;overflow:hidden;max-width:960px;margin:0 auto;' +
@@ -669,6 +674,39 @@
       logosBar.innerHTML =
         '<p class="lc-label">Trusted by 300+ associations</p>' +
         '<div class="lc-carousel"><div class="lc-track">' + trackHTML + '</div></div>';
+    }
+
+    // Inject background video into value section
+    var valueSection = document.querySelector('.pf-value-section');
+    if (valueSection && !valueSection.querySelector('.vbg-video')) {
+      valueSection.style.position = 'relative';
+      valueSection.style.overflow = 'hidden';
+      valueSection.style.borderRadius = '24px';
+      valueSection.style.margin = '0 32px';
+
+      // Video element
+      var video = document.createElement('video');
+      video.className = 'vbg-video';
+      video.autoplay = true;
+      video.muted = true;
+      video.loop = true;
+      video.playsInline = true;
+      video.setAttribute('playsinline', '');
+      video.innerHTML = '<source src="https://res.cloudinary.com/dkfp95u2n/video/upload/q_auto,f_auto/v1774989702/problem-vid_z6t2v8.mp4" type="video/mp4">';
+      valueSection.insertBefore(video, valueSection.firstChild);
+
+      // Dark overlay
+      var overlay = document.createElement('div');
+      overlay.className = 'vbg-overlay';
+      valueSection.insertBefore(overlay, video.nextSibling);
+
+      // Ensure inner content is above video
+      Array.from(valueSection.children).forEach(function(child) {
+        if (!child.classList.contains('vbg-video') && !child.classList.contains('vbg-overlay')) {
+          child.style.position = 'relative';
+          child.style.zIndex = '2';
+        }
+      });
     }
 
     // Add logo + loop SVG to Welcome to PropFuel section
