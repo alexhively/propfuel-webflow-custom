@@ -456,7 +456,7 @@
     var logoLink = document.querySelector('.pf-nav-logo');
     if (logoLink && !logoLink.querySelector('img')) {
       var img = document.createElement('img');
-      img.src = 'https://propfuel-hero-v2-deploy.vercel.app/logo.png';
+      img.src = 'https://cdn.prod.website-files.com/69ca88e6c52b04fb85f74a02/69cc30a4a0dc86d4b55ee8a1_logo.png';
       img.alt = 'PropFuel';
       img.style.cssText = 'height:40px;width:auto';
       logoLink.insertBefore(img, logoLink.firstChild);
@@ -675,7 +675,7 @@
       if (!parent.querySelector('.pf-welcome-logo')) {
         var logo = document.createElement('img');
         logo.className = 'pf-welcome-logo';
-        logo.src = 'https://propfuel-hero-v2-deploy.vercel.app/logo.png';
+        logo.src = 'https://cdn.prod.website-files.com/69ca88e6c52b04fb85f74a02/69cc30a4a0dc86d4b55ee8a1_logo.png';
         logo.alt = 'PropFuel';
         logo.style.cssText = 'height:80px;width:auto;margin:0 auto 20px;display:block';
         parent.insertBefore(logo, welcomeHeading);
@@ -824,7 +824,7 @@
     var footerBrand = document.querySelector('.pf-footer-brand');
     if (footerBrand && !footerBrand.querySelector('img')) {
       var logo = document.createElement('img');
-      logo.src = 'https://propfuel-hero-v2-deploy.vercel.app/logo.png';
+      logo.src = 'https://cdn.prod.website-files.com/69ca88e6c52b04fb85f74a02/69cc30a4a0dc86d4b55ee8a1_logo.png';
       logo.alt = 'PropFuel';
       logo.style.cssText = 'height:48px;width:auto;display:block;margin-bottom:16px';
       footerBrand.insertBefore(logo, footerBrand.firstChild);
