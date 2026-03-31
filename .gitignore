@@ -1,0 +1,4 @@
+qa/reports/*.png
+qa/reports/*.html
+qa/node_modules/
+!qa/reports/.gitkeep

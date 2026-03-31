@@ -1,0 +1,15 @@
+{
+  "name": "propfuel-qa",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "compare": "node compare.mjs",
+    "brand-check": "node brand-check.mjs",
+    "qa": "node run-qa.mjs"
+  },
+  "dependencies": {
+    "puppeteer": "^24.39.0",
+    "pixelmatch": "^6.0.0",
+    "pngjs": "^7.0.0"
+  }
+}
