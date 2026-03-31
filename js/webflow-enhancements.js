@@ -1257,32 +1257,131 @@
     });
 
     // ═══════════════════════════════════════
-    // SECTION 3: ENGINE LABELS & TEXT FIXES
-    // Add "Engine 01/02/03" labels, fix taglines
+    // SECTION 3: ENGINE LABELS, TEXT, BULLETS, CTAs
+    // Fix all engine content to match Vercel source exactly
     // ═══════════════════════════════════════
     var engineData = [
-      { num: 'Engine 01', title: 'The Insights Engine', tagline: 'More Signal, Less Noise' },
-      { num: 'Engine 02', title: 'The Automation Engine', tagline: 'More Personalization, Less Busy Work' },
-      { num: 'Engine 03', title: 'The Engagement Engine', tagline: 'More Engagement, Less Silence' }
+      {
+        num: 'Engine 01',
+        title: 'The Insights Engine',
+        tagline: 'More Signal, Less Noise',
+        desc: 'The Insights Engine interprets member behavior and surfaces who wants what, who is at risk, and who is ready for more\u00a0\u2014\u00a0so you stop guessing and start acting.',
+        bullets: [
+          'Super Contact Profiles: unified view of every member',
+          'AI-powered response analysis and sentiment detection',
+          'Engagement scoring and trend tracking',
+          'At-risk member identification before they lapse'
+        ],
+        cta: { text: 'Explore the Insights Engine', href: '/platform/insights' }
+      },
+      {
+        num: 'Engine 02',
+        title: 'The Automation Engine',
+        tagline: 'More Personalization, Less Busy Work',
+        desc: 'The Automation Engine builds campaigns from scratch\u00a0\u2014\u00a0segments, messaging, workflows\u00a0\u2014\u00a0using 70+ blueprints. You just approve and launch.',
+        bullets: [
+          'Campaign builder with conditional branching based on responses',
+          '70+ Blueprint library of proven campaign templates',
+          'Real-time alerts when members respond with urgency',
+          'AMS write-back: responses flow directly into your system of record'
+        ],
+        cta: { text: 'Explore the Automation Engine', href: '/platform/automation' }
+      },
+      {
+        num: 'Engine 03',
+        title: 'The Engagement Engine',
+        tagline: 'More Engagement, Less Silence',
+        desc: 'The Engagement Engine turns one-way communications into two-way exchanges. Single-click responses across email, website, and SMS. Near-zero friction for members.',
+        bullets: [
+          'Three channels unified: Email, Website, and SMS',
+          'One question at a time\u00a0\u2014\u00a0not surveys, not newsletters',
+          'Members respond with one tap or click',
+          'White-labeled to your association\u2019s brand'
+        ],
+        cta: { text: 'Explore the Engagement Engine', href: '/platform/website' }
+      }
     ];
 
-    // Find engine headings by title text
-    document.querySelectorAll('h2, h3').forEach(function(h) {
-      var txt = h.textContent.trim();
-      engineData.forEach(function(eng) {
-        if (txt.toLowerCase().indexOf(eng.title.toLowerCase().replace('the ', '')) !== -1 || txt.toLowerCase() === eng.title.toLowerCase()) {
-          // Add engine number label above if missing
-          var parent = h.parentElement;
-          if (!parent.querySelector('.eng-num-label')) {
-            var numLabel = document.createElement('p');
-            numLabel.className = 'eng-num-label';
-            numLabel.style.cssText = 'font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:8px';
-            numLabel.textContent = eng.num;
-            parent.insertBefore(numLabel, h);
-          }
-        }
+    // Find each engine's feature title and fix its section
+    var featureTitles = document.querySelectorAll('.pf-feature-title');
+    featureTitles.forEach(function(titleEl) {
+      var txt = titleEl.textContent.trim();
+      var eng = null;
+      engineData.forEach(function(e) {
+        if (txt.toLowerCase().indexOf(e.title.toLowerCase().replace('the ', '')) !== -1) eng = e;
       });
+      if (!eng) return;
+
+      var section = titleEl.closest('[class*="feature"]') || titleEl.parentElement;
+
+      // Add engine number label above title
+      if (!section.querySelector('.eng-num-label')) {
+        var numLabel = document.createElement('p');
+        numLabel.className = 'eng-num-label';
+        numLabel.style.cssText = 'font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:8px';
+        numLabel.textContent = eng.num;
+        titleEl.parentNode.insertBefore(numLabel, titleEl);
+      }
+
+      // Add tagline below title
+      if (!section.querySelector('.eng-tagline')) {
+        var tagline = document.createElement('p');
+        tagline.className = 'eng-tagline';
+        tagline.style.cssText = 'font-size:18px;font-weight:600;color:#F47C2C;margin-top:4px;margin-bottom:16px';
+        tagline.textContent = eng.tagline;
+        titleEl.parentNode.insertBefore(tagline, titleEl.nextSibling);
+      }
+
+      // Fix description
+      var descEl = section.querySelector('.pf-feature-desc');
+      if (descEl) descEl.textContent = eng.desc;
+
+      // Fix bullet items
+      var bullets = section.querySelectorAll('.pf-feature-list-item');
+      bullets.forEach(function(b, i) {
+        if (eng.bullets[i]) b.textContent = '\u2022 ' + eng.bullets[i];
+      });
+
+      // Fix CTA link: "Learn More" → "Explore the X Engine →"
+      var ctaLink = section.querySelector('.pf-btn-primary');
+      if (ctaLink && ctaLink.textContent.trim() === 'Learn More') {
+        ctaLink.textContent = '';
+        ctaLink.href = eng.cta.href;
+        ctaLink.style.cssText = 'display:inline-flex;align-items:center;gap:8px;background:#1A1714;border-radius:100px;' +
+          'padding:12px 24px;font-size:14px;font-weight:600;letter-spacing:0.02em;color:#F4F1EA;text-decoration:none;' +
+          'border:none;box-shadow:0 4px 16px rgba(0,0,0,0.1);transition:box-shadow .3s ease';
+        ctaLink.innerHTML = eng.cta.text + ' <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+      }
     });
+
+    // ═══════════════════════════════════════
+    // SECTION 4: MEMBERSHIP AI — fix CTA link style
+    // ═══════════════════════════════════════
+    var aiTitle = null;
+    featureTitles.forEach(function(t) { if (t.textContent.trim() === 'Membership AI') aiTitle = t; });
+    if (aiTitle) {
+      var aiSection = aiTitle.closest('[class*="feature"]') || aiTitle.parentElement;
+      var aiCta = aiSection ? aiSection.querySelector('.pf-btn-primary') : null;
+      if (aiCta && aiCta.textContent.trim() === 'Learn More') {
+        aiCta.href = '/membership-ai';
+        aiCta.style.cssText = 'display:inline-flex;align-items:center;gap:8px;background:#1A1714;border-radius:100px;' +
+          'padding:12px 24px;font-size:14px;font-weight:600;letter-spacing:0.02em;color:#F4F1EA;text-decoration:none;' +
+          'border:none;box-shadow:0 4px 16px rgba(0,0,0,0.1);transition:box-shadow .3s ease';
+        aiCta.innerHTML = 'Explore Membership AI <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+      }
+    }
+
+    // ═══════════════════════════════════════
+    // SECTION 8: CTA — fix heading + gradient text
+    // ═══════════════════════════════════════
+    var ctaHeading = document.querySelector('.pf-cta-heading');
+    if (ctaHeading) {
+      ctaHeading.innerHTML = 'Ready to Make Membership<br><span style="background:linear-gradient(135deg,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Meaningful?</span>';
+    }
+    var ctaSub = document.querySelector('.pf-cta-sub');
+    if (ctaSub) {
+      ctaSub.textContent = 'See how PropFuel helps associations understand what members want and act on it\u00a0\u2014\u00a0all in one platform.';
+    }
 
     // ═══════════════════════════════════════
     // SECTION 7: STATS — gradient text on numbers
@@ -1294,14 +1393,6 @@
       }
     });
 
-    // ═══════════════════════════════════════
-    // SECTION 8: CTA — gradient on "Meaningful?"
-    // ═══════════════════════════════════════
-    document.querySelectorAll('h2').forEach(function(h) {
-      if (h.textContent.match(/meaningful/i) && h.textContent.match(/membership/i)) {
-        h.innerHTML = h.innerHTML.replace(/(Meaningful\??)/i, '<span style="background:linear-gradient(135deg,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">$1</span>');
-      }
-    });
   }
 
   // ─────────────────────────────────────────
