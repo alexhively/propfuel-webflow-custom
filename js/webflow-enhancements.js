@@ -631,17 +631,33 @@
     // Replace logos bar with seamless scrolling carousel
     var logosBar = document.querySelector('.pf-logos-bar');
     if (logosBar) {
-      var BASE = 'https://propfuel-hero-v2-deploy.vercel.app/logos/';
+      var CDN = 'https://cdn.prod.website-files.com/69ca88e6c52b04fb85f74a02/';
       var logos = [
-        'aap-logo-gray.png','ama-logo-gray.png','asae-logo-1.png','veccs-logo-gray.png',
-        'ena-logo-gray.png','iste-logo-gray.png','nacubo-logo-gray.png','msta-logo-gray.png',
-        'napnap-logo-gray.png','arn-logo-gray.png','incose-logo-gray.png','aamft-logo-gray.png',
-        'felinevma-logo-gray.png','phira-logo-gray.png','ins-logo-gray.png','ohi-logo-gray.png',
-        'acce-logo-gray.png','aao-logo-gray.png','fia-logo-gray.png','iaslc-logo-gray.png',
-        'oscpa-logo-gray.png','logo-aps-no-tagline-1.png'
+        { file: '69cc2ec91996f9fc1d17b050_aap-logo-gray.png', alt: 'AAP logo' },
+        { file: '69cc2ec9e8c12bfd5ac2cd3a_ama-logo-gray.png', alt: 'AMA logo' },
+        { file: '69cc2ec9695544dee4c0a5a3_asae-logo-1.png', alt: 'ASAE logo' },
+        { file: '69cc2ec903ab16cf4dfe539c_veccs-logo-gray.png', alt: 'VECCS logo' },
+        { file: '69cc2ec9de89e83990645b42_ena-logo-gray.png', alt: 'ENA logo' },
+        { file: '69cc2ec9d2629b72dca2d2aa_iste-logo-gray.png', alt: 'ISTE logo' },
+        { file: '69cc2ec913ab5ecbc5870b0f_nacubo-logo-gray.png', alt: 'NACUBO logo' },
+        { file: '69cc2ec916f144921e029b5f_msta-logo-gray.png', alt: 'MSTA logo' },
+        { file: '69cc2ec98ce8c8924a3c65b8_napnap-logo-gray.png', alt: 'NAPNAP logo' },
+        { file: '69cc2ec913ab5ecbc5870aec_arn-logo-gray.png', alt: 'ARN logo' },
+        { file: '69cc2ec9dbe5f7f452d9b238_incose-logo-gray.png', alt: 'INCOSE logo' },
+        { file: '69cc2ec9ca59245bdfddf07a_aamft-logo-gray.png', alt: 'AAMFT logo' },
+        { file: '69cc2ed4a99bddfdfb26d454_felinevma-logo-gray.png', alt: 'Feline VMA logo' },
+        { file: '69cc2ec9229856cda8d1f8fb_phira-logo-gray.png', alt: 'PIHRA logo' },
+        { file: '69cc2ec9c9aa2c836b0992ed_ins-logo-gray.png', alt: 'INS logo' },
+        { file: '69cc2ec9d80e66a091b47006_ohi-logo-gray.png', alt: 'OHI logo' },
+        { file: '69cc2ec9e95c2de127c47b73_acce-logo-gray.png', alt: 'ACCE logo' },
+        { file: '69cc2ec990d8cadaf14ffd59_aao-logo-gray.png', alt: 'AAO logo' },
+        { file: '69cc2ec99b35324118c2221d_fia-logo-gray.png', alt: 'FIA logo' },
+        { file: '69cc2ec9ad470b944f4a9b95_iaslc-logo-gray.png', alt: 'IASLC logo' },
+        { file: '69cc2ec94b9f3133c79f1cd2_oscpa-logo-gray.png', alt: 'OSCPA logo' },
+        { file: '69cc2ec952669b880de6eab8_logo-aps-no-tagline-1.png', alt: 'APS logo' }
       ];
-      var items = logos.map(function(f) {
-        return '<span class="lc-item"><img loading="lazy" src="' + BASE + f + '" alt="' + f.replace(/-logo.*/, '').replace('logo-','').toUpperCase() + ' logo"></span>';
+      var items = logos.map(function(l) {
+        return '<span class="lc-item"><img loading="lazy" src="' + CDN + l.file + '" alt="' + l.alt + '"></span>';
       }).join('');
       // Duplicate for seamless loop
       var trackHTML = items + items;
