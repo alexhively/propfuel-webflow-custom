@@ -300,6 +300,16 @@
       }
     });
 
+    // Add logo icon
+    var logoLink = document.querySelector('.pf-nav-logo');
+    if (logoLink && !logoLink.querySelector('img')) {
+      var img = document.createElement('img');
+      img.src = 'https://propfuel-hero-v2-deploy.vercel.app/logo.png';
+      img.alt = 'PropFuel';
+      img.style.cssText = 'height:40px;width:auto';
+      logoLink.insertBefore(img, logoLink.firstChild);
+    }
+
     // Fix CTA button text
     var navBtn = document.querySelector('.pf-btn-nav');
     if (navBtn && navBtn.textContent.trim() === 'Get a Demo') {
