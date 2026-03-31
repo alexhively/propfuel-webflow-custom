@@ -1,28 +1,60 @@
 /* ============================================
    PropFuel Webflow Enhancements
    External script loaded via <script> tag
+   Handles: textures, animations, FAQ, nav scroll
    ============================================ */
 
 (function () {
   'use strict';
 
-  // --- Reduced Motion Check ---
   var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ─────────────────────────────────────────
+  // 0. INJECT TEXTURE-DEPENDENT CSS
+  //    (Only matters after JS generates textures)
+  // ─────────────────────────────────────────
+  function injectDynamicCSS() {
+    var css = '' +
+      /* Card/feature texture overlays */
+      '.pf-card,.pf-demo-form-card,.pf-feature-visual{position:relative;overflow:hidden}' +
+      '.pf-card::before,.pf-demo-form-card::before,.pf-feature-visual::before{' +
+        'content:"";position:absolute;inset:0;background-image:var(--card-texture);' +
+        'background-size:512px 512px;mix-blend-mode:multiply;opacity:0.35;' +
+        'pointer-events:none;border-radius:inherit;z-index:0}' +
+      '.pf-card>*,.pf-demo-form-card>*,.pf-feature-visual>*{position:relative;z-index:1}' +
+
+      /* Dark section textures */
+      '.pf-stats-section,.pf-cta-section,.pf-footer,.pf-section-dark,.pf-value-section{' +
+        'background-image:var(--dark-texture)!important;background-size:512px 512px!important}' +
+
+      /* FAQ / warm section textures */
+      '.pf-faq-section,.pf-transition-section-dark{' +
+        'background-image:var(--faq-texture)!important;background-size:512px 512px!important}' +
+
+      /* Fade-up scroll animations */
+      '.fade-up{opacity:0;transform:translateY(32px);' +
+        'transition:opacity .7s cubic-bezier(.33,0,.2,1),transform .7s cubic-bezier(.33,0,.2,1)}' +
+      '.fade-up.visible{opacity:1;transform:translateY(0)}';
+
+    var style = document.createElement('style');
+    style.textContent = css;
+    document.head.appendChild(style);
+  }
 
   // ─────────────────────────────────────────
   // 1. TEXTURE GENERATION
   // ─────────────────────────────────────────
   function generateTexture(w, h, opts) {
     opts = opts || {};
-    var noiseRange  = opts.noiseRange  || 8;
-    var blueBias    = opts.blueBias    != null ? opts.blueBias : -2;
-    var blotchCount = opts.blotchCount || 400;
-    var blotchRMin  = opts.blotchRMin  || 10;
-    var blotchRMax  = opts.blotchRMax  || 70;
-    var blotchAlpha = opts.blotchAlpha || 0.015;
-    var baseR       = opts.baseR       || 244;
-    var baseG       = opts.baseG       || 241;
-    var baseB       = opts.baseB       || 234;
+    var noiseRange   = opts.noiseRange  || 8;
+    var blueBias     = opts.blueBias    != null ? opts.blueBias : -2;
+    var blotchCount  = opts.blotchCount || 400;
+    var blotchRMin   = opts.blotchRMin  || 10;
+    var blotchRMax   = opts.blotchRMax  || 70;
+    var blotchAlpha  = opts.blotchAlpha || 0.015;
+    var baseR        = opts.baseR       || 244;
+    var baseG        = opts.baseG       || 241;
+    var baseB        = opts.baseB       || 234;
     var blotchColors = opts.blotchColors || null;
 
     var c = document.createElement('canvas');
@@ -30,11 +62,9 @@
     c.height = h;
     var ctx = c.getContext('2d');
 
-    // Base fill
     ctx.fillStyle = 'rgb(' + baseR + ',' + baseG + ',' + baseB + ')';
     ctx.fillRect(0, 0, w, h);
 
-    // Grain noise
     var img = ctx.getImageData(0, 0, w, h);
     var d = img.data;
     for (var i = 0; i < d.length; i += 4) {
@@ -45,7 +75,6 @@
     }
     ctx.putImageData(img, 0, 0);
 
-    // Tonal blotches
     var colors = blotchColors || [
       'rgba(235,228,215,' + blotchAlpha + ')',
       'rgba(250,246,238,' + blotchAlpha + ')'
@@ -68,50 +97,23 @@
   function applyTextures() {
     if (prefersReducedMotion) return;
 
-    // Page texture (T1 Standard)
     var pageTex = generateTexture(512, 512);
-
-    // Card texture (lighter T1)
     var cardTex = generateTexture(512, 512, {
-      noiseRange: 6,
-      blotchCount: 80,
-      blotchRMin: 5,
-      blotchRMax: 30,
-      blotchAlpha: 0.01
+      noiseRange: 6, blotchCount: 80, blotchRMin: 5, blotchRMax: 30, blotchAlpha: 0.01
     });
-
-    // Dark section texture
     var darkTex = generateTexture(512, 512, {
-      noiseRange: 7,
-      blueBias: 1,
-      blotchCount: 200,
-      blotchRMin: 8,
-      blotchRMax: 50,
-      blotchAlpha: 0.012,
-      baseR: 26,
-      baseG: 23,
-      baseB: 19,
+      noiseRange: 7, blueBias: 1, blotchCount: 200, blotchRMin: 8, blotchRMax: 50,
+      blotchAlpha: 0.012, baseR: 26, baseG: 23, baseB: 19,
       blotchColors: ['rgba(20,17,13,0.012)', 'rgba(35,30,24,0.012)']
     });
-
-    // FAQ / warm section texture
     var faqTex = generateTexture(512, 512, {
-      noiseRange: 8,
-      blueBias: -2,
-      blotchCount: 400,
-      blotchRMin: 10,
-      blotchRMax: 70,
-      blotchAlpha: 0.015,
-      baseR: 235,
-      baseG: 230,
-      baseB: 218
+      noiseRange: 8, blueBias: -2, blotchCount: 400, blotchRMin: 10, blotchRMax: 70,
+      blotchAlpha: 0.015, baseR: 235, baseG: 230, baseB: 218
     });
 
-    // Apply page background
     document.body.style.backgroundImage = 'url(' + pageTex + ')';
     document.body.style.backgroundSize = '512px 512px';
 
-    // Set CSS custom properties for pseudo-element textures
     var root = document.documentElement;
     root.style.setProperty('--card-texture', 'url(' + cardTex + ')');
     root.style.setProperty('--dark-texture', 'url(' + darkTex + ')');
@@ -119,10 +121,9 @@
   }
 
   // ─────────────────────────────────────────
-  // 2. SCROLL ANIMATIONS (Fade-Up)
+  // 2. SCROLL ANIMATIONS
   // ─────────────────────────────────────────
   function initScrollAnimations() {
-    // Auto-apply fade-up to all major sections
     var selectors = [
       'section',
       '[class*="pf-section"]',
@@ -138,15 +139,12 @@
       '[class*="pf-demo"]'
     ].join(',');
 
-    var elements = document.querySelectorAll(selectors);
-    elements.forEach(function (el) {
-      // Don't animate nav or footer
+    document.querySelectorAll(selectors).forEach(function (el) {
       if (el.closest('.pf-nav-bar') || el.closest('.pf-footer')) return;
       el.classList.add('fade-up');
     });
 
     if (prefersReducedMotion) {
-      // Instant reveal for reduced motion
       document.querySelectorAll('.fade-up').forEach(function (el) {
         el.classList.add('visible');
         el.style.transition = 'none';
@@ -154,12 +152,11 @@
       return;
     }
 
-    // Intersection Observer
     var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
-          observer.unobserve(entry.target); // One-shot
+          observer.unobserve(entry.target);
         }
       });
     }, { threshold: 0.12 });
@@ -173,18 +170,15 @@
   // 3. FAQ ACCORDION
   // ─────────────────────────────────────────
   function initFaqAccordion() {
-    var questions = document.querySelectorAll('.pf-faq-question');
-    questions.forEach(function (question) {
+    document.querySelectorAll('.pf-faq-question').forEach(function (question) {
       question.addEventListener('click', function () {
         var item = this.closest('.pf-faq-item');
         if (!item) return;
 
-        // Close all other open items
         document.querySelectorAll('.pf-faq-item.open').forEach(function (openItem) {
           if (openItem !== item) openItem.classList.remove('open');
         });
 
-        // Toggle current item
         item.classList.toggle('open');
       });
     });
@@ -201,11 +195,7 @@
     window.addEventListener('scroll', function () {
       if (!ticking) {
         window.requestAnimationFrame(function () {
-          if (window.scrollY > 10) {
-            nav.classList.add('scrolled');
-          } else {
-            nav.classList.remove('scrolled');
-          }
+          nav.classList.toggle('scrolled', window.scrollY > 10);
           ticking = false;
         });
         ticking = true;
@@ -214,19 +204,20 @@
   }
 
   // ─────────────────────────────────────────
-  // INITIALIZE EVERYTHING
+  // INIT
   // ─────────────────────────────────────────
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
-
   function init() {
+    injectDynamicCSS();
     applyTextures();
     initScrollAnimations();
     initFaqAccordion();
     initNavScroll();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
   }
 
 })();
