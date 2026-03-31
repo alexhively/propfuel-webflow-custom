@@ -639,21 +639,46 @@
       }, 500);
     }
 
-    // Make 3rd and last use case cards dark
+    // Fix use case cards — inject missing content
     var ucCards = document.querySelectorAll('.pf-usecase-card');
-    if (ucCards.length >= 3) {
-      [2, ucCards.length - 1].forEach(function(idx) {
-        if (ucCards[idx]) {
-          ucCards[idx].style.backgroundColor = '#1A1713';
-          ucCards[idx].querySelectorAll('.pf-usecase-label, .pf-usecase-org').forEach(function(el) {
-            el.style.color = '#8C8479';
-          });
-          ucCards[idx].querySelectorAll('.pf-usecase-num').forEach(function(el) {
-            el.style.backgroundImage = 'linear-gradient(135deg, #FBC02D, #F9A825)';
-          });
-        }
-      });
-    }
+    var ucData = [
+      { type: 'Win-Back', num: '80%', label: 'of lapsed members re-engaged within 90 days', org: 'AAP' },
+      { type: 'Renewals', num: '$320K', label: 'recovered revenue from at-risk members', org: 'ASAE' },
+      { type: 'Data Intelligence', num: '42K', label: 'member insights captured in one quarter', org: 'ISTE', dark: true },
+      { type: 'Onboarding', num: '3x', label: 'new member engagement in the first 60 days', org: 'NACUBO' },
+      { type: 'Events', num: '45%', label: 'attendee engagement rate at annual conference', org: 'NAPNAP' },
+      { type: 'Acquisition', num: '2.4x', label: 'conversion rate on non-member prospects', org: 'INCOSE', dark: true }
+    ];
+    ucCards.forEach(function(card, i) {
+      var data = ucData[i];
+      if (!data) return;
+
+      // Find or create the bottom outcome div
+      var outcome = card.querySelectorAll('div')[1]; // second child div
+      if (!outcome) {
+        outcome = document.createElement('div');
+        card.appendChild(outcome);
+      }
+
+      // Inject content if stat number is empty
+      var numEl = card.querySelector('.pf-usecase-num');
+      if (!numEl || !numEl.textContent.trim()) {
+        outcome.innerHTML = '<div class="pf-usecase-num">' + data.num + '</div>' +
+          '<p class="pf-usecase-label">' + data.label + '</p>' +
+          '<p class="pf-usecase-org">' + data.org + '</p>';
+      }
+
+      // Dark cards
+      if (data.dark) {
+        card.style.backgroundColor = '#1A1713';
+        card.style.borderColor = 'rgba(255,255,255,0.08)';
+        card.querySelector('.pf-usecase-type').style.color = '#F9A825';
+        var labelEl = card.querySelector('.pf-usecase-label');
+        if (labelEl) labelEl.style.color = '#8C8479';
+        var orgEl = card.querySelector('.pf-usecase-org');
+        if (orgEl) orgEl.style.color = 'rgba(255,255,255,0.3)';
+      }
+    });
   }
 
   // ─────────────────────────────────────────
