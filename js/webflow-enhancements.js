@@ -709,6 +709,15 @@
       });
     }
 
+    // Fix transition heading — split into 3 lines, third line orange
+    var transHeading = document.querySelector('.pf-transition-heading');
+    if (transHeading && transHeading.textContent.indexOf('AMS') !== -1) {
+      transHeading.innerHTML =
+        'You have an AMS to store data.<br>' +
+        'You have an email tool to send messages.<br>' +
+        '<span style="color:#F47C2C">But you still need better member data<br>and engagement, right?</span>';
+    }
+
     // Add logo + loop SVG to Welcome to PropFuel section
     var welcomeHeading = document.querySelector('.pf-transition-welcome');
     if (welcomeHeading) {
