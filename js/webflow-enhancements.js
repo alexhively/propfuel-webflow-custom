@@ -31,7 +31,21 @@
       '.pf-faq-section,.pf-transition-section-dark{' +
         'background-image:var(--faq-texture)!important;background-size:512px 512px!important}' +
 
-      /* Fade-up handled via inline styles in initScrollAnimations */
+      /* Fix Webflow default link colors */
+      'a,a:visited,a:link{color:inherit;text-decoration:none}' +
+      'html{color:#2F2F2F}' +
+
+      /* Fix nav button */
+      '.pf-btn-nav{background-image:linear-gradient(to right,#F47C2C,#FBC02D)!important;' +
+        'background-color:#FBC02D!important;border:none!important;color:#fff!important}' +
+      '.pf-btn-nav:hover{background-image:none!important;background-color:#FBC02D!important;' +
+        'color:#1A1714!important;border:1.5px solid #1A1714!important}' +
+      '.pf-btn-nav:focus{outline:2px solid #F47C2C;outline-offset:2px}' +
+
+      /* Footer link colors */
+      '.pf-footer a,.pf-footer-link{color:#8C8479!important}' +
+      '.pf-footer-link:hover{color:#F47C2C!important}' +
+
       '';
 
     var style = document.createElement('style');
