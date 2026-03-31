@@ -628,8 +628,12 @@
       }, 5000);
     }
 
-    // Replace logos bar with seamless scrolling carousel
-    var logosBar = document.querySelector('.pf-logos-bar');
+    // Replace logos bar with seamless scrolling carousel (hide duplicates)
+    var allLogosBars = document.querySelectorAll('.pf-logos-bar');
+    allLogosBars.forEach(function(bar, i) {
+      if (i > 0) bar.style.display = 'none';
+    });
+    var logosBar = allLogosBars[0];
     if (logosBar) {
       var CDN = 'https://cdn.prod.website-files.com/69ca88e6c52b04fb85f74a02/';
       var logos = [
