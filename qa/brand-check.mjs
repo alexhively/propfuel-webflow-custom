@@ -82,11 +82,19 @@ export async function runBrandCheck() {
   const gradientViolations = [];
   const gradients = await page.evaluate(() => {
     var results = [];
-    document.querySelectorAll('.pf-btn-primary, .pf-btn-nav').forEach(function(el) {
+    document.querySelectorAll('.pf-btn-primary').forEach(function(el) {
       var after = getComputedStyle(el, '::after');
       results.push({
         cls: el.className,
         bgImage: after ? after.backgroundImage : 'none',
+      });
+    });
+    // Nav button uses background-image directly (not ::after) — check that instead
+    document.querySelectorAll('.pf-btn-nav').forEach(function(el) {
+      var bg = getComputedStyle(el).backgroundImage;
+      results.push({
+        cls: el.className,
+        bgImage: bg || 'none',
       });
     });
     return results;

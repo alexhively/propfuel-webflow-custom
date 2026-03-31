@@ -37,7 +37,7 @@
 
       /* Fix nav button */
       '.pf-btn-nav{background-image:linear-gradient(to right,#F47C2C,#FBC02D)!important;' +
-        'background-color:#FBC02D!important;border:none!important;color:#fff!important}' +
+        'background-color:#FBC02D!important;border:none!important;border-color:transparent!important;color:#fff!important}' +
       '.pf-btn-nav:hover{background-image:none!important;background-color:#FBC02D!important;' +
         'color:#1A1714!important;border:1.5px solid #1A1714!important}' +
       '.pf-btn-nav:focus{outline:2px solid #F47C2C;outline-offset:2px}' +
