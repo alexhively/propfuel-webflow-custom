@@ -58,6 +58,44 @@
       '.pf-dd-link:hover .pf-dd-title{color:#F47C2C}' +
       '.pf-dd-desc{display:block;font-size:12px;font-weight:400;color:#6E6E6E;line-height:1.4;margin-top:2px}' +
 
+      /* Platform tabs */
+      '.pf-tab{padding:12px 28px;border-radius:100px;font-size:15px;font-weight:600;font-family:DM Sans,sans-serif;' +
+        'border:1.5px solid #E3DDD2;background:transparent;color:#2F2F2F;cursor:pointer;' +
+        'transition:background .3s ease,border-color .3s ease,color .3s ease;position:relative;overflow:hidden}' +
+      '.pf-tab:hover{border-color:#F47C2C;color:#F47C2C}' +
+      '.pf-tab.active{border-color:#2F2F2F;color:#2F2F2F;background:transparent}' +
+      '.pf-tab.active::after{content:"";position:absolute;inset:0;background:linear-gradient(to right,#F47C2C,#FBC02D);' +
+        'border-radius:100px;animation:pfTabFill 8s linear forwards;z-index:-1}' +
+      '@keyframes pfTabFill{from{transform:scaleX(0);transform-origin:left}to{transform:scaleX(1);transform-origin:left}}' +
+
+      /* Mockup UI cards */
+      '.mu-card{background:#FFFBF2;border-radius:14px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.06);' +
+        'font-family:DM Sans,sans-serif;text-align:left;width:100%;margin-bottom:16px}' +
+      '.mu-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}' +
+      '.mu-t{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#6E6E6E}' +
+      '.mu-pill{font-size:10px;font-weight:700;padding:4px 10px;border-radius:100px;display:inline-block}' +
+      '.mu-g{background:#E8F5E9;color:#2E7D32}.mu-r{background:#FFEBEE;color:#C62828}' +
+      '.mu-o{background:linear-gradient(135deg,#F47C2C,#FBC02D);color:#fff}' +
+      '.mu-name{font-size:16px;font-weight:800;color:#2F2F2F}' +
+      '.mu-sub{font-size:11px;color:#8C8479;margin-top:2px}' +
+      '.mu-score{font-size:28px;font-weight:900;background:linear-gradient(135deg,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent}' +
+      '.mu-div{height:1px;background:#E7E2D8;margin:12px 0}' +
+      '.mu-tags{display:flex;gap:6px;flex-wrap:wrap}' +
+      '.mu-tag{font-size:11px;font-weight:600;padding:4px 10px;border-radius:6px;background:#F4F1EA;color:#2F2F2F}' +
+      '.mu-bar-row{display:flex;align-items:center;gap:10px}' +
+      '.mu-bar-l{font-size:11px;color:#6E6E6E;width:56px;flex-shrink:0}' +
+      '.mu-bar{flex:1;height:6px;background:#E7E2D8;border-radius:3px;overflow:hidden}' +
+      '.mu-bar-f{height:100%;border-radius:3px;background:linear-gradient(90deg,#F47C2C,#FBC02D)}' +
+      '.mu-bar-v{font-size:11px;font-weight:700;color:#2F2F2F;width:32px;text-align:right}' +
+      '.mu-step-n{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#F47C2C,#FBC02D);' +
+        'color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center}' +
+      '.mu-btn{display:inline-flex;padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;border:none}' +
+      '.mu-btn-p{background:linear-gradient(135deg,#F47C2C,#FBC02D);color:#fff}' +
+      '.mu-btn-o{background:transparent;border:1.5px solid #E7E2D8;color:#2F2F2F}' +
+      '.mu-resp{padding:8px 14px;border-radius:8px;font-size:12px;font-weight:600;border:1.5px solid #E7E2D8;background:#FFFBF2;color:#2F2F2F}' +
+      '.mu-resp.sel{border-color:#F47C2C;background:linear-gradient(135deg,#F47C2C,#FBC02D);color:#fff}' +
+      '.mu-bubble{background:#F4F1EA;border-radius:12px;padding:14px 16px;font-size:13px;line-height:1.5;color:#2F2F2F}' +
+
       /* Demo form styles */
       '.pf-form-group{margin-bottom:12px}' +
       '.pf-form-label{display:block;font-size:13px;font-weight:600;color:#2F2F2F;margin-bottom:6px}' +
@@ -511,6 +549,65 @@
         }
       }
     });
+
+    // Replace static platform card grid with tabbed carousel
+    var platformSection = document.querySelector('.pf-platform-section');
+    var platformGrid = platformSection ? platformSection.querySelector('.pf-platform-grid') : null;
+    if (platformGrid) {
+      var tabs = [
+        { id: 'insights', label: 'Insights', title: 'More signal. Less noise.', desc: 'The Insights Engine interprets member behavior and surfaces who wants what, who\u2019s at risk, and who\u2019s ready for more \u2014 so you stop guessing and start acting.', features: ['Real-time member signals and engagement scoring','At-risk member identification before they lapse','AI-powered insight agent that learns over time','Clear, actionable dashboards \u2014 not data dumps'], link: '/platform/insights', mockup: '<div class="mu-card"><div class="mu-hdr"><span class="mu-t">Member Signal</span><span class="mu-pill mu-g">Healthy</span></div><div style="display:flex;justify-content:space-between;margin-top:10px"><div><div class="mu-name">Sarah Chen</div><div class="mu-sub">Director of Programs, ACME Assoc.</div></div><div style="text-align:right"><div class="mu-score">87</div><div class="mu-sub">Engagement Score</div></div></div><div class="mu-div"></div><div class="mu-tags"><span class="mu-tag">Certification</span><span class="mu-tag">Events</span><span class="mu-tag">Advocacy</span><span class="mu-tag">Mentorship</span></div></div><div class="mu-card"><div class="mu-hdr"><span class="mu-t">At-Risk Members</span><span class="mu-pill mu-r">12 flagged</span></div><div style="margin-top:10px"><div class="mu-bar-row"><span class="mu-bar-l">J. Rivera</span><div class="mu-bar"><div class="mu-bar-f" style="width:23%"></div></div><span class="mu-bar-v">23</span></div><div class="mu-bar-row" style="margin-top:8px"><span class="mu-bar-l">M. Patel</span><div class="mu-bar"><div class="mu-bar-f" style="width:31%"></div></div><span class="mu-bar-v">31</span></div><div class="mu-bar-row" style="margin-top:8px"><span class="mu-bar-l">K. Olsen</span><div class="mu-bar"><div class="mu-bar-f" style="width:18%"></div></div><span class="mu-bar-v">18</span></div></div></div>' },
+        { id: 'automation', label: 'Automation', title: 'More personalization. Less busy work.', desc: 'The Automation Engine builds campaigns from scratch \u2014 segments, messaging, workflows \u2014 using 70+ blueprints. You just approve and launch.', features: ['70+ campaign blueprints ready to deploy','AI-generated messaging tailored to each segment','Conditional logic and drip sequences','One-click campaign builder \u2014 no technical skills needed'], link: '/platform/automation', mockup: '<div class="mu-card"><div class="mu-hdr"><span class="mu-t">Campaign Blueprint</span><span class="mu-pill mu-o">Ready to Launch</span></div><div style="margin-top:12px"><div class="mu-name">Renewal Win-Back \u2014 90 Day</div><div class="mu-sub">Targets 847 lapsed members \u00b7 3-step drip</div></div><div class="mu-div"></div><div style="display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:#2F2F2F"><div style="display:flex;align-items:center;gap:6px"><span class="mu-step-n">1</span> Segment</div><span style="color:#D6D0C4">\u2192</span><div style="display:flex;align-items:center;gap:6px"><span class="mu-step-n">2</span> Message</div><span style="color:#D6D0C4">\u2192</span><div style="display:flex;align-items:center;gap:6px"><span class="mu-step-n">3</span> Follow-up</div></div><div style="margin-top:16px;display:flex;gap:8px"><span class="mu-btn mu-btn-p">1-Click Deploy</span><span class="mu-btn mu-btn-o">Customize</span></div></div>' },
+        { id: 'engagement', label: 'Engagement', title: 'More engagement. Less silence.', desc: 'The Engagement Engine turns one-way communications into two-way exchanges. Single-click responses across email, website, and SMS.', features: ['Single-click email responses members actually use','Website targeting \u2014 pop-ups, banners, inline content','SMS engagement with opt-in management','AMS integration with automatic data write-back'], link: '/platform/website', mockup: '<div class="mu-card"><div class="mu-hdr"><span class="mu-t">Live Response</span><span class="mu-pill mu-o">Collecting</span></div><div style="margin-top:12px;font-size:15px;font-weight:700;color:#2F2F2F">What\u2019s most important to you this year?</div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><span class="mu-resp sel">Professional Development</span><span class="mu-resp">Networking</span><span class="mu-resp">Certification</span><span class="mu-resp">Advocacy</span></div><div class="mu-div"></div><div style="display:flex;gap:16px"><div style="flex:1;text-align:center"><div style="font-size:20px;font-weight:900;color:#2F2F2F">1,847</div><div class="mu-sub">Responses</div></div><div style="flex:1;text-align:center"><div style="font-size:20px;font-weight:900;background:linear-gradient(135deg,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent">45%</div><div class="mu-sub">Engagement Rate</div></div><div style="flex:1;text-align:center"><div style="font-size:20px;font-weight:900;color:#2F2F2F">3</div><div class="mu-sub">Channels</div></div></div></div>' },
+        { id: 'ai', label: 'Membership AI', title: 'Intelligence that connects everything.', desc: 'Membership AI is the layer across all three engines \u2014 it listens, interprets, recommends, and builds. Every interaction makes the next one smarter.', features: ['Insight Agent \u2014 surfaces what matters from your data','Initiative Agent \u2014 recommends what to do next','Recommendation Agent \u2014 personalizes every touchpoint','Learns continuously \u2014 the more you use it, the better it gets'], link: '/membership-ai', mockup: '<div class="mu-card"><div style="font-size:12px;font-weight:700;color:#2F2F2F;margin-bottom:8px">\u2728 Insight Agent</div><div class="mu-bubble"><strong>12 members</strong> showing lapse signals this week. Engagement scores dropped below 30.</div><div style="margin-top:12px;font-size:12px;font-weight:700;color:#2F2F2F;margin-bottom:8px">\ud83c\udfaf Initiative Agent</div><div class="mu-bubble">Recommended: Launch a <strong>win-back campaign</strong> for Q2 non-renewals. 80% success rate.</div><div style="margin-top:14px;display:flex;gap:8px"><span class="mu-btn mu-btn-p">Apply Recommendation</span><span class="mu-btn mu-btn-o">View Details</span></div></div>' }
+      ];
+
+      // Build tabbed UI
+      var html = '<div class="pf-tabs" style="display:flex;gap:12px;margin-bottom:64px;flex-wrap:wrap">';
+      tabs.forEach(function(t, i) {
+        html += '<button class="pf-tab' + (i === 0 ? ' active' : '') + '" data-tab="' + i + '">' + t.label + '</button>';
+      });
+      html += '</div><div class="pf-tab-panels">';
+      tabs.forEach(function(t, i) {
+        html += '<div class="pf-tab-panel" data-panel="' + i + '" style="display:' + (i === 0 ? 'grid' : 'none') + ';grid-template-columns:1fr 1fr;gap:64px;align-items:start">';
+        html += '<div>';
+        html += '<h3 style="font-size:36px;font-weight:700;color:#2F2F2F;line-height:1.15;letter-spacing:-0.02em;margin-bottom:20px">' + t.title + '</h3>';
+        html += '<p style="font-size:17px;color:#6E6E6E;line-height:1.65;margin-bottom:32px">' + t.desc + '</p>';
+        html += '<ul style="list-style:none;padding:0;margin:0 0 36px">';
+        t.features.forEach(function(f) {
+          html += '<li style="font-size:15px;font-weight:500;color:#2F2F2F;display:flex;align-items:flex-start;gap:10px;line-height:1.4;margin-bottom:12px"><span style="width:6px;height:6px;min-width:6px;border-radius:50%;background:#F9A825;margin-top:7px"></span>' + f + '</li>';
+        });
+        html += '</ul>';
+        html += '<a href="' + t.link + '" style="display:inline-flex;align-items:center;gap:8px;background:#1A1714;border-radius:100px;padding:14px 28px;font-size:14px;font-weight:600;letter-spacing:0.03em;color:#F4F1EA;text-decoration:none;box-shadow:0 4px 16px rgba(0,0,0,0.15)">Learn More \u2192</a>';
+        html += '</div>';
+        html += '<div class="mu-ui" style="background:#EBE6DA;border-radius:20px;padding:28px;min-height:420px">' + t.mockup + '</div>';
+        html += '</div>';
+      });
+      html += '</div>';
+
+      platformGrid.outerHTML = html;
+
+      // Tab switching + auto-rotation
+      var tabBtns = platformSection.querySelectorAll('.pf-tab');
+      var panels = platformSection.querySelectorAll('.pf-tab-panel');
+      var currentTab = 0;
+      var tabTimer = null;
+
+      function activateTab(idx) {
+        currentTab = idx;
+        tabBtns.forEach(function(b, i) { b.classList.toggle('active', i === idx); });
+        panels.forEach(function(p, i) { p.style.display = i === idx ? 'grid' : 'none'; });
+      }
+
+      function startRotation() {
+        clearInterval(tabTimer);
+        tabTimer = setInterval(function() { activateTab((currentTab + 1) % tabs.length); }, 8000);
+      }
+
+      tabBtns.forEach(function(btn, i) {
+        btn.addEventListener('click', function() { activateTab(i); startRotation(); });
+      });
+      startRotation();
+    }
 
     // Fix any "This is some text inside of a div block." placeholders
     document.querySelectorAll('div, p, span').forEach(function(el) {
