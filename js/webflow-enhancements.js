@@ -65,6 +65,11 @@
       '.pf-dd-link:hover .pf-dd-title{color:#F47C2C}' +
       '.pf-dd-desc{display:block;font-size:12px;font-weight:400;color:#6E6E6E;line-height:1.4;margin-top:2px}' +
 
+      /* Membership AI — global blue steel text class */
+      '.ai-text{color:#4A7FA5!important}' +
+      '.ai-gradient-text{background:linear-gradient(to top,#1F3A51,#4A7FA5 45%,#35607E);' +
+        '-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}' +
+
       /* Membership AI dropdown tab */
       '.pf-dd-ai{display:flex;align-items:center;gap:12px;padding:12px 16px;margin:-8px -20px 16px;' +
         'border-radius:12px;background:rgba(74,127,165,.08);border:1px solid rgba(74,127,165,.12);' +
@@ -1035,6 +1040,77 @@
   }
 
   // ─────────────────────────────────────────
+  // 7. MEMBERSHIP AI PAGE — BLUE STEEL PALETTE
+  // ─────────────────────────────────────────
+  function applyMembershipAIPalette() {
+    var path = window.location.pathname;
+    if (path.indexOf('membership-ai') === -1) return;
+
+    // AI gradient text fill helper
+    var aiGradientText = 'background:linear-gradient(to top,#1F3A51,#4A7FA5 45%,#35607E);' +
+      '-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text';
+
+    // Hero label pill — blue steel instead of amber
+    var heroLabel = document.querySelector('.pf-page-hero-label, [class*="hero-label"]');
+    if (heroLabel) {
+      heroLabel.style.background = 'rgba(74,127,165,0.08)';
+      heroLabel.style.borderColor = 'rgba(74,127,165,0.35)';
+      heroLabel.style.color = '#4A7FA5';
+    }
+
+    // Section labels — blue steel uppercase labels
+    document.querySelectorAll('.pf-section-label, [class*="section-label"]').forEach(function(label) {
+      var text = label.textContent.toLowerCase();
+      if (text.indexOf('membership') !== -1 || text.indexOf('ai') !== -1 || text.indexOf('signal') !== -1 || text.indexOf('agent') !== -1 || text.indexOf('intelligence') !== -1) {
+        label.style.color = '#4A7FA5';
+      }
+    });
+
+    // Feature/agent card accent bars — blue steel
+    document.querySelectorAll('[class*="agent-card-accent"], [class*="card-accent"]').forEach(function(el) {
+      el.style.background = 'linear-gradient(to bottom,#35607E,#4A7FA5,#D0DFEA)';
+    });
+
+    // Bullet dots on feature lists — blue steel
+    document.querySelectorAll('[class*="feature"] li::before, [class*="bullet"]').forEach(function(el) {
+      el.style.background = '#4A7FA5';
+    });
+
+    // Stat numbers — AI gradient text
+    document.querySelectorAll('.pf-stat-number, [class*="stat-num"]').forEach(function(el) {
+      el.style.cssText = aiGradientText;
+    });
+
+    // Any orange gradient text on this page → AI gradient
+    document.querySelectorAll('h1, h2, h3').forEach(function(el) {
+      var cs = window.getComputedStyle(el);
+      // Check if element has gradient text fill
+      if (cs.webkitTextFillColor === 'transparent' || cs.backgroundClip === 'text') {
+        el.style.cssText += ';' + aiGradientText;
+      }
+    });
+
+    // AI badge/chip styling for any "AI" tags
+    document.querySelectorAll('[class*="pill"], [class*="badge"], [class*="chip"]').forEach(function(el) {
+      var text = el.textContent.toLowerCase();
+      if (text.indexOf('ai') !== -1 || text.indexOf('signal') !== -1 || text.indexOf('membership') !== -1) {
+        el.style.background = 'rgba(74,127,165,0.08)';
+        el.style.borderColor = 'rgba(74,127,165,0.12)';
+        el.style.color = '#4A7FA5';
+      }
+    });
+
+    // CTA section on Membership AI page — keep brand gradient buttons (per brand guide)
+    // but ensure section decorative elements use AI palette
+    document.querySelectorAll('.pf-section-dark [class*="label"], .pf-stats-section [class*="label"]').forEach(function(el) {
+      var text = el.textContent.toLowerCase();
+      if (text.indexOf('membership') !== -1 || text.indexOf('ai') !== -1) {
+        el.style.color = '#D0DFEA';
+      }
+    });
+  }
+
+  // ─────────────────────────────────────────
   // INIT
   // ─────────────────────────────────────────
   function init() {
@@ -1046,6 +1122,7 @@
     initFaqAccordion();
     initNavScroll();
     initDemoForm();
+    applyMembershipAIPalette();
   }
 
   if (document.readyState === 'loading') {
