@@ -928,54 +928,30 @@
     var card = document.querySelector('.pf-demo-form-card');
     if (!card) return;
 
-    // Check if form already exists
-    if (card.querySelector('form')) return;
+    // Check if HubSpot form already loaded
+    if (card.querySelector('.hbspt-form, iframe[src*="hsforms"]')) return;
 
-    var formHTML = '' +
-      '<form id="demoForm" style="margin-top:24px">' +
-        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">' +
-          '<div class="pf-form-group">' +
-            '<label class="pf-form-label">First Name</label>' +
-            '<input type="text" name="firstName" placeholder="Jane" required class="pf-form-input">' +
-          '</div>' +
-          '<div class="pf-form-group">' +
-            '<label class="pf-form-label">Last Name</label>' +
-            '<input type="text" name="lastName" placeholder="Smith" required class="pf-form-input">' +
-          '</div>' +
-        '</div>' +
-        '<div class="pf-form-group">' +
-          '<label class="pf-form-label">Work Email</label>' +
-          '<input type="email" name="email" placeholder="jane@yourorg.com" required class="pf-form-input">' +
-        '</div>' +
-        '<div class="pf-form-group">' +
-          '<label class="pf-form-label">Organization Name</label>' +
-          '<input type="text" name="organization" placeholder="Your association or organization" required class="pf-form-input">' +
-        '</div>' +
-        '<div class="pf-form-group">' +
-          '<label class="pf-form-label">Job Title</label>' +
-          '<input type="text" name="jobTitle" placeholder="Your job title" required class="pf-form-input">' +
-        '</div>' +
-        '<div class="pf-form-group">' +
-          '<label class="pf-form-label">How did you hear about PropFuel? <span style="font-weight:400;color:#BDBDBD">(optional)</span></label>' +
-          '<textarea name="referralSource" placeholder="Tell us how you found us..." class="pf-form-input pf-form-textarea"></textarea>' +
-        '</div>' +
-        '<button type="submit" class="pf-form-submit">Request Your Demo</button>' +
-        '<p style="font-size:12px;color:#6E6E6E;text-align:center;margin-top:12px">We\u2019ll reach out within one business day.</p>' +
-      '</form>';
+    // Create container for HubSpot form
+    var container = document.createElement('div');
+    container.id = 'hs-demo-form';
+    container.style.marginTop = '24px';
+    card.appendChild(container);
 
-    card.insertAdjacentHTML('beforeend', formHTML);
-
-    // Handle submit
-    var form = document.getElementById('demoForm');
-    if (form) {
-      form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        var btn = form.querySelector('.pf-form-submit');
-        btn.textContent = 'Thank you! We\u2019ll be in touch.';
-        btn.style.background = '#7D9B4E';
-        btn.disabled = true;
-      });
-    }
+    // Load HubSpot script then create form
+    var script = document.createElement('script');
+    script.src = '//js.hsforms.net/forms/embed/v2.js';
+    script.charset = 'utf-8';
+    script.onload = function() {
+      if (window.hbspt) {
+        hbspt.forms.create({
+          portalId: '21158441',
+          formId: 'f8009d2f-d93b-40b1-a669-d6c112abe6a5',
+          region: 'na1',
+          target: '#hs-demo-form'
+        });
+      }
+    };
+    document.head.appendChild(script);
   }
 
   // ─────────────────────────────────────────
