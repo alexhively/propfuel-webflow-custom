@@ -599,6 +599,73 @@
       }
     });
 
+    // Add logo + loop SVG to Welcome to PropFuel section
+    var welcomeHeading = document.querySelector('.pf-transition-welcome');
+    if (welcomeHeading) {
+      var parent = welcomeHeading.parentElement;
+      // Add logo above heading
+      if (!parent.querySelector('.pf-welcome-logo')) {
+        var logo = document.createElement('img');
+        logo.className = 'pf-welcome-logo';
+        logo.src = 'https://propfuel-hero-v2-deploy.vercel.app/logo.png';
+        logo.alt = 'PropFuel';
+        logo.style.cssText = 'height:80px;width:auto;margin:0 auto 20px;display:block';
+        parent.insertBefore(logo, welcomeHeading);
+      }
+
+      // Add loop SVG after description
+      var desc = parent.querySelector('.pf-transition-desc');
+      if (desc && !parent.querySelector('.pf-loop-graphic')) {
+        var loopDiv = document.createElement('div');
+        loopDiv.className = 'pf-loop-graphic';
+        loopDiv.style.cssText = 'max-width:580px;margin:0 auto';
+        loopDiv.innerHTML = '<svg viewBox="-10 -10 680 680" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto" role="img" aria-label="The Loop: Ask, Capture, Act">' +
+          '<defs><linearGradient id="loopGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#F47C2C"/><stop offset="50%" stop-color="#F9A825"/><stop offset="100%" stop-color="#FBC02D"/></linearGradient></defs>' +
+          '<circle cx="330" cy="330" r="260" fill="none" stroke="#E7E2D8" stroke-width="2.5"/>' +
+          '<circle cx="330" cy="330" r="260" fill="none" stroke="url(#loopGrad)" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="544 1090" id="pfLoopArc"/>' +
+          '<g opacity="0.35"><polygon points="520,108 530,102 523,115" fill="#F9A825"/><polygon points="140,552 130,558 136,546" fill="#F9A825"/><polygon points="140,108 130,102 136,115" fill="#F9A825"/></g>' +
+          '<g><circle cx="330" cy="70" r="70" fill="#FFFBF2"/><circle cx="330" cy="70" r="70" fill="none" stroke="url(#loopGrad)" stroke-width="2.5"/><text x="330" y="66" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="28" font-weight="800" fill="url(#loopGrad)">Ask</text><text x="330" y="88" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="13" fill="#8C8479">One question</text></g>' +
+          '<g><circle cx="555" cy="460" r="70" fill="#FFFBF2"/><circle cx="555" cy="460" r="70" fill="none" stroke="url(#loopGrad)" stroke-width="2.5"/><text x="555" y="456" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="28" font-weight="800" fill="url(#loopGrad)">Capture</text><text x="555" y="478" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="13" fill="#8C8479">Every response</text></g>' +
+          '<g><circle cx="105" cy="460" r="70" fill="#FFFBF2"/><circle cx="105" cy="460" r="70" fill="none" stroke="url(#loopGrad)" stroke-width="2.5"/><text x="105" y="456" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="28" font-weight="800" fill="url(#loopGrad)">Act</text><text x="105" y="478" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="13" fill="#8C8479">On data</text></g>' +
+          '<foreignObject x="140" y="230" width="380" height="200"><div xmlns="http://www.w3.org/1999/xhtml" id="pfLoopQ" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;text-align:center;font-family:DM Sans,sans-serif;font-size:26px;font-weight:900;font-style:italic;color:#2F2F2F;line-height:1.3;letter-spacing:-0.02em;padding:0 10px">What\u2019s most important to you this year?</div></foreignObject>' +
+          '</svg>';
+        desc.insertAdjacentElement('afterend', loopDiv);
+
+        // Animate arc + rotate questions
+        var questions = [
+          "What\u2019s most important to you this year?",
+          "Are you interested in professional development?",
+          "What would make your membership more valuable?",
+          "Is there anything we can do to help you join?",
+          "How satisfied are you with your experience?",
+          "What events are you planning to attend?"
+        ];
+        var qIdx = 0;
+        var arc = document.getElementById('pfLoopArc');
+        var qEl = document.getElementById('pfLoopQ');
+        if (arc && qEl && !prefersReducedMotion) {
+          var startTime = performance.now();
+          function animateLoop(now) {
+            var elapsed = (now - startTime) % 6000;
+            var offset = -(elapsed / 6000) * 1634;
+            arc.setAttribute('stroke-dashoffset', offset);
+            var newIdx = Math.floor(((now - startTime) % (6000 * questions.length)) / 6000);
+            if (newIdx !== qIdx) {
+              qIdx = newIdx;
+              qEl.style.opacity = '0';
+              setTimeout(function() {
+                qEl.textContent = questions[qIdx % questions.length];
+                qEl.style.opacity = '1';
+              }, 200);
+            }
+            requestAnimationFrame(animateLoop);
+          }
+          qEl.style.transition = 'opacity 0.3s ease';
+          requestAnimationFrame(animateLoop);
+        }
+      }
+    }
+
     // Replace static platform card grid with tabbed carousel
     var platformSection = document.querySelector('.pf-platform-section');
     var platformGrid = platformSection ? platformSection.querySelector('.pf-platform-grid') : null;
