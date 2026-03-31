@@ -1494,6 +1494,642 @@
   }
 
   // ─────────────────────────────────────────
+  // FIX AUTOMATION ENGINE PAGE
+  // ─────────────────────────────────────────
+  function fixAutomationEngine() {
+    if (window.location.pathname.indexOf('platform/automation') === -1) return;
+
+    // ═══════════════════════════════════════
+    // SECTION 1: FIX HERO
+    // ═══════════════════════════════════════
+
+    // Fix hero label
+    var heroLabel = document.querySelector('.pf-page-hero-label');
+    if (heroLabel) {
+      heroLabel.textContent = 'The Automation Engine';
+    } else {
+      // Inject label if not present
+      var heroTitle = document.querySelector('.pf-page-hero-title');
+      if (heroTitle) {
+        var parent = heroTitle.parentElement;
+        if (!parent.querySelector('.pf-hero-label-injected')) {
+          var label = document.createElement('p');
+          label.className = 'pf-hero-label-injected fade-up';
+          label.style.cssText = 'display:inline-flex;align-items:center;padding:8px 20px;border-radius:100px;' +
+            'background:rgba(251,192,45,0.08);border:1px solid rgba(249,168,37,0.35);font-size:13px;' +
+            'font-weight:600;color:#2F2F2F;letter-spacing:0.04em;margin-bottom:48px;' +
+            'box-shadow:0 2px 8px rgba(120,110,95,0.06)';
+          label.textContent = 'The Automation Engine';
+          parent.insertBefore(label, heroTitle);
+        }
+      }
+    }
+
+    // Fix hero heading
+    var heroHeading = document.querySelector('.pf-page-hero-title');
+    if (heroHeading) {
+      heroHeading.innerHTML = 'More personalization.<br>Less busy work.';
+    }
+
+    // Fix hero subtitle
+    var heroSub = document.querySelector('.pf-page-hero-sub');
+    if (heroSub) {
+      heroSub.textContent = 'PropFuel automatically builds the engagement strategy \u2014 the audience, campaigns, and copy \u2014 you just approve and launch.';
+    }
+
+    // Inject hero buttons if not present
+    if (heroHeading) {
+      var heroParent = heroHeading.parentElement;
+      if (!heroParent.querySelector('.pf-hero-btns-injected')) {
+        var btnWrap = document.createElement('div');
+        btnWrap.className = 'pf-hero-btns-injected fade-up';
+        btnWrap.style.cssText = 'display:flex;align-items:center;justify-content:center;gap:20px;margin-top:40px';
+        btnWrap.innerHTML =
+          '<a href="/demo" class="pf-btn-primary" style="display:inline-flex;align-items:center;gap:8px;padding:16px 36px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:linear-gradient(to right,#F47C2C,#FBC02D);color:#fff;border:none;box-shadow:0 4px 16px rgba(240,90,40,0.2);transition:box-shadow .3s ease">' +
+            'Get Started <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>' +
+          '<a href="#workflowBand" style="display:inline-flex;align-items:center;gap:8px;padding:15px 35px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:transparent;color:#F47C2C;border:1.5px solid rgba(244,124,44,0.35);transition:border-color .25s ease,box-shadow .25s ease">' +
+            'See It in Action</a>';
+        var sub = heroParent.querySelector('.pf-page-hero-sub');
+        if (sub) {
+          sub.parentNode.insertBefore(btnWrap, sub.nextSibling);
+        } else {
+          heroParent.appendChild(btnWrap);
+        }
+      }
+    }
+
+    // ═══════════════════════════════════════
+    // SECTION 2: HERO CAMPAIGN BUILDER MOCKUP
+    // ═══════════════════════════════════════
+    var heroVisual = document.querySelector('.pf-feature-visual');
+    if (!heroVisual) {
+      // Create a new container after hero buttons
+      var btns = document.querySelector('.pf-hero-btns-injected');
+      var heroArea = btns ? btns.parentElement : (heroHeading ? heroHeading.parentElement : null);
+      if (heroArea && !heroArea.querySelector('.ae-hero-mockup')) {
+        heroVisual = document.createElement('div');
+        heroVisual.className = 'ae-hero-mockup';
+        heroVisual.style.cssText = 'margin:48px auto 0;max-width:960px;padding:0 24px';
+        heroArea.appendChild(heroVisual);
+      }
+    }
+    if (heroVisual && !heroVisual.querySelector('.ae-campaign-builder')) {
+      var mockupWrap = document.createElement('div');
+      mockupWrap.className = 'ae-campaign-builder';
+      mockupWrap.innerHTML =
+        '<div style="width:100%;max-width:920px;margin:0 auto;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 16px rgba(47,47,47,0.08);font-family:\'DM Sans\',sans-serif;color:#2F2F2F;">' +
+          '<div style="display:flex;align-items:center;justify-content:space-between;padding:14px 24px;background:#FAFAF6;border-bottom:1px solid #E3DDD2;">' +
+            '<div style="display:flex;align-items:center;gap:12px;">' +
+              '<div style="width:10px;height:10px;border-radius:50%;background:#F47C2C;"></div>' +
+              '<span style="font-size:14px;font-weight:700;letter-spacing:-0.01em;">Renewal Campaign \u2014 Q4 2026</span>' +
+              '<span style="font-size:11px;font-weight:500;color:#fff;background:#FBC02D;padding:2px 10px;border-radius:100px;">Active</span>' +
+            '</div>' +
+            '<div style="display:flex;gap:8px;">' +
+              '<span style="font-size:12px;color:#6E6E6E;padding:4px 12px;border:1px solid #E3DDD2;border-radius:6px;">Preview</span>' +
+              '<span style="font-size:12px;color:#fff;background:#F47C2C;padding:4px 14px;border-radius:6px;font-weight:600;">Launch</span>' +
+            '</div>' +
+          '</div>' +
+          '<div style="display:flex;min-height:260px;">' +
+            '<div style="width:200px;border-right:1px solid #E3DDD2;padding:16px;background:#FAFAF6;flex-shrink:0;">' +
+              '<div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#6E6E6E;margin-bottom:12px;">Blueprints</div>' +
+              '<div style="padding:8px 10px;background:#FBC02D20;border:1px solid #FBC02D;border-radius:8px;margin-bottom:8px;font-size:12px;font-weight:600;cursor:pointer;">Renewal Drip</div>' +
+              '<div style="padding:8px 10px;border:1px solid #E3DDD2;border-radius:8px;margin-bottom:8px;font-size:12px;color:#6E6E6E;">New Member Onboard</div>' +
+              '<div style="padding:8px 10px;border:1px solid #E3DDD2;border-radius:8px;margin-bottom:8px;font-size:12px;color:#6E6E6E;">Lapsed Re-engage</div>' +
+              '<div style="padding:8px 10px;border:1px solid #E3DDD2;border-radius:8px;margin-bottom:8px;font-size:12px;color:#6E6E6E;">Event Follow-up</div>' +
+              '<div style="padding:8px 10px;border:1px solid #E3DDD2;border-radius:8px;font-size:12px;color:#6E6E6E;">NPS Survey</div>' +
+            '</div>' +
+            '<div style="flex:1;padding:24px 28px;display:flex;flex-direction:column;align-items:center;gap:0;">' +
+              '<div style="display:flex;align-items:center;gap:12px;width:100%;">' +
+                '<div style="width:36px;height:36px;border-radius:50%;background:#FBC02D;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>' +
+                '<div style="flex:1;background:#FAFAF6;border:1px solid #E3DDD2;border-radius:10px;padding:10px 14px;">' +
+                  '<div style="font-size:12px;font-weight:700;">Day 1 \u2014 Welcome + Ask</div>' +
+                  '<div style="font-size:11px;color:#6E6E6E;margin-top:2px;">\u201CWhat\u2019s one thing we could do better?\u201D</div>' +
+                '</div>' +
+              '</div>' +
+              '<div style="width:2px;height:20px;background:#E3DDD2;margin-left:17px;align-self:flex-start;"></div>' +
+              '<div style="display:flex;align-items:center;gap:12px;width:100%;">' +
+                '<div style="width:36px;height:36px;border-radius:50%;background:#F47C2C;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>' +
+                '<div style="flex:1;background:#FAFAF6;border:1px solid #E3DDD2;border-radius:10px;padding:10px 14px;">' +
+                  '<div style="font-size:12px;font-weight:700;">Day 5 \u2014 Wait &amp; Branch</div>' +
+                  '<div style="font-size:11px;color:#6E6E6E;margin-top:2px;">If responded \u2192 branch by answer \u00b7 If silent \u2192 nudge</div>' +
+                '</div>' +
+              '</div>' +
+              '<div style="width:2px;height:20px;background:#E3DDD2;margin-left:17px;align-self:flex-start;"></div>' +
+              '<div style="display:flex;gap:10px;width:100%;padding-left:48px;">' +
+                '<div style="flex:1;background:#FBC02D15;border:1.5px solid #FBC02D;border-radius:10px;padding:10px 12px;text-align:center;">' +
+                  '<div style="font-size:11px;font-weight:700;color:#F47C2C;">Positive</div>' +
+                  '<div style="font-size:10px;color:#6E6E6E;margin-top:2px;">Send renewal link</div>' +
+                '</div>' +
+                '<div style="flex:1;background:#F47C2C10;border:1.5px solid #F47C2C;border-radius:10px;padding:10px 12px;text-align:center;">' +
+                  '<div style="font-size:11px;font-weight:700;color:#F47C2C;">Neutral</div>' +
+                  '<div style="font-size:10px;color:#6E6E6E;margin-top:2px;">Ask what\u2019s missing</div>' +
+                '</div>' +
+                '<div style="flex:1;background:#2F2F2F08;border:1.5px solid #BDBDBD;border-radius:10px;padding:10px 12px;text-align:center;">' +
+                  '<div style="font-size:11px;font-weight:700;color:#2F2F2F;">Negative</div>' +
+                  '<div style="font-size:10px;color:#6E6E6E;margin-top:2px;">Alert staff member</div>' +
+                '</div>' +
+              '</div>' +
+              '<div style="width:2px;height:20px;background:#E3DDD2;margin-left:17px;align-self:flex-start;"></div>' +
+              '<div style="display:flex;align-items:center;gap:12px;width:100%;">' +
+                '<div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#FBC02D,#F47C2C);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>' +
+                '<div style="flex:1;background:#FAFAF6;border:1px solid #E3DDD2;border-radius:10px;padding:10px 14px;">' +
+                  '<div style="font-size:12px;font-weight:700;">Day 14 \u2014 Wrap-up</div>' +
+                  '<div style="font-size:11px;color:#6E6E6E;margin-top:2px;">Write results to AMS \u00b7 Generate staff summary</div>' +
+                '</div>' +
+              '</div>' +
+            '</div>' +
+            '<div style="width:180px;border-left:1px solid #E3DDD2;padding:16px;background:#FAFAF6;flex-shrink:0;">' +
+              '<div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#6E6E6E;margin-bottom:14px;">Campaign Stats</div>' +
+              '<div style="margin-bottom:14px;"><div style="font-size:10px;color:#6E6E6E;margin-bottom:2px;">Sent</div><div style="font-size:22px;font-weight:800;color:#2F2F2F;">4,217</div></div>' +
+              '<div style="margin-bottom:14px;"><div style="font-size:10px;color:#6E6E6E;margin-bottom:2px;">Response Rate</div><div style="font-size:22px;font-weight:800;color:#F47C2C;">38%</div><div style="width:100%;height:6px;background:#E3DDD2;border-radius:4px;margin-top:4px;overflow:hidden;"><div style="width:38%;height:100%;background:linear-gradient(90deg,#FBC02D,#F47C2C);border-radius:4px;"></div></div></div>' +
+              '<div style="margin-bottom:14px;"><div style="font-size:10px;color:#6E6E6E;margin-bottom:2px;">Renewals</div><div style="font-size:22px;font-weight:800;color:#FBC02D;">892</div></div>' +
+              '<div><div style="font-size:10px;color:#6E6E6E;margin-bottom:2px;">Staff Alerts</div><div style="font-size:22px;font-weight:800;color:#2F2F2F;">47</div></div>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
+      heroVisual.innerHTML = '';
+      heroVisual.appendChild(mockupWrap);
+      heroVisual.style.background = '#EBE6DA';
+      heroVisual.style.borderRadius = '20px';
+      heroVisual.style.padding = '28px';
+    }
+
+    // ═══════════════════════════════════════
+    // SECTION 3: INJECT ALL MISSING SECTIONS
+    // Find CTA as anchor; inject before it
+    // ═══════════════════════════════════════
+    var ctaSection = document.querySelector('.pf-cta-section, [class*="cta-section"]');
+    if (!ctaSection) return;
+
+    // --- PROBLEM BAND (dark) ---
+    if (!document.querySelector('.ae-problem-band')) {
+      var problemHTML = '<section class="ae-problem-band" style="background:#1A1713;padding:96px 48px">' +
+        '<div style="max-width:800px;margin:0 auto;text-align:center">' +
+          '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">The Problem</p>' +
+          '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#EDE8DF;letter-spacing:-0.02em;line-height:1.15;margin-bottom:32px">You know what you should be doing. You just don\u2019t have the bandwidth.</h2>' +
+          '<p style="font-size:17px;color:#8C8479;line-height:1.65;margin-bottom:20px">You know every new member should get a tailored onboarding experience. You know renewals should feel like conversations, not payment reminders. You know lapsed members deserve more than a generic \u201Cwe miss you\u201D email.</p>' +
+          '<p style="font-size:17px;color:#8C8479;line-height:1.65;margin-bottom:20px">You know all of this. And you have <strong style="color:#EDE8DF">one to three people to do it for thousands of members.</strong></p>' +
+          '<p style="font-size:17px;color:#8C8479;line-height:1.65"><strong style="color:#EDE8DF">\u201CSix weeks making phone calls to stragglers.\u201D</strong> Another: <strong style="color:#EDE8DF">\u201COne staff member manages 5,000 members.\u201D</strong> You don\u2019t need more people. You need a system that does the heavy lifting.</p>' +
+        '</div>' +
+      '</section>';
+      ctaSection.insertAdjacentHTML('beforebegin', problemHTML);
+    }
+
+    // --- BLUEPRINT SECTION ---
+    if (!document.querySelector('.ae-blueprints')) {
+      var blueprintHTML = '<section class="ae-blueprints" style="padding:96px 48px;max-width:1200px;margin:0 auto">' +
+        '<div style="text-align:center;margin-bottom:56px">' +
+          '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">70+ Blueprints</p>' +
+          '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15">Start from a campaign that\u2019s already 80% built.</h2>' +
+        '</div>' +
+        '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:32px">' +
+          '<div class="pf-card" style="background:#F6F2E8;border-radius:16px;padding:28px 24px;display:flex;gap:16px;align-items:flex-start">' +
+            '<div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#FBC02D,#F47C2C);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px;font-weight:800;color:#fff">O</div>' +
+            '<div><h4 style="font-size:16px;font-weight:700;color:#2F2F2F;margin-bottom:6px">Onboarding</h4><p style="font-size:14px;color:#6E6E6E;line-height:1.5">3\u201311 check-ins over 3\u20139 months, running automatically from day one.</p></div>' +
+          '</div>' +
+          '<div class="pf-card" style="background:#F6F2E8;border-radius:16px;padding:28px 24px;display:flex;gap:16px;align-items:flex-start">' +
+            '<div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#F47C2C,#FBC02D);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px;font-weight:800;color:#fff">R</div>' +
+            '<div><h4 style="font-size:16px;font-weight:700;color:#2F2F2F;margin-bottom:6px">Renewals</h4><p style="font-size:14px;color:#6E6E6E;line-height:1.5">90-day renewal conversations that adapt based on each member\u2019s responses.</p></div>' +
+          '</div>' +
+          '<div class="pf-card" style="background:#F6F2E8;border-radius:16px;padding:28px 24px;display:flex;gap:16px;align-items:flex-start">' +
+            '<div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#FBC02D,#F47C2C);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px;font-weight:800;color:#fff">W</div>' +
+            '<div><h4 style="font-size:16px;font-weight:700;color:#2F2F2F;margin-bottom:6px">Win-Back</h4><p style="font-size:14px;color:#6E6E6E;line-height:1.5">Automated re-engagement with different cadence for recent vs. long-lapsed members.</p></div>' +
+          '</div>' +
+          '<div class="pf-card" style="background:#F6F2E8;border-radius:16px;padding:28px 24px;display:flex;gap:16px;align-items:flex-start">' +
+            '<div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#F47C2C,#FBC02D);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px;font-weight:800;color:#fff">E</div>' +
+            '<div><h4 style="font-size:16px;font-weight:700;color:#2F2F2F;margin-bottom:6px">Events</h4><p style="font-size:14px;color:#6E6E6E;line-height:1.5">Pre-event registration drives, attendee prep, and post-event NPS with branching.</p></div>' +
+          '</div>' +
+          '<div class="pf-card" style="background:#F6F2E8;border-radius:16px;padding:28px 24px;display:flex;gap:16px;align-items:flex-start">' +
+            '<div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#FBC02D,#F47C2C);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px;font-weight:800;color:#fff">C</div>' +
+            '<div><h4 style="font-size:16px;font-weight:700;color:#2F2F2F;margin-bottom:6px">Certifications</h4><p style="font-size:14px;color:#6E6E6E;line-height:1.5">Guide members from discovery through credential renewal automatically.</p></div>' +
+          '</div>' +
+          '<div class="pf-card" style="background:#F6F2E8;border-radius:16px;padding:28px 24px;display:flex;gap:16px;align-items:flex-start">' +
+            '<div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#F47C2C,#FBC02D);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px;font-weight:800;color:#fff">D</div>' +
+            '<div><h4 style="font-size:16px;font-weight:700;color:#2F2F2F;margin-bottom:6px">Data Capture</h4><p style="font-size:14px;color:#6E6E6E;line-height:1.5">Progressive profiling through micro-conversations. No forms, no portal logins.</p></div>' +
+          '</div>' +
+        '</div>' +
+        '<div style="background:#F6F2E8;border:1px solid #E3DDD2;border-radius:12px;padding:16px 24px;display:flex;align-items:center;gap:12px;max-width:600px;margin:0 auto">' +
+          '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F9A825" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>' +
+          '<span style="font-size:14px;color:#6E6E6E;line-height:1.5">AI generates messaging tailored to your audience. You customize and approve.</span>' +
+        '</div>' +
+      '</section>';
+      var problemBand = document.querySelector('.ae-problem-band');
+      if (problemBand) {
+        problemBand.insertAdjacentHTML('afterend', blueprintHTML);
+      } else {
+        ctaSection.insertAdjacentHTML('beforebegin', blueprintHTML);
+      }
+    }
+
+    // --- HOW IT WORKS PIPELINE ---
+    if (!document.querySelector('.ae-how-it-works')) {
+      var howHTML = '<section class="ae-how-it-works" id="workflowBand" style="padding:96px 48px;background:#EBE6DA">' +
+        '<div style="max-width:1000px;margin:0 auto;text-align:center">' +
+          '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">How It Works</p>' +
+          '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15;margin-bottom:56px">From \u201CI don\u2019t have the bandwidth\u201D to \u201CI just hit approve.\u201D</h2>' +
+          '<div style="display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:0;align-items:flex-start">' +
+            '<div style="text-align:center;padding:0 16px">' +
+              '<p style="font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F47C2C;margin-bottom:12px">Step 1</p>' +
+              '<h3 style="font-size:20px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Choose a Blueprint</h3>' +
+              '<p style="font-size:15px;color:#6E6E6E;line-height:1.6">70+ campaign blueprints cover every lifecycle stage. AI generates messaging tailored to your audience. You\u2019re not starting from a blank page.</p>' +
+            '</div>' +
+            '<div style="display:flex;align-items:center;padding-top:40px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E3DDD2" stroke-width="2"><polyline points="9 6 15 12 9 18"/></svg></div>' +
+            '<div style="text-align:center;padding:0 16px">' +
+              '<p style="font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F47C2C;margin-bottom:12px">Step 2</p>' +
+              '<h3 style="font-size:20px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Set the Rules</h3>' +
+              '<p style="font-size:15px;color:#6E6E6E;line-height:1.6">Conditional logic branches campaigns based on responses. Drip sequences run over weeks or months. Enrollment triggers pull members in automatically.</p>' +
+            '</div>' +
+            '<div style="display:flex;align-items:center;padding-top:40px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E3DDD2" stroke-width="2"><polyline points="9 6 15 12 9 18"/></svg></div>' +
+            '<div style="text-align:center;padding:0 16px">' +
+              '<p style="font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F47C2C;margin-bottom:12px">Step 3</p>' +
+              '<h3 style="font-size:20px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Approve & Launch</h3>' +
+              '<p style="font-size:15px;color:#6E6E6E;line-height:1.6">Review what PropFuel built. Hit go. Real-time alerts notify you when members respond or need attention. Responses write back to your AMS automatically.</p>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</section>';
+      var blueprints = document.querySelector('.ae-blueprints');
+      if (blueprints) {
+        blueprints.insertAdjacentHTML('afterend', howHTML);
+      } else {
+        ctaSection.insertAdjacentHTML('beforebegin', howHTML);
+      }
+    }
+
+    // --- FEATURE 1: CONDITIONAL LOGIC ---
+    if (!document.querySelector('.ae-feature-logic')) {
+      var condLogicMockup =
+        '<div style="width:100%;max-width:520px;margin:0 auto;font-family:\'DM Sans\',sans-serif;color:#2F2F2F;padding:10px 0;">' +
+          '<div style="background:#fff;border:2px solid #FBC02D;border-radius:14px;padding:16px 20px;text-align:center;box-shadow:0 2px 12px rgba(251,192,45,0.12);max-width:280px;margin:0 auto;">' +
+            '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#F47C2C;margin-bottom:4px;">Question</div>' +
+            '<div style="font-size:15px;font-weight:700;">\u201CDo you plan to renew?\u201D</div>' +
+          '</div>' +
+          '<div style="text-align:center;margin:0 auto;position:relative;height:50px;max-width:420px;">' +
+            '<svg width="100%" height="50" viewBox="0 0 420 50" preserveAspectRatio="xMidYMid meet" style="display:block;margin:0 auto;">' +
+              '<line x1="210" y1="0" x2="210" y2="14" stroke="#E3DDD2" stroke-width="2"/>' +
+              '<circle cx="210" cy="18" r="4" fill="#FBC02D"/>' +
+              '<line x1="210" y1="22" x2="70" y2="50" stroke="#FBC02D" stroke-width="2"/>' +
+              '<line x1="210" y1="22" x2="210" y2="50" stroke="#F47C2C" stroke-width="2"/>' +
+              '<line x1="210" y1="22" x2="350" y2="50" stroke="#BDBDBD" stroke-width="2"/>' +
+            '</svg>' +
+          '</div>' +
+          '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">' +
+            '<div style="background:#fff;border-radius:12px;border:2px solid #FBC02D;overflow:hidden;box-shadow:0 1px 8px rgba(251,192,45,0.10);">' +
+              '<div style="background:#FBC02D;padding:6px 0;text-align:center;"><span style="font-size:13px;font-weight:800;color:#fff;">Yes</span></div>' +
+              '<div style="padding:12px 10px;">' +
+                '<div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;"><div style="width:22px;height:22px;border-radius:50%;background:#FBC02D20;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FBC02D" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span style="font-size:11px;font-weight:600;">Send renewal link</span></div>' +
+                '<div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;"><div style="width:22px;height:22px;border-radius:50%;background:#FBC02D20;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FBC02D" stroke-width="3"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/></svg></div><span style="font-size:11px;font-weight:600;">Thank-you email</span></div>' +
+                '<div style="display:flex;align-items:center;gap:6px;"><div style="width:22px;height:22px;border-radius:50%;background:#FBC02D20;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FBC02D" stroke-width="3"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg></div><span style="font-size:11px;font-weight:600;">Tag in AMS</span></div>' +
+              '</div>' +
+            '</div>' +
+            '<div style="background:#fff;border-radius:12px;border:2px solid #F47C2C;overflow:hidden;box-shadow:0 1px 8px rgba(244,124,44,0.10);">' +
+              '<div style="background:#F47C2C;padding:6px 0;text-align:center;"><span style="font-size:13px;font-weight:800;color:#fff;">Maybe</span></div>' +
+              '<div style="padding:12px 10px;">' +
+                '<div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;"><div style="width:22px;height:22px;border-radius:50%;background:#F47C2C15;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#F47C2C" stroke-width="3"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/></svg></div><span style="font-size:11px;font-weight:600;">Ask what\u2019s holding you back</span></div>' +
+                '<div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;"><div style="width:22px;height:22px;border-radius:50%;background:#F47C2C15;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#F47C2C" stroke-width="3"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><span style="font-size:11px;font-weight:600;">Wait 3 days</span></div>' +
+                '<div style="display:flex;align-items:center;gap:6px;"><div style="width:22px;height:22px;border-radius:50%;background:#F47C2C15;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#F47C2C" stroke-width="3"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/></svg></div><span style="font-size:11px;font-weight:600;">Follow-up nudge</span></div>' +
+              '</div>' +
+            '</div>' +
+            '<div style="background:#fff;border-radius:12px;border:2px solid #2F2F2F;overflow:hidden;box-shadow:0 1px 8px rgba(47,47,47,0.08);">' +
+              '<div style="background:#2F2F2F;padding:6px 0;text-align:center;"><span style="font-size:13px;font-weight:800;color:#fff;">No</span></div>' +
+              '<div style="padding:12px 10px;">' +
+                '<div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;"><div style="width:22px;height:22px;border-radius:50%;background:#2F2F2F10;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#2F2F2F" stroke-width="3"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg></div><span style="font-size:11px;font-weight:600;">Capture reason</span></div>' +
+                '<div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;"><div style="width:22px;height:22px;border-radius:50%;background:#F47C2C20;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#F47C2C" stroke-width="3"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div><span style="font-size:11px;font-weight:600;color:#F47C2C;">Alert staff</span></div>' +
+                '<div style="display:flex;align-items:center;gap:6px;"><div style="width:22px;height:22px;border-radius:50%;background:#2F2F2F10;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#2F2F2F" stroke-width="3"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg></div><span style="font-size:11px;font-weight:600;">Log in AMS</span></div>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+          '<div style="margin-top:14px;background:#fff;border:1px solid #E3DDD2;border-radius:10px;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;">' +
+            '<div style="display:flex;align-items:center;gap:6px;"><div style="width:8px;height:8px;border-radius:50%;background:#FBC02D;"></div><span style="font-size:11px;color:#6E6E6E;">3 branches</span></div>' +
+            '<div style="display:flex;align-items:center;gap:6px;"><div style="width:8px;height:8px;border-radius:50%;background:#F47C2C;"></div><span style="font-size:11px;color:#6E6E6E;">9 actions</span></div>' +
+            '<div style="display:flex;align-items:center;gap:6px;"><div style="width:8px;height:8px;border-radius:50%;background:#2F2F2F;"></div><span style="font-size:11px;color:#6E6E6E;">2 staff alerts</span></div>' +
+          '</div>' +
+        '</div>';
+
+      var feature1HTML = '<section class="ae-feature-logic" style="padding:96px 48px">' +
+        '<div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center">' +
+          '<div>' +
+            '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">Smart Campaigns</p>' +
+            '<h3 style="font-size:clamp(24px,3.5vw,32px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.2;margin-bottom:20px">Conditional logic & branching that feels personal at scale.</h3>' +
+            '<p style="font-size:16px;color:#6E6E6E;line-height:1.65;margin-bottom:24px">Branch campaigns based on how members respond. \u201CI plan to renew\u201D gets a renewal link. \u201CI\u2019m not sure\u201D gets asked what\u2019s holding them back. \u201CNo\u201D captures the reason and alerts staff.</p>' +
+            '<ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px">' +
+              '<li style="font-size:15px;color:#2F2F2F;line-height:1.5;padding-left:20px;position:relative"><span style="position:absolute;left:0;color:#F47C2C">\u2022</span>If/then logic for every member response</li>' +
+              '<li style="font-size:15px;color:#2F2F2F;line-height:1.5;padding-left:20px;position:relative"><span style="position:absolute;left:0;color:#F47C2C">\u2022</span>Relational branching connects campaigns so one outcome triggers another</li>' +
+              '<li style="font-size:15px;color:#2F2F2F;line-height:1.5;padding-left:20px;position:relative"><span style="position:absolute;left:0;color:#F47C2C">\u2022</span>Every member gets a different experience based on what they told you</li>' +
+            '</ul>' +
+          '</div>' +
+          '<div style="background:#EBE6DA;border-radius:20px;padding:28px">' +
+            condLogicMockup +
+          '</div>' +
+        '</div>' +
+      '</section>';
+      var howItWorks = document.querySelector('.ae-how-it-works');
+      if (howItWorks) {
+        howItWorks.insertAdjacentHTML('afterend', feature1HTML);
+      } else {
+        ctaSection.insertAdjacentHTML('beforebegin', feature1HTML);
+      }
+    }
+
+    // --- FEATURE 2: REAL-TIME ALERTS ---
+    if (!document.querySelector('.ae-feature-alerts')) {
+      var alertFeedMockup =
+        '<div style="width:100%;max-width:520px;margin:0 auto;font-family:\'DM Sans\',sans-serif;color:#2F2F2F;padding:10px 0;">' +
+          '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;padding:0 4px;">' +
+            '<div style="display:flex;align-items:center;gap:8px;">' +
+              '<div style="width:10px;height:10px;border-radius:50%;background:#F47C2C;box-shadow:0 0 0 3px rgba(244,124,44,0.2);"></div>' +
+              '<span style="font-size:14px;font-weight:700;">Live Activity Feed</span>' +
+            '</div>' +
+            '<span style="font-size:11px;color:#6E6E6E;background:#fff;padding:3px 10px;border-radius:6px;border:1px solid #E3DDD2;">Last 15 min</span>' +
+          '</div>' +
+          // Alert 1: Sarah Mitchell (At-Risk)
+          '<div style="background:#fff;border-radius:12px;border-left:4px solid #F47C2C;padding:14px 16px;margin-bottom:8px;box-shadow:0 1px 6px rgba(47,47,47,0.06);">' +
+            '<div style="display:flex;align-items:flex-start;justify-content:space-between;">' +
+              '<div style="display:flex;align-items:center;gap:10px;">' +
+                '<div style="width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#F47C2C,#FBC02D);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>' +
+                '<div>' +
+                  '<div style="font-size:13px;font-weight:700;">Sarah Mitchell <span style="font-size:10px;font-weight:600;color:#fff;background:#F47C2C;padding:1px 7px;border-radius:100px;margin-left:4px;">At-Risk</span></div>' +
+                  '<div style="font-size:12px;color:#6E6E6E;margin-top:2px;">\u201CI\u2019m not sure I\u2019m getting enough value to renew.\u201D</div>' +
+                '</div>' +
+              '</div>' +
+              '<span style="font-size:10px;color:#BDBDBD;flex-shrink:0;margin-left:8px;">2m ago</span>' +
+            '</div>' +
+            '<div style="display:flex;align-items:center;gap:8px;margin-top:10px;padding-left:44px;">' +
+              '<span style="font-size:10px;font-weight:600;color:#fff;background:#2F2F2F;padding:3px 8px;border-radius:5px;display:flex;align-items:center;gap:4px;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Assigned: Tom R.</span>' +
+              '<span style="font-size:10px;font-weight:600;color:#F47C2C;background:#F47C2C15;padding:3px 8px;border-radius:5px;display:flex;align-items:center;gap:4px;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F47C2C" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>AMS Updated</span>' +
+            '</div>' +
+          '</div>' +
+          // Alert 2: James Park (Renewed)
+          '<div style="background:#fff;border-radius:12px;border-left:4px solid #FBC02D;padding:14px 16px;margin-bottom:8px;box-shadow:0 1px 6px rgba(47,47,47,0.06);">' +
+            '<div style="display:flex;align-items:flex-start;justify-content:space-between;">' +
+              '<div style="display:flex;align-items:center;gap:10px;">' +
+                '<div style="width:34px;height:34px;border-radius:50%;background:#FBC02D20;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FBC02D" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>' +
+                '<div>' +
+                  '<div style="font-size:13px;font-weight:700;">James Park <span style="font-size:10px;font-weight:600;color:#fff;background:#FBC02D;padding:1px 7px;border-radius:100px;margin-left:4px;">Renewed</span></div>' +
+                  '<div style="font-size:12px;color:#6E6E6E;margin-top:2px;">\u201CYes, I plan to renew. Love the networking events!\u201D</div>' +
+                '</div>' +
+              '</div>' +
+              '<span style="font-size:10px;color:#BDBDBD;flex-shrink:0;margin-left:8px;">5m ago</span>' +
+            '</div>' +
+            '<div style="display:flex;align-items:center;gap:8px;margin-top:10px;padding-left:44px;">' +
+              '<span style="font-size:10px;font-weight:600;color:#FBC02D;background:#FBC02D15;padding:3px 8px;border-radius:5px;display:flex;align-items:center;gap:4px;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#FBC02D" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Renewal Link Sent</span>' +
+              '<span style="font-size:10px;font-weight:600;color:#F47C2C;background:#F47C2C15;padding:3px 8px;border-radius:5px;display:flex;align-items:center;gap:4px;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F47C2C" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>AMS Updated</span>' +
+            '</div>' +
+          '</div>' +
+          // Alert 3: AMS Sync (Batch)
+          '<div style="background:#fff;border-radius:12px;border-left:4px solid #E3DDD2;padding:14px 16px;margin-bottom:8px;box-shadow:0 1px 6px rgba(47,47,47,0.06);">' +
+            '<div style="display:flex;align-items:flex-start;justify-content:space-between;">' +
+              '<div style="display:flex;align-items:center;gap:10px;">' +
+                '<div style="width:34px;height:34px;border-radius:50%;background:#EAE4D8;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6E6E6E" stroke-width="2.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>' +
+                '<div>' +
+                  '<div style="font-size:13px;font-weight:700;">AMS Sync Complete <span style="font-size:10px;font-weight:500;color:#6E6E6E;margin-left:4px;">Batch</span></div>' +
+                  '<div style="font-size:12px;color:#6E6E6E;margin-top:2px;">12 member records updated \u00b7 3 tags applied \u00b7 2 flags set</div>' +
+                '</div>' +
+              '</div>' +
+              '<span style="font-size:10px;color:#BDBDBD;flex-shrink:0;margin-left:8px;">8m ago</span>' +
+            '</div>' +
+            '<div style="display:flex;align-items:center;gap:8px;margin-top:10px;padding-left:44px;">' +
+              '<span style="font-size:10px;font-weight:600;color:#6E6E6E;background:#EAE4D8;padding:3px 8px;border-radius:5px;">iMIS</span>' +
+              '<span style="font-size:10px;font-weight:600;color:#6E6E6E;background:#EAE4D8;padding:3px 8px;border-radius:5px;">Aptify</span>' +
+              '<span style="font-size:10px;font-weight:600;color:#6E6E6E;background:#EAE4D8;padding:3px 8px;border-radius:5px;">Salesforce</span>' +
+            '</div>' +
+          '</div>' +
+          // Alert 4: Maria Chen (Engaged)
+          '<div style="background:#fff;border-radius:12px;border-left:4px solid #FBC02D;padding:14px 16px;box-shadow:0 1px 6px rgba(47,47,47,0.06);">' +
+            '<div style="display:flex;align-items:flex-start;justify-content:space-between;">' +
+              '<div style="display:flex;align-items:center;gap:10px;">' +
+                '<div style="width:34px;height:34px;border-radius:50%;background:#FBC02D20;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FBC02D" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>' +
+                '<div>' +
+                  '<div style="font-size:13px;font-weight:700;">Maria Chen <span style="font-size:10px;font-weight:600;color:#fff;background:#FBC02D;padding:1px 7px;border-radius:100px;margin-left:4px;">Engaged</span></div>' +
+                  '<div style="font-size:12px;color:#6E6E6E;margin-top:2px;">\u201CMore local meetups would be amazing.\u201D</div>' +
+                '</div>' +
+              '</div>' +
+              '<span style="font-size:10px;color:#BDBDBD;flex-shrink:0;margin-left:8px;">12m ago</span>' +
+            '</div>' +
+            '<div style="display:flex;align-items:center;gap:8px;margin-top:10px;padding-left:44px;">' +
+              '<span style="font-size:10px;font-weight:600;color:#FBC02D;background:#FBC02D15;padding:3px 8px;border-radius:5px;display:flex;align-items:center;gap:4px;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#FBC02D" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Follow-up Queued</span>' +
+              '<span style="font-size:10px;font-weight:600;color:#F47C2C;background:#F47C2C15;padding:3px 8px;border-radius:5px;display:flex;align-items:center;gap:4px;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F47C2C" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>AMS Updated</span>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
+
+      var feature2HTML = '<section class="ae-feature-alerts" style="padding:96px 48px;background:#EBE6DA">' +
+        '<div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center">' +
+          '<div style="background:#F6F2E8;border-radius:20px;padding:28px">' +
+            alertFeedMockup +
+          '</div>' +
+          '<div>' +
+            '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">Stay Informed</p>' +
+            '<h3 style="font-size:clamp(24px,3.5vw,32px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.2;margin-bottom:20px">Real-time alerts & automatic write-backs.</h3>' +
+            '<p style="font-size:16px;color:#6E6E6E;line-height:1.65;margin-bottom:24px">Get notified instantly when members respond, hit milestones, or need attention. When a member says \u201CI\u2019m thinking about leaving,\u201D the responsible staff member gets an alert so they can pick up the phone while the conversation is fresh.</p>' +
+            '<ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px">' +
+              '<li style="font-size:15px;color:#2F2F2F;line-height:1.5;padding-left:20px;position:relative"><span style="position:absolute;left:0;color:#F47C2C">\u2022</span>Instant staff alerts for high-priority responses</li>' +
+              '<li style="font-size:15px;color:#2F2F2F;line-height:1.5;padding-left:20px;position:relative"><span style="position:absolute;left:0;color:#F47C2C">\u2022</span>Every response writes back to your AMS in real time</li>' +
+              '<li style="font-size:15px;color:#2F2F2F;line-height:1.5;padding-left:20px;position:relative"><span style="position:absolute;left:0;color:#F47C2C">\u2022</span>Follow-up questions, content delivery, and tagging \u2014 all automatic</li>' +
+            '</ul>' +
+          '</div>' +
+        '</div>' +
+      '</section>';
+      var featureLogic = document.querySelector('.ae-feature-logic');
+      if (featureLogic) {
+        featureLogic.insertAdjacentHTML('afterend', feature2HTML);
+      } else {
+        ctaSection.insertAdjacentHTML('beforebegin', feature2HTML);
+      }
+    }
+
+    // --- STATS BAND (dark) ---
+    if (!document.querySelector('.ae-stats-band')) {
+      var statsHTML = '<section class="ae-stats-band" style="background:#1A1713;padding:96px 48px">' +
+        '<div style="max-width:1000px;margin:0 auto;text-align:center">' +
+          '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">Results</p>' +
+          '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#EDE8DF;letter-spacing:-0.02em;line-height:1.15;margin-bottom:56px">What happens when you give a small team the power of a big one.</h2>' +
+          '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:32px">' +
+            '<div style="text-align:center">' +
+              '<p style="font-size:clamp(40px,5vw,56px);font-weight:900;letter-spacing:-0.03em;line-height:1;background:linear-gradient(to top,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">$100M+</p>' +
+              '<p style="font-size:13px;font-weight:700;color:#F9A825;margin-top:8px">All Clients</p>' +
+              '<p style="font-size:14px;color:#8C8479;line-height:1.5;margin-top:4px">Total revenue growth across PropFuel clients.</p>' +
+            '</div>' +
+            '<div style="text-align:center">' +
+              '<p style="font-size:clamp(40px,5vw,56px);font-weight:900;letter-spacing:-0.03em;line-height:1;background:linear-gradient(to top,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">95%</p>' +
+              '<p style="font-size:13px;font-weight:700;color:#F9A825;margin-top:8px">AAMFT</p>' +
+              '<p style="font-size:14px;color:#8C8479;line-height:1.5;margin-top:4px">On-time renewals \u2014 up from 80.5%, plus 7% membership growth.</p>' +
+            '</div>' +
+            '<div style="text-align:center">' +
+              '<p style="font-size:clamp(40px,5vw,56px);font-weight:900;letter-spacing:-0.03em;line-height:1;background:linear-gradient(to top,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">2,000+</p>' +
+              '<p style="font-size:13px;font-weight:700;color:#F9A825;margin-top:8px">AAP</p>' +
+              '<p style="font-size:14px;color:#8C8479;line-height:1.5;margin-top:4px">Lapsed members recovered with an 80% win-back rate.</p>' +
+            '</div>' +
+            '<div style="text-align:center">' +
+              '<p style="font-size:clamp(40px,5vw,56px);font-weight:900;letter-spacing:-0.03em;line-height:1;background:linear-gradient(to top,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">72%</p>' +
+              '<p style="font-size:13px;font-weight:700;color:#F9A825;margin-top:8px">All Clients</p>' +
+              '<p style="font-size:14px;color:#8C8479;line-height:1.5;margin-top:4px">Of declining organizations reversed course after implementing PropFuel.</p>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</section>';
+      var featureAlerts = document.querySelector('.ae-feature-alerts');
+      if (featureAlerts) {
+        featureAlerts.insertAdjacentHTML('afterend', statsHTML);
+      } else {
+        ctaSection.insertAdjacentHTML('beforebegin', statsHTML);
+      }
+    }
+
+    // --- CAPABILITIES GRID ---
+    if (!document.querySelector('.ae-capabilities')) {
+      var capHTML = '<section class="ae-capabilities" style="padding:96px 48px;max-width:1200px;margin:0 auto">' +
+        '<div style="text-align:center;margin-bottom:56px">' +
+          '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">Capabilities</p>' +
+          '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15">Everything you need to automate the member lifecycle.</h2>' +
+        '</div>' +
+        '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">' +
+          '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 32px;position:relative;overflow:hidden">' +
+            '<div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(to right,#F47C2C,#FBC02D);border-radius:20px 20px 0 0"></div>' +
+            '<h4 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Drip Sequence Campaigns</h4>' +
+            '<p style="font-size:15px;color:#6E6E6E;line-height:1.6">Multi-step journeys that run automatically over weeks or months. An onboarding series with 5 check-ins over 9 months. A renewal sequence starting 90 days out.</p>' +
+          '</div>' +
+          '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 32px;position:relative;overflow:hidden">' +
+            '<div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(to right,#F47C2C,#FBC02D);border-radius:20px 20px 0 0"></div>' +
+            '<h4 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Automated Contact Enrollment</h4>' +
+            '<p style="font-size:15px;color:#6E6E6E;line-height:1.6">Members enter campaigns automatically based on AMS data. New member status? Onboarding campaign. 90 days from renewal? Renewal campaign. No manual list management.</p>' +
+          '</div>' +
+          '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 32px;position:relative;overflow:hidden">' +
+            '<div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(to right,#F47C2C,#FBC02D);border-radius:20px 20px 0 0"></div>' +
+            '<h4 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Time Windows & Blackout Dates</h4>' +
+            '<p style="font-size:15px;color:#6E6E6E;line-height:1.6">Control when messages send. Tuesday through Thursday mornings when engagement is highest. Never on weekends. Paused during your annual conference.</p>' +
+          '</div>' +
+          '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 32px;position:relative;overflow:hidden">' +
+            '<div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(to right,#F47C2C,#FBC02D);border-radius:20px 20px 0 0"></div>' +
+            '<h4 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Contact Tagging & List Actions</h4>' +
+            '<p style="font-size:15px;color:#6E6E6E;line-height:1.6">Organize members dynamically based on behavior. Tag \u201Cinterested in leadership\u201D when they select it. Tags accumulate into a rich behavioral profile.</p>' +
+          '</div>' +
+          '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 32px;position:relative;overflow:hidden">' +
+            '<div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(to right,#F47C2C,#FBC02D);border-radius:20px 20px 0 0"></div>' +
+            '<h4 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Re-enrollment Settings</h4>' +
+            '<p style="font-size:15px;color:#6E6E6E;line-height:1.6">Control whether members can re-enter campaigns. Evergreen programs that repeat annually keep the conversation going indefinitely with configurable waiting periods.</p>' +
+          '</div>' +
+          '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 32px;position:relative;overflow:hidden">' +
+            '<div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(to right,#F47C2C,#FBC02D);border-radius:20px 20px 0 0"></div>' +
+            '<h4 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Initiatives <span style="font-size:11px;font-weight:600;color:#F47C2C;background:rgba(244,124,44,0.1);padding:2px 8px;border-radius:100px;margin-left:6px">Coming Soon</span></h4>' +
+            '<p style="font-size:15px;color:#6E6E6E;line-height:1.6">Group cross-channel campaigns under unified strategic goals. A \u201CQ4 Renewal Initiative\u201D coordinates email, website pop-ups, and SMS reminders \u2014 all working toward the same outcome.</p>' +
+          '</div>' +
+        '</div>' +
+      '</section>';
+      var statsBand = document.querySelector('.ae-stats-band');
+      if (statsBand) {
+        statsBand.insertAdjacentHTML('afterend', capHTML);
+      } else {
+        ctaSection.insertAdjacentHTML('beforebegin', capHTML);
+      }
+    }
+
+    // --- USE CASES ---
+    if (!document.querySelector('.ae-use-cases')) {
+      var ucHTML = '<section class="ae-use-cases" style="padding:96px 48px;background:#EBE6DA">' +
+        '<div style="max-width:1200px;margin:0 auto">' +
+          '<div style="text-align:center;margin-bottom:56px">' +
+            '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">Use Cases</p>' +
+            '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15">The Automation Engine turns insight into action across every lifecycle stage.</h2>' +
+          '</div>' +
+          '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">' +
+            '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 32px">' +
+              '<h4 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Onboarding</h4>' +
+              '<p style="font-size:15px;color:#6E6E6E;line-height:1.6">A structured first-year conversation: 3\u201311 check-ins over 3\u20139 months, running automatically. Learn what new members want and guide them to relevant benefits.</p>' +
+            '</div>' +
+            '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 32px">' +
+              '<h4 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Renewals</h4>' +
+              '<p style="font-size:15px;color:#6E6E6E;line-height:1.6">A 90-day renewal conversation that adapts based on responses. Members who plan to renew get a link. Members who are unsure get asked why. Staff get alerted.</p>' +
+            '</div>' +
+            '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 32px">' +
+              '<h4 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Win-Back</h4>' +
+              '<p style="font-size:15px;color:#6E6E6E;line-height:1.6">Automated re-engagement for recently lapsed and long-dormant members. Different cadence, different tone, different questions for different situations.</p>' +
+            '</div>' +
+            '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 32px">' +
+              '<h4 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Acquisition</h4>' +
+              '<p style="font-size:15px;color:#6E6E6E;line-height:1.6">Nurture warm prospects with personalized follow-up based on what they told you. Members who say \u201Cnot now\u201D get asked why. No one disappears without learning something.</p>' +
+            '</div>' +
+            '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 32px">' +
+              '<h4 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Events</h4>' +
+              '<p style="font-size:15px;color:#6E6E6E;line-height:1.6">Pre-event registration drives, attendee preparation, and post-event NPS with branching. Promoters get routed to testimonial requests. Detractors trigger staff alerts.</p>' +
+            '</div>' +
+            '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 32px">' +
+              '<h4 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Certifications</h4>' +
+              '<p style="font-size:15px;color:#6E6E6E;line-height:1.6">Guide members from discovery through credential renewal. Surface interest in onboarding campaigns, nurture through registration, and re-engage before expiration.</p>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</section>';
+      var capSection = document.querySelector('.ae-capabilities');
+      if (capSection) {
+        capSection.insertAdjacentHTML('afterend', ucHTML);
+      } else {
+        ctaSection.insertAdjacentHTML('beforebegin', ucHTML);
+      }
+    }
+
+    // --- FAQ SECTION ---
+    if (!document.querySelector('.ae-faq')) {
+      var faqItems = [
+        { q: 'How long does it take to launch our first campaign?', a: 'Most organizations have their first campaign live within 2\u20133 weeks. Full ramp-up \u2014 with multiple campaigns running across the lifecycle \u2014 typically takes 2\u20133 months. Staff training takes 10\u201345 minutes. You get a dedicated Customer Success Manager who helps build and launch your campaigns alongside you.' },
+        { q: 'Do we need to build campaigns from scratch?', a: 'No. PropFuel includes 70+ campaign blueprints covering every major lifecycle stage \u2014 onboarding, renewals, win-back, events, certifications, data capture, and more. AI-powered content generation drafts messaging tailored to your audience. You customize and approve. You don\u2019t start from zero.' },
+        { q: 'How does PropFuel connect to our AMS?', a: 'PropFuel integrates with 60+ association management systems \u2014 including Salesforce, Fonteva, iMIS, Impexium, Novi, MemberSuite, Aptify, Personify, NetForum, and more. Two-way sync pulls member data in (hourly) and writes response data back (in real time). Setup takes 5\u201330 minutes. A Zapier connector is available for less common systems.' },
+        { q: 'Will PropFuel replace our email marketing platform?', a: 'No. PropFuel is additive \u2014 it sits alongside your existing email marketing tools (Higher Logic, Real Magnet, Mailchimp, etc.). Your email tool handles newsletters and announcements. PropFuel handles the conversations, engagement data collection, and automated lifecycle campaigns that your broadcast tools weren\u2019t built for.' },
+        { q: 'What if our team is really small \u2014 can we still run this?', a: 'That\u2019s exactly who PropFuel was built for. The typical PropFuel customer is a team of 1\u20133 people managing thousands of members. The Automation Engine does the heavy lifting \u2014 building campaigns, branching logic, triggering follow-up, writing data back to your AMS \u2014 so your team can focus on the personal, high-touch interactions where humans matter most.' }
+      ];
+      var faqHTML = '<section class="ae-faq" style="padding:96px 48px">' +
+        '<div style="max-width:800px;margin:0 auto">' +
+          '<div style="text-align:center;margin-bottom:56px">' +
+            '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">FAQ</p>' +
+            '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15">Common questions about the Automation Engine.</h2>' +
+          '</div>';
+      faqItems.forEach(function(item) {
+        faqHTML += '<div class="pf-faq-item" style="border-bottom:1px solid #E3DDD2;padding:24px 0">' +
+          '<button class="pf-faq-question" style="width:100%;display:flex;align-items:center;justify-content:space-between;background:none;border:none;cursor:pointer;font:700 17px/1.4 \'DM Sans\',sans-serif;color:#2F2F2F;text-align:left;padding:0">' +
+            item.q +
+            ' <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2F2F2F" stroke-width="2" style="flex-shrink:0;margin-left:16px;transition:transform .3s ease"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>' +
+          '</button>' +
+          '<div class="pf-faq-answer" style="max-height:0;overflow:hidden;transition:max-height .35s ease">' +
+            '<p style="font-size:16px;color:#6E6E6E;line-height:1.65;padding-top:16px">' + item.a + '</p>' +
+          '</div>' +
+        '</div>';
+      });
+      faqHTML += '</div></section>';
+      var ucSection = document.querySelector('.ae-use-cases');
+      if (ucSection) {
+        ucSection.insertAdjacentHTML('afterend', faqHTML);
+      } else {
+        ctaSection.insertAdjacentHTML('beforebegin', faqHTML);
+      }
+    }
+
+    // ═══════════════════════════════════════
+    // SECTION 4: FIX CTA
+    // ═══════════════════════════════════════
+    var ctaHeading = document.querySelector('.pf-cta-heading');
+    if (ctaHeading) {
+      ctaHeading.innerHTML = 'Let PropFuel<br><span style="background:linear-gradient(135deg,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">do the work.</span>';
+    }
+    var ctaSub = document.querySelector('.pf-cta-sub');
+    if (ctaSub) {
+      ctaSub.textContent = 'You already know what your members need. Now you have a system that can deliver it \u2014 at scale, automatically, and without burning out your team.';
+    }
+
+    // ═══════════════════════════════════════
+    // SECTION 5: HIDE EXISTING WEBFLOW FEATURE SECTIONS
+    // (the generic "70+ campaign blueprints" and "Conditional logic" sections)
+    // ═══════════════════════════════════════
+    var featureTitles = document.querySelectorAll('.pf-feature-title');
+    featureTitles.forEach(function(titleEl) {
+      var txt = titleEl.textContent.trim().toLowerCase();
+      if (txt.indexOf('campaign blueprints') !== -1 || txt.indexOf('conditional logic') !== -1) {
+        var section = titleEl.closest('[class*="feature"]') || titleEl.closest('section') || titleEl.parentElement;
+        if (section) section.style.display = 'none';
+      }
+    });
+  }
+
+  // ─────────────────────────────────────────
   // INIT
   // ─────────────────────────────────────────
   function init() {
@@ -1502,6 +2138,7 @@
     fixNav();
     fixHomepage();
     fixPlatformOverview();
+    fixAutomationEngine();
     initScrollAnimations();
     initFaqAccordion();
     initNavScroll();
