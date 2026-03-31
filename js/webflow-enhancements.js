@@ -294,15 +294,57 @@
   // ─────────────────────────────────────────
   function initFaqAccordion() {
     document.querySelectorAll('.pf-faq-question').forEach(function (question) {
+      // Add + icon if not present
+      if (!question.querySelector('.pf-faq-icon')) {
+        question.style.cssText = 'display:flex!important;justify-content:space-between;align-items:center;cursor:pointer;padding:0;margin:0;border:none;background:none;width:100%;text-align:left;font-family:DM Sans,sans-serif';
+        var icon = document.createElement('span');
+        icon.className = 'pf-faq-icon';
+        icon.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>';
+        icon.style.cssText = 'flex-shrink:0;transition:transform .3s ease;color:#2F2F2F';
+        question.appendChild(icon);
+      }
+
+      // Force hide the answer
+      var answer = question.parentElement ? question.parentElement.querySelector('.pf-faq-answer') : null;
+      if (answer) {
+        answer.style.maxHeight = '0';
+        answer.style.overflow = 'hidden';
+        answer.style.paddingTop = '0';
+        answer.style.paddingBottom = '0';
+        answer.style.transition = 'max-height 0.4s ease, padding-top 0.4s ease, padding-bottom 0.4s ease';
+      }
+
       question.addEventListener('click', function () {
         var item = this.closest('.pf-faq-item');
         if (!item) return;
 
+        // Close all other items
         document.querySelectorAll('.pf-faq-item.open').forEach(function (openItem) {
-          if (openItem !== item) openItem.classList.remove('open');
+          if (openItem !== item) {
+            openItem.classList.remove('open');
+            var a = openItem.querySelector('.pf-faq-answer');
+            if (a) { a.style.maxHeight = '0'; a.style.paddingTop = '0'; a.style.paddingBottom = '0'; }
+            var ic = openItem.querySelector('.pf-faq-icon');
+            if (ic) ic.style.transform = 'rotate(0deg)';
+          }
         });
 
-        item.classList.toggle('open');
+        // Toggle current
+        var isOpen = item.classList.toggle('open');
+        var ans = item.querySelector('.pf-faq-answer');
+        var ico = item.querySelector('.pf-faq-icon');
+        if (ans) {
+          if (isOpen) {
+            ans.style.maxHeight = ans.scrollHeight + 40 + 'px';
+            ans.style.paddingTop = '12px';
+            ans.style.paddingBottom = '24px';
+          } else {
+            ans.style.maxHeight = '0';
+            ans.style.paddingTop = '0';
+            ans.style.paddingBottom = '0';
+          }
+        }
+        if (ico) ico.style.transform = isOpen ? 'rotate(45deg)' : 'rotate(0deg)';
       });
     });
   }
