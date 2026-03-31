@@ -65,6 +65,16 @@
       '.pf-dd-link:hover .pf-dd-title{color:#F47C2C}' +
       '.pf-dd-desc{display:block;font-size:12px;font-weight:400;color:#6E6E6E;line-height:1.4;margin-top:2px}' +
 
+      /* Membership AI dropdown tab */
+      '.pf-dd-ai{display:flex;align-items:center;gap:12px;padding:12px 16px;margin:-8px -20px 16px;' +
+        'border-radius:12px;background:rgba(74,127,165,.08);border:1px solid rgba(74,127,165,.12);' +
+        'text-decoration:none;transition:background .15s ease}' +
+      '.pf-dd-ai:hover{background:rgba(74,127,165,.15)}' +
+      '.pf-dd-ai-icon{font-size:18px;background:linear-gradient(to top,#1F3A51,#4A7FA5 45%,#35607E);' +
+        '-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}' +
+      '.pf-dd-ai-title{display:block;font-size:14px;font-weight:700;color:#4A7FA5}' +
+      '.pf-dd-ai-desc{display:block;font-size:12px;color:#6E6E6E;margin-top:1px}' +
+
       /* Platform tabs */
       '.pf-tab{padding:12px 28px;border-radius:100px;font-size:15px;font-weight:600;font-family:DM Sans,sans-serif;' +
         'border:1.5px solid #E3DDD2;background:transparent;color:#2F2F2F;cursor:pointer;' +
@@ -74,6 +84,12 @@
       '.pf-tab.active::after{content:"";position:absolute;inset:0;background:linear-gradient(to right,#F47C2C,#FBC02D);' +
         'border-radius:100px;animation:pfTabFill 8s linear forwards;z-index:-1}' +
       '@keyframes pfTabFill{from{transform:scaleX(0);transform-origin:left}to{transform:scaleX(1);transform-origin:left}}' +
+
+      /* Membership AI tab — blue steel variant */
+      '.pf-tab-ai{border-color:rgba(74,127,165,.3);color:#4A7FA5}' +
+      '.pf-tab-ai:hover{border-color:#4A7FA5;color:#35607E}' +
+      '.pf-tab-ai.active{border-color:#4A7FA5;color:#1F3A51}' +
+      '.pf-tab-ai.active::after{background:linear-gradient(to right,#35607E,#4A7FA5,#D0DFEA)!important}' +
 
       /* Mockup UI cards */
       '.mu-card{background:#FFFBF2;border-radius:14px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.06);' +
@@ -485,12 +501,12 @@
     var dropdowns = {
       'Platform': {
         overview: { title: 'Platform Overview', desc: 'See how Ask, Capture, and Act work together', href: '/platform/overview' },
+        ai: { title: 'Membership AI', desc: 'AI agents that know your members by name', href: '/membership-ai' },
         cols: [
           { heading: 'Solutions', links: [
             { title: 'The Insights Engine', desc: 'Turn fragmented data into clear member signals', href: '/platform/insights' },
             { title: 'The Automation Engine', desc: 'Build smart workflows that run themselves', href: '/platform/automation' },
-            { title: 'The Engagement Engine', desc: 'One question, every channel, real answers', href: '/platform/website' },
-            { title: 'Membership AI', desc: 'AI agents that know your members by name', href: '/membership-ai' }
+            { title: 'The Engagement Engine', desc: 'One question, every channel, real answers', href: '/platform/website' }
           ]},
           { heading: 'Tools', links: [
             { title: 'Email', desc: 'Conversational emails that get replies', href: '/platform/email' },
@@ -555,6 +571,12 @@
       var html = '';
       if (dd.overview) {
         html += '<a href="' + dd.overview.href + '" class="pf-dd-overview"><strong>' + dd.overview.title + '</strong> ' + dd.overview.desc + '</a>';
+      }
+      if (dd.ai) {
+        html += '<a href="' + dd.ai.href + '" class="pf-dd-ai">' +
+          '<span class="pf-dd-ai-icon">&#x2726;</span>' +
+          '<span><span class="pf-dd-ai-title">' + dd.ai.title + '</span>' +
+          '<span class="pf-dd-ai-desc">' + dd.ai.desc + '</span></span></a>';
       }
       html += '<div class="pf-dd-cols">';
       dd.cols.forEach(function(col) {
@@ -799,17 +821,24 @@
       // Build tabbed UI
       var html = '<div class="pf-tabs" style="display:flex;gap:12px;margin-bottom:64px;flex-wrap:wrap">';
       tabs.forEach(function(t, i) {
-        html += '<button class="pf-tab' + (i === 0 ? ' active' : '') + '" data-tab="' + i + '">' + t.label + '</button>';
+        var isAI = t.id === 'ai';
+        var tabCls = 'pf-tab' + (i === 0 ? ' active' : '') + (isAI ? ' pf-tab-ai' : '');
+        html += '<button class="' + tabCls + '" data-tab="' + i + '">' + t.label + '</button>';
       });
       html += '</div><div class="pf-tab-panels">';
       tabs.forEach(function(t, i) {
+        var isAI = t.id === 'ai';
+        var dotColor = isAI ? '#4A7FA5' : '#F9A825';
+        var titleStyle = isAI
+          ? 'font-size:36px;font-weight:700;line-height:1.15;letter-spacing:-0.02em;margin-bottom:20px;background:linear-gradient(to top,#1F3A51,#4A7FA5 45%,#35607E);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text'
+          : 'font-size:36px;font-weight:700;color:#2F2F2F;line-height:1.15;letter-spacing:-0.02em;margin-bottom:20px';
         html += '<div class="pf-tab-panel" data-panel="' + i + '" style="display:' + (i === 0 ? 'grid' : 'none') + ';grid-template-columns:1fr 1fr;gap:64px;align-items:start">';
         html += '<div>';
-        html += '<h3 style="font-size:36px;font-weight:700;color:#2F2F2F;line-height:1.15;letter-spacing:-0.02em;margin-bottom:20px">' + t.title + '</h3>';
+        html += '<h3 style="' + titleStyle + '">' + t.title + '</h3>';
         html += '<p style="font-size:17px;color:#6E6E6E;line-height:1.65;margin-bottom:32px">' + t.desc + '</p>';
         html += '<ul style="list-style:none;padding:0;margin:0 0 36px">';
         t.features.forEach(function(f) {
-          html += '<li style="font-size:15px;font-weight:500;color:#2F2F2F;display:flex;align-items:flex-start;gap:10px;line-height:1.4;margin-bottom:12px"><span style="width:6px;height:6px;min-width:6px;border-radius:50%;background:#F9A825;margin-top:7px"></span>' + f + '</li>';
+          html += '<li style="font-size:15px;font-weight:500;color:#2F2F2F;display:flex;align-items:flex-start;gap:10px;line-height:1.4;margin-bottom:12px"><span style="width:6px;height:6px;min-width:6px;border-radius:50%;background:' + dotColor + ';margin-top:7px"></span>' + f + '</li>';
         });
         html += '</ul>';
         html += '<a href="' + t.link + '" style="display:inline-flex;align-items:center;gap:8px;background:#1A1714;border-radius:100px;padding:14px 28px;font-size:14px;font-weight:600;letter-spacing:0.03em;color:#F4F1EA;text-decoration:none;box-shadow:0 4px 16px rgba(0,0,0,0.15)">Learn More \u2192</a>';
