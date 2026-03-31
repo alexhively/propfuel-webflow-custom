@@ -262,7 +262,59 @@
   }
 
   // ─────────────────────────────────────────
-  // 5. DEMO FORM INJECTION
+  // 5. HOMEPAGE FIXES
+  // ─────────────────────────────────────────
+  function fixHomepage() {
+    // Fix empty stat numbers
+    var statNums = document.querySelectorAll('.pf-stat-number');
+    var statValues = ['8.68%', '$100M+', '72%'];
+    statNums.forEach(function(el, i) {
+      if (statValues[i] && (!el.textContent.trim() || el.textContent.includes('This is some text'))) {
+        el.textContent = statValues[i];
+      }
+    });
+
+    // Remove duplicate testimonial slides (keep first 6)
+    var slides = document.querySelectorAll('.pf-testimonial-slide');
+    if (slides.length > 6) {
+      for (var i = 6; i < slides.length; i++) {
+        slides[i].remove();
+      }
+    }
+
+    // Testimonial carousel — show one at a time, rotate every 5s
+    var allSlides = document.querySelectorAll('.pf-testimonial-slide');
+    if (allSlides.length > 1) {
+      var currentSlide = 0;
+      allSlides.forEach(function(s, idx) {
+        s.style.display = idx === 0 ? 'block' : 'none';
+        s.style.transition = 'opacity 0.5s ease';
+      });
+
+      setInterval(function() {
+        allSlides[currentSlide].style.opacity = '0';
+        setTimeout(function() {
+          allSlides[currentSlide].style.display = 'none';
+          currentSlide = (currentSlide + 1) % allSlides.length;
+          allSlides[currentSlide].style.display = 'block';
+          allSlides[currentSlide].style.opacity = '0';
+          requestAnimationFrame(function() {
+            allSlides[currentSlide].style.opacity = '1';
+          });
+        }, 500);
+      }, 5000);
+    }
+
+    // Fix any "This is some text inside of a div block." placeholders
+    document.querySelectorAll('div, p, span').forEach(function(el) {
+      if (el.textContent.trim() === 'This is some text inside of a div block.') {
+        el.textContent = '';
+      }
+    });
+  }
+
+  // ─────────────────────────────────────────
+  // 6. DEMO FORM INJECTION
   // ─────────────────────────────────────────
   function initDemoForm() {
     var card = document.querySelector('.pf-demo-form-card');
@@ -324,6 +376,7 @@
   function init() {
     injectDynamicCSS();
     applyTextures();
+    fixHomepage();
     initScrollAnimations();
     initFaqAccordion();
     initNavScroll();
