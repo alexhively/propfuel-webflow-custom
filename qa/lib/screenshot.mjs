@@ -1,9 +1,9 @@
 import puppeteer from 'puppeteer';
 
 const VIEWPORTS = {
-  desktop: { width: 1440, height: 900, deviceScaleFactor: 2 },
-  tablet:  { width: 768,  height: 1024, deviceScaleFactor: 2 },
-  mobile:  { width: 375,  height: 812, deviceScaleFactor: 2 },
+  desktop: { width: 1440, height: 900, deviceScaleFactor: 1 },
+  tablet:  { width: 768,  height: 1024, deviceScaleFactor: 1 },
+  mobile:  { width: 375,  height: 812, deviceScaleFactor: 1 },
 };
 
 const PRNG_SEED = 12345;
