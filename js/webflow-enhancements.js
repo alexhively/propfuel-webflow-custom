@@ -34,6 +34,29 @@
       /* Nav link display fix */
       '.pf-nav-link{display:inline-flex!important;align-items:center!important;gap:4px}' +
       '.pf-chevron{flex-shrink:0}' +
+      '.pf-dropdown{position:relative}' +
+
+      /* Dropdown menus */
+      '.pf-dropdown-menu{position:fixed;top:72px;left:50%;transform:translateX(-50%);' +
+        'background:rgb(246,242,232);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);' +
+        'border:1px solid #E3DDD2;border-radius:20px;padding:32px 40px;' +
+        'box-shadow:0 12px 48px rgba(120,110,95,.15);display:none;min-width:560px;z-index:200}' +
+      '.pf-dropdown-menu::before{content:"";position:absolute;top:-16px;left:0;right:0;height:16px}' +
+      '.pf-dropdown-menu.open{display:block;animation:pfDropIn .25s ease-out forwards}' +
+      '.pf-dropdown-narrow{min-width:320px!important}' +
+      '.pf-dropdown-narrow .pf-dd-cols{display:flex;flex-direction:column}' +
+      '@keyframes pfDropIn{from{opacity:0;transform:translateX(-50%) translateY(-6px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}' +
+      '.pf-dd-overview{display:block;padding:12px 16px;margin:-16px -20px 16px;border-radius:12px;' +
+        'border-bottom:1px solid #E3DDD2;text-decoration:none;color:#2F2F2F;font-size:14px;transition:background .15s ease}' +
+      '.pf-dd-overview:hover{background:rgba(0,0,0,.04)}' +
+      '.pf-dd-overview strong{color:#F47C2C;margin-right:4px}' +
+      '.pf-dd-cols{display:grid;grid-template-columns:1fr 1fr;gap:48px}' +
+      '.pf-dd-heading{font-size:11px;font-weight:700;color:#F9A825;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}' +
+      '.pf-dd-link{display:block;text-decoration:none;padding:10px 12px;margin:0 -12px;border-radius:10px;transition:background .15s ease}' +
+      '.pf-dd-link:hover{background:rgba(0,0,0,.04)}' +
+      '.pf-dd-title{display:block;font-size:14px;font-weight:600;color:#2F2F2F;line-height:1.3}' +
+      '.pf-dd-link:hover .pf-dd-title{color:#F47C2C}' +
+      '.pf-dd-desc{display:block;font-size:12px;font-weight:400;color:#6E6E6E;line-height:1.4;margin-top:2px}' +
 
       /* Demo form styles */
       '.pf-form-group{margin-bottom:12px}' +
@@ -323,6 +346,113 @@
       navLinksContainer.style.left = '50%';
       navLinksContainer.style.transform = 'translateX(-50%)';
     }
+
+    // Inject dropdown menus
+    var dropdowns = {
+      'Platform': {
+        overview: { title: 'Platform Overview', desc: 'See how Ask, Capture, and Act work together', href: '/platform/overview' },
+        cols: [
+          { heading: 'Solutions', links: [
+            { title: 'The Insights Engine', desc: 'Turn fragmented data into clear member signals', href: '/platform/insights' },
+            { title: 'The Automation Engine', desc: 'Build smart workflows that run themselves', href: '/platform/automation' },
+            { title: 'The Engagement Engine', desc: 'One question, every channel, real answers', href: '/platform/website' },
+            { title: 'Membership AI', desc: 'AI agents that know your members by name', href: '/membership-ai' }
+          ]},
+          { heading: 'Tools', links: [
+            { title: 'Email', desc: 'Conversational emails that get replies', href: '/platform/email' },
+            { title: 'Website', desc: 'Personalized on-site engagement', href: '/platform/website' },
+            { title: 'SMS', desc: 'Event-day texts that drive action', href: '/platform/sms' },
+            { title: 'Integrations', desc: 'Two-way sync with your AMS', href: '/integrations' }
+          ]}
+        ]
+      },
+      'Use Cases': {
+        cols: [
+          { links: [
+            { title: 'Onboarding', desc: 'Guide new members from day one', href: '/use-cases/onboarding' },
+            { title: 'Renewals', desc: 'Retain members before they lapse', href: '/use-cases/renewals' },
+            { title: 'Win-Back', desc: 'Re-engage lapsed and dormant members', href: '/use-cases/win-back' },
+            { title: 'Acquisition', desc: 'Convert prospects into engaged members', href: '/use-cases/acquisition' }
+          ]},
+          { links: [
+            { title: 'Events', desc: 'Drive registration, attendance & follow-up', href: '/use-cases/events' },
+            { title: 'Certifications', desc: 'Keep members on track to completion', href: '/use-cases/certifications' },
+            { title: 'Data Intelligence', desc: 'Write insights back to your AMS', href: '/use-cases/data-intelligence' }
+          ]}
+        ]
+      },
+      'Client Success': {
+        narrow: true,
+        cols: [{ links: [
+          { title: 'ROI & Results', desc: 'Hard numbers across the platform', href: '/client-success/roi-results' },
+          { title: 'Case Studies', desc: 'Real results from real associations', href: '/client-success/case-studies' },
+          { title: 'Testimonials', desc: 'What members and staff say', href: '/client-success/testimonials' },
+          { title: 'Customer Wall', desc: 'Organizations that trust PropFuel', href: '/client-success/customers' },
+          { title: 'Implementation', desc: 'What getting started looks like', href: '/client-success/implementation' }
+        ]}]
+      },
+      'Resources': {
+        narrow: true,
+        cols: [{ links: [
+          { title: 'Blog', desc: 'Insights on member engagement', href: '/resources/blog' },
+          { title: 'Webinars', desc: 'On-demand sessions & recordings', href: '/resources/webinars' },
+          { title: 'Guides & Playbooks', desc: 'Deep-dive strategy content', href: '/resources/guides' },
+          { title: 'Help Center', desc: 'Documentation & support', href: '/resources/help-center' },
+          { title: 'Newsletter', desc: 'Stay in the loop', href: '/resources/newsletter' },
+          { title: 'API Docs', desc: 'For technical teams', href: '/resources/api-docs' }
+        ]}]
+      }
+    };
+
+    navLinks.forEach(function(link) {
+      var text = link.childNodes[0].textContent.trim();
+      var dd = dropdowns[text];
+      if (!dd) return;
+
+      // Wrap link in a dropdown container
+      var wrapper = document.createElement('div');
+      wrapper.className = 'pf-dropdown';
+      wrapper.style.position = 'relative';
+      link.parentNode.insertBefore(wrapper, link);
+      wrapper.appendChild(link);
+
+      // Build menu HTML
+      var menuClass = dd.narrow ? 'pf-dropdown-menu pf-dropdown-narrow' : 'pf-dropdown-menu';
+      var html = '';
+      if (dd.overview) {
+        html += '<a href="' + dd.overview.href + '" class="pf-dd-overview"><strong>' + dd.overview.title + '</strong> ' + dd.overview.desc + '</a>';
+      }
+      html += '<div class="pf-dd-cols">';
+      dd.cols.forEach(function(col) {
+        html += '<div class="pf-dd-col">';
+        if (col.heading) html += '<div class="pf-dd-heading">' + col.heading + '</div>';
+        col.links.forEach(function(l) {
+          html += '<a href="' + l.href + '" class="pf-dd-link"><span class="pf-dd-title">' + l.title + '</span><span class="pf-dd-desc">' + l.desc + '</span></a>';
+        });
+        html += '</div>';
+      });
+      html += '</div>';
+
+      var menu = document.createElement('div');
+      menu.className = menuClass;
+      menu.innerHTML = html;
+      wrapper.appendChild(menu);
+
+      // Hover handlers
+      var closeTimer;
+      wrapper.addEventListener('mouseenter', function() {
+        clearTimeout(closeTimer);
+        document.querySelectorAll('.pf-dropdown-menu.open').forEach(function(m) { m.classList.remove('open'); });
+        menu.classList.add('open');
+      });
+      wrapper.addEventListener('mouseleave', function() {
+        closeTimer = setTimeout(function() { menu.classList.remove('open'); }, 150);
+      });
+      menu.addEventListener('mouseenter', function() { clearTimeout(closeTimer); });
+      menu.addEventListener('mouseleave', function() {
+        closeTimer = setTimeout(function() { menu.classList.remove('open'); }, 150);
+      });
+    });
   }
 
   // ─────────────────────────────────────────
