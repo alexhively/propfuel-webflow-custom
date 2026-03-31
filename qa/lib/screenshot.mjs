@@ -77,8 +77,15 @@ export async function captureFullPage(browser, url, viewport = 'desktop') {
   await page.evaluate(() => window.scrollTo(0, 0));
   await new Promise(r => setTimeout(r, 500));
 
-  // Full page screenshot
-  const buffer = await page.screenshot({ fullPage: true, type: 'png' });
+  // Full page screenshot (cap height to prevent memory errors on long pages)
+  const pageHeight = await page.evaluate(() => document.body.scrollHeight);
+  const maxHeight = 8000; // Cap at 8000px to prevent protocol errors
+  const clipHeight = Math.min(pageHeight, maxHeight * vp.deviceScaleFactor);
+  const buffer = await page.screenshot({
+    fullPage: pageHeight <= maxHeight,
+    clip: pageHeight > maxHeight ? { x: 0, y: 0, width: vp.width * vp.deviceScaleFactor, height: clipHeight } : undefined,
+    type: 'png'
+  });
   await page.close();
   return buffer;
 }
