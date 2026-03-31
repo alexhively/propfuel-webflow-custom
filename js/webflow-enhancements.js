@@ -31,6 +31,13 @@
       '.pf-faq-section,.pf-transition-section-dark{' +
         'background-image:var(--faq-texture)!important;background-size:512px 512px!important}' +
 
+      /* Primary button text always white (not hover) */
+      '.pf-btn-primary{color:#fff!important;transition:color .35s ease,border-color .35s ease,box-shadow .35s ease!important}' +
+      '.pf-btn-primary:hover{color:#1A1714!important;transition:color .35s ease,border-color .35s ease,box-shadow .35s ease!important}' +
+
+      /* Secondary button gentler transitions */
+      '.pf-btn-secondary{transition:border-color .25s ease,box-shadow .25s ease,color .25s ease!important}' +
+
       /* Nav link display fix */
       '.pf-nav-link{display:inline-flex!important;align-items:center!important;gap:4px}' +
       '.pf-chevron{flex-shrink:0}' +
