@@ -305,6 +305,19 @@
       }, 5000);
     }
 
+    // Remove duplicate logos-bar children (keep only the one with pf-logos-label class)
+    document.querySelectorAll('.pf-logos-bar').forEach(function(bar) {
+      var children = bar.children;
+      var kept = false;
+      for (var i = children.length - 1; i >= 0; i--) {
+        if (children[i].classList.contains('pf-logos-label')) {
+          kept = true;
+        } else if (children[i].tagName === 'P' && !children[i].className) {
+          children[i].remove();
+        }
+      }
+    });
+
     // Fix any "This is some text inside of a div block." placeholders
     document.querySelectorAll('div, p, span').forEach(function(el) {
       if (el.textContent.trim() === 'This is some text inside of a div block.') {
