@@ -31,6 +31,10 @@
       '.pf-faq-section,.pf-transition-section-dark{' +
         'background-image:var(--faq-texture)!important;background-size:512px 512px!important}' +
 
+      /* Nav link display fix */
+      '.pf-nav-link{display:inline-flex!important;align-items:center!important;gap:4px}' +
+      '.pf-chevron{flex-shrink:0}' +
+
       /* Demo form styles */
       '.pf-form-group{margin-bottom:12px}' +
       '.pf-form-label{display:block;font-size:13px;font-weight:600;color:#2F2F2F;margin-bottom:6px}' +
@@ -262,7 +266,57 @@
   }
 
   // ─────────────────────────────────────────
-  // 5. HOMEPAGE FIXES
+  // 5. NAV FIXES
+  // ─────────────────────────────────────────
+  function fixNav() {
+    // Fix nav link text and add chevrons
+    var navLinks = document.querySelectorAll('.pf-nav-links .pf-nav-link');
+    var linkMap = {
+      'Platform': { text: 'Platform', chevron: true },
+      'Use Cases': { text: 'Use Cases', chevron: true },
+      'Customers': { text: 'Client Success', chevron: true },
+      'Resources': { text: 'Resources', chevron: true }
+    };
+    navLinks.forEach(function(link) {
+      var text = link.textContent.trim();
+      var config = linkMap[text];
+      if (config) {
+        if (config.text !== text) link.childNodes[0].textContent = config.text;
+        if (config.chevron && !link.querySelector('.pf-chevron')) {
+          var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+          svg.setAttribute('class', 'pf-chevron');
+          svg.setAttribute('width', '12');
+          svg.setAttribute('height', '12');
+          svg.setAttribute('viewBox', '0 0 24 24');
+          svg.setAttribute('fill', 'none');
+          svg.setAttribute('stroke', 'currentColor');
+          svg.setAttribute('stroke-width', '2.5');
+          svg.setAttribute('stroke-linecap', 'round');
+          svg.setAttribute('stroke-linejoin', 'round');
+          svg.innerHTML = '<polyline points="6 9 12 15 18 9"></polyline>';
+          svg.style.cssText = 'margin-left:4px;vertical-align:middle';
+          link.appendChild(svg);
+        }
+      }
+    });
+
+    // Fix CTA button text
+    var navBtn = document.querySelector('.pf-btn-nav');
+    if (navBtn && navBtn.textContent.trim() === 'Get a Demo') {
+      navBtn.textContent = 'Get Started';
+    }
+
+    // Center nav links within the pill
+    var navLinksContainer = document.querySelector('.pf-nav-links');
+    if (navLinksContainer) {
+      navLinksContainer.style.position = 'absolute';
+      navLinksContainer.style.left = '50%';
+      navLinksContainer.style.transform = 'translateX(-50%)';
+    }
+  }
+
+  // ─────────────────────────────────────────
+  // 6. HOMEPAGE FIXES
   // ─────────────────────────────────────────
   function fixHomepage() {
     // Fix empty stat numbers
@@ -428,6 +482,7 @@
   function init() {
     injectDynamicCSS();
     applyTextures();
+    fixNav();
     fixHomepage();
     initScrollAnimations();
     initFaqAccordion();
