@@ -709,9 +709,29 @@
       var tabTimer = null;
 
       function activateTab(idx) {
+        var prev = currentTab;
         currentTab = idx;
         tabBtns.forEach(function(b, i) { b.classList.toggle('active', i === idx); });
-        panels.forEach(function(p, i) { p.style.display = i === idx ? 'grid' : 'none'; });
+
+        // Animate: fade out current, then fade in new
+        if (panels[prev] && prev !== idx) {
+          panels[prev].style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+          panels[prev].style.opacity = '0';
+          panels[prev].style.transform = 'translateX(-30px)';
+          setTimeout(function() {
+            panels[prev].style.display = 'none';
+            panels[idx].style.display = 'grid';
+            panels[idx].style.opacity = '0';
+            panels[idx].style.transform = 'translateX(30px)';
+            // Force reflow
+            void panels[idx].offsetHeight;
+            panels[idx].style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+            panels[idx].style.opacity = '1';
+            panels[idx].style.transform = 'translateX(0)';
+          }, 400);
+        } else {
+          panels.forEach(function(p, i) { p.style.display = i === idx ? 'grid' : 'none'; });
+        }
       }
 
       function startRotation() {
