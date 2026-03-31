@@ -311,6 +311,45 @@
         el.textContent = '';
       }
     });
+
+    // Add testimonial dots
+    var section = document.querySelector('.pf-testimonials-section');
+    if (section && allSlides.length > 1) {
+      var dotsDiv = document.createElement('div');
+      dotsDiv.style.cssText = 'display:flex;justify-content:center;gap:8px;margin-top:32px';
+      for (var d = 0; d < allSlides.length; d++) {
+        var dot = document.createElement('button');
+        dot.style.cssText = 'width:10px;height:10px;border-radius:50%;border:none;cursor:pointer;padding:0;' +
+          'background:' + (d === 0 ? '#F47C2C' : '#E3DDD2') + ';transition:background .2s ease';
+        dot.dataset.slide = d;
+        dotsDiv.appendChild(dot);
+      }
+      section.appendChild(dotsDiv);
+
+      // Update dots when slides change
+      var origInterval = setInterval(function() {
+        var dots = dotsDiv.querySelectorAll('button');
+        dots.forEach(function(dot, idx) {
+          dot.style.background = (allSlides[idx] && allSlides[idx].style.display !== 'none') ? '#F47C2C' : '#E3DDD2';
+        });
+      }, 500);
+    }
+
+    // Make 3rd and last use case cards dark
+    var ucCards = document.querySelectorAll('.pf-usecase-card');
+    if (ucCards.length >= 3) {
+      [2, ucCards.length - 1].forEach(function(idx) {
+        if (ucCards[idx]) {
+          ucCards[idx].style.backgroundColor = '#1A1713';
+          ucCards[idx].querySelectorAll('.pf-usecase-label, .pf-usecase-org').forEach(function(el) {
+            el.style.color = '#8C8479';
+          });
+          ucCards[idx].querySelectorAll('.pf-usecase-num').forEach(function(el) {
+            el.style.backgroundImage = 'linear-gradient(135deg, #FBC02D, #F9A825)';
+          });
+        }
+      });
+    }
   }
 
   // ─────────────────────────────────────────
