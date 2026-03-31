@@ -134,6 +134,16 @@
       '.pf-footer a,.pf-footer-link{color:#8C8479!important}' +
       '.pf-footer-link:hover{color:#F47C2C!important}' +
 
+      /* Logo carousel */
+      '.lc-label{font-size:13px;font-weight:600;color:#8C8479;letter-spacing:.06em;text-transform:uppercase;text-align:center;margin-bottom:32px}' +
+      '.lc-carousel{position:relative;overflow:hidden;max-width:960px;margin:0 auto;' +
+        '-webkit-mask-image:linear-gradient(to right,transparent 0%,black 10%,black 90%,transparent 100%);' +
+        'mask-image:linear-gradient(to right,transparent 0%,black 10%,black 90%,transparent 100%)}' +
+      '.lc-track{display:flex;align-items:center;gap:64px;width:max-content;animation:scrollLogos 60s linear infinite}' +
+      '@keyframes scrollLogos{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}' +
+      '.lc-item{flex-shrink:0;height:36px;opacity:.6;filter:grayscale(100%)}' +
+      '.lc-item img{height:100%;width:auto;display:block}' +
+
       /* Use case grid — asymmetric layout matching original */
       '.uc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1200px;margin:0 auto}' +
       '.uc-card{background:#FFFBF2;border-radius:20px;padding:36px 32px;display:flex;flex-direction:column;' +
@@ -618,18 +628,28 @@
       }, 5000);
     }
 
-    // Remove duplicate logos-bar children (keep only the one with pf-logos-label class)
-    document.querySelectorAll('.pf-logos-bar').forEach(function(bar) {
-      var children = bar.children;
-      var kept = false;
-      for (var i = children.length - 1; i >= 0; i--) {
-        if (children[i].classList.contains('pf-logos-label')) {
-          kept = true;
-        } else if (children[i].tagName === 'P' && !children[i].className) {
-          children[i].remove();
-        }
-      }
-    });
+    // Replace logos bar with seamless scrolling carousel
+    var logosBar = document.querySelector('.pf-logos-bar');
+    if (logosBar) {
+      var BASE = 'https://propfuel-hero-v2-deploy.vercel.app/logos/';
+      var logos = [
+        'aap-logo-gray.png','ama-logo-gray.png','asae-logo-1.png','veccs-logo-gray.png',
+        'ena-logo-gray.png','iste-logo-gray.png','nacubo-logo-gray.png','msta-logo-gray.png',
+        'napnap-logo-gray.png','arn-logo-gray.png','incose-logo-gray.png','aamft-logo-gray.png',
+        'felinevma-logo-gray.png','phira-logo-gray.png','ins-logo-gray.png','ohi-logo-gray.png',
+        'acce-logo-gray.png','aao-logo-gray.png','fia-logo-gray.png','iaslc-logo-gray.png',
+        'oscpa-logo-gray.png','logo-aps-no-tagline-1.png'
+      ];
+      var items = logos.map(function(f) {
+        return '<span class="lc-item"><img loading="lazy" src="' + BASE + f + '" alt="' + f.replace(/-logo.*/, '').replace('logo-','').toUpperCase() + ' logo"></span>';
+      }).join('');
+      // Duplicate for seamless loop
+      var trackHTML = items + items;
+
+      logosBar.innerHTML =
+        '<p class="lc-label">Trusted by 300+ associations</p>' +
+        '<div class="lc-carousel"><div class="lc-track">' + trackHTML + '</div></div>';
+    }
 
     // Add logo + loop SVG to Welcome to PropFuel section
     var welcomeHeading = document.querySelector('.pf-transition-welcome');
