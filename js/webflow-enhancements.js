@@ -31,10 +31,8 @@
       '.pf-faq-section,.pf-transition-section-dark{' +
         'background-image:var(--faq-texture)!important;background-size:512px 512px!important}' +
 
-      /* Fade-up scroll animations */
-      '.fade-up{opacity:0;transform:translateY(32px);' +
-        'transition:opacity .7s cubic-bezier(.33,0,.2,1),transform .7s cubic-bezier(.33,0,.2,1)}' +
-      '.fade-up.visible{opacity:1;transform:translateY(0)}';
+      /* Fade-up handled via inline styles in initScrollAnimations */
+      '';
 
     var style = document.createElement('style');
     style.textContent = css;
@@ -139,30 +137,60 @@
       '[class*="pf-demo"]'
     ].join(',');
 
+    // Collect elements to animate
+    var fadeEls = [];
     document.querySelectorAll(selectors).forEach(function (el) {
       if (el.closest('.pf-nav-bar') || el.closest('.pf-footer')) return;
-      el.classList.add('fade-up');
+      fadeEls.push(el);
     });
 
-    if (prefersReducedMotion) {
-      document.querySelectorAll('.fade-up').forEach(function (el) {
-        el.classList.add('visible');
-        el.style.transition = 'none';
+    if (prefersReducedMotion || fadeEls.length === 0) {
+      fadeEls.forEach(function (el) {
+        el.style.opacity = '1';
+        el.style.transform = 'none';
       });
       return;
     }
 
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12 });
+    // Step 1: Hide all elements immediately (no transition yet)
+    fadeEls.forEach(function (el) {
+      el.style.transition = 'none';
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(32px)';
+    });
 
-    document.querySelectorAll('.fade-up').forEach(function (el) {
-      observer.observe(el);
+    // Step 2: Force reflow so the hidden state is painted
+    void document.body.offsetHeight;
+
+    // Step 3: Enable transitions, then observe
+    requestAnimationFrame(function () {
+      fadeEls.forEach(function (el) {
+        el.style.transition = 'opacity 0.7s cubic-bezier(0.33, 0, 0.2, 1), transform 0.7s cubic-bezier(0.33, 0, 0.2, 1)';
+      });
+
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            // Stagger animations for elements entering at the same time
+            var delay = 0;
+            var rect = entry.target.getBoundingClientRect();
+            if (rect.top < window.innerHeight) {
+              // Already in viewport on load — stagger based on position
+              delay = Math.max(0, rect.top / window.innerHeight) * 0.4;
+            }
+            var target = entry.target;
+            setTimeout(function () {
+              target.style.opacity = '1';
+              target.style.transform = 'translateY(0)';
+            }, delay * 1000);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08 });
+
+      fadeEls.forEach(function (el) {
+        observer.observe(el);
+      });
     });
   }
 
