@@ -651,6 +651,23 @@
       startRotation();
     }
 
+    // Add arrows to primary CTA buttons that say "Get Started"
+    document.querySelectorAll('.pf-btn-primary').forEach(function(btn) {
+      if (btn.textContent.trim() === 'Get Started' && !btn.querySelector('svg')) {
+        btn.insertAdjacentHTML('beforeend', ' <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-left:4px"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>');
+      }
+    });
+
+    // Add logo image to footer brand section
+    var footerBrand = document.querySelector('.pf-footer-brand');
+    if (footerBrand && !footerBrand.querySelector('img')) {
+      var logo = document.createElement('img');
+      logo.src = 'https://propfuel-hero-v2-deploy.vercel.app/logo.png';
+      logo.alt = 'PropFuel';
+      logo.style.cssText = 'height:48px;width:auto;display:block;margin-bottom:16px';
+      footerBrand.insertBefore(logo, footerBrand.firstChild);
+    }
+
     // Fix any "This is some text inside of a div block." placeholders
     document.querySelectorAll('div, p, span').forEach(function(el) {
       if (el.textContent.trim() === 'This is some text inside of a div block.') {
