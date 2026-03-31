@@ -1372,6 +1372,104 @@
     }
 
     // ═══════════════════════════════════════
+    // SECTION 5: CHANNELS — inject full section
+    // ═══════════════════════════════════════
+    var ctaSectionEl = document.querySelector('.pf-cta-section, [class*="cta-section"]');
+    if (ctaSectionEl && !document.querySelector('.po-channels')) {
+      var channelsHTML = '<section class="po-channels" style="padding:96px 48px;max-width:1200px;margin:0 auto">' +
+        '<div style="text-align:center;margin-bottom:56px">' +
+          '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">Channels</p>' +
+          '<h2 style="font-size:clamp(32px,5vw,42px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.1;margin-bottom:20px">Reach Members Where They Are</h2>' +
+          '<p style="font-size:18px;color:#6E6E6E;max-width:600px;margin:0 auto;line-height:1.6">Three channels, unified in one platform. Every response\u00a0\u2014\u00a0regardless of channel\u00a0\u2014\u00a0flows into the same member profile.</p>' +
+        '</div>' +
+        '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">' +
+          '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 32px">' +
+            '<div style="width:48px;height:48px;border-radius:14px;background:rgba(249,168,37,0.12);display:flex;align-items:center;justify-content:center;margin-bottom:20px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F47C2C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22 6 12 13 2 6"/></svg></div>' +
+            '<h3 style="font-size:22px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Email</h3>' +
+            '<p style="font-size:16px;color:#6E6E6E;line-height:1.6;margin-bottom:20px">Conversational emails with single-click response buttons embedded right in the message. No links to click, no forms to fill out.</p>' +
+            '<a href="/platform/email" style="font-size:14px;font-weight:600;color:#F47C2C;text-decoration:none;display:inline-flex;align-items:center;gap:6px">Learn more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>' +
+          '</div>' +
+          '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 32px">' +
+            '<div style="width:48px;height:48px;border-radius:14px;background:rgba(249,168,37,0.12);display:flex;align-items:center;justify-content:center;margin-bottom:20px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F47C2C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>' +
+            '<h3 style="font-size:22px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Website</h3>' +
+            '<p style="font-size:16px;color:#6E6E6E;line-height:1.6;margin-bottom:20px">Personalized pop-ups, banners, and inline widgets that turn anonymous visitors into known, engaged members on your site.</p>' +
+            '<a href="/platform/website" style="font-size:14px;font-weight:600;color:#F47C2C;text-decoration:none;display:inline-flex;align-items:center;gap:6px">Learn more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>' +
+          '</div>' +
+          '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 32px">' +
+            '<div style="width:48px;height:48px;border-radius:14px;background:rgba(249,168,37,0.12);display:flex;align-items:center;justify-content:center;margin-bottom:20px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F47C2C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>' +
+            '<h3 style="font-size:22px;font-weight:700;color:#2F2F2F;margin-bottom:12px">SMS</h3>' +
+            '<p style="font-size:16px;color:#6E6E6E;line-height:1.6;margin-bottom:20px">Event-day texts, time-sensitive questions, and real-time engagement with built-in opt-in management and compliance.</p>' +
+            '<a href="/platform/sms" style="font-size:14px;font-weight:600;color:#F47C2C;text-decoration:none;display:inline-flex;align-items:center;gap:6px">Learn more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>' +
+          '</div>' +
+        '</div>' +
+      '</section>';
+      ctaSectionEl.insertAdjacentHTML('beforebegin', channelsHTML);
+    }
+
+    // ═══════════════════════════════════════
+    // SECTION 6: INTEGRATIONS — inject full section
+    // ═══════════════════════════════════════
+    var channelsEl = document.querySelector('.po-channels');
+    var insertTarget = ctaSectionEl;
+    if (channelsEl) insertTarget = channelsEl;
+    if (insertTarget && !document.querySelector('.po-integrations')) {
+      var intHTML = '<section class="po-integrations" style="padding:96px 48px;background:#EBE6DA">' +
+        '<div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center">' +
+          '<div>' +
+            '<h2 style="font-size:clamp(28px,4vw,36px);font-weight:700;color:#2F2F2F;letter-spacing:-0.01em;line-height:1.15;margin-bottom:20px">Built to Work With Your AMS</h2>' +
+            '<p style="font-size:17px;color:#6E6E6E;line-height:1.65;margin-bottom:32px">PropFuel connects directly to your association management system with two-way data sync. Member responses write back to your AMS automatically\u00a0\u2014\u00a0no manual data entry, no CSV exports, no lost insights.</p>' +
+            '<div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:32px">' +
+              '<span style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:100px;background:#F6F2E8;border:1px solid #E3DDD2;font-size:13px;font-weight:600;color:#2F2F2F"><span style="width:6px;height:6px;border-radius:50%;background:#F9A825"></span> iMIS</span>' +
+              '<span style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:100px;background:#F6F2E8;border:1px solid #E3DDD2;font-size:13px;font-weight:600;color:#2F2F2F"><span style="width:6px;height:6px;border-radius:50%;background:#F9A825"></span> Nimble AMS</span>' +
+              '<span style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:100px;background:#F6F2E8;border:1px solid #E3DDD2;font-size:13px;font-weight:600;color:#2F2F2F"><span style="width:6px;height:6px;border-radius:50%;background:#F9A825"></span> Fonteva</span>' +
+              '<span style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:100px;background:#F6F2E8;border:1px solid #E3DDD2;font-size:13px;font-weight:600;color:#2F2F2F"><span style="width:6px;height:6px;border-radius:50%;background:#F9A825"></span> MemberSuite</span>' +
+              '<span style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:100px;background:#F6F2E8;border:1px solid #E3DDD2;font-size:13px;font-weight:600;color:#2F2F2F"><span style="width:6px;height:6px;border-radius:50%;background:#F9A825"></span> Salesforce</span>' +
+              '<span style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:100px;background:#F6F2E8;border:1px solid #E3DDD2;font-size:13px;font-weight:600;color:#2F2F2F"><span style="width:6px;height:6px;border-radius:50%;background:#F9A825"></span> Personify</span>' +
+              '<span style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:100px;background:#F6F2E8;border:1px solid #E3DDD2;font-size:13px;font-weight:600;color:#2F2F2F"><span style="width:6px;height:6px;border-radius:50%;background:#F9A825"></span> netFORUM</span>' +
+              '<span style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:100px;background:#F6F2E8;border:1px solid #E3DDD2;font-size:13px;font-weight:600;color:#2F2F2F"><span style="width:6px;height:6px;border-radius:50%;background:#F9A825"></span> YourMembership</span>' +
+            '</div>' +
+            '<a href="/integrations" style="font-size:14px;font-weight:600;color:#F47C2C;text-decoration:none;display:inline-flex;align-items:center;gap:6px">View All Integrations <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>' +
+          '</div>' +
+          '<div style="display:flex;align-items:center;justify-content:center">' +
+            '<svg viewBox="0 0 360 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:360px">' +
+              '<defs><linearGradient id="intGrad" x1="0" y1="0" x2="360" y2="320" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#F47C2C"/><stop offset="100%" stop-color="#FBC02D"/></linearGradient></defs>' +
+              '<circle cx="180" cy="160" r="56" fill="url(#intGrad)"/>' +
+              '<text x="180" y="155" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="13" font-weight="800" fill="#fff">PropFuel</text>' +
+              '<text x="180" y="172" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="rgba(255,255,255,0.8)">Platform</text>' +
+              '<line x1="180" y1="104" x2="180" y2="40" stroke="#E3DDD2" stroke-width="2" stroke-dasharray="4 4"/>' +
+              '<circle cx="180" cy="32" r="24" fill="#FFFBF2" stroke="#E3DDD2" stroke-width="1.5"/>' +
+              '<text x="180" y="36" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" font-weight="700" fill="#2F2F2F">AMS</text>' +
+              '<line x1="130" y1="125" x2="70" y2="80" stroke="#E3DDD2" stroke-width="2" stroke-dasharray="4 4"/>' +
+              '<circle cx="60" cy="72" r="24" fill="#FFFBF2" stroke="#E3DDD2" stroke-width="1.5"/>' +
+              '<text x="60" y="70" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="8" font-weight="700" fill="#2F2F2F">Salesforce</text><text x="60" y="80" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="7" fill="#8C8479">CRM</text>' +
+              '<line x1="230" y1="125" x2="290" y2="80" stroke="#E3DDD2" stroke-width="2" stroke-dasharray="4 4"/>' +
+              '<circle cx="300" cy="72" r="24" fill="#FFFBF2" stroke="#E3DDD2" stroke-width="1.5"/>' +
+              '<text x="300" y="76" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="8" font-weight="700" fill="#2F2F2F">iMIS</text>' +
+              '<line x1="140" y1="200" x2="80" y2="260" stroke="#E3DDD2" stroke-width="2" stroke-dasharray="4 4"/>' +
+              '<circle cx="68" cy="270" r="24" fill="#FFFBF2" stroke="#E3DDD2" stroke-width="1.5"/>' +
+              '<text x="68" y="274" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" font-weight="700" fill="#2F2F2F">Email</text>' +
+              '<line x1="180" y1="216" x2="180" y2="272" stroke="#E3DDD2" stroke-width="2" stroke-dasharray="4 4"/>' +
+              '<circle cx="180" cy="282" r="24" fill="#FFFBF2" stroke="#E3DDD2" stroke-width="1.5"/>' +
+              '<text x="180" y="286" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" font-weight="700" fill="#2F2F2F">Web</text>' +
+              '<line x1="220" y1="200" x2="280" y2="260" stroke="#E3DDD2" stroke-width="2" stroke-dasharray="4 4"/>' +
+              '<circle cx="292" cy="270" r="24" fill="#FFFBF2" stroke="#E3DDD2" stroke-width="1.5"/>' +
+              '<text x="292" y="274" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" font-weight="700" fill="#2F2F2F">SMS</text>' +
+              '<text x="165" y="70" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" fill="#F47C2C">\u2191\u2193</text>' +
+              '<text x="48" y="100" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" fill="#F47C2C">\u2191\u2193</text>' +
+              '<text x="310" y="100" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" fill="#F47C2C">\u2191\u2193</text>' +
+            '</svg>' +
+          '</div>' +
+        '</div>' +
+      '</section>';
+      // Insert after channels if it exists, otherwise before CTA
+      if (channelsEl) {
+        channelsEl.insertAdjacentHTML('afterend', intHTML);
+      } else if (ctaSectionEl) {
+        ctaSectionEl.insertAdjacentHTML('beforebegin', intHTML);
+      }
+    }
+
+    // ═══════════════════════════════════════
     // SECTION 8: CTA — fix heading + gradient text
     // ═══════════════════════════════════════
     var ctaHeading = document.querySelector('.pf-cta-heading');
