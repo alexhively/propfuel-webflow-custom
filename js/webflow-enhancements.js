@@ -1116,15 +1116,19 @@
   function fixPlatformOverview() {
     if (window.location.pathname.indexOf('platform/overview') === -1) return;
 
-    // --- Hero label pill ---
-    // Find the hero heading, inject label before it if missing
-    var heroHeading = null;
-    document.querySelectorAll('h1, h2').forEach(function(h) {
-      if (h.textContent.match(/know and grow/i) && !heroHeading) heroHeading = h;
+    // --- 1. Hide the Webflow "Platform" orange label (pf-transition-label) ---
+    document.querySelectorAll('.pf-transition-label').forEach(function(el) {
+      if (el.textContent.trim().toLowerCase() === 'platform') {
+        el.style.display = 'none';
+      }
     });
+
+    // --- 2. Fix hero heading using exact Webflow class ---
+    var heroHeading = document.querySelector('.pf-page-hero-title');
     if (heroHeading) {
-      // Add label pill if not already present
       var parent = heroHeading.parentElement;
+
+      // Add "The Platform" pill label above heading if not present
       if (!parent.querySelector('.pf-hero-label-injected')) {
         var label = document.createElement('p');
         label.className = 'pf-hero-label-injected fade-up';
@@ -1136,42 +1140,37 @@
         parent.insertBefore(label, heroHeading);
       }
 
-      // --- Fix headline text + gradient on "Membership" ---
+      // Fix headline text + gradient on "Membership"
       heroHeading.innerHTML = 'Know and Grow<br>Your <span style="background:linear-gradient(135deg,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Membership</span>';
     }
 
-    // --- Fix subtitle text ---
-    var allParas = document.querySelectorAll('p');
-    allParas.forEach(function(p) {
-      var txt = p.textContent.trim();
-      if (txt.indexOf('intersection of data and action') !== -1 || txt.indexOf('understand what members want and deliver') !== -1) {
-        p.textContent = 'The membership insights and engagement platform that helps associations understand what members want\u00a0\u2014\u00a0and act on it.';
-      }
-    });
+    // --- 3. Fix subtitle text using exact Webflow class ---
+    var heroSub = document.querySelector('.pf-page-hero-sub');
+    if (heroSub) {
+      heroSub.textContent = 'The membership insights and engagement platform that helps associations understand what members want\u00a0\u2014\u00a0and act on it.';
+    }
 
-    // --- Fix Button 2: "Learn More" → "Explore the Engines" ---
-    document.querySelectorAll('a').forEach(function(a) {
-      var txt = a.textContent.trim();
-      if (txt === 'Learn More' && a.href.indexOf('insights') !== -1) {
-        a.textContent = 'Explore the Engines';
-        a.href = '#engines';
-        // Ensure secondary button style
-        if (!a.className.match(/secondary/i)) {
-          a.style.cssText = 'background:transparent;border-radius:100px;padding:15px 35px;' +
-            'font:600 15px/1 "DM Sans",sans-serif;color:#F47C2C;border:1.5px solid rgba(244,124,44,0.35);' +
-            'text-decoration:none;display:inline-flex;align-items:center;gap:8px;white-space:nowrap;' +
-            'transition:border-color .25s ease,box-shadow .25s ease,color .25s ease';
+    // --- 4. Inject hero buttons (Webflow has NO buttons in the hero) ---
+    if (heroHeading) {
+      var heroParent = heroHeading.parentElement;
+      if (!heroParent.querySelector('.pf-hero-btns-injected')) {
+        var btnWrap = document.createElement('div');
+        btnWrap.className = 'pf-hero-btns-injected fade-up';
+        btnWrap.style.cssText = 'display:flex;align-items:center;justify-content:center;gap:20px;margin-top:40px';
+        btnWrap.innerHTML =
+          '<a href="/demo" class="pf-btn-primary" style="display:inline-flex;align-items:center;gap:8px;padding:16px 36px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:linear-gradient(to right,#F47C2C,#FBC02D);color:#fff;border:none;box-shadow:0 4px 16px rgba(240,90,40,0.2);transition:box-shadow .3s ease">' +
+            'Get a Demo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>' +
+          '<a href="#engines" style="display:inline-flex;align-items:center;gap:8px;padding:15px 35px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:transparent;color:#F47C2C;border:1.5px solid rgba(244,124,44,0.35);transition:border-color .25s ease,box-shadow .25s ease">' +
+            'Explore the Engines</a>';
+        // Insert after subtitle
+        var sub = heroParent.querySelector('.pf-page-hero-sub');
+        if (sub) {
+          sub.parentNode.insertBefore(btnWrap, sub.nextSibling);
+        } else {
+          heroParent.appendChild(btnWrap);
         }
       }
-    });
-
-    // --- Verify Button 1 has arrow SVG ---
-    document.querySelectorAll('a').forEach(function(a) {
-      var txt = a.textContent.trim();
-      if (txt.match(/Get a Demo/i) && !a.querySelector('svg')) {
-        a.innerHTML = 'Get a Demo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
-      }
-    });
+    }
 
     // ═══════════════════════════════════════
     // SECTION 2: ENGINE MOCKUP GRAPHICS
