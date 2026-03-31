@@ -134,6 +134,38 @@
       '.pf-footer a,.pf-footer-link{color:#8C8479!important}' +
       '.pf-footer-link:hover{color:#F47C2C!important}' +
 
+      /* Use case grid — asymmetric layout matching original */
+      '.uc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1200px;margin:0 auto}' +
+      '.uc-card{background:#FFFBF2;border-radius:20px;padding:36px 32px;display:flex;flex-direction:column;' +
+        'justify-content:space-between;min-height:240px;position:relative;overflow:hidden;text-decoration:none;' +
+        'transition:transform .3s ease,box-shadow .3s ease;border:1px solid rgba(0,0,0,.04)}' +
+      '.uc-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.08)}' +
+
+      /* Featured card — orange gradient, spans 2 columns */
+      '.uc-featured{grid-column:span 2;background:linear-gradient(135deg,#F47C2C,#F9A825,#FBC02D);border:none}' +
+      '.uc-featured .uc-type,.uc-featured .uc-num,.uc-featured .uc-label,.uc-featured .uc-org{color:#fff}' +
+      '.uc-featured .uc-type{color:rgba(255,255,255,.85)}' +
+
+      /* Dark card */
+      '.uc-dark{background:#1A1713;border-color:rgba(255,255,255,.08)}' +
+      '.uc-dark .uc-type{color:rgba(255,255,255,.6)}' +
+      '.uc-dark .uc-num{color:#FBC02D}' +
+      '.uc-dark .uc-label{color:rgba(255,255,255,.7)}' +
+      '.uc-dark .uc-org{color:rgba(255,255,255,.5)}' +
+
+      /* Wide card — spans 2 columns */
+      '.uc-wide{grid-column:span 2}' +
+
+      /* Typography */
+      '.uc-type{display:block;font-size:22px;font-weight:800;letter-spacing:-.02em;color:#2F2F2F;margin-bottom:12px}' +
+      '.uc-outcome{margin-top:auto}' +
+      '.uc-num{font-size:clamp(40px,5vw,56px);font-weight:900;color:#2F2F2F;letter-spacing:-.03em;line-height:1}' +
+      '.uc-label{font-size:16px;font-weight:500;color:#8C8479;margin-top:8px;line-height:1.4}' +
+      '.uc-org{font-size:13px;font-weight:600;color:#8C8479;margin-top:16px;opacity:.7}' +
+
+      /* Mobile: single column */
+      '@media(max-width:900px){.uc-grid{grid-template-columns:1fr}.uc-featured,.uc-wide{grid-column:span 1}}' +
+
       '';
 
     var style = document.createElement('style');
@@ -792,46 +824,65 @@
       }, 500);
     }
 
-    // Fix use case cards — inject missing content
-    var ucCards = document.querySelectorAll('.pf-usecase-card');
-    var ucData = [
-      { type: 'Win-Back', num: '80%', label: 'of lapsed members re-engaged within 90 days', org: 'AAP' },
-      { type: 'Renewals', num: '$320K', label: 'recovered revenue from at-risk members', org: 'ASAE' },
-      { type: 'Data Intelligence', num: '42K', label: 'member insights captured in one quarter', org: 'ISTE', dark: true },
-      { type: 'Onboarding', num: '3x', label: 'new member engagement in the first 60 days', org: 'NACUBO' },
-      { type: 'Events', num: '45%', label: 'attendee engagement rate at annual conference', org: 'NAPNAP' },
-      { type: 'Acquisition', num: '2.4x', label: 'conversion rate on non-member prospects', org: 'INCOSE', dark: true }
-    ];
-    ucCards.forEach(function(card, i) {
-      var data = ucData[i];
-      if (!data) return;
+    // Replace use case grid with proper asymmetric layout matching original
+    var ucSection = document.querySelector('.pf-usecases-section, [class*="usecases-section"], [class*="use-cases"]');
+    if (!ucSection) {
+      // Try finding by heading text
+      document.querySelectorAll('h2').forEach(function(h) {
+        if (h.textContent.trim().match(/Real outcomes/i) && !ucSection) {
+          ucSection = h.closest('section') || h.parentElement;
+        }
+      });
+    }
 
-      // Find or create the bottom outcome div
-      var outcome = card.querySelectorAll('div')[1]; // second child div
-      if (!outcome) {
-        outcome = document.createElement('div');
-        card.appendChild(outcome);
+    if (ucSection) {
+      // Find the grid container (the div holding the cards)
+      var ucGrid = ucSection.querySelector('[class*="usecase-grid"], [class*="usecases-grid"]');
+      if (!ucGrid) {
+        var cards = ucSection.querySelectorAll('.pf-usecase-card');
+        if (cards.length) ucGrid = cards[0].parentElement;
       }
 
-      // Inject content if stat number is empty
-      var numEl = card.querySelector('.pf-usecase-num');
-      if (!numEl || !numEl.textContent.trim()) {
-        outcome.innerHTML = '<div class="pf-usecase-num">' + data.num + '</div>' +
-          '<p class="pf-usecase-label">' + data.label + '</p>' +
-          '<p class="pf-usecase-org">' + data.org + '</p>';
-      }
+      if (ucGrid) {
+        var ucData = [
+          { type: 'Win-Back', num: '80%', label: 'of lapsed members re-engaged within 90 days', org: 'AAP \u2014 American Academy of Pediatrics', style: 'featured', href: '/use-cases/win-back' },
+          { type: 'Renewals', num: '$320K', label: 'recovered revenue from at-risk members', org: 'ASAE', href: '/use-cases/renewals' },
+          { type: 'Data Intelligence', num: '42K', label: 'member insights captured in one quarter', org: 'ISTE', style: 'dark', href: '/use-cases/data-intelligence' },
+          { type: 'Onboarding', num: '3x', label: 'new member engagement in the first 60 days', org: 'NACUBO', href: '/use-cases/onboarding' },
+          { type: 'Events', num: '45%', label: 'attendee engagement rate at annual conference', org: 'NAPNAP', href: '/use-cases/events' },
+          { type: 'Acquisition', num: '2.4x', label: 'conversion rate on non-member prospects', org: 'INCOSE', href: '/use-cases/acquisition' },
+          { type: 'Data Enrichment', num: '4,500+', label: 'member profiles updated instantly', org: 'INS', style: 'dark-wide', href: '/use-cases/data-intelligence' }
+        ];
 
-      // Dark cards
-      if (data.dark) {
-        card.style.backgroundColor = '#1A1713';
-        card.style.borderColor = 'rgba(255,255,255,0.08)';
-        card.querySelector('.pf-usecase-type').style.color = '#F9A825';
-        var labelEl = card.querySelector('.pf-usecase-label');
-        if (labelEl) labelEl.style.color = '#8C8479';
-        var orgEl = card.querySelector('.pf-usecase-org');
-        if (orgEl) orgEl.style.color = 'rgba(255,255,255,0.3)';
+        // Build the grid HTML
+        var gridHTML = '<div class="uc-grid">';
+        ucData.forEach(function(d) {
+          var cls = 'uc-card';
+          if (d.style === 'featured') cls += ' uc-featured';
+          else if (d.style === 'dark') cls += ' uc-dark';
+          else if (d.style === 'dark-wide') cls += ' uc-dark uc-wide';
+
+          gridHTML += '<a href="' + d.href + '" class="' + cls + ' fade-up">' +
+            '<div class="uc-type">' + d.type + '</div>' +
+            '<div class="uc-outcome">' +
+              '<div class="uc-num">' + d.num + '</div>' +
+              '<div class="uc-label">' + d.label + '</div>' +
+              '<div class="uc-org">' + d.org + '</div>' +
+            '</div>' +
+          '</a>';
+        });
+        gridHTML += '</div>';
+
+        // Add CTA button
+        gridHTML += '<div style="text-align:center;margin-top:48px" class="fade-up">' +
+          '<a href="/client-success/case-studies" class="pf-btn-primary" style="display:inline-flex;align-items:center;gap:8px;padding:16px 36px;font-size:16px;font-weight:700;border-radius:100px;text-decoration:none;background:linear-gradient(135deg,#F47C2C,#FBC02D);color:#fff;border:none;transition:transform .2s ease,box-shadow .2s ease">' +
+            'View All Case Studies' +
+            '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>' +
+          '</a></div>';
+
+        ucGrid.outerHTML = gridHTML;
       }
-    });
+    }
   }
 
   // ─────────────────────────────────────────
