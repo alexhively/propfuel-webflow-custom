@@ -1172,6 +1172,137 @@
         a.innerHTML = 'Get a Demo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
       }
     });
+
+    // ═══════════════════════════════════════
+    // SECTION 2: ENGINE MOCKUP GRAPHICS
+    // Inject UI mockups into .pf-feature-visual containers
+    // ═══════════════════════════════════════
+
+    // Find all feature visual containers on the page
+    var visuals = document.querySelectorAll('.pf-feature-visual');
+
+    // Engine 01: Insights — Super Contact Profile + At-Risk + Trends
+    var insightsMockup =
+      '<div class="mu-card"><div class="mu-hdr"><span class="mu-t">Super Contact Profile</span><span class="mu-pill mu-g">Healthy</span></div>' +
+      '<div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px">' +
+        '<div><div class="mu-name">Sarah Chen</div><div class="mu-sub">Director of Programs, ACME Assoc.</div></div>' +
+        '<div style="text-align:right"><div class="mu-score">87</div><div class="mu-sub">Engagement Score</div></div></div>' +
+      '<div class="mu-div"></div>' +
+      '<div class="mu-tags"><span class="mu-tag">Certification</span><span class="mu-tag">Events</span><span class="mu-tag">Advocacy</span><span class="mu-tag">Mentorship</span></div></div>' +
+      '<div class="mu-card"><div class="mu-hdr"><span class="mu-t">At-Risk Members</span><span class="mu-pill mu-r">12 flagged</span></div>' +
+        '<div style="margin-top:10px">' +
+          '<div class="mu-bar-row"><span class="mu-bar-l">J. Rivera</span><div class="mu-bar"><div class="mu-bar-f" style="width:23%"></div></div><span class="mu-bar-v">23</span></div>' +
+          '<div class="mu-bar-row" style="margin-top:8px"><span class="mu-bar-l">M. Patel</span><div class="mu-bar"><div class="mu-bar-f" style="width:31%"></div></div><span class="mu-bar-v">31</span></div>' +
+          '<div class="mu-bar-row" style="margin-top:8px"><span class="mu-bar-l">K. Olsen</span><div class="mu-bar"><div class="mu-bar-f" style="width:18%"></div></div><span class="mu-bar-v">18</span></div>' +
+        '</div></div>' +
+      '<div class="mu-card"><div class="mu-hdr"><span class="mu-t">Engagement Trends</span><span class="mu-pill" style="background:#E3F2FD;color:#1565C0">This Month</span></div>' +
+        '<div style="margin-top:8px">' +
+          '<div style="display:flex;align-items:center;justify-content:space-between;padding:6px 0"><span style="font-size:13px;font-weight:600;color:#2F2F2F">Response Rate</span><span style="font-size:13px;font-weight:700;color:#2E7D32">+12%</span></div>' +
+          '<div style="display:flex;align-items:center;justify-content:space-between;padding:6px 0"><span style="font-size:13px;font-weight:600;color:#2F2F2F">New Responses</span><span style="font-size:13px;font-weight:700;color:#2E7D32">+847</span></div>' +
+          '<div style="display:flex;align-items:center;justify-content:space-between;padding:6px 0"><span style="font-size:13px;font-weight:600;color:#2F2F2F">At-Risk Members</span><span style="font-size:13px;font-weight:700;color:#C62828">-3</span></div>' +
+        '</div></div>';
+
+    // Engine 02: Automation — Campaign Blueprint + Conditional Workflow + Active Campaigns
+    var automationMockup =
+      '<div class="mu-card"><div class="mu-hdr"><span class="mu-t">Campaign Blueprint</span><span class="mu-pill mu-o">Ready to Launch</span></div>' +
+        '<div style="margin-top:12px"><div class="mu-name">Renewal Win-Back \u2014 90 Day</div><div class="mu-sub">Targets 847 lapsed members \u00b7 3-step drip sequence</div></div>' +
+        '<div class="mu-div"></div>' +
+        '<div style="display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:#2F2F2F">' +
+          '<div style="display:flex;align-items:center;gap:6px"><span class="mu-step-n">1</span> Segment</div>' +
+          '<span style="color:#D6D0C4">\u2192</span>' +
+          '<div style="display:flex;align-items:center;gap:6px"><span class="mu-step-n">2</span> Message</div>' +
+          '<span style="color:#D6D0C4">\u2192</span>' +
+          '<div style="display:flex;align-items:center;gap:6px"><span class="mu-step-n">3</span> Follow-up</div></div>' +
+        '<div style="margin-top:16px;display:flex;gap:8px"><span class="mu-btn mu-btn-p">1-Click Deploy</span><span class="mu-btn mu-btn-o">Customize</span></div></div>' +
+      '<div class="mu-card"><div class="mu-hdr"><span class="mu-t">Conditional Workflow</span><span class="mu-pill mu-g">Running</span></div>' +
+        '<div style="margin-top:12px;display:flex;flex-direction:column;gap:8px">' +
+          '<div style="display:flex;align-items:center;gap:8px"><div style="width:8px;height:8px;border-radius:50%;background:linear-gradient(135deg,#F47C2C,#FBC02D)"></div><span style="font-size:12px;font-weight:600;color:#2F2F2F">Question: What matters most?</span></div>' +
+          '<div style="margin-left:3px;border-left:2px solid #E7E2D8;padding-left:16px;display:flex;flex-direction:column;gap:6px">' +
+            '<div style="display:flex;align-items:center;gap:8px"><span style="font-size:11px;font-weight:600;padding:3px 8px;border-radius:4px;background:#E8F5E9;color:#2E7D32">If "Networking"</span><span style="font-size:11px;color:#8C8479">\u2192 Event invite sequence</span></div>' +
+            '<div style="display:flex;align-items:center;gap:8px"><span style="font-size:11px;font-weight:600;padding:3px 8px;border-radius:4px;background:#E3F2FD;color:#1565C0">If "Certification"</span><span style="font-size:11px;color:#8C8479">\u2192 CE credit pathway</span></div>' +
+            '<div style="display:flex;align-items:center;gap:8px"><span style="font-size:11px;font-weight:600;padding:3px 8px;border-radius:4px;background:#FFF3E0;color:#E65100">If "Advocacy"</span><span style="font-size:11px;color:#8C8479">\u2192 PAC engagement drip</span></div>' +
+          '</div></div></div>' +
+      '<div class="mu-card"><div class="mu-hdr"><span class="mu-t">Active Campaigns</span><span class="mu-pill mu-g">3 running</span></div>' +
+        '<div style="margin-top:10px">' +
+          '<div style="display:flex;align-items:center;gap:10px"><div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#F47C2C,#FBC02D);display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff">\u26A1</div><div><div style="font-size:13px;font-weight:600;color:#2F2F2F">New Member Onboarding</div><div class="mu-sub">234 members \u00b7 Step 2 of 4 \u00b7 67% completion</div></div></div>' +
+          '<div style="display:flex;align-items:center;gap:10px;margin-top:10px"><div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#F9A825,#FBC02D);display:flex;align-items:center;justify-content:center;font-size:12px;color:#E65100">\u23F1</div><div><div style="font-size:13px;font-weight:600;color:#2F2F2F">Event Follow-Up \u2014 Annual Conference</div><div class="mu-sub">1,203 attendees \u00b7 82% engaged</div></div></div>' +
+        '</div></div>';
+
+    // Engine 03: Engagement — Live Response + SMS dark card + Channel Breakdown
+    var engagementMockup =
+      '<div class="mu-card"><div class="mu-hdr"><span class="mu-t">Live Response</span><span class="mu-pill mu-o">Collecting</span></div>' +
+        '<div style="margin-top:12px;font-size:15px;font-weight:700;color:#2F2F2F;line-height:1.4">What\u2019s most important to you this year?</div>' +
+        '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><span class="mu-resp sel">Professional Development</span><span class="mu-resp">Networking</span><span class="mu-resp">Certification</span><span class="mu-resp">Advocacy</span></div>' +
+        '<div class="mu-div"></div>' +
+        '<div style="display:flex;gap:16px"><div style="flex:1;text-align:center"><div style="font-size:20px;font-weight:900;color:#2F2F2F">1,847</div><div class="mu-sub">Responses</div></div><div style="flex:1;text-align:center"><div style="font-size:20px;font-weight:900;background:linear-gradient(135deg,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent">45%</div><div class="mu-sub">Engagement Rate</div></div><div style="flex:1;text-align:center"><div style="font-size:20px;font-weight:900;color:#2F2F2F">3</div><div class="mu-sub">Channels</div></div></div></div>' +
+      '<div class="mu-card" style="background:linear-gradient(135deg,#2F2F2F,#1A1713);border:1px solid rgba(255,255,255,0.08)">' +
+        '<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px"><div style="width:28px;height:28px;border-radius:6px;background:linear-gradient(135deg,#F47C2C,#FBC02D);display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div><div><div style="font-size:11px;font-weight:700;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.06em">SMS</div><div style="font-size:13px;font-weight:600;color:#EDE8DF">Your Association</div></div></div>' +
+        '<div style="background:rgba(255,255,255,0.06);border-radius:10px;padding:12px;font-size:13px;color:#EDE8DF;line-height:1.5">Hi Marcus! Quick question: Are you planning to attend the Annual Conference in April? Reply <strong style="color:#FBC02D">YES</strong>, <strong style="color:#FBC02D">NO</strong>, or <strong style="color:#FBC02D">MAYBE</strong>.</div>' +
+        '<div style="margin-top:8px;display:flex;gap:6px"><div style="padding:6px 14px;border-radius:6px;font-size:11px;font-weight:700;background:#FBC02D;color:#1A1713">YES</div><div style="padding:6px 14px;border-radius:6px;font-size:11px;font-weight:600;border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.5)">NO</div><div style="padding:6px 14px;border-radius:6px;font-size:11px;font-weight:600;border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.5)">MAYBE</div></div></div>' +
+      '<div class="mu-card"><div class="mu-hdr"><span class="mu-t">Channel Breakdown</span></div>' +
+        '<div style="margin-top:10px">' +
+          '<div class="mu-bar-row"><span class="mu-bar-l">Email</span><div class="mu-bar"><div class="mu-bar-f" style="width:62%"></div></div><span class="mu-bar-v">62%</span></div>' +
+          '<div class="mu-bar-row" style="margin-top:8px"><span class="mu-bar-l">Website</span><div class="mu-bar"><div class="mu-bar-f" style="width:28%"></div></div><span class="mu-bar-v">28%</span></div>' +
+          '<div class="mu-bar-row" style="margin-top:8px"><span class="mu-bar-l">SMS</span><div class="mu-bar"><div class="mu-bar-f" style="width:10%"></div></div><span class="mu-bar-v">10%</span></div>' +
+        '</div></div>';
+
+    // Map mockups to visuals by index (order on page: insights=0, automation=1, engagement=2)
+    var mockups = [insightsMockup, automationMockup, engagementMockup];
+    visuals.forEach(function(v, i) {
+      if (mockups[i] && !v.querySelector('.mu-card')) {
+        v.innerHTML = mockups[i];
+        v.style.background = '#EBE6DA';
+        v.style.borderRadius = '20px';
+        v.style.padding = '28px';
+      }
+    });
+
+    // ═══════════════════════════════════════
+    // SECTION 3: ENGINE LABELS & TEXT FIXES
+    // Add "Engine 01/02/03" labels, fix taglines
+    // ═══════════════════════════════════════
+    var engineData = [
+      { num: 'Engine 01', title: 'The Insights Engine', tagline: 'More Signal, Less Noise' },
+      { num: 'Engine 02', title: 'The Automation Engine', tagline: 'More Personalization, Less Busy Work' },
+      { num: 'Engine 03', title: 'The Engagement Engine', tagline: 'More Engagement, Less Silence' }
+    ];
+
+    // Find engine headings by title text
+    document.querySelectorAll('h2, h3').forEach(function(h) {
+      var txt = h.textContent.trim();
+      engineData.forEach(function(eng) {
+        if (txt.toLowerCase().indexOf(eng.title.toLowerCase().replace('the ', '')) !== -1 || txt.toLowerCase() === eng.title.toLowerCase()) {
+          // Add engine number label above if missing
+          var parent = h.parentElement;
+          if (!parent.querySelector('.eng-num-label')) {
+            var numLabel = document.createElement('p');
+            numLabel.className = 'eng-num-label';
+            numLabel.style.cssText = 'font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:8px';
+            numLabel.textContent = eng.num;
+            parent.insertBefore(numLabel, h);
+          }
+        }
+      });
+    });
+
+    // ═══════════════════════════════════════
+    // SECTION 7: STATS — gradient text on numbers
+    // ═══════════════════════════════════════
+    document.querySelectorAll('.pf-stat-number').forEach(function(el) {
+      if (el.closest('[class*="platform"]') || window.location.pathname.indexOf('platform') !== -1) {
+        el.style.cssText = 'font-size:clamp(40px,5vw,56px);font-weight:900;letter-spacing:-0.03em;line-height:1;' +
+          'background:linear-gradient(to top,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text';
+      }
+    });
+
+    // ═══════════════════════════════════════
+    // SECTION 8: CTA — gradient on "Meaningful?"
+    // ═══════════════════════════════════════
+    document.querySelectorAll('h2').forEach(function(h) {
+      if (h.textContent.match(/meaningful/i) && h.textContent.match(/membership/i)) {
+        h.innerHTML = h.innerHTML.replace(/(Meaningful\??)/i, '<span style="background:linear-gradient(135deg,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">$1</span>');
+      }
+    });
   }
 
   // ─────────────────────────────────────────
