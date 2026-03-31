@@ -31,6 +31,22 @@
       '.pf-faq-section,.pf-transition-section-dark{' +
         'background-image:var(--faq-texture)!important;background-size:512px 512px!important}' +
 
+      /* Demo form styles */
+      '.pf-form-group{margin-bottom:12px}' +
+      '.pf-form-label{display:block;font-size:13px;font-weight:600;color:#2F2F2F;margin-bottom:6px}' +
+      '.pf-form-input{width:100%;padding:12px 16px;border:1.5px solid #E3DDD2;border-radius:8px;' +
+        'font-size:15px;font-family:DM Sans,sans-serif;color:#2F2F2F;background:#fff;' +
+        'transition:border-color .2s ease,box-shadow .2s ease;box-sizing:border-box}' +
+      '.pf-form-input:focus{outline:none;border-color:#F47C2C;box-shadow:0 0 0 3px rgba(244,124,44,.12)}' +
+      '.pf-form-input::placeholder{color:#BDBDBD}' +
+      '.pf-form-textarea{min-height:80px;resize:vertical}' +
+      '.pf-form-submit{width:100%;padding:16px;border:none;border-radius:100px;' +
+        'background:linear-gradient(to right,#F47C2C,#FBC02D);color:#fff;font-size:15px;' +
+        'font-weight:600;font-family:DM Sans,sans-serif;cursor:pointer;margin-top:8px;' +
+        'box-shadow:0 4px 16px rgba(240,90,40,.2);transition:box-shadow .3s ease}' +
+      '.pf-form-submit:hover{box-shadow:0 4px 20px rgba(251,192,45,.3)}' +
+      '.pf-form-submit:disabled{opacity:.7;cursor:default}' +
+
       /* Fix Webflow default link colors */
       'a,a:visited,a:link{color:inherit;text-decoration:none}' +
       'html{color:#2F2F2F}' +
@@ -246,6 +262,63 @@
   }
 
   // ─────────────────────────────────────────
+  // 5. DEMO FORM INJECTION
+  // ─────────────────────────────────────────
+  function initDemoForm() {
+    var card = document.querySelector('.pf-demo-form-card');
+    if (!card) return;
+
+    // Check if form already exists
+    if (card.querySelector('form')) return;
+
+    var formHTML = '' +
+      '<form id="demoForm" style="margin-top:24px">' +
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">' +
+          '<div class="pf-form-group">' +
+            '<label class="pf-form-label">First Name</label>' +
+            '<input type="text" name="firstName" placeholder="Jane" required class="pf-form-input">' +
+          '</div>' +
+          '<div class="pf-form-group">' +
+            '<label class="pf-form-label">Last Name</label>' +
+            '<input type="text" name="lastName" placeholder="Smith" required class="pf-form-input">' +
+          '</div>' +
+        '</div>' +
+        '<div class="pf-form-group">' +
+          '<label class="pf-form-label">Work Email</label>' +
+          '<input type="email" name="email" placeholder="jane@yourorg.com" required class="pf-form-input">' +
+        '</div>' +
+        '<div class="pf-form-group">' +
+          '<label class="pf-form-label">Organization Name</label>' +
+          '<input type="text" name="organization" placeholder="Your association or organization" required class="pf-form-input">' +
+        '</div>' +
+        '<div class="pf-form-group">' +
+          '<label class="pf-form-label">Job Title</label>' +
+          '<input type="text" name="jobTitle" placeholder="Your job title" required class="pf-form-input">' +
+        '</div>' +
+        '<div class="pf-form-group">' +
+          '<label class="pf-form-label">How did you hear about PropFuel? <span style="font-weight:400;color:#BDBDBD">(optional)</span></label>' +
+          '<textarea name="referralSource" placeholder="Tell us how you found us..." class="pf-form-input pf-form-textarea"></textarea>' +
+        '</div>' +
+        '<button type="submit" class="pf-form-submit">Request Your Demo</button>' +
+        '<p style="font-size:12px;color:#6E6E6E;text-align:center;margin-top:12px">We\u2019ll reach out within one business day.</p>' +
+      '</form>';
+
+    card.insertAdjacentHTML('beforeend', formHTML);
+
+    // Handle submit
+    var form = document.getElementById('demoForm');
+    if (form) {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var btn = form.querySelector('.pf-form-submit');
+        btn.textContent = 'Thank you! We\u2019ll be in touch.';
+        btn.style.background = '#7D9B4E';
+        btn.disabled = true;
+      });
+    }
+  }
+
+  // ─────────────────────────────────────────
   // INIT
   // ─────────────────────────────────────────
   function init() {
@@ -254,6 +327,7 @@
     initScrollAnimations();
     initFaqAccordion();
     initNavScroll();
+    initDemoForm();
   }
 
   if (document.readyState === 'loading') {
