@@ -5139,6 +5139,12 @@
         el.innerHTML = html.replace(/<br>/g, ' <br>');
       }
     });
+    // Hide empty .pf-feature-visual containers (grey boxes from Webflow template)
+    document.querySelectorAll('.pf-feature-visual').forEach(function(v) {
+      if (v.children.length === 0 || (v.children.length === 1 && !v.children[0].textContent.trim())) {
+        v.style.display = 'none';
+      }
+    });
     initScrollAnimations();
     initFaqAccordion();
     initNavScroll();
