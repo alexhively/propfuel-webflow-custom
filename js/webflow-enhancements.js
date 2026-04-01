@@ -28,11 +28,14 @@
       '.pf-card>*,.pf-demo-form-card>*,.pf-feature-visual>*{position:relative;z-index:1}' +
 
       /* Dark section textures */
-      '.pf-stats-section,.pf-cta-section,.pf-footer,.pf-section-dark,.pf-value-section{' +
+      '.pf-stats-section,.pf-cta-section,.pf-footer,.pf-section-dark,.pf-value-section,' +
+      '[class*="-problem-band"],[class*="-stats-band"],[class*="po-stats"]{' +
         'background-image:var(--dark-texture)!important;background-size:512px 512px!important}' +
 
-      /* FAQ / warm section textures */
-      '.pf-faq-section,.pf-transition-section-dark,.po-philosophy,.po-integrations{' +
+      /* FAQ / warm / cream section textures */
+      '.pf-faq-section,.pf-transition-section-dark,.po-philosophy,.po-integrations,' +
+      '[class*="-use-cases"],[class*="-capabilities"],[class*="-testimonial"],[class*="-turnover"],' +
+      '[class*="ie-feature"],[class*="-roadmap"],[class*="po-channels"]{' +
         'background-image:var(--faq-texture)!important;background-size:512px 512px!important}' +
 
       /* Primary button text always white (not hover) */
@@ -5284,6 +5287,22 @@
     document.querySelectorAll('.pf-feature-visual').forEach(function(v) {
       if (v.children.length === 0 || (v.children.length === 1 && !v.children[0].textContent.trim())) {
         v.style.display = 'none';
+      }
+    });
+    // Apply textures to ALL injected sections based on background color
+    document.querySelectorAll('section, [class*="-band"], [class*="-section"]').forEach(function(s) {
+      if (s.offsetHeight < 50) return;
+      var bg = getComputedStyle(s).backgroundColor;
+      var hasTex = getComputedStyle(s).backgroundImage.indexOf('data:image') !== -1;
+      if (hasTex) return; // already has texture
+      if (bg === 'rgb(26, 23, 19)' || bg === 'rgb(28, 28, 28)') {
+        // Dark sections get dark texture
+        s.style.backgroundImage = 'var(--dark-texture)';
+        s.style.backgroundSize = '512px 512px';
+      } else if (bg === 'rgb(235, 230, 218)' || bg === 'rgb(234, 228, 216)' || bg === 'rgb(246, 242, 232)') {
+        // Cream/warm sections get warm texture
+        s.style.backgroundImage = 'var(--faq-texture)';
+        s.style.backgroundSize = '512px 512px';
       }
     });
     initScrollAnimations();
