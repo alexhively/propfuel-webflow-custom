@@ -5098,21 +5098,24 @@
     fixPartners();
     fixPrivacy();
     fixTerms();
-    // Clean up duplicates: hide original Webflow hero buttons when injected ones exist
+    // Clean up duplicates: hide original Webflow elements when injected ones exist
     var injectedBtns = document.querySelector('.pf-hero-btns-injected');
     if (injectedBtns) {
       var heroParent = injectedBtns.parentElement;
       if (heroParent) {
-        heroParent.querySelectorAll('.w-button').forEach(function(btn) {
-          btn.style.display = 'none';
-        });
+        // Hide Webflow w-button elements
+        heroParent.querySelectorAll('.w-button').forEach(function(btn) { btn.style.display = 'none'; });
+        // Hide Webflow hero button wrapper (.pf-hero-buttons)
+        heroParent.querySelectorAll('.pf-hero-buttons').forEach(function(wrap) { wrap.style.display = 'none'; });
       }
     }
-    // Hide original Webflow hero label if injected one exists
+    // Hide original Webflow hero labels if injected one exists
     var injectedLabel = document.querySelector('.pf-hero-label-injected');
     if (injectedLabel) {
-      var origLabel = document.querySelector('.pf-page-hero-label');
-      if (origLabel && origLabel !== injectedLabel) origLabel.style.display = 'none';
+      // Hide .pf-page-hero-label and .pf-transition-label (both used as hero labels across pages)
+      document.querySelectorAll('.pf-page-hero-label, .pf-transition-label').forEach(function(el) {
+        if (el !== injectedLabel) el.style.display = 'none';
+      });
     }
     initScrollAnimations();
     initFaqAccordion();
