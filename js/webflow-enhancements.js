@@ -1245,12 +1245,32 @@
           '<div class="mu-bar-row" style="margin-top:8px"><span class="mu-bar-l">SMS</span><div class="mu-bar"><div class="mu-bar-f" style="width:10%"></div></div><span class="mu-bar-v">10%</span></div>' +
         '</div></div>';
 
-    // Map mockups to visuals by index (order on page: insights=0, automation=1, engagement=2)
-    var mockups = [insightsMockup, automationMockup, engagementMockup];
+    // Engine 04: Membership AI — 3-agent overview card
+    var aiMockup =
+      '<div class="mu-card" style="background:#1C1C1C;border:1px solid rgba(74,127,165,0.15)">' +
+        '<div class="mu-hdr"><span class="mu-t" style="color:#4A7FA5">Membership AI</span><span class="mu-pill" style="background:rgba(74,127,165,0.12);color:#4A7FA5">3 Agents Active</span></div>' +
+        '<div style="margin-top:14px;display:flex;flex-direction:column;gap:10px">' +
+          '<div style="display:flex;align-items:center;gap:10px;background:rgba(74,127,165,0.06);border-radius:10px;padding:10px 12px;border:1px solid rgba(74,127,165,0.1)">' +
+            '<div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#4A7FA5,#35607E);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D0DFEA" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>' +
+            '<div><div style="font-size:12px;font-weight:700;color:#D0DFEA">Insight Agent</div><div style="font-size:10px;color:#8C8479;margin-top:1px">47 at-risk members flagged</div></div>' +
+          '</div>' +
+          '<div style="display:flex;align-items:center;gap:10px;background:rgba(74,127,165,0.06);border-radius:10px;padding:10px 12px;border:1px solid rgba(74,127,165,0.1)">' +
+            '<div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#35607E,#1F3A51);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D0DFEA" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>' +
+            '<div><div style="font-size:12px;font-weight:700;color:#D0DFEA">Recommendation Agent</div><div style="font-size:10px;color:#8C8479;margin-top:1px">3 actions ready to review</div></div>' +
+          '</div>' +
+          '<div style="display:flex;align-items:center;gap:10px;background:rgba(74,127,165,0.06);border-radius:10px;padding:10px 12px;border:1px solid rgba(74,127,165,0.1)">' +
+            '<div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#4A7FA5,#D0DFEA);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1F3A51" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>' +
+            '<div><div style="font-size:12px;font-weight:700;color:#D0DFEA">Initiative Agent</div><div style="font-size:10px;color:#8C8479;margin-top:1px">2 campaigns drafted</div></div>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+
+    // Map mockups to visuals by index (order on page: insights=0, automation=1, engagement=2, ai=3)
+    var mockups = [insightsMockup, automationMockup, engagementMockup, aiMockup];
     visuals.forEach(function(v, i) {
       if (mockups[i] && !v.querySelector('.mu-card')) {
         v.innerHTML = mockups[i];
-        v.style.background = '#EBE6DA';
+        v.style.background = i === 3 ? '#1C1C1C' : '#EBE6DA';
         v.style.borderRadius = '20px';
         v.style.padding = '28px';
       }
