@@ -1334,22 +1334,23 @@
 
       var section = titleEl.closest('[class*="feature"]') || titleEl.parentElement;
 
-      // Add engine number label above title
-      if (!section.querySelector('.eng-num-label')) {
+      // Add engine number label above title (check direct parent to avoid duplicates)
+      var insertParent = titleEl.parentNode;
+      if (!insertParent.querySelector('.eng-num-label')) {
         var numLabel = document.createElement('p');
         numLabel.className = 'eng-num-label';
         numLabel.style.cssText = 'font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:8px';
         numLabel.textContent = eng.num;
-        titleEl.parentNode.insertBefore(numLabel, titleEl);
+        insertParent.insertBefore(numLabel, titleEl);
       }
 
       // Add tagline below title
-      if (!section.querySelector('.eng-tagline')) {
+      if (!insertParent.querySelector('.eng-tagline')) {
         var tagline = document.createElement('p');
         tagline.className = 'eng-tagline';
         tagline.style.cssText = 'font-size:18px;font-weight:600;color:#F47C2C;margin-top:4px;margin-bottom:16px';
         tagline.textContent = eng.tagline;
-        titleEl.parentNode.insertBefore(tagline, titleEl.nextSibling);
+        insertParent.insertBefore(tagline, titleEl.nextSibling);
       }
 
       // Fix description
@@ -1362,14 +1363,15 @@
         if (eng.bullets[i]) b.textContent = '\u2022 ' + eng.bullets[i];
       });
 
-      // Fix CTA link: "Learn More" → "Explore the X Engine →"
-      var ctaLink = section.querySelector('.pf-btn-primary');
+      // Fix CTA link: "Learn More" → "Explore the X Engine →" (dark pill button)
+      // Search in section and also in the broader feature wrapper
+      var ctaLink = section.querySelector('.pf-btn-primary') || (section.parentElement ? section.parentElement.querySelector('.pf-btn-primary') : null);
       if (ctaLink && ctaLink.textContent.trim() === 'Learn More') {
-        ctaLink.textContent = '';
+        ctaLink.className = 'pf-btn-dark-pill'; // Remove w-button class to avoid Webflow !important overrides
         ctaLink.href = eng.cta.href;
-        ctaLink.style.cssText = 'display:inline-flex;align-items:center;gap:8px;background:#1A1714;border-radius:100px;' +
-          'padding:12px 24px;font-size:14px;font-weight:600;letter-spacing:0.02em;color:#F4F1EA;text-decoration:none;' +
-          'border:none;box-shadow:0 4px 16px rgba(0,0,0,0.1);transition:box-shadow .3s ease';
+        ctaLink.style.cssText = 'display:inline-flex!important;align-items:center!important;gap:8px!important;background:#1A1714!important;background-image:none!important;border-radius:100px!important;' +
+          'padding:12px 24px!important;font-size:14px!important;font-weight:600!important;letter-spacing:0.02em;color:#F4F1EA!important;text-decoration:none!important;' +
+          'border:none!important;box-shadow:0 4px 16px rgba(0,0,0,0.1)!important;transition:box-shadow .3s ease;font-family:DM Sans,sans-serif';
         ctaLink.innerHTML = eng.cta.text + ' <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
       }
     });
@@ -3355,7 +3357,7 @@
       var fq = document.querySelector('.mai-faq');
       if (fq) { fq.insertAdjacentHTML('afterend', relatedHTML); } else { ctaSection.insertAdjacentHTML('beforebegin', relatedHTML); }
     }
-
+  }
 
   // ─────────────────────────────────────────
   // FIX INSIGHTS PAGE
@@ -3393,14 +3395,13 @@
     if (ctaSub) { ctaSub.textContent = 'Your members are telling you what they need. You just need the right way to hear them.'; }
     var featureTitles = document.querySelectorAll('.pf-feature-title');
     featureTitles.forEach(function(titleEl) { var txt = titleEl.textContent.trim().toLowerCase(); if (txt.indexOf('ai response') !== -1 || txt.indexOf('super contact') !== -1 || txt.indexOf('insights dashboard') !== -1) { var section = titleEl.closest('[class*="feature"]') || titleEl.closest('section') || titleEl.parentElement; if (section) section.style.display = 'none'; } });
-  }
 
     // CTA Fix
-    var ctaHeading = ctaSection.querySelector('h2, [class*="title"]');
-    if (ctaHeading) { ctaHeading.innerHTML = 'Meet your AI<br>membership team.'; }
-    var ctaDesc = ctaSection.querySelector('p:not([class*="label"]):not(h2)');
-    if (!ctaDesc) { var allP = ctaSection.querySelectorAll('p'); for (var pi = 0; pi < allP.length; pi++) { if (allP[pi].textContent.length > 30) { ctaDesc = allP[pi]; break; } } }
-    if (ctaDesc) { ctaDesc.textContent = 'Membership AI knows your members. It tells you what matters. It builds what you need. And it does it without asking you to add headcount, learn analytics, or spend weeks building campaigns.'; }
+    var ctaHeading2 = ctaSection.querySelector('h2, [class*="title"]');
+    if (ctaHeading2) { ctaHeading2.innerHTML = 'Stop guessing.<br>Start <span style="background:linear-gradient(135deg,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">knowing.</span>'; }
+    var ctaDesc2 = ctaSection.querySelector('p:not([class*="label"]):not(h2)');
+    if (!ctaDesc2) { var allP2 = ctaSection.querySelectorAll('p'); for (var pi2 = 0; pi2 < allP2.length; pi2++) { if (allP2[pi2].textContent.length > 30) { ctaDesc2 = allP2[pi2]; break; } } }
+    if (ctaDesc2) { ctaDesc2.textContent = 'Your members are telling you what they need. You just need the right way to hear them.'; }
   }
 
   // ─────────────────────────────────────────
@@ -5093,6 +5094,22 @@
     fixPartners();
     fixPrivacy();
     fixTerms();
+    // Clean up duplicates: hide original Webflow hero buttons when injected ones exist
+    var injectedBtns = document.querySelector('.pf-hero-btns-injected');
+    if (injectedBtns) {
+      var heroParent = injectedBtns.parentElement;
+      if (heroParent) {
+        heroParent.querySelectorAll('.w-button').forEach(function(btn) {
+          btn.style.display = 'none';
+        });
+      }
+    }
+    // Hide original Webflow hero label if injected one exists
+    var injectedLabel = document.querySelector('.pf-hero-label-injected');
+    if (injectedLabel) {
+      var origLabel = document.querySelector('.pf-page-hero-label');
+      if (origLabel && origLabel !== injectedLabel) origLabel.style.display = 'none';
+    }
     initScrollAnimations();
     initFaqAccordion();
     initNavScroll();
