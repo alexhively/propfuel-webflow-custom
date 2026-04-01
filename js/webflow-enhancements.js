@@ -1184,6 +1184,54 @@
     }
 
     // ═══════════════════════════════════════
+    // SECTION 1B: PHILOSOPHY — "Stop Broadcasting. Start Conversing."
+    // ═══════════════════════════════════════
+    var firstSection = document.querySelector('.pf-section, .pf-feature-grid');
+    if (firstSection && !document.querySelector('.po-philosophy')) {
+      var philHTML = '<section class="po-philosophy" style="padding:96px 48px;max-width:1100px;margin:0 auto">' +
+        '<div style="text-align:center;margin-bottom:64px">' +
+          '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">The PropFuel Difference</p>' +
+          '<h2 style="font-size:clamp(32px,5vw,48px);font-weight:800;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.1;margin-bottom:20px">Stop Broadcasting.<br>Start Conversing.</h2>' +
+          '<p style="font-size:18px;color:#6E6E6E;max-width:620px;margin:0 auto;line-height:1.65">PropFuel is not another email tool or marketing automation platform. It is built on a fundamentally different idea: instead of broadcasting at members, you have conversations with them.</p>' +
+        '</div>' +
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center">' +
+          '<div>' +
+            '<h3 style="font-size:clamp(22px,3vw,28px);font-weight:700;color:#2F2F2F;line-height:1.2;margin-bottom:20px">One question at a time. Three channels. Every response matters.</h3>' +
+            '<p style="font-size:16px;color:#6E6E6E;line-height:1.65;margin-bottom:16px">Most platforms send newsletters, surveys, and blast emails \u2014 hoping someone responds. PropFuel asks one clear question through email, SMS, or your website. Members respond with a single tap. No friction, no fatigue.</p>' +
+            '<p style="font-size:16px;color:#6E6E6E;line-height:1.65">Every response flows back into the member profile and triggers the right next action \u2014 automatically. It is a continuous loop of listening and acting that turns passive members into engaged ones.</p>' +
+          '</div>' +
+          '<div style="display:flex;align-items:center;justify-content:center">' +
+            '<div style="max-width:320px;width:100%;text-align:center;font-family:DM Sans,sans-serif">' +
+              '<p style="font-size:13px;font-weight:600;color:#8C8479;letter-spacing:.04em;margin-bottom:16px">The Membership Engagement Loop</p>' +
+              '<svg viewBox="0 0 300 280" xmlns="http://www.w3.org/2000/svg" style="width:100%">' +
+                '<defs><linearGradient id="poLoopGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#F47C2C"/><stop offset="50%" stop-color="#F9A825"/><stop offset="100%" stop-color="#FBC02D"/></linearGradient></defs>' +
+                '<circle cx="150" cy="140" r="100" fill="none" stroke="#E7E2D8" stroke-width="2"/>' +
+                '<circle cx="150" cy="140" r="100" fill="none" stroke="url(#poLoopGrad)" stroke-width="3" stroke-linecap="round" stroke-dasharray="200 430"/>' +
+                '<circle cx="150" cy="40" r="36" fill="url(#poLoopGrad)"/><text x="150" y="36" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="16" font-weight="800" fill="#fff">Ask</text><text x="150" y="52" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="rgba(255,255,255,.85)">One question</text>' +
+                '<circle cx="250" cy="200" r="36" fill="url(#poLoopGrad)"/><text x="250" y="196" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="15" font-weight="800" fill="#fff">Capture</text><text x="250" y="212" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="rgba(255,255,255,.85)">Every response</text>' +
+                '<circle cx="50" cy="200" r="36" fill="url(#poLoopGrad)"/><text x="50" y="196" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="16" font-weight="800" fill="#fff">Act</text><text x="50" y="212" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="rgba(255,255,255,.85)">On data</text>' +
+              '</svg>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</section>';
+      firstSection.insertAdjacentHTML('beforebegin', philHTML);
+    }
+
+    // ═══════════════════════════════════════
+    // SECTION 1C: ENGINES HEADER — "Three Engines, One Platform"
+    // ═══════════════════════════════════════
+    var engineSection = document.querySelector('.pf-section, .pf-feature-grid');
+    if (engineSection && !document.querySelector('.po-engines-header')) {
+      var engHeaderHTML = '<div class="po-engines-header" style="text-align:center;padding:96px 48px 32px;max-width:800px;margin:0 auto">' +
+        '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">Three Engines, One Platform</p>' +
+        '<h2 style="font-size:clamp(28px,4vw,42px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.1;margin-bottom:20px">Everything You Need to Understand and Engage Your Members</h2>' +
+        '<p style="font-size:18px;color:#6E6E6E;line-height:1.6">PropFuel unifies insights, automation, and engagement into a single platform purpose-built for associations.</p>' +
+      '</div>';
+      engineSection.insertAdjacentHTML('beforebegin', engHeaderHTML);
+    }
+
+    // ═══════════════════════════════════════
     // SECTION 2: ENGINE MOCKUP GRAPHICS
     // Inject UI mockups into .pf-feature-visual containers
     // ═══════════════════════════════════════
@@ -1500,6 +1548,25 @@
       } else if (ctaSectionEl) {
         ctaSectionEl.insertAdjacentHTML('beforebegin', intHTML);
       }
+    }
+
+    // ═══════════════════════════════════════
+    // SECTION 7B: STATS BAND — "Proven Results Across 330+ Associations"
+    // ═══════════════════════════════════════
+    var ctaSectionForStats = document.querySelector('.pf-cta-section, [class*="cta-section"]');
+    if (ctaSectionForStats && !document.querySelector('.po-stats-band')) {
+      var statsHTML = '<section class="po-stats-band pf-section-dark" style="background:#1A1713;padding:96px 48px">' +
+        '<div style="max-width:1000px;margin:0 auto;text-align:center">' +
+          '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#EDE8DF;letter-spacing:-0.02em;line-height:1.15;margin-bottom:12px">Proven Results Across 330+ Associations</h2>' +
+          '<p style="font-size:17px;color:#8C8479;margin-bottom:56px">Organizations that use PropFuel don\u2019t just engage more members \u2014 they grow.</p>' +
+          '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:48px">' +
+            '<div><p style="font-size:clamp(40px,5vw,56px);font-weight:900;letter-spacing:-0.03em;line-height:1;background:linear-gradient(to top,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">$100M+</p><p style="font-size:14px;color:#8C8479;margin-top:8px;line-height:1.5">Revenue growth attributed to PropFuel campaigns</p></div>' +
+            '<div><p style="font-size:clamp(40px,5vw,56px);font-weight:900;letter-spacing:-0.03em;line-height:1;background:linear-gradient(to top,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">330+</p><p style="font-size:14px;color:#8C8479;margin-top:8px;line-height:1.5">Associations trust PropFuel</p></div>' +
+            '<div><p style="font-size:clamp(40px,5vw,56px);font-weight:900;letter-spacing:-0.03em;line-height:1;background:linear-gradient(to top,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">72%</p><p style="font-size:14px;color:#8C8479;margin-top:8px;line-height:1.5">Of declining orgs reversed course</p></div>' +
+          '</div>' +
+        '</div>' +
+      '</section>';
+      ctaSectionForStats.insertAdjacentHTML('beforebegin', statsHTML);
     }
 
     // ═══════════════════════════════════════
