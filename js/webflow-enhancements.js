@@ -3512,6 +3512,45 @@
     var ctaDesc2 = ctaSection.querySelector('p:not([class*="label"]):not(h2)');
     if (!ctaDesc2) { var allP2 = ctaSection.querySelectorAll('p'); for (var pi2 = 0; pi2 < allP2.length; pi2++) { if (allP2[pi2].textContent.length > 30) { ctaDesc2 = allP2[pi2]; break; } } }
     if (ctaDesc2) { ctaDesc2.textContent = 'Your members are telling you what they need. You just need the right way to hear them.'; }
+
+    // Hide original Webflow feature sections (Real-time member signals, At-risk member detection)
+    document.querySelectorAll('.pf-section').forEach(function(s) {
+      var title = s.querySelector('.pf-feature-title, h2');
+      if (title) {
+        var txt = title.textContent.trim();
+        if (txt.indexOf('Real-time member') !== -1 || txt.indexOf('At-risk member') !== -1) {
+          s.style.display = 'none';
+        }
+      }
+    });
+
+    // Add Use Cases section
+    if (!document.querySelector('.ie-use-cases')) {
+      var ucHTML = '<section class="ie-use-cases" style="padding:96px 48px;background:#EBE6DA"><div style="max-width:1200px;margin:0 auto"><div style="text-align:center;margin-bottom:56px"><p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">Use Cases</p><h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15">The Insights Engine powers every stage of the member lifecycle.</h2></div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">' +
+        '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 32px"><h4 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Onboarding</h4><p style="font-size:15px;color:#6E6E6E;line-height:1.6">Build a data foundation from day one. Learn what new members want before the renewal window opens.</p></div>' +
+        '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 32px"><h4 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Renewals</h4><p style="font-size:15px;color:#6E6E6E;line-height:1.6">Spot at-risk members before they lapse. Understand why someone is hesitating so you can address it.</p></div>' +
+        '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 32px"><h4 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Win-Back</h4><p style="font-size:15px;color:#6E6E6E;line-height:1.6">Know why members left while the reasons are still fresh. Target outreach based on actual lapse reasons.</p></div>' +
+        '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 32px"><h4 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Data & Intelligence</h4><p style="font-size:15px;color:#6E6E6E;line-height:1.6">Every PropFuel interaction is a database update. Profile building, NPS scoring, satisfaction tracking.</p></div>' +
+        '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 32px"><h4 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Events</h4><p style="font-size:15px;color:#6E6E6E;line-height:1.6">Turn post-event feedback into actionable data. Know which sessions resonated and who needs follow-up.</p></div>' +
+        '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 32px"><h4 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Acquisition</h4><p style="font-size:15px;color:#6E6E6E;line-height:1.6">Capture visitor intent from your website before prospects disappear. Learn what they\u2019re looking for.</p></div>' +
+      '</div></div></section>';
+      var faqEl = document.querySelector('.ie-faq');
+      if (faqEl) { faqEl.insertAdjacentHTML('beforebegin', ucHTML); } else { ctaSection.insertAdjacentHTML('beforebegin', ucHTML); }
+    }
+
+    // Add Testimonial section
+    if (!document.querySelector('.ie-testimonials')) {
+      var testHTML = '<section class="ie-testimonials" style="padding:80px 48px;background:#EBE6DA"><div style="max-width:700px;margin:0 auto;text-align:center"><p style="font-size:48px;margin-bottom:16px">\u201C</p><p style="font-size:clamp(18px,2.5vw,24px);font-weight:600;color:#2F2F2F;line-height:1.5;font-style:italic;margin-bottom:24px">There was something about PropFuel that got our members talking to us. We\u2019ve never seen engagement like that.</p><p style="font-size:15px;font-weight:700;color:#2F2F2F">\u2014 Dena Pearlman</p><p style="font-size:13px;color:#6E6E6E;margin-top:4px">CCSA</p></div></section>';
+      var ucEl = document.querySelector('.ie-use-cases');
+      if (ucEl) { ucEl.insertAdjacentHTML('afterend', testHTML); } else { var faqE = document.querySelector('.ie-faq'); if (faqE) faqE.insertAdjacentHTML('beforebegin', testHTML); }
+    }
+
+    // Add Related Use Cases
+    if (!document.querySelector('.ie-related')) {
+      var relHTML = '<section class="ie-related" style="padding:80px 24px;max-width:960px;margin:0 auto"><h2 style="font-size:32px;font-weight:700;color:#2F2F2F;margin-bottom:40px;text-align:center">Related Use Cases</h2><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px"><a href="/use-cases/data-intelligence" style="text-decoration:none;background:#F6F2E8;border-radius:16px;padding:32px;transition:transform 0.2s ease"><h3 style="font-size:20px;font-weight:700;color:#2F2F2F;margin-bottom:8px">Data Intelligence</h3><p style="font-size:15px;color:#6E6E6E;line-height:1.5">Transform member responses into clean, enriched data your whole team can act on.</p></a><a href="/use-cases/renewals" style="text-decoration:none;background:#F6F2E8;border-radius:16px;padding:32px;transition:transform 0.2s ease"><h3 style="font-size:20px;font-weight:700;color:#2F2F2F;margin-bottom:8px">Membership Renewals</h3><p style="font-size:15px;color:#6E6E6E;line-height:1.5">Use engagement insights to identify at-risk members and intervene before they lapse.</p></a></div></section>';
+      var testEl = document.querySelector('.ie-testimonials');
+      if (testEl) { testEl.insertAdjacentHTML('afterend', relHTML); } else { ctaSection.insertAdjacentHTML('beforebegin', relHTML); }
+    }
   }
 
   // ─────────────────────────────────────────
