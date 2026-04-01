@@ -954,26 +954,18 @@
     }
 
     // Replace use case grid with proper asymmetric layout matching original
-    var ucSection = document.querySelector('.pf-usecases-section, [class*="usecases-section"], [class*="use-cases"]');
+    // Find the use case section — try multiple strategies
+    var ucGrid = document.querySelector('.pf-usecases-grid');
+    var ucSection = ucGrid ? ucGrid.closest('section') || ucGrid.parentElement : null;
+    if (!ucSection) ucSection = document.querySelector('.pf-usecases-section, [class*="usecases-section"], [class*="use-cases"]');
     if (!ucSection) {
-      // Try finding by heading text — match "Real outcomes. Real associations." specifically
-      // (not "Real numbers. Real outcomes." which is in the stats section)
-      document.querySelectorAll('h2').forEach(function(h) {
-        var txt = h.textContent.trim();
-        if (txt.match(/Real outcomes.*Real associations/i) && !ucSection) {
-          ucSection = h.closest('section') || h.parentElement;
-        }
-      });
-      // Fallback: find section containing .pf-usecase-card elements
-      if (!ucSection) {
-        var firstCard = document.querySelector('.pf-usecase-card');
-        if (firstCard) ucSection = firstCard.closest('section') || firstCard.parentElement.parentElement;
-      }
+      var firstCard = document.querySelector('.pf-usecase-card');
+      if (firstCard) ucSection = firstCard.closest('section') || firstCard.parentElement.parentElement;
     }
 
     if (ucSection) {
-      // Find the grid container (the div holding the cards)
-      var ucGrid = ucSection.querySelector('[class*="usecase-grid"], [class*="usecases-grid"]');
+      // Find the grid container (the div holding the cards) — reuse ucGrid if already found
+      if (!ucGrid) ucGrid = ucSection.querySelector('[class*="usecase-grid"], [class*="usecases-grid"]');
       if (!ucGrid) {
         var cards = ucSection.querySelectorAll('.pf-usecase-card');
         if (cards.length) ucGrid = cards[0].parentElement;
