@@ -3185,7 +3185,7 @@
   // FIX INTEGRATIONS PAGE
   // ─────────────────────────────────────────
   function fixIntegrationsPage() {
-    if (window.location.pathname.indexOf('platform/integrations') === -1) return;
+    if (window.location.pathname.indexOf('/integrations') === -1) return;
     var heroLabel=document.querySelector('.pf-page-hero-label');if(heroLabel){heroLabel.textContent='Integrations';}else{var heroTitle=document.querySelector('.pf-page-hero-title');if(heroTitle){var parent=heroTitle.parentElement;if(!parent.querySelector('.pf-hero-label-injected')){var label=document.createElement('p');label.className='pf-hero-label-injected fade-up';label.style.cssText='display:inline-flex;align-items:center;padding:8px 20px;border-radius:100px;background:rgba(251,192,45,0.08);border:1px solid rgba(249,168,37,0.35);font-size:13px;font-weight:600;color:#2F2F2F;letter-spacing:0.04em;margin-bottom:48px;box-shadow:0 2px 8px rgba(120,110,95,0.06)';label.textContent='Integrations';parent.insertBefore(label,heroTitle);}}}
     var heroHeading=document.querySelector('.pf-page-hero-title');if(heroHeading){heroHeading.innerHTML='Your AMS. Your data. Connected in minutes.';}
     var heroSub=document.querySelector('.pf-page-hero-sub');if(heroSub){heroSub.textContent='PropFuel connects to 60+ association management systems with two-way sync \u2014 pull member data in, push engagement data back. Setup takes 5-30 minutes. No IT department required.';}
@@ -4317,7 +4317,7 @@
   }
 
   function fixHelp() {
-    if (window.location.pathname.indexOf('/resources/help') === -1) return;
+    if (window.location.pathname.indexOf('/resources/help-center') === -1) return;
     var main = document.querySelector('[role="main"]') || document.querySelector('main') || document.body;
 
     var topics = [
@@ -4460,7 +4460,7 @@
   }
 
   function fixApi() {
-    if (window.location.pathname.indexOf('/resources/api') === -1) return;
+    if (window.location.pathname.indexOf('/resources/api-docs') === -1) return;
     var main = document.querySelector('[role="main"]') || document.querySelector('main') || document.body;
 
     var capabilities = [
