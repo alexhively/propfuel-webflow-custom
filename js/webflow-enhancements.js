@@ -1009,6 +1009,10 @@
           '</a></div>';
 
         ucGrid.outerHTML = gridHTML;
+
+        // Hide original Webflow "View All Case Studies" button (parent .pf-cta-buttons)
+        var origCTAbtns = ucSection.querySelector('.pf-cta-buttons');
+        if (origCTAbtns) origCTAbtns.style.display = 'none';
       }
     }
   }
