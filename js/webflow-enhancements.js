@@ -203,6 +203,10 @@
       '.uc-label{font-size:16px;font-weight:500;color:#8C8479;margin-top:8px;line-height:1.4}' +
       '.uc-org{font-size:13px;font-weight:600;color:#8C8479;margin-top:16px;opacity:.7}' +
 
+      /* CTA heading line break fix */
+      '.pf-cta-heading{display:block!important}' +
+      '.pf-cta-heading br{display:block;content:"";margin:0}' +
+
       /* Mobile: single column */
       '@media(max-width:900px){.uc-grid{grid-template-columns:1fr}.uc-featured,.uc-wide{grid-column:span 1}}' +
 
@@ -5117,6 +5121,24 @@
         if (el !== injectedLabel) el.style.display = 'none';
       });
     }
+    // Fix CTA heading word-spacing: ensure <br> renders as a line break, not collapsed
+    document.querySelectorAll('.pf-cta-heading').forEach(function(el) {
+      el.style.display = 'block';
+      el.style.wordSpacing = 'normal';
+      // Ensure text nodes around <br> have proper spacing
+      var html = el.innerHTML;
+      if (html.indexOf('<br>') !== -1) {
+        // Add a newline character around <br> to prevent word merging
+        el.innerHTML = html.replace(/<br>/g, ' <br>');
+      }
+    });
+    // Also fix any hero titles that use <br>
+    document.querySelectorAll('.pf-page-hero-title').forEach(function(el) {
+      var html = el.innerHTML;
+      if (html.indexOf('<br>') !== -1 && html.indexOf(' <br>') === -1) {
+        el.innerHTML = html.replace(/<br>/g, ' <br>');
+      }
+    });
     initScrollAnimations();
     initFaqAccordion();
     initNavScroll();
