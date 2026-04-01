@@ -1188,7 +1188,8 @@
     // ═══════════════════════════════════════
     var firstSection = document.querySelector('.pf-section, .pf-feature-grid');
     if (firstSection && !document.querySelector('.po-philosophy')) {
-      var philHTML = '<section class="po-philosophy" style="padding:96px 48px;max-width:1100px;margin:0 auto">' +
+      var philHTML = '<section class="po-philosophy" style="padding:96px 48px;background:#EBE6DA">' +
+        '<div style="max-width:1100px;margin:0 auto">' +
         '<div style="text-align:center;margin-bottom:64px">' +
           '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">The PropFuel Difference</p>' +
           '<h2 style="font-size:clamp(32px,5vw,48px);font-weight:800;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.1;margin-bottom:20px">Stop Broadcasting.<br>Start Conversing.</h2>' +
@@ -1214,7 +1215,7 @@
             '</div>' +
           '</div>' +
         '</div>' +
-      '</section>';
+      '</div></section>';
       firstSection.insertAdjacentHTML('beforebegin', philHTML);
     }
 
@@ -1442,6 +1443,16 @@
     featureTitles.forEach(function(t) { if (t.textContent.trim() === 'Membership AI') aiTitle = t; });
     if (aiTitle) {
       var aiSection = aiTitle.closest('[class*="feature"]') || aiTitle.parentElement;
+      // Apply dark background to Membership AI section (matches Vercel)
+      var aiWrapper = aiTitle.closest('.pf-section') || aiSection;
+      if (aiWrapper) {
+        aiWrapper.style.cssText += ';background:#1A1713!important;padding:96px 48px;margin:0 -48px;width:calc(100% + 96px)';
+        aiWrapper.querySelectorAll('.pf-feature-title, h2').forEach(function(el) { el.style.color = '#EDE8DF'; });
+        aiWrapper.querySelectorAll('.pf-feature-desc, p').forEach(function(el) { if (!el.closest('.mu-card')) el.style.color = '#8C8479'; });
+        aiWrapper.querySelectorAll('.pf-feature-list-item').forEach(function(el) { el.style.color = '#EDE8DF'; });
+        aiWrapper.querySelectorAll('.eng-num-label').forEach(function(el) { el.style.color = '#4A7FA5'; });
+        aiWrapper.querySelectorAll('.eng-tagline').forEach(function(el) { el.style.color = '#4A7FA5'; });
+      }
       var aiCta = aiSection ? aiSection.querySelector('.pf-btn-primary') : null;
       if (aiCta && aiCta.textContent.trim() === 'Learn More') {
         aiCta.href = '/membership-ai';
