@@ -7,6 +7,10 @@
 (function () {
   'use strict';
 
+  // Prevent double-execution if script is loaded more than once
+  if (window.__pfEnhancementsLoaded) return;
+  window.__pfEnhancementsLoaded = true;
+
   var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // ─────────────────────────────────────────
