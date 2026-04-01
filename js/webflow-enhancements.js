@@ -3446,6 +3446,27 @@
       var fq = document.querySelector('.mai-faq');
       if (fq) { fq.insertAdjacentHTML('afterend', relatedHTML); } else { ctaSection.insertAdjacentHTML('beforebegin', relatedHTML); }
     }
+
+    // Fix CTA heading to match Vercel
+    var ctaHeading = document.querySelector('.pf-cta-heading');
+    if (ctaHeading) {
+      ctaHeading.innerHTML = 'Meet your AI <br><span style="background:linear-gradient(to top,#1F3A51,#4A7FA5 45%,#35607E);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">membership team.</span>';
+    }
+    var ctaSub = document.querySelector('.pf-cta-sub');
+    if (ctaSub) {
+      ctaSub.textContent = 'Membership AI knows your members. It tells you what matters. It builds what you need. And it does it without asking you to add headcount, learn analytics, or spend weeks building campaigns.';
+    }
+
+    // Hide original Webflow feature sections (Insight Agent, Initiative & Recommendation Agents)
+    document.querySelectorAll('.pf-section').forEach(function(s) {
+      var title = s.querySelector('.pf-feature-title, h2');
+      if (title) {
+        var txt = title.textContent.trim();
+        if (txt.indexOf('Insight Agent') !== -1 || txt.indexOf('Initiative') !== -1 || txt.indexOf('Recommendation') !== -1) {
+          s.style.display = 'none';
+        }
+      }
+    });
   }
 
   // ─────────────────────────────────────────
