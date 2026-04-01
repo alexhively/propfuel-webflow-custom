@@ -32,7 +32,7 @@
         'background-image:var(--dark-texture)!important;background-size:512px 512px!important}' +
 
       /* FAQ / warm section textures */
-      '.pf-faq-section,.pf-transition-section-dark{' +
+      '.pf-faq-section,.pf-transition-section-dark,.po-philosophy,.po-integrations{' +
         'background-image:var(--faq-texture)!important;background-size:512px 512px!important}' +
 
       /* Primary button text always white (not hover) */
