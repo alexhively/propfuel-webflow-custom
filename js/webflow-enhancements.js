@@ -2130,6 +2130,987 @@
   }
 
   // ─────────────────────────────────────────
+  // SMS PAGE FIX
+  // ─────────────────────────────────────────
+  function fixSmsPage() {
+    if (window.location.pathname.indexOf('platform/sms') === -1) return;
+
+    // ═══════════════════════════════════════
+    // SECTION 1: FIX HERO
+    // ═══════════════════════════════════════
+
+    // Fix hero label
+    var heroLabel = document.querySelector('.pf-page-hero-label');
+    if (heroLabel) {
+      heroLabel.textContent = 'Engagement Channel';
+    } else {
+      var heroTitle = document.querySelector('.pf-page-hero-title');
+      if (heroTitle) {
+        var parent = heroTitle.parentElement;
+        if (!parent.querySelector('.pf-hero-label-injected')) {
+          var label = document.createElement('p');
+          label.className = 'pf-hero-label-injected fade-up';
+          label.style.cssText = 'display:inline-flex;align-items:center;padding:8px 20px;border-radius:100px;' +
+            'background:rgba(251,192,45,0.08);border:1px solid rgba(249,168,37,0.35);font-size:13px;' +
+            'font-weight:600;color:#2F2F2F;letter-spacing:0.04em;margin-bottom:48px;' +
+            'box-shadow:0 2px 8px rgba(120,110,95,0.06)';
+          label.textContent = 'Engagement Channel';
+          parent.insertBefore(label, heroTitle);
+        }
+      }
+    }
+
+    // Fix hero heading
+    var heroHeading = document.querySelector('.pf-page-hero-title');
+    if (heroHeading) {
+      heroHeading.textContent = 'Meet members where they already are.';
+    }
+
+    // Fix hero subtitle
+    var heroSub = document.querySelector('.pf-page-hero-sub');
+    if (heroSub) {
+      heroSub.textContent = 'PropFuel SMS brings the same single-question engagement model to text messaging \u2014 perfect for event-day communication, time-sensitive check-ins, and reaching members who don\u2019t open email.';
+    }
+
+    // Inject hero buttons if not present
+    if (heroHeading) {
+      var heroParent = heroHeading.parentElement;
+      if (!heroParent.querySelector('.pf-hero-btns-injected')) {
+        var btnWrap = document.createElement('div');
+        btnWrap.className = 'pf-hero-btns-injected fade-up';
+        btnWrap.style.cssText = 'display:flex;align-items:center;justify-content:center;gap:20px;margin-top:40px';
+        btnWrap.innerHTML =
+          '<a href="/demo" class="pf-btn-primary" style="display:inline-flex;align-items:center;gap:8px;padding:16px 36px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:linear-gradient(to right,#F47C2C,#FBC02D);color:#fff;border:none;box-shadow:0 4px 16px rgba(240,90,40,0.2);transition:box-shadow .3s ease">' +
+            'See It in Action <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>' +
+          '<a href="/demo" style="display:inline-flex;align-items:center;gap:8px;padding:15px 35px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:transparent;color:#F47C2C;border:1.5px solid rgba(244,124,44,0.35);transition:border-color .25s ease,box-shadow .25s ease">' +
+            'Get Started</a>';
+        var sub = heroParent.querySelector('.pf-page-hero-sub');
+        if (sub) {
+          sub.parentNode.insertBefore(btnWrap, sub.nextSibling);
+        } else {
+          heroParent.appendChild(btnWrap);
+        }
+      }
+    }
+
+    // ═══════════════════════════════════════
+    // SECTION 2: HERO PHONE MOCKUP
+    // ═══════════════════════════════════════
+    var heroVisual = document.querySelector('.pf-feature-visual');
+    if (!heroVisual) {
+      var btns = document.querySelector('.pf-hero-btns-injected');
+      var heroArea = btns ? btns.parentElement : (heroHeading ? heroHeading.parentElement : null);
+      if (heroArea && !heroArea.querySelector('.sms-hero-mockup')) {
+        heroVisual = document.createElement('div');
+        heroVisual.className = 'sms-hero-mockup';
+        heroVisual.style.cssText = 'margin:48px auto 0;max-width:960px;padding:0 24px';
+        heroArea.appendChild(heroVisual);
+      }
+    }
+    if (heroVisual && !heroVisual.querySelector('.sms-phone-mockup')) {
+      var phoneMockup = document.createElement('div');
+      phoneMockup.className = 'sms-phone-mockup';
+      phoneMockup.innerHTML =
+        '<div style="max-width:300px;margin:0 auto;font-family:\'DM Sans\',sans-serif;">' +
+          '<div style="background:#2F2F2F;border-radius:32px;padding:12px;box-shadow:0 12px 40px rgba(0,0,0,.18);">' +
+            '<div style="width:100px;height:6px;background:#1a1a1a;border-radius:4px;margin:0 auto 8px;"></div>' +
+            '<div style="background:#fff;border-radius:22px;overflow:hidden;">' +
+              '<div style="background:#F4F1EA;padding:8px 16px;display:flex;justify-content:space-between;align-items:center;">' +
+                '<span style="font-size:11px;font-weight:600;color:#2F2F2F;">9:41</span>' +
+                '<div style="display:flex;gap:4px;">' +
+                  '<svg width="14" height="14" viewBox="0 0 24 24" fill="#2F2F2F"><rect x="1" y="14" width="4" height="8" rx="1"/><rect x="7" y="10" width="4" height="12" rx="1"/><rect x="13" y="6" width="4" height="16" rx="1"/><rect x="19" y="2" width="4" height="20" rx="1"/></svg>' +
+                '</div>' +
+              '</div>' +
+              '<div style="padding:10px 16px;border-bottom:1px solid #EBE6DA;display:flex;align-items:center;gap:10px;">' +
+                '<div style="width:32px;height:32px;border-radius:50%;background:#FBC02D;display:flex;align-items:center;justify-content:center;">' +
+                  '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2F2F2F" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>' +
+                '</div>' +
+                '<div>' +
+                  '<div style="font-size:13px;font-weight:700;color:#2F2F2F;">Your Association</div>' +
+                  '<div style="font-size:10px;color:#999;">SMS Check-in</div>' +
+                '</div>' +
+              '</div>' +
+              '<div style="padding:16px;min-height:200px;background:#fafafa;">' +
+                '<div style="background:#EBE6DA;border-radius:16px 16px 16px 4px;padding:12px 14px;max-width:85%;margin-bottom:14px;">' +
+                  '<p style="margin:0;font-size:13px;color:#2F2F2F;line-height:1.4;">Hi Sarah! Quick question from your association: <strong>What\u2019s your biggest challenge right now?</strong></p>' +
+                '</div>' +
+                '<div style="display:flex;flex-direction:column;gap:8px;margin-left:auto;max-width:85%;">' +
+                  '<div style="background:#FBC02D;color:#2F2F2F;padding:12px 16px;border-radius:16px 16px 4px 16px;font-size:12px;font-weight:600;text-align:center;box-shadow:0 2px 8px rgba(251,192,45,.3);">1. Finding time for CE credits</div>' +
+                  '<div style="background:#F47C2C;color:#fff;padding:12px 16px;border-radius:16px 16px 4px 16px;font-size:12px;font-weight:600;text-align:center;">2. Connecting with peers</div>' +
+                  '<div style="background:#2F2F2F;color:#fff;padding:12px 16px;border-radius:16px 16px 4px 16px;font-size:12px;font-weight:600;text-align:center;">3. Staying current on regulations</div>' +
+                '</div>' +
+                '<p style="text-align:center;font-size:10px;color:#bbb;margin-top:14px;">Reply with 1, 2, or 3</p>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
+      heroVisual.innerHTML = '';
+      heroVisual.appendChild(phoneMockup);
+      heroVisual.style.background = '#EBE6DA';
+      heroVisual.style.borderRadius = '20px';
+      heroVisual.style.padding = '28px';
+    }
+
+    // ═══════════════════════════════════════
+    // SECTION 3: INJECT ALL MISSING SECTIONS
+    // Find CTA as anchor; inject before it
+    // ═══════════════════════════════════════
+    var ctaSection = document.querySelector('.pf-cta-section, [class*="cta-section"]');
+    if (!ctaSection) return;
+
+    // --- PROBLEM BAND (dark) ---
+    if (!document.querySelector('.sms-problem-band')) {
+      var problemHTML = '<section class="sms-problem-band" style="background:#1A1713;padding:96px 48px;position:relative;overflow:hidden">' +
+        '<div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center">' +
+          '<div>' +
+            '<p style="font-size:13px;font-weight:600;color:#F9A825;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:16px">The Problem</p>' +
+            '<h2 style="font-size:36px;font-weight:700;color:#EDE8DF;line-height:1.15;letter-spacing:-0.01em;margin-bottom:24px">Some members will never open that email.</h2>' +
+            '<p style="font-size:17px;font-weight:400;color:#8C8479;line-height:1.7;margin-bottom:24px">You\u2019ve written the perfect check-in. The subject line is sharp. The question is relevant. And for <strong style="color:#EDE8DF;font-weight:600">30% of your members, it doesn\u2019t matter</strong> \u2014 because they stopped opening association emails a long time ago.</p>' +
+            '<p style="font-size:17px;font-weight:400;color:#8C8479;line-height:1.7;margin-bottom:24px">Maybe they\u2019re overwhelmed. Maybe your messages land in a promotions tab they never check. Maybe they\u2019re at a conference with 200 unread messages in their inbox.</p>' +
+            '<p style="font-size:17px;font-weight:400;color:#8C8479;line-height:1.7">And on event day? <strong style="color:#EDE8DF;font-weight:600">Email is practically useless.</strong> By the time someone checks their inbox, the session already started and the feedback window already closed.</p>' +
+          '</div>' +
+          '<div style="display:flex;gap:20px;font-family:\'DM Sans\',sans-serif;align-items:stretch;flex-wrap:wrap;justify-content:center;">' +
+            '<div style="flex:1;min-width:160px;background:rgba(255,255,255,.08);border-radius:16px;padding:24px;border:1px solid rgba(255,255,255,.1);text-align:center;">' +
+              '<svg width="48" height="48" viewBox="0 0 48 48" fill="none" style="margin-bottom:12px;">' +
+                '<rect x="4" y="10" width="40" height="28" rx="4" stroke="rgba(255,255,255,.3)" stroke-width="2" fill="none"/>' +
+                '<polyline points="4,12 24,28 44,12" stroke="rgba(255,255,255,.3)" stroke-width="2" fill="none"/>' +
+                '<rect x="8" y="6" width="32" height="4" rx="1" fill="rgba(255,255,255,.1)"/>' +
+                '<rect x="10" y="2" width="28" height="4" rx="1" fill="rgba(255,255,255,.06)"/>' +
+                '<circle cx="40" cy="10" r="8" fill="#F47C2C"/>' +
+                '<text x="40" y="14" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="DM Sans">47</text>' +
+              '</svg>' +
+              '<div style="color:#F47C2C;font-weight:700;font-size:14px;">Email Inbox</div>' +
+              '<div style="color:rgba(255,255,255,.4);font-size:11px;margin-top:6px;">Avg. open time: 6+ hours</div>' +
+              '<div style="background:rgba(244,124,44,.15);border-radius:8px;padding:8px;margin-top:12px;">' +
+                '<div style="font-size:20px;font-weight:700;color:#F47C2C;">22%</div>' +
+                '<div style="font-size:10px;color:rgba(255,255,255,.4);">open rate</div>' +
+              '</div>' +
+            '</div>' +
+            '<div style="display:flex;align-items:center;color:rgba(255,255,255,.25);font-size:22px;font-weight:700;">vs</div>' +
+            '<div style="flex:1;min-width:160px;background:rgba(251,192,45,.08);border-radius:16px;padding:24px;border:2px solid rgba(251,192,45,.3);text-align:center;">' +
+              '<svg width="48" height="48" viewBox="0 0 48 48" fill="none" style="margin-bottom:12px;">' +
+                '<rect x="12" y="2" width="24" height="44" rx="4" stroke="#FBC02D" stroke-width="2" fill="none"/>' +
+                '<rect x="14" y="6" width="20" height="32" fill="rgba(251,192,45,.1)"/>' +
+                '<circle cx="24" cy="42" r="2" fill="#FBC02D"/>' +
+                '<rect x="16" y="10" width="16" height="8" rx="3" fill="#FBC02D"/>' +
+                '<text x="24" y="16" text-anchor="middle" fill="#2F2F2F" font-size="6" font-weight="bold" font-family="DM Sans">New!</text>' +
+              '</svg>' +
+              '<div style="color:#FBC02D;font-weight:700;font-size:14px;">SMS</div>' +
+              '<div style="color:rgba(255,255,255,.4);font-size:11px;margin-top:6px;">Avg. read time: 3 minutes</div>' +
+              '<div style="background:rgba(251,192,45,.15);border-radius:8px;padding:8px;margin-top:12px;">' +
+                '<div style="font-size:20px;font-weight:700;color:#FBC02D;">98%</div>' +
+                '<div style="font-size:10px;color:rgba(255,255,255,.4);">open rate</div>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</section>';
+      ctaSection.insertAdjacentHTML('beforebegin', problemHTML);
+    }
+
+    // --- CORE CONCEPT SECTION ---
+    if (!document.querySelector('.sms-core-concept')) {
+      var coreHTML = '<section class="sms-core-concept" style="padding:96px 48px;max-width:1200px;margin:0 auto">' +
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center">' +
+          '<div>' +
+            '<p style="font-size:13px;font-weight:600;color:#F47C2C;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:16px">Same Model, Different Channel</p>' +
+            '<h2 style="font-size:36px;font-weight:700;color:#2F2F2F;line-height:1.15;letter-spacing:-0.01em;margin-bottom:24px">One question. One text. One signal captured.</h2>' +
+            '<p style="font-size:17px;color:#6E6E6E;line-height:1.7;margin-bottom:24px">PropFuel SMS isn\u2019t a blast messaging tool. It\u2019s the same single-question engagement model that drives 10-15% response rates via email \u2014 adapted for text.</p>' +
+            '<p style="font-size:17px;color:#6E6E6E;line-height:1.7;margin-bottom:24px">A member gets a text with one question. They tap a response. That response <strong style="color:#2F2F2F;font-weight:600">updates their profile, triggers the next step in their journey,</strong> and gives your team a data point you never had before.</p>' +
+            '<p style="font-size:17px;color:#6E6E6E;line-height:1.7;margin-bottom:24px">The difference is speed and reach. Text messages get read within minutes, not hours. They reach members who are email-dark. And they work in moments where email simply can\u2019t.</p>' +
+            '<p style="font-size:17px;color:#6E6E6E;line-height:1.7"><strong style="color:#2F2F2F;font-weight:600">SMS doesn\u2019t replace email. It completes the picture.</strong></p>' +
+          '</div>' +
+          '<div style="max-width:280px;margin:0 auto;">' +
+            '<div style="max-width:240px;margin:0 auto;font-family:\'DM Sans\',sans-serif;">' +
+              '<div style="background:#2F2F2F;border-radius:28px;padding:10px;box-shadow:0 8px 30px rgba(0,0,0,.15);">' +
+                '<div style="width:70px;height:5px;background:#1a1a1a;border-radius:3px;margin:0 auto 6px;"></div>' +
+                '<div style="background:#fff;border-radius:20px;overflow:hidden;">' +
+                  '<div style="padding:10px 14px;border-bottom:1px solid #EBE6DA;display:flex;align-items:center;gap:8px;">' +
+                    '<div style="width:26px;height:26px;border-radius:50%;background:#FBC02D;display:flex;align-items:center;justify-content:center;">' +
+                      '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#2F2F2F" stroke-width="2.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>' +
+                    '</div>' +
+                    '<span style="font-size:12px;font-weight:700;color:#2F2F2F;">PropFuel</span>' +
+                  '</div>' +
+                  '<div style="padding:14px 12px;background:#fafafa;">' +
+                    '<div style="background:#EBE6DA;border-radius:14px 14px 14px 4px;padding:10px 12px;margin-bottom:12px;">' +
+                      '<p style="margin:0;font-size:11px;color:#2F2F2F;line-height:1.4;">How was your session with Dr. Williams today?</p>' +
+                    '</div>' +
+                    '<div style="display:flex;flex-direction:column;gap:6px;">' +
+                      '<div style="background:#FBC02D;padding:10px;border-radius:12px 12px 4px 12px;text-align:center;font-size:11px;font-weight:600;color:#2F2F2F;">Loved it</div>' +
+                      '<div style="background:#F47C2C;padding:10px;border-radius:12px 12px 4px 12px;text-align:center;font-size:11px;font-weight:600;color:#fff;">It was okay</div>' +
+                      '<div style="background:#EBE6DA;padding:10px;border-radius:12px 12px 4px 12px;text-align:center;font-size:11px;font-weight:600;color:#2F2F2F;border:1px solid #d6d0c4;">Not for me</div>' +
+                    '</div>' +
+                  '</div>' +
+                '</div>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</section>';
+      var problemBand = document.querySelector('.sms-problem-band');
+      if (problemBand) {
+        problemBand.insertAdjacentHTML('afterend', coreHTML);
+      } else {
+        ctaSection.insertAdjacentHTML('beforebegin', coreHTML);
+      }
+    }
+
+    // --- EVENT-DAY TIMELINE ---
+    if (!document.querySelector('.sms-timeline')) {
+      var timelineData = [
+        { time: 'Pre-Event', title: 'Collect Opt-Ins', desc: 'During registration, offer SMS updates for day-of logistics. Ask which sessions they\u2019re most excited about. No separate sign-up form.' },
+        { time: 'Morning', title: 'Session Reminders', desc: 'Send reminders 15 minutes before sessions start. Members know exactly where to go and when \u2014 right on their phone.' },
+        { time: 'Midday', title: 'Networking Nudges', desc: 'Push attendees toward networking opportunities, sponsor booths, and hallway conversations they\u2019d otherwise miss.' },
+        { time: 'Afternoon', title: '1:1 Texting', desc: 'Staff can text individual attendees directly through PropFuel. No personal phone numbers needed. Real-time help when it matters.' },
+        { time: 'Post-Event', title: 'NPS & Feedback', desc: 'Quick NPS check while the experience is fresh. Promoters get a testimonial request. Detractors trigger a staff alert.' }
+      ];
+      var timelineHTML = '<section class="sms-timeline" style="padding:96px 48px;max-width:1200px;margin:0 auto">' +
+        '<p style="font-size:13px;font-weight:600;color:#F47C2C;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:16px">Event Day</p>' +
+        '<h2 style="font-size:36px;font-weight:700;color:#2F2F2F;line-height:1.15;letter-spacing:-0.01em;margin-bottom:56px;max-width:600px">What a connected conference day looks like.</h2>' +
+        '<div style="position:relative;overflow-x:auto;padding-bottom:24px;">' +
+          '<div style="position:relative;display:flex;gap:0;min-width:900px;">' +
+            '<div style="position:absolute;top:24px;left:0;right:0;height:4px;background:linear-gradient(to right,#FBC02D,#F9A825,#F47C2C,#F05A28,#F47C2C);border-radius:2px;z-index:0;"></div>';
+      timelineData.forEach(function(item) {
+        timelineHTML += '<div style="flex:1;text-align:center;position:relative;z-index:1;padding:0 8px;">' +
+          '<div style="font-size:12px;font-weight:700;color:#F47C2C;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:8px;">' + item.time + '</div>' +
+          '<div style="width:16px;height:16px;border-radius:50%;background:#F6F2E8;border:3px solid #F47C2C;margin:16px auto 0;position:relative;z-index:2;"></div>' +
+          '<div style="background:#F6F2E8;border-radius:20px;padding:24px 20px;margin-top:20px;box-shadow:0 8px 40px rgba(120,110,95,0.10);position:relative;overflow:hidden;">' +
+            '<h3 style="font-size:16px;font-weight:600;color:#2F2F2F;margin-bottom:8px;line-height:1.3;">' + item.title + '</h3>' +
+            '<p style="font-size:13px;color:#6E6E6E;line-height:1.6;">' + item.desc + '</p>' +
+          '</div>' +
+        '</div>';
+      });
+      timelineHTML += '</div></div></section>';
+      var coreConcept = document.querySelector('.sms-core-concept');
+      if (coreConcept) {
+        coreConcept.insertAdjacentHTML('afterend', timelineHTML);
+      } else {
+        ctaSection.insertAdjacentHTML('beforebegin', timelineHTML);
+      }
+    }
+
+    // --- 3-CHANNEL SYSTEM ---
+    if (!document.querySelector('.sms-channel-system')) {
+      var channelHTML = '<section class="sms-channel-system" style="background:#EAE4D8;padding:96px 48px;position:relative;overflow:hidden">' +
+        '<div style="max-width:1000px;margin:0 auto;text-align:center;">' +
+          '<p style="font-size:13px;font-weight:600;color:#F47C2C;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:16px">The System</p>' +
+          '<h2 style="font-size:36px;font-weight:700;color:#2F2F2F;line-height:1.15;letter-spacing:-0.01em;margin-bottom:56px">Three channels. One member profile. One insight.</h2>' +
+          '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:40px;">' +
+            '<div style="background:#F6F2E8;border-radius:20px;padding:36px 24px;text-align:center;position:relative;overflow:hidden;box-shadow:0 8px 40px rgba(120,110,95,0.10);">' +
+              '<div style="width:56px;height:56px;border-radius:16px;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:24px;color:#F47C2C;background:rgba(251,192,45,0.12);">' +
+                '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>' +
+              '</div>' +
+              '<h4 style="font-size:18px;font-weight:600;color:#2F2F2F;margin-bottom:8px;">Email</h4>' +
+              '<p style="font-size:14px;color:#6E6E6E;line-height:1.6;">Primary channel for lifecycle check-ins, onboarding journeys, and renewal campaigns. 10-15% response rates.</p>' +
+            '</div>' +
+            '<div style="background:#F6F2E8;border-radius:20px;padding:36px 24px;text-align:center;position:relative;overflow:hidden;box-shadow:0 8px 40px rgba(120,110,95,0.10);">' +
+              '<div style="width:56px;height:56px;border-radius:16px;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:24px;color:#F47C2C;background:rgba(249,168,37,0.12);">' +
+                '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>' +
+              '</div>' +
+              '<h4 style="font-size:18px;font-weight:600;color:#2F2F2F;margin-bottom:8px;">Website</h4>' +
+              '<p style="font-size:14px;color:#6E6E6E;line-height:1.6;">Captures intent from anonymous visitors and known members browsing your site. 7-27% engagement rates.</p>' +
+            '</div>' +
+            '<div style="background:#F6F2E8;border-radius:20px;padding:36px 24px;text-align:center;position:relative;overflow:hidden;box-shadow:0 8px 40px rgba(120,110,95,0.10);">' +
+              '<div style="width:56px;height:56px;border-radius:16px;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:24px;color:#F47C2C;background:rgba(244,124,44,0.12);">' +
+                '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>' +
+              '</div>' +
+              '<h4 style="font-size:18px;font-weight:600;color:#2F2F2F;margin-bottom:8px;">SMS</h4>' +
+              '<p style="font-size:14px;color:#6E6E6E;line-height:1.6;">Reaches email-dark members and powers event-day engagement. Instant read, instant response.</p>' +
+            '</div>' +
+          '</div>' +
+          '<div style="display:flex;justify-content:center;gap:8px;margin-bottom:24px;color:#F47C2C;">' +
+            '<svg width="200" height="40" viewBox="0 0 200 40" fill="none">' +
+              '<path d="M20 5 L100 35 L180 5" stroke="currentColor" stroke-width="2" stroke-dasharray="6 4" fill="none"/>' +
+              '<polygon points="100,40 95,30 105,30" fill="currentColor"/>' +
+            '</svg>' +
+          '</div>' +
+          '<div style="background:#F6F2E8;border-radius:16px;padding:24px 40px;box-shadow:0 8px 40px rgba(120,110,95,0.10);border-top:4px solid #F9A825;">' +
+            '<p style="font-size:16px;font-weight:600;color:#2F2F2F;line-height:1.5;">All channels <span style="color:#F47C2C;">\u2192</span> One member profile <span style="color:#F47C2C;">\u2192</span> One insight <span style="color:#F47C2C;">\u2192</span> One next step</p>' +
+          '</div>' +
+        '</div>' +
+      '</section>';
+      var timeline = document.querySelector('.sms-timeline');
+      if (timeline) {
+        timeline.insertAdjacentHTML('afterend', channelHTML);
+      } else {
+        ctaSection.insertAdjacentHTML('beforebegin', channelHTML);
+      }
+    }
+
+    // --- CAPABILITIES GRID ---
+    if (!document.querySelector('.sms-capabilities')) {
+      var capItems = [
+        { title: 'Text-Based Check-Ins', desc: 'The same conversational model that gets 10-15% response rates, now in their pocket. One question, one tap.' },
+        { title: 'Opt-In Management', desc: 'Built-in compliance with messaging regulations. No legal headaches. Opt-in happens inside campaigns members are already engaging with.' },
+        { title: 'Phone Number Validation', desc: 'Catches bad numbers, landlines, and formatting errors before you waste credits or damage delivery rates.' },
+        { title: 'Conditional Logic', desc: 'If/then rules work the same as email. Different responses trigger different next steps, tags, and staff alerts.' },
+        { title: 'Cross-Channel Tracking', desc: 'SMS, email, and website activity all flow into one member profile. Your team sees the complete picture.' },
+        { title: '1:1 SMS Conversations', desc: 'Staff can text individual members directly through PropFuel. No personal phone numbers needed. Especially useful at events.' }
+      ];
+      var capHTML = '<section class="sms-capabilities" style="padding:96px 48px;max-width:1200px;margin:0 auto">' +
+        '<p style="font-size:13px;font-weight:600;color:#F47C2C;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:16px">Capabilities</p>' +
+        '<h2 style="font-size:36px;font-weight:700;color:#2F2F2F;line-height:1.15;letter-spacing:-0.01em;margin-bottom:56px;max-width:500px">SMS that listens, not just sends.</h2>' +
+        '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;">';
+      capItems.forEach(function(item) {
+        capHTML += '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 28px;position:relative;overflow:hidden;box-shadow:0 8px 40px rgba(120,110,95,0.10);">' +
+          '<div style="width:40px;height:3px;border-radius:2px;background:#F9A825;margin-bottom:24px;"></div>' +
+          '<h3 style="font-size:18px;font-weight:600;color:#2F2F2F;margin-bottom:10px;line-height:1.3;">' + item.title + '</h3>' +
+          '<p style="font-size:15px;color:#6E6E6E;line-height:1.6;">' + item.desc + '</p>' +
+        '</div>';
+      });
+      capHTML += '</div></section>';
+      var channelSystem = document.querySelector('.sms-channel-system');
+      if (channelSystem) {
+        channelSystem.insertAdjacentHTML('afterend', capHTML);
+      } else {
+        ctaSection.insertAdjacentHTML('beforebegin', capHTML);
+      }
+    }
+
+    // --- STATS BAND ---
+    if (!document.querySelector('.sms-stats-band')) {
+      var statsHTML = '<section class="sms-stats-band" style="background:#1A1713;padding:96px 48px;position:relative;overflow:hidden">' +
+        '<div style="max-width:1100px;margin:0 auto;text-align:center;">' +
+          '<p style="font-size:13px;font-weight:600;color:#F9A825;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:16px">Results</p>' +
+          '<h2 style="font-size:36px;font-weight:700;color:#EDE8DF;line-height:1.15;letter-spacing:-0.01em;margin-bottom:64px">When you meet members where they are, they respond.</h2>' +
+          '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:32px;">' +
+            '<div style="text-align:center;">' +
+              '<p style="font-size:56px;font-weight:800;line-height:1;letter-spacing:-0.03em;margin-bottom:12px;background:linear-gradient(to top,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">$315K</p>' +
+              '<p style="font-size:13px;font-weight:600;color:#EDE8DF;letter-spacing:0.02em;margin-bottom:8px;">VECCS</p>' +
+              '<p style="font-size:14px;font-weight:400;color:#8C8479;line-height:1.55;max-width:220px;margin:0 auto;">Revenue from event engagement campaign \u2014 SMS played a key role in day-of engagement.</p>' +
+            '</div>' +
+            '<div style="text-align:center;">' +
+              '<p style="font-size:56px;font-weight:800;line-height:1;letter-spacing:-0.03em;margin-bottom:12px;background:linear-gradient(to top,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">830%</p>' +
+              '<p style="font-size:13px;font-weight:600;color:#EDE8DF;letter-spacing:0.02em;margin-bottom:8px;">G2 Review</p>' +
+              '<p style="font-size:14px;font-weight:400;color:#8C8479;line-height:1.55;max-width:220px;margin:0 auto;">Increase in webinar registrations using multi-channel engagement.</p>' +
+            '</div>' +
+            '<div style="text-align:center;">' +
+              '<p style="font-size:56px;font-weight:800;line-height:1;letter-spacing:-0.03em;margin-bottom:12px;background:linear-gradient(to top,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">72%</p>' +
+              '<p style="font-size:13px;font-weight:600;color:#EDE8DF;letter-spacing:0.02em;margin-bottom:8px;">All Clients</p>' +
+              '<p style="font-size:14px;font-weight:400;color:#8C8479;line-height:1.55;max-width:220px;margin:0 auto;">Of declining organizations reversed course with PropFuel\u2019s multi-channel approach.</p>' +
+            '</div>' +
+            '<div style="text-align:center;">' +
+              '<p style="font-size:56px;font-weight:800;line-height:1;letter-spacing:-0.03em;margin-bottom:12px;background:linear-gradient(to top,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">10-15%</p>' +
+              '<p style="font-size:13px;font-weight:600;color:#EDE8DF;letter-spacing:0.02em;margin-bottom:8px;">Response Rates</p>' +
+              '<p style="font-size:14px;font-weight:400;color:#8C8479;line-height:1.55;max-width:220px;margin:0 auto;">Across PropFuel\u2019s engagement channels \u2014 5-6x the industry average.</p>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</section>';
+      var capabilities = document.querySelector('.sms-capabilities');
+      if (capabilities) {
+        capabilities.insertAdjacentHTML('afterend', statsHTML);
+      } else {
+        ctaSection.insertAdjacentHTML('beforebegin', statsHTML);
+      }
+    }
+
+    // --- FAQ SECTION ---
+    if (!document.querySelector('.sms-faq')) {
+      var faqItems = [
+        { q: 'How do members opt in to SMS?', a: 'Opt-in happens inside your existing PropFuel campaigns. During onboarding, event registration, or any check-in, you can include a question asking if the member would like to receive text messages. PropFuel manages the opt-in record and ensures compliance with messaging regulations.' },
+        { q: 'Does SMS work with PropFuel\u2019s conditional logic?', a: 'Yes. SMS campaigns use the exact same if/then logic as email campaigns. A member who responds \u201Cnot sure\u201D gets a different follow-up than a member who responds \u201Cyes.\u201D Branching, tagging, staff alerts, and AMS write-backs all work the same way.' },
+        { q: 'Can staff have 1:1 text conversations with members?', a: 'Yes. PropFuel supports direct 1:1 SMS between staff and individual members. Especially useful during events when attendees need real-time help, or when a member\u2019s response warrants a personal follow-up.' },
+        { q: 'Do SMS responses sync back to our AMS?', a: 'Yes. SMS responses are treated the same as email or website responses \u2014 they update the member\u2019s profile in PropFuel and can be written back to your AMS automatically. Every text response is a data point.' },
+        { q: 'Is SMS available in the US and Canada?', a: 'Yes. PropFuel SMS supports two-way text messaging in the United States and Canada. SMS is available as an add-on (~$4,000-$5,000/year for 50,000 credits).' }
+      ];
+      var faqHTML = '<section class="sms-faq" style="background:#F6F2E8;padding:96px 48px">' +
+        '<div style="max-width:760px;margin:0 auto">' +
+          '<p style="font-size:13px;font-weight:600;color:#F47C2C;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:16px">FAQ</p>' +
+          '<h2 style="font-size:36px;font-weight:700;color:#2F2F2F;line-height:1.15;letter-spacing:-0.01em;margin-bottom:48px">Common questions about PropFuel SMS.</h2>';
+      faqItems.forEach(function(item, idx) {
+        faqHTML += '<div class="pf-faq-item" style="border-bottom:1px solid #E3DDD2;padding:24px 0;' + (idx === 0 ? 'border-top:1px solid #E3DDD2;' : '') + '">' +
+          '<button class="pf-faq-question" style="width:100%;display:flex;align-items:center;justify-content:space-between;background:none;border:none;cursor:pointer;font:600 17px/1.4 \'DM Sans\',sans-serif;color:#2F2F2F;text-align:left;padding:0;gap:16px">' +
+            item.q +
+            ' <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6E6E6E" stroke-width="2" stroke-linecap="round" style="flex-shrink:0;transition:transform .3s ease"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>' +
+          '</button>' +
+          '<div class="pf-faq-answer" style="max-height:0;overflow:hidden;transition:max-height .35s ease">' +
+            '<p style="font-size:16px;color:#6E6E6E;line-height:1.7;padding-top:16px;text-align:left">' + item.a + '</p>' +
+          '</div>' +
+        '</div>';
+      });
+      faqHTML += '</div></section>';
+      var statsBand = document.querySelector('.sms-stats-band');
+      if (statsBand) {
+        statsBand.insertAdjacentHTML('afterend', faqHTML);
+      } else {
+        ctaSection.insertAdjacentHTML('beforebegin', faqHTML);
+      }
+    }
+
+    // ═══════════════════════════════════════
+    // SECTION 4: FIX CTA
+    // ═══════════════════════════════════════
+    var ctaHeading = document.querySelector('.pf-cta-heading');
+    if (ctaHeading) {
+      ctaHeading.innerHTML = 'Text them.<br>They\u2019ll text back.';
+    }
+    var ctaSub = document.querySelector('.pf-cta-sub');
+    if (ctaSub) {
+      ctaSub.textContent = 'Your members are already on their phones. PropFuel SMS puts your most important questions right where they\u2019ll see them.';
+    }
+
+    // ═══════════════════════════════════════
+    // SECTION 5: HIDE EXISTING WEBFLOW FEATURE SECTIONS
+    // ═══════════════════════════════════════
+    var featureTitles = document.querySelectorAll('.pf-feature-title');
+    featureTitles.forEach(function(titleEl) {
+      var section = titleEl.closest('[class*="feature"]') || titleEl.closest('section') || titleEl.parentElement;
+      if (section) section.style.display = 'none';
+    });
+  }
+
+  // ─────────────────────────────────────────
+  // FIX EMAIL PAGE
+  // ─────────────────────────────────────────
+  function fixEmailPage() {
+    if (window.location.pathname.indexOf('platform/email') === -1) return;
+
+    // ═══════════════════════════════════════
+    // SECTION 1: FIX HERO
+    // ═══════════════════════════════════════
+
+    // Fix hero label
+    var heroLabel = document.querySelector('.pf-page-hero-label');
+    if (heroLabel) {
+      heroLabel.textContent = 'Engagement Channel';
+    } else {
+      var heroTitle = document.querySelector('.pf-page-hero-title');
+      if (heroTitle) {
+        var parent = heroTitle.parentElement;
+        if (!parent.querySelector('.pf-hero-label-injected')) {
+          var label = document.createElement('p');
+          label.className = 'pf-hero-label-injected fade-up';
+          label.style.cssText = 'display:inline-flex;align-items:center;padding:8px 20px;border-radius:100px;' +
+            'background:rgba(251,192,45,0.08);border:1px solid rgba(249,168,37,0.35);font-size:13px;' +
+            'font-weight:600;color:#2F2F2F;letter-spacing:0.04em;margin-bottom:48px;' +
+            'box-shadow:0 2px 8px rgba(120,110,95,0.06)';
+          label.textContent = 'Engagement Channel';
+          parent.insertBefore(label, heroTitle);
+        }
+      }
+    }
+
+    // Fix hero heading
+    var heroHeading = document.querySelector('.pf-page-hero-title');
+    if (heroHeading) {
+      heroHeading.textContent = 'Not another email tool. A listening tool that happens to use email.';
+    }
+
+    // Fix hero subtitle
+    var heroSub = document.querySelector('.pf-page-hero-sub');
+    if (heroSub) {
+      heroSub.textContent = 'PropFuel emails aren\u2019t newsletters. They\u2019re single-question check-ins that members actually respond to \u2014 because responding takes one click.';
+    }
+
+    // Inject hero buttons if not present
+    if (heroHeading) {
+      var heroParent = heroHeading.parentElement;
+      if (!heroParent.querySelector('.pf-hero-btns-injected')) {
+        var btnWrap = document.createElement('div');
+        btnWrap.className = 'pf-hero-btns-injected fade-up';
+        btnWrap.style.cssText = 'display:flex;align-items:center;justify-content:center;gap:20px;margin-top:40px';
+        btnWrap.innerHTML =
+          '<a href="/demo" class="pf-btn-primary" style="display:inline-flex;align-items:center;gap:8px;padding:16px 36px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:linear-gradient(to right,#F47C2C,#FBC02D);color:#fff;border:none;box-shadow:0 4px 16px rgba(240,90,40,0.2);transition:box-shadow .3s ease">' +
+            'Send Emails Members Answer <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>' +
+          '<a href="/demo" style="display:inline-flex;align-items:center;gap:8px;padding:15px 35px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:transparent;color:#F47C2C;border:1.5px solid rgba(244,124,44,0.35);transition:border-color .25s ease,box-shadow .25s ease">' +
+            'Get Started</a>';
+        var sub = heroParent.querySelector('.pf-page-hero-sub');
+        if (sub) {
+          sub.parentNode.insertBefore(btnWrap, sub.nextSibling);
+        } else {
+          heroParent.appendChild(btnWrap);
+        }
+      }
+    }
+
+    // ═══════════════════════════════════════
+    // SECTION 2: HERO EMAIL CHECK-IN MOCKUP
+    // ═══════════════════════════════════════
+    var heroVisual = document.querySelector('.pf-feature-visual');
+    if (!heroVisual) {
+      var btns = document.querySelector('.pf-hero-btns-injected');
+      var heroArea = btns ? btns.parentElement : (heroHeading ? heroHeading.parentElement : null);
+      if (heroArea && !heroArea.querySelector('.em-hero-mockup')) {
+        heroVisual = document.createElement('div');
+        heroVisual.className = 'em-hero-mockup';
+        heroVisual.style.cssText = 'margin:48px auto 0;max-width:960px;padding:0 24px';
+        heroArea.appendChild(heroVisual);
+      }
+    }
+    if (heroVisual && !heroVisual.querySelector('.em-email-checkin')) {
+      var mockupWrap = document.createElement('div');
+      mockupWrap.className = 'em-email-checkin';
+      mockupWrap.innerHTML =
+        '<div style="max-width:520px;margin:0 auto;font-family:\'DM Sans\',sans-serif;background:#fff;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,.12);overflow:hidden;">' +
+          '<div style="background:#2F2F2F;padding:14px 24px;display:flex;align-items:center;gap:10px;">' +
+            '<div style="width:10px;height:10px;border-radius:50%;background:#ff5f56;"></div>' +
+            '<div style="width:10px;height:10px;border-radius:50%;background:#ffbd2e;"></div>' +
+            '<div style="width:10px;height:10px;border-radius:50%;background:#27c93f;"></div>' +
+            '<span style="color:#aaa;font-size:12px;margin-left:12px;">inbox \u2014 membership@yourorg.org</span>' +
+          '</div>' +
+          '<div style="padding:32px 28px;">' +
+            '<div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">' +
+              '<div style="width:40px;height:40px;border-radius:50%;background:#FBC02D;display:flex;align-items:center;justify-content:center;">' +
+                '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2F2F2F" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,6 12,13 2,6"/></svg>' +
+              '</div>' +
+              '<div>' +
+                '<div style="font-weight:700;color:#2F2F2F;font-size:14px;">Your Association</div>' +
+                '<div style="color:#999;font-size:12px;">Quick check-in \u2014 1 question</div>' +
+              '</div>' +
+            '</div>' +
+            '<h3 style="color:#2F2F2F;font-size:20px;margin:0 0 8px;font-weight:700;">What\u2019s your #1 priority this year?</h3>' +
+            '<p style="color:#666;font-size:14px;margin:0 0 24px;line-height:1.5;">We want to make sure we\u2019re supporting what matters most to you. Tap one:</p>' +
+            '<div style="display:flex;flex-direction:column;gap:10px;">' +
+              '<div style="background:#FBC02D;color:#2F2F2F;padding:14px 20px;border-radius:10px;font-weight:600;font-size:15px;text-align:center;cursor:pointer;">Professional Development</div>' +
+              '<div style="background:#F47C2C;color:#fff;padding:14px 20px;border-radius:10px;font-weight:600;font-size:15px;text-align:center;cursor:pointer;">Networking Opportunities</div>' +
+              '<div style="background:#EBE6DA;color:#2F2F2F;padding:14px 20px;border-radius:10px;font-weight:600;font-size:15px;text-align:center;border:2px solid #d6d0c4;">Industry Advocacy</div>' +
+            '</div>' +
+            '<p style="color:#bbb;font-size:11px;text-align:center;margin-top:18px;">Powered by PropFuel</p>' +
+          '</div>' +
+        '</div>';
+      heroVisual.innerHTML = '';
+      heroVisual.appendChild(mockupWrap);
+      heroVisual.style.background = '#EBE6DA';
+      heroVisual.style.borderRadius = '20px';
+      heroVisual.style.padding = '28px';
+    }
+
+    // ═══════════════════════════════════════
+    // SECTION 3: INJECT ALL MISSING SECTIONS
+    // Find CTA as anchor; inject before it
+    // ═══════════════════════════════════════
+    var ctaSection = document.querySelector('.pf-cta-section, [class*="cta-section"]');
+    if (!ctaSection) return;
+
+    // --- PROBLEM BAND (dark) ---
+    if (!document.querySelector('.em-problem-band')) {
+      var problemHTML = '<section class="em-problem-band" style="background:#1A1713;padding:96px 48px">' +
+        '<div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center">' +
+          '<div>' +
+            '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">The Problem</p>' +
+            '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#EDE8DF;letter-spacing:-0.02em;line-height:1.15;margin-bottom:32px">Your email tool sends. PropFuel listens.</h2>' +
+            '<p style="font-size:17px;color:#8C8479;line-height:1.65;margin-bottom:20px">Email marketing for associations was designed for broadcasting. You write a newsletter, send it to 10,000 members, and measure success by how many people opened it. Not how many people told you what they need.</p>' +
+            '<p style="font-size:17px;color:#8C8479;line-height:1.65;margin-bottom:20px"><strong style="color:#EDE8DF">Traditional email marketing:</strong> Send content, hope someone opens it, measure open rates.</p>' +
+            '<p style="font-size:17px;color:#8C8479;line-height:1.65;margin-bottom:20px"><strong style="color:#EDE8DF">PropFuel email:</strong> Ask a question, member responds with one click, their response updates their profile and triggers the next step in their journey.</p>' +
+            '<p style="font-size:17px;color:#8C8479;line-height:1.65">Every PropFuel email is a <strong style="color:#EDE8DF">database update waiting to happen.</strong></p>' +
+          '</div>' +
+          '<div style="display:flex;align-items:center;gap:24px;font-family:\'DM Sans\',sans-serif;justify-content:center;flex-wrap:wrap;">' +
+            '<div style="text-align:center;padding:28px;background:rgba(255,255,255,.08);border-radius:16px;border:1px solid rgba(255,255,255,.1);min-width:180px;">' +
+              '<svg width="80" height="80" viewBox="0 0 80 80" fill="none">' +
+                '<circle cx="40" cy="40" r="38" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.15)" stroke-width="1.5"/>' +
+                '<path d="M22 40 L38 28 L38 52 Z" fill="#F47C2C" opacity=".8"/>' +
+                '<rect x="38" y="34" width="20" height="12" rx="2" fill="#F47C2C" opacity=".8"/>' +
+                '<line x1="62" y1="32" x2="70" y2="28" stroke="#F47C2C" stroke-width="2" opacity=".5"/>' +
+                '<line x1="62" y1="40" x2="72" y2="40" stroke="#F47C2C" stroke-width="2" opacity=".5"/>' +
+                '<line x1="62" y1="48" x2="70" y2="52" stroke="#F47C2C" stroke-width="2" opacity=".5"/>' +
+              '</svg>' +
+              '<div style="color:#F47C2C;font-weight:700;font-size:15px;margin-top:12px;">Broadcasting</div>' +
+              '<div style="color:rgba(255,255,255,.5);font-size:12px;margin-top:4px;">One-way. No signal back.</div>' +
+            '</div>' +
+            '<div style="color:rgba(255,255,255,.3);font-size:28px;font-weight:700;">vs</div>' +
+            '<div style="text-align:center;padding:28px;background:rgba(251,192,45,.08);border-radius:16px;border:2px solid rgba(251,192,45,.3);min-width:180px;">' +
+              '<svg width="80" height="80" viewBox="0 0 80 80" fill="none">' +
+                '<circle cx="40" cy="40" r="38" fill="rgba(251,192,45,.08)" stroke="rgba(251,192,45,.3)" stroke-width="1.5"/>' +
+                '<rect x="32" y="18" width="16" height="28" rx="8" fill="#FBC02D"/>' +
+                '<path d="M26 40 Q26 56 40 56 Q54 56 54 40" stroke="#FBC02D" stroke-width="2.5" fill="none"/>' +
+                '<line x1="40" y1="56" x2="40" y2="64" stroke="#FBC02D" stroke-width="2.5"/>' +
+                '<line x1="32" y1="64" x2="48" y2="64" stroke="#FBC02D" stroke-width="2.5" stroke-linecap="round"/>' +
+              '</svg>' +
+              '<div style="color:#FBC02D;font-weight:700;font-size:15px;margin-top:12px;">Listening</div>' +
+              '<div style="color:rgba(255,255,255,.5);font-size:12px;margin-top:4px;">Two-way. Every response counts.</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</section>';
+      ctaSection.insertAdjacentHTML('beforebegin', problemHTML);
+    }
+
+    // --- 8-SECOND EXPERIENCE ---
+    if (!document.querySelector('.em-eight-second')) {
+      var eightSecHTML = '<section class="em-eight-second" style="padding:96px 48px">' +
+        '<div style="max-width:1100px;margin:0 auto;text-align:center">' +
+          '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">How It Works</p>' +
+          '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15;margin-bottom:56px">What happens in 8 seconds.</h2>' +
+          '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:32px">' +
+            '<div style="text-align:center">' +
+              '<div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#F47C2C,#FBC02D);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:15px;font-weight:800;color:#fff;">1</div>' +
+              '<div style="width:160px;margin:0 auto 20px;background:#2F2F2F;border-radius:20px;padding:8px;box-shadow:0 4px 20px rgba(0,0,0,.15);">' +
+                '<div style="background:#fff;border-radius:14px;overflow:hidden;">' +
+                  '<div style="background:#F4F1EA;padding:8px 12px;display:flex;align-items:center;gap:6px;">' +
+                    '<div style="font-size:8px;color:#999;">9:41 AM</div>' +
+                    '<div style="flex:1;"></div>' +
+                    '<svg width="12" height="12" viewBox="0 0 24 24" fill="#999"><rect x="1" y="14" width="4" height="8" rx="1"/><rect x="7" y="10" width="4" height="12" rx="1"/><rect x="13" y="6" width="4" height="16" rx="1"/><rect x="19" y="2" width="4" height="20" rx="1"/></svg>' +
+                  '</div>' +
+                  '<div style="padding:12px 10px;">' +
+                    '<div style="background:#FBC02D;border-radius:8px;padding:10px;margin-bottom:6px;">' +
+                      '<div style="font-size:8px;font-weight:700;color:#2F2F2F;font-family:\'DM Sans\',sans-serif;">Your Association</div>' +
+                      '<div style="font-size:7px;color:#2F2F2F;opacity:.7;margin-top:2px;">Quick check-in \u2014 1 question</div>' +
+                    '</div>' +
+                    '<div style="background:#eee;border-radius:6px;height:8px;width:80%;margin:4px 0;"></div>' +
+                    '<div style="background:#eee;border-radius:6px;height:8px;width:60%;margin:4px 0;"></div>' +
+                  '</div>' +
+                '</div>' +
+              '</div>' +
+              '<h3 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:8px">Email Arrives</h3>' +
+              '<p style="font-size:14px;color:#6E6E6E;line-height:1.5">From your domain, your brand. One question inside.</p>' +
+            '</div>' +
+            '<div style="text-align:center">' +
+              '<div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#F47C2C,#FBC02D);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:15px;font-weight:800;color:#fff;">2</div>' +
+              '<div style="width:160px;margin:0 auto 20px;background:#2F2F2F;border-radius:20px;padding:8px;box-shadow:0 4px 20px rgba(0,0,0,.15);">' +
+                '<div style="background:#fff;border-radius:14px;overflow:hidden;padding:12px 10px;">' +
+                  '<div style="font-size:9px;font-weight:700;color:#2F2F2F;font-family:\'DM Sans\',sans-serif;margin-bottom:8px;">What matters most?</div>' +
+                  '<div style="background:#FBC02D;border-radius:6px;padding:8px;text-align:center;font-size:8px;font-weight:600;color:#2F2F2F;font-family:\'DM Sans\',sans-serif;margin-bottom:5px;position:relative;box-shadow:0 0 0 3px rgba(251,192,45,.3);">' +
+                    'Professional Dev' +
+                  '</div>' +
+                  '<div style="background:#EBE6DA;border-radius:6px;padding:8px;text-align:center;font-size:8px;color:#2F2F2F;font-family:\'DM Sans\',sans-serif;margin-bottom:5px;">Networking</div>' +
+                  '<div style="background:#EBE6DA;border-radius:6px;padding:8px;text-align:center;font-size:8px;color:#2F2F2F;font-family:\'DM Sans\',sans-serif;">Advocacy</div>' +
+                '</div>' +
+              '</div>' +
+              '<h3 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:8px">One Click</h3>' +
+              '<p style="font-size:14px;color:#6E6E6E;line-height:1.5">Member taps a response. Done. No login, no form.</p>' +
+            '</div>' +
+            '<div style="text-align:center">' +
+              '<div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#F47C2C,#FBC02D);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:15px;font-weight:800;color:#fff;">3</div>' +
+              '<div style="width:160px;margin:0 auto 20px;font-family:\'DM Sans\',sans-serif;">' +
+                '<div style="background:#fff;border-radius:14px;padding:12px;box-shadow:0 4px 16px rgba(0,0,0,.1);">' +
+                  '<div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;">' +
+                    '<div style="width:24px;height:24px;border-radius:50%;background:#EBE6DA;display:flex;align-items:center;justify-content:center;">' +
+                      '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#2F2F2F" stroke-width="2"><circle cx="12" cy="8" r="5"/><path d="M3 21v-2a7 7 0 0114 0v2"/></svg>' +
+                    '</div>' +
+                    '<div style="font-size:8px;font-weight:700;color:#2F2F2F;">Jane M.</div>' +
+                  '</div>' +
+                  '<div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px;">' +
+                    '<span style="background:#FBC02D;color:#2F2F2F;font-size:7px;padding:3px 6px;border-radius:4px;font-weight:600;">Prof Dev</span>' +
+                    '<span style="background:#F47C2C;color:#fff;font-size:7px;padding:3px 6px;border-radius:4px;font-weight:600;">New Tag</span>' +
+                  '</div>' +
+                  '<div style="border-top:1px solid #EBE6DA;padding-top:8px;">' +
+                    '<div style="display:flex;align-items:center;gap:4px;margin-bottom:4px;">' +
+                      '<svg width="10" height="10" viewBox="0 0 24 24" fill="#27c93f" stroke="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>' +
+                      '<span style="font-size:7px;color:#666;">Profile updated</span>' +
+                    '</div>' +
+                    '<div style="display:flex;align-items:center;gap:4px;margin-bottom:4px;">' +
+                      '<svg width="10" height="10" viewBox="0 0 24 24" fill="#27c93f" stroke="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>' +
+                      '<span style="font-size:7px;color:#666;">Follow-up sent</span>' +
+                    '</div>' +
+                    '<div style="display:flex;align-items:center;gap:4px;">' +
+                      '<svg width="10" height="10" viewBox="0 0 24 24" fill="#27c93f" stroke="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>' +
+                      '<span style="font-size:7px;color:#666;">Next check-in queued</span>' +
+                    '</div>' +
+                  '</div>' +
+                '</div>' +
+              '</div>' +
+              '<h3 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:8px">Everything Triggers</h3>' +
+              '<p style="font-size:14px;color:#6E6E6E;line-height:1.5">Profile updates. Tag applied. Follow-up sent. Next check-in queued.</p>' +
+            '</div>' +
+            '<div style="text-align:center">' +
+              '<div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#F47C2C,#FBC02D);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:15px;font-weight:800;color:#fff;">4</div>' +
+              '<div style="width:160px;margin:0 auto 20px;font-family:\'DM Sans\',sans-serif;">' +
+                '<div style="background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.1);">' +
+                  '<div style="padding:10px 12px;border-bottom:1px solid #EBE6DA;">' +
+                    '<div style="font-size:7px;color:#999;margin-bottom:2px;">Original</div>' +
+                    '<div style="font-size:8px;color:#2F2F2F;font-weight:600;text-decoration:line-through;opacity:.5;">Quick question about your goals</div>' +
+                  '</div>' +
+                  '<div style="padding:10px 12px;background:rgba(251,192,45,.06);">' +
+                    '<div style="display:flex;align-items:center;gap:4px;margin-bottom:2px;">' +
+                      '<svg width="8" height="8" viewBox="0 0 24 24" fill="#F47C2C" stroke="none"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>' +
+                      '<div style="font-size:7px;color:#F47C2C;font-weight:600;">Smart Reminder</div>' +
+                    '</div>' +
+                    '<div style="font-size:8px;color:#2F2F2F;font-weight:700;">We still want to hear from you</div>' +
+                    '<div style="font-size:7px;color:#666;margin-top:4px;">Different subject line. Same question. Auto-sent to non-responders.</div>' +
+                  '</div>' +
+                  '<div style="padding:8px 12px;display:flex;align-items:center;gap:4px;">' +
+                    '<div style="width:6px;height:6px;border-radius:50%;background:#FBC02D;"></div>' +
+                    '<span style="font-size:7px;color:#999;">Sent automatically</span>' +
+                  '</div>' +
+                '</div>' +
+              '</div>' +
+              '<h3 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:8px">Non-Responders</h3>' +
+              '<p style="font-size:14px;color:#6E6E6E;line-height:1.5">Smart reminder with different subject line. Automatic.</p>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</section>';
+      var problemBand = document.querySelector('.em-problem-band');
+      if (problemBand) {
+        problemBand.insertAdjacentHTML('afterend', eightSecHTML);
+      } else {
+        ctaSection.insertAdjacentHTML('beforebegin', eightSecHTML);
+      }
+    }
+
+    // --- COMPARISON: SEND VS LISTEN ---
+    if (!document.querySelector('.em-comparison')) {
+      var compHTML = '<section class="em-comparison" style="padding:96px 48px;background:#EBE6DA">' +
+        '<div style="max-width:1000px;margin:0 auto">' +
+          '<div style="text-align:center;margin-bottom:56px">' +
+            '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">Send vs Listen</p>' +
+            '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15">Two different jobs. One inbox.</h2>' +
+          '</div>' +
+          '<div style="background:#F6F2E8;border-radius:16px;overflow:hidden;margin-bottom:32px">' +
+            '<div style="display:grid;grid-template-columns:200px 1fr 1fr;background:#2F2F2F;color:#fff;font-size:13px;font-weight:700;padding:16px 24px;">' +
+              '<div></div><div style="text-align:center">Traditional Email Marketing</div><div style="text-align:center;color:#FBC02D">PropFuel Email</div>' +
+            '</div>' +
+            '<div style="display:grid;grid-template-columns:200px 1fr 1fr;padding:16px 24px;border-bottom:1px solid #E3DDD2;font-size:14px;align-items:center">' +
+              '<div style="font-weight:700;color:#2F2F2F">Purpose</div>' +
+              '<div style="color:#6E6E6E;text-align:center">Send newsletters, announcements, event promotions</div>' +
+              '<div style="color:#2F2F2F;text-align:center">Ask questions, capture responses, learn what members need</div>' +
+            '</div>' +
+            '<div style="display:grid;grid-template-columns:200px 1fr 1fr;padding:16px 24px;border-bottom:1px solid #E3DDD2;font-size:14px;align-items:center">' +
+              '<div style="font-weight:700;color:#2F2F2F">What Members Do</div>' +
+              '<div style="color:#6E6E6E;text-align:center">Open (maybe). Click (maybe). Read (maybe).</div>' +
+              '<div style="color:#2F2F2F;text-align:center">Respond. One tap. Their answer is captured and acted on.</div>' +
+            '</div>' +
+            '<div style="display:grid;grid-template-columns:200px 1fr 1fr;padding:16px 24px;border-bottom:1px solid #E3DDD2;font-size:14px;align-items:center">' +
+              '<div style="font-weight:700;color:#2F2F2F">What You Get Back</div>' +
+              '<div style="color:#6E6E6E;text-align:center">Open rates and click rates</div>' +
+              '<div style="color:#2F2F2F;text-align:center">Actual member data: intent, preferences, satisfaction, hesitations</div>' +
+            '</div>' +
+            '<div style="display:grid;grid-template-columns:200px 1fr 1fr;padding:16px 24px;border-bottom:1px solid #E3DDD2;font-size:14px;align-items:center">' +
+              '<div style="font-weight:700;color:#2F2F2F">Personalization</div>' +
+              '<div style="color:#6E6E6E;text-align:center">Segment by demographics. Everyone in a segment gets the same thing.</div>' +
+              '<div style="color:#2F2F2F;text-align:center">Branch by individual response. Every member gets a different next step.</div>' +
+            '</div>' +
+            '<div style="display:grid;grid-template-columns:200px 1fr 1fr;padding:16px 24px;border-bottom:1px solid #E3DDD2;font-size:14px;align-items:center">' +
+              '<div style="font-weight:700;color:#2F2F2F">Data Impact</div>' +
+              '<div style="color:#6E6E6E;text-align:center">Analytics stay in the email tool</div>' +
+              '<div style="color:#2F2F2F;text-align:center">Every response writes back to your AMS automatically. No CSV exports.</div>' +
+            '</div>' +
+            '<div style="display:grid;grid-template-columns:200px 1fr 1fr;padding:16px 24px;border-bottom:1px solid #E3DDD2;font-size:14px;align-items:center">' +
+              '<div style="font-weight:700;color:#2F2F2F">Deliverability</div>' +
+              '<div style="color:#6E6E6E;text-align:center">Varies. Often below 90% for association email tools.</div>' +
+              '<div style="color:#2F2F2F;text-align:center">97-99.2%. White-labeled from your domain. Private IPs available.</div>' +
+            '</div>' +
+            '<div style="display:grid;grid-template-columns:200px 1fr 1fr;padding:16px 24px;font-size:14px;align-items:center">' +
+              '<div style="font-weight:700;color:#2F2F2F">Member Experience</div>' +
+              '<div style="color:#6E6E6E;text-align:center">Another newsletter in an inbox full of newsletters</div>' +
+              '<div style="color:#2F2F2F;text-align:center">A personal check-in that took 8 seconds to respond to</div>' +
+            '</div>' +
+          '</div>' +
+          '<p style="text-align:center;font-size:16px;color:#6E6E6E;line-height:1.6"><strong style="color:#2F2F2F">Your email marketing tool handles the megaphone.</strong> PropFuel handles the microphone.</p>' +
+        '</div>' +
+      '</section>';
+      var eightSec = document.querySelector('.em-eight-second');
+      if (eightSec) {
+        eightSec.insertAdjacentHTML('afterend', compHTML);
+      } else {
+        ctaSection.insertAdjacentHTML('beforebegin', compHTML);
+      }
+    }
+
+    // --- CAPABILITIES GRID ---
+    if (!document.querySelector('.em-capabilities')) {
+      var capCards = [
+        { title: 'Single Question Check-Ins', desc: 'The core interaction model. One question per email. Members actually respond because you\u2019re not asking them to commit 15 minutes to a survey.' },
+        { title: 'Single-Click Responses', desc: 'Members tap an answer directly in the email. No login, no form, no friction. This is what drives 10-15% response rates.' },
+        { title: 'White-Labeled Delivery', desc: 'Emails come from your domain with your branding. Members see their association, not a software vendor. Built on SendGrid and AWS with DKIM, SPF, and DMARC.' },
+        { title: '97-99.2% Deliverability', desc: 'Your emails actually land. Private IP addresses available. PropFuel handles the technical infrastructure so you don\u2019t have to.' },
+        { title: 'Smart Check-In Reminders', desc: 'Non-responders automatically get a follow-up with a different subject line on a configurable schedule. Significantly increases total response rates.' },
+        { title: 'Mobile-Friendly Templates', desc: 'Your brand, your tone, responsive on every device. Control subject lines, body content, and footers with a drag-and-drop editor.' },
+        { title: 'Custom Follow-Up Emails', desc: 'A member who says \u201CI\u2019m interested in leadership\u201D gets a follow-up about committee opportunities. The follow-up matches what they told you.' },
+        { title: 'In-Platform Email Replies', desc: 'When a member writes back with a personal note, staff can reply without switching to Outlook or Gmail. The full thread is saved in the member\u2019s record.' }
+      ];
+      var capHTML = '<section class="em-capabilities" style="padding:96px 48px;max-width:1200px;margin:0 auto">' +
+        '<div style="text-align:center;margin-bottom:56px">' +
+          '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">Capabilities</p>' +
+          '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15">Everything you need to listen at scale.</h2>' +
+        '</div>' +
+        '<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:24px">';
+      capCards.forEach(function(c) {
+        capHTML += '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 32px;position:relative;overflow:hidden">' +
+          '<div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(to right,#F47C2C,#FBC02D);border-radius:20px 20px 0 0"></div>' +
+          '<h4 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:12px">' + c.title + '</h4>' +
+          '<p style="font-size:15px;color:#6E6E6E;line-height:1.6">' + c.desc + '</p>' +
+        '</div>';
+      });
+      capHTML += '</div></section>';
+      var compSection = document.querySelector('.em-comparison');
+      if (compSection) {
+        compSection.insertAdjacentHTML('afterend', capHTML);
+      } else {
+        ctaSection.insertAdjacentHTML('beforebegin', capHTML);
+      }
+    }
+
+    // --- STATS BAND (dark) ---
+    if (!document.querySelector('.em-stats-band')) {
+      var statsHTML = '<section class="em-stats-band" style="background:#1A1713;padding:96px 48px">' +
+        '<div style="max-width:1000px;margin:0 auto;text-align:center">' +
+          '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">Results</p>' +
+          '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#EDE8DF;letter-spacing:-0.02em;line-height:1.15;margin-bottom:56px">The numbers speak louder than any newsletter.</h2>' +
+          '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:32px">' +
+            '<div style="text-align:center">' +
+              '<p style="font-size:clamp(40px,5vw,56px);font-weight:900;letter-spacing:-0.03em;line-height:1;background:linear-gradient(to top,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">44%</p>' +
+              '<p style="font-size:13px;font-weight:700;color:#F9A825;margin-top:8px">NACUBO</p>' +
+              '<p style="font-size:14px;color:#8C8479;line-height:1.5;margin-top:4px">Response rate in 24 hours on a data capture campaign.</p>' +
+            '</div>' +
+            '<div style="text-align:center">' +
+              '<p style="font-size:clamp(40px,5vw,56px);font-weight:900;letter-spacing:-0.03em;line-height:1;background:linear-gradient(to top,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">95%</p>' +
+              '<p style="font-size:13px;font-weight:700;color:#F9A825;margin-top:8px">AAMFT</p>' +
+              '<p style="font-size:14px;color:#8C8479;line-height:1.5;margin-top:4px">On-time renewals \u2014 up from 80.5%, plus 7% membership growth.</p>' +
+            '</div>' +
+            '<div style="text-align:center">' +
+              '<p style="font-size:clamp(40px,5vw,56px);font-weight:900;letter-spacing:-0.03em;line-height:1;background:linear-gradient(to top,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">$65K</p>' +
+              '<p style="font-size:13px;font-weight:700;color:#F9A825;margin-top:8px">WQA</p>' +
+              '<p style="font-size:14px;color:#8C8479;line-height:1.5;margin-top:4px">Additional revenue from a 5% renewal rate increase.</p>' +
+            '</div>' +
+            '<div style="text-align:center">' +
+              '<p style="font-size:clamp(40px,5vw,56px);font-weight:900;letter-spacing:-0.03em;line-height:1;background:linear-gradient(to top,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">107</p>' +
+              '<p style="font-size:13px;font-weight:700;color:#F9A825;margin-top:8px">NAPNAP</p>' +
+              '<p style="font-size:14px;color:#8C8479;line-height:1.5;margin-top:4px">New members in 45 days, generating $21.4K in revenue.</p>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</section>';
+      var capSection2 = document.querySelector('.em-capabilities');
+      if (capSection2) {
+        capSection2.insertAdjacentHTML('afterend', statsHTML);
+      } else {
+        ctaSection.insertAdjacentHTML('beforebegin', statsHTML);
+      }
+    }
+
+    // --- TESTIMONIAL CAROUSEL ---
+    if (!document.querySelector('.em-testimonials')) {
+      var testimonials = [
+        { quote: 'Our members DO respond well to these one question emails. I was a bit skeptical at first \u2014 the \u2018why do we need another tool\u2019 opinion. Turns out we did need a new tool.', cite: 'Andrea Ross, Director of Meetings, Membership & Marketing, The American Ceramic Society' },
+        { quote: 'We paid for our whole year of PropFuel with our first email campaign.', cite: 'Molly Martin, Women in Aviation International' },
+        { quote: 'So far the PropFuel response rate is more than double that of our traditional dues email click-through rate. We are thrilled with that!', cite: 'Jeanette Kebede, Director of Communications, Washington Society of CPAs' },
+        { quote: 'I launched my campaign yesterday around 2 pm, and so far I\u2019m up to 44% response rate in a little over 24 hours. We love PropFuel!', cite: 'Amy Barbieri, Assistant Director of Membership, NACUBO' },
+        { quote: 'More people have responded to our PropFuel emails than have ever even opened our standard marketing emails.', cite: 'Kara Potter, MSTA' },
+        { quote: 'I\u2019m glad we pushed through with the PropFuel campaign instead of Mailchimp! Members DEFINITELY respond best to short and sweet.', cite: 'Jessica, ACGIH' },
+        { quote: 'Pardot\u2019s great at marketing. PropFuel is great at listening. And I need both.', cite: 'Jaqueline Gloria, VP of Operations, OHI/ARVC' }
+      ];
+      var testHTML = '<section class="em-testimonials" style="padding:96px 48px;background:#EBE6DA">' +
+        '<div style="max-width:800px;margin:0 auto;text-align:center;position:relative">' +
+          '<div style="font-size:120px;font-weight:900;color:#E3DDD2;line-height:0.8;margin-bottom:24px">\u201C</div>' +
+          '<div class="em-test-carousel">';
+      testimonials.forEach(function(t, i) {
+        testHTML += '<div class="em-test-slide" style="display:' + (i === 0 ? 'block' : 'none') + '">' +
+          '<blockquote style="font-size:clamp(18px,2.5vw,24px);font-weight:500;color:#2F2F2F;line-height:1.5;font-style:italic;margin:0 0 24px">' + t.quote + '</blockquote>' +
+          '<cite style="font-size:14px;font-weight:600;color:#6E6E6E;font-style:normal">' + t.cite + '</cite>' +
+        '</div>';
+      });
+      testHTML += '</div>' +
+          '<div class="em-test-dots" style="display:flex;justify-content:center;gap:8px;margin-top:32px">';
+      testimonials.forEach(function(t, i) {
+        testHTML += '<button class="em-test-dot" data-index="' + i + '" style="width:10px;height:10px;border-radius:50%;border:none;cursor:pointer;background:' + (i === 0 ? '#F47C2C' : '#E3DDD2') + ';transition:background .3s ease;padding:0"></button>';
+      });
+      testHTML += '</div></div></section>';
+      var statsBandEl = document.querySelector('.em-stats-band');
+      if (statsBandEl) {
+        statsBandEl.insertAdjacentHTML('afterend', testHTML);
+      } else {
+        ctaSection.insertAdjacentHTML('beforebegin', testHTML);
+      }
+
+      // Wire up testimonial carousel
+      setTimeout(function() {
+        var slides = document.querySelectorAll('.em-test-slide');
+        var dots = document.querySelectorAll('.em-test-dot');
+        var currentIdx = 0;
+        var timer = null;
+        function showSlide(idx) {
+          currentIdx = idx;
+          slides.forEach(function(s) { s.style.display = 'none'; });
+          dots.forEach(function(d) { d.style.background = '#E3DDD2'; });
+          if (slides[idx]) slides[idx].style.display = 'block';
+          if (dots[idx]) dots[idx].style.background = '#F47C2C';
+        }
+        function nextSlide() { showSlide((currentIdx + 1) % slides.length); }
+        function startTimer() { clearInterval(timer); timer = setInterval(nextSlide, 6000); }
+        dots.forEach(function(d) {
+          d.addEventListener('click', function() { showSlide(parseInt(d.dataset.index)); startTimer(); });
+        });
+        startTimer();
+      }, 100);
+    }
+
+    // --- FAQ SECTION ---
+    if (!document.querySelector('.em-faq')) {
+      var faqItems = [
+        { q: 'Will PropFuel emails compete with our existing email marketing?', a: 'No. PropFuel is additive \u2014 it sits alongside your email marketing platform (Higher Logic, Real Magnet, Mailchimp, whatever you use). Your email tool handles newsletters and announcements. PropFuel handles the conversations that give you something back. The recommended cadence is 8-13 PropFuel check-ins per year.' },
+        { q: 'Will members get annoyed by more emails?', a: 'The data says the opposite. PropFuel check-ins get 10-15% response rates \u2014 5-6x the industry average. Members respond because the emails are short, relevant, and ask them something real. A single question that matters beats a 2,000-word newsletter every time.' },
+        { q: 'How does PropFuel ensure high deliverability?', a: 'Emails are white-labeled and sent from your organization\u2019s domain. During onboarding, PropFuel configures DKIM, SPF, and DMARC authentication. Infrastructure runs on SendGrid and AWS with private IP addresses available. Result: 97-99.2% deliverability.' },
+        { q: 'What types of questions can we ask?', a: 'Multiple choice, yes/no, NPS and satisfaction scales, and open-ended text. AI-powered sentiment analysis automatically categorizes open-ended responses so your team doesn\u2019t have to read every one individually.' },
+        { q: 'How quickly can we launch our first email campaign?', a: 'First campaign live in 2-3 weeks. Full ramp-up in 2-3 months. You get a dedicated Customer Success Manager with less than 3-hour response time and access to 70+ campaign blueprints \u2014 pre-built templates for onboarding, renewals, win-back, events, and more.' }
+      ];
+      var faqHTML = '<section class="em-faq" style="padding:96px 48px">' +
+        '<div style="max-width:800px;margin:0 auto">' +
+          '<div style="text-align:center;margin-bottom:56px">' +
+            '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">FAQ</p>' +
+            '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15">Common questions about PropFuel Email.</h2>' +
+          '</div>';
+      faqItems.forEach(function(item) {
+        faqHTML += '<div class="pf-faq-item" style="border-bottom:1px solid #E3DDD2;padding:24px 0">' +
+          '<button class="pf-faq-question" style="width:100%;display:flex;align-items:center;justify-content:space-between;background:none;border:none;cursor:pointer;font:700 17px/1.4 \'DM Sans\',sans-serif;color:#2F2F2F;text-align:left;padding:0">' +
+            item.q +
+            ' <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2F2F2F" stroke-width="2" style="flex-shrink:0;margin-left:16px;transition:transform .3s ease"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>' +
+          '</button>' +
+          '<div class="pf-faq-answer" style="max-height:0;overflow:hidden;transition:max-height .35s ease">' +
+            '<p style="font-size:16px;color:#6E6E6E;line-height:1.65;padding-top:16px">' + item.a + '</p>' +
+          '</div>' +
+        '</div>';
+      });
+      faqHTML += '</div></section>';
+      var testSection = document.querySelector('.em-testimonials');
+      if (testSection) {
+        testSection.insertAdjacentHTML('afterend', faqHTML);
+      } else {
+        ctaSection.insertAdjacentHTML('beforebegin', faqHTML);
+      }
+    }
+
+    // --- RELATED USE CASES ---
+    if (!document.querySelector('.em-related')) {
+      var relHTML = '<section class="em-related" style="padding:80px 24px;max-width:960px;margin:0 auto">' +
+        '<h2 style="font-size:32px;font-weight:700;color:#2F2F2F;margin-bottom:40px;text-align:center">Related Use Cases</h2>' +
+        '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px">' +
+          '<a href="/use-cases/acquisition" style="text-decoration:none;background:#F6F2E8;border-radius:16px;padding:32px;transition:transform 0.2s ease,box-shadow 0.2s ease">' +
+            '<h3 style="font-size:20px;font-weight:700;color:#2F2F2F;margin-bottom:8px">Member Acquisition</h3>' +
+            '<p style="font-size:15px;color:#6E6E6E;line-height:1.5">Convert prospects into members with personalized email conversations that build trust.</p>' +
+          '</a>' +
+          '<a href="/use-cases/onboarding" style="text-decoration:none;background:#F6F2E8;border-radius:16px;padding:32px;transition:transform 0.2s ease,box-shadow 0.2s ease">' +
+            '<h3 style="font-size:20px;font-weight:700;color:#2F2F2F;margin-bottom:8px">New Member Onboarding</h3>' +
+            '<p style="font-size:15px;color:#6E6E6E;line-height:1.5">Welcome new members with email check-ins that learn what they need from day one.</p>' +
+          '</a>' +
+          '<a href="/use-cases/events" style="text-decoration:none;background:#F6F2E8;border-radius:16px;padding:32px;transition:transform 0.2s ease,box-shadow 0.2s ease">' +
+            '<h3 style="font-size:20px;font-weight:700;color:#2F2F2F;margin-bottom:8px">Event Engagement</h3>' +
+            '<p style="font-size:15px;color:#6E6E6E;line-height:1.5">Drive event attendance and capture feedback with targeted email outreach.</p>' +
+          '</a>' +
+        '</div>' +
+      '</section>';
+      var faqSection = document.querySelector('.em-faq');
+      if (faqSection) {
+        faqSection.insertAdjacentHTML('afterend', relHTML);
+      } else {
+        ctaSection.insertAdjacentHTML('beforebegin', relHTML);
+      }
+    }
+
+    // ═══════════════════════════════════════
+    // SECTION 4: FIX CTA
+    // ═══════════════════════════════════════
+    var ctaHeading = document.querySelector('.pf-cta-heading');
+    if (ctaHeading) {
+      ctaHeading.innerHTML = 'Send emails members<br><span style="background:linear-gradient(135deg,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">actually answer.</span>';
+    }
+    var ctaSub = document.querySelector('.pf-cta-sub');
+    if (ctaSub) {
+      ctaSub.textContent = 'Every email you send is a chance to learn something about a member. Most email tools waste that chance. PropFuel doesn\u2019t.';
+    }
+
+    // ═══════════════════════════════════════
+    // SECTION 5: HIDE EXISTING WEBFLOW FEATURE SECTIONS
+    // ═══════════════════════════════════════
+    var featureTitles = document.querySelectorAll('.pf-feature-title');
+    featureTitles.forEach(function(titleEl) {
+      var section = titleEl.closest('[class*="feature"]') || titleEl.closest('section') || titleEl.parentElement;
+      if (section) section.style.display = 'none';
+    });
+  }
+
+  // ─────────────────────────────────────────
   // INIT
   // ─────────────────────────────────────────
   function init() {
@@ -2139,6 +3120,8 @@
     fixHomepage();
     fixPlatformOverview();
     fixAutomationEngine();
+    fixEmailPage();
+    fixSmsPage();
     initScrollAnimations();
     initFaqAccordion();
     initNavScroll();
