@@ -32,10 +32,9 @@
       '[class*="-problem-band"],[class*="-stats-band"],[class*="po-stats"]{' +
         'background-image:var(--dark-texture)!important;background-size:512px 512px!important}' +
 
-      /* FAQ / warm / cream section textures */
+      /* FAQ / warm / cream section textures — only for sections with explicit cream/warm backgrounds */
       '.pf-faq-section,.pf-transition-section-dark,.po-philosophy,.po-integrations,' +
-      '[class*="-use-cases"],[class*="-capabilities"],[class*="-testimonial"],[class*="-turnover"],' +
-      '[class*="ie-feature"],[class*="-roadmap"],[class*="po-channels"]{' +
+      '.po-channels{' +
         'background-image:var(--faq-texture)!important;background-size:512px 512px!important}' +
 
       /* Primary button text always white (not hover) */
