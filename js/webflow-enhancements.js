@@ -3343,12 +3343,12 @@
       }
     }
 
-    // Hero AI Dashboard Mockup
-    var heroVisual = document.querySelector('.pf-feature-visual');
+    // Hero AI Dashboard Mockup — always create new container (don't use .pf-feature-visual which may be inside a hidden section)
+    var heroVisual = document.querySelector('.mai-hero-mockup');
     if (!heroVisual) {
       var btns = document.querySelector('.pf-hero-btns-injected');
       var heroArea = btns ? btns.parentElement : (heroHeading ? heroHeading.parentElement : null);
-      if (heroArea && !heroArea.querySelector('.mai-hero-mockup')) {
+      if (heroArea) {
         heroVisual = document.createElement('div');
         heroVisual.className = 'mai-hero-mockup';
         heroVisual.style.cssText = 'margin:48px auto 0;max-width:960px;padding:0 24px';
