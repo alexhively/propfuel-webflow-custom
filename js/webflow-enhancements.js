@@ -4132,6 +4132,815 @@
     });
   }
 
+  // ─────────────────────────────────────────
+  // RESOURCES PAGES
+  // ─────────────────────────────────────────
+
+  function fixBlog() {
+    if (window.location.pathname.indexOf('/resources/blog') === -1) return;
+    var main = document.querySelector('[role="main"]') || document.querySelector('main') || document.body;
+
+    var blogArticles = [
+      { cat: 'Engagement', title: 'How One Association Increased Renewals by 34%', excerpt: 'Learn how a mid-size professional association used PropFuel to transform their renewal process from transactional reminders into meaningful conversations.', author: 'Sarah Mitchell', date: 'Mar 15, 2026' },
+      { cat: 'Strategy', title: 'The Death of the Annual Survey', excerpt: 'Why leading associations are replacing yearly surveys with continuous micro-conversations that deliver real-time insights.', author: 'Jake Thompson', date: 'Mar 8, 2026' },
+      { cat: 'Product', title: 'Introducing Membership AI: Your Always-On Engagement Partner', excerpt: 'Meet the AI that knows your members, builds campaigns, and surfaces insights \u2014 without adding headcount.', author: 'PropFuel Team', date: 'Feb 28, 2026' },
+      { cat: 'Data', title: '5 Metrics That Actually Predict Member Retention', excerpt: 'Forget open rates. These are the engagement signals that tell you who is about to leave \u2014 and who is ready to upgrade.', author: 'Emily Nguyen', date: 'Feb 20, 2026' },
+      { cat: 'Best Practices', title: 'Your Onboarding Emails Are Failing. Here\'s Why.', excerpt: 'Most associations lose new members in the first 90 days. The fix is simpler than you think: ask them what they need.', author: 'Sarah Mitchell', date: 'Feb 12, 2026' },
+      { cat: 'Case Study', title: 'How AMA Captured 7,400+ Contacts From Their Website', excerpt: 'The American Medical Association turned anonymous website visitors into known, engaged contacts using PropFuel\'s website widget.', author: 'Jake Thompson', date: 'Feb 5, 2026' }
+    ];
+
+    var html = '' +
+      '<section style="padding:96px 48px 0;text-align:center"><div style="max-width:800px;margin:0 auto">' +
+        '<p style="display:inline-flex;align-items:center;padding:8px 20px;border-radius:100px;background:rgba(251,192,45,0.08);border:1px solid rgba(249,168,37,0.35);font-size:13px;font-weight:600;color:#2F2F2F;letter-spacing:0.04em;margin-bottom:24px">Blog</p>' +
+        '<h1 style="font-size:clamp(36px,5vw,56px);font-weight:800;color:#2F2F2F;letter-spacing:-0.03em;line-height:1.1;margin-bottom:20px">The PropFuel Blog</h1>' +
+        '<p style="font-size:18px;color:#6E6E6E;line-height:1.6;max-width:600px;margin:0 auto">Insights on member engagement, association strategy, and the future of membership.</p>' +
+      '</div></section>' +
+
+      '<section style="padding:64px 48px"><div style="max-width:900px;margin:0 auto">' +
+        '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:48px;text-align:left">' +
+          '<p style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#F9A825;margin-bottom:12px">Featured</p>' +
+          '<h2 style="font-size:clamp(24px,3vw,32px);font-weight:800;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.2;margin-bottom:16px">Why Associations That Listen Grow Faster</h2>' +
+          '<p style="font-size:16px;color:#6E6E6E;line-height:1.6;margin-bottom:24px">The data is clear: organizations that build feedback loops into every member touchpoint see higher retention, stronger revenue, and deeper loyalty. Here\'s what the best are doing differently.</p>' +
+          '<div style="display:flex;align-items:center;gap:12px"><div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#F47C2C,#FBC02D);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff">SM</div><div><span style="font-size:14px;font-weight:600;color:#2F2F2F">Sarah Mitchell</span><span style="font-size:13px;color:#8C8479;margin-left:8px">Mar 22, 2026</span></div></div>' +
+        '</div>' +
+      '</div></section>' +
+
+      '<section style="padding:0 48px 64px"><div style="max-width:1100px;margin:0 auto"><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">';
+
+    blogArticles.forEach(function(a) {
+      html += '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:32px;text-align:left;display:flex;flex-direction:column">' +
+        '<span style="display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#F9A825;margin-bottom:12px">' + a.cat + '</span>' +
+        '<h3 style="font-size:18px;font-weight:700;color:#2F2F2F;line-height:1.3;margin-bottom:12px">' + a.title + '</h3>' +
+        '<p style="font-size:14px;color:#6E6E6E;line-height:1.6;margin-bottom:20px;flex:1">' + a.excerpt + '</p>' +
+        '<div style="display:flex;align-items:center;gap:8px;margin-top:auto"><span style="font-size:13px;font-weight:600;color:#2F2F2F">' + a.author + '</span><span style="font-size:12px;color:#8C8479">' + a.date + '</span></div>' +
+      '</div>';
+    });
+
+    html += '</div></div></section>' +
+      '<section style="padding:64px 48px;background:#F6F2E8"><div style="max-width:600px;margin:0 auto;text-align:center">' +
+        '<h2 style="font-size:clamp(24px,3vw,32px);font-weight:800;color:#2F2F2F;letter-spacing:-0.02em;margin-bottom:12px">Stay in the Loop</h2>' +
+        '<p style="font-size:16px;color:#6E6E6E;line-height:1.6;margin-bottom:32px">Get the latest insights on member engagement delivered to your inbox.</p>' +
+        '<div style="display:flex;gap:12px;max-width:480px;margin:0 auto"><input type="email" placeholder="Your email address" class="pf-form-input" style="flex:1;border-radius:100px;padding:14px 24px"><button class="pf-form-submit" style="width:auto;padding:14px 32px;margin-top:0">Subscribe</button></div>' +
+      '</div></section>';
+
+    main.innerHTML = html;
+  }
+
+  function fixWebinars() {
+    if (window.location.pathname.indexOf('/resources/webinars') === -1) return;
+    var main = document.querySelector('[role="main"]') || document.querySelector('main') || document.body;
+
+    var upcoming = [
+      { title: 'The Future of Member Engagement in 2026', date: 'April 15, 2026 \u2014 1:00 PM ET', desc: 'Join our panel of association leaders as they share what\u2019s working now and what\u2019s next in member engagement strategy.' },
+      { title: 'From Data to Action: Using Insights to Drive Renewals', date: 'May 6, 2026 \u2014 2:00 PM ET', desc: 'Learn how to turn member response data into targeted renewal campaigns that actually convert.' }
+    ];
+    var onDemand = [
+      { title: 'Onboarding That Sticks: The First 90 Days', desc: 'How to build an onboarding sequence that keeps new members engaged beyond the welcome email.' },
+      { title: 'SMS for Associations: Getting Started', desc: 'Everything you need to know about adding SMS to your member engagement toolkit.' },
+      { title: 'Building a Listening Culture at Your Association', desc: 'Why the most successful associations treat every touchpoint as a chance to learn.' },
+      { title: 'Website Engagement: Beyond the Homepage', desc: 'Turn your website into a two-way conversation with visitors and members alike.' },
+      { title: 'The ROI of Member Feedback', desc: 'How to measure and communicate the business impact of continuous member engagement.' },
+      { title: 'Winning Back Lapsed Members', desc: 'Proven strategies for re-engaging members who didn\u2019t renew.' }
+    ];
+
+    var html = '' +
+      '<section style="padding:96px 48px 0;text-align:center"><div style="max-width:800px;margin:0 auto">' +
+        '<p style="display:inline-flex;align-items:center;padding:8px 20px;border-radius:100px;background:rgba(251,192,45,0.08);border:1px solid rgba(249,168,37,0.35);font-size:13px;font-weight:600;color:#2F2F2F;letter-spacing:0.04em;margin-bottom:24px">Resources</p>' +
+        '<h1 style="font-size:clamp(36px,5vw,56px);font-weight:800;color:#2F2F2F;letter-spacing:-0.03em;line-height:1.1;margin-bottom:20px">Webinars &amp; Events</h1>' +
+        '<p style="font-size:18px;color:#6E6E6E;line-height:1.6;max-width:600px;margin:0 auto">Live and on-demand sessions to help you get more from PropFuel and your member engagement strategy.</p>' +
+      '</div></section>' +
+
+      '<section style="padding:64px 48px"><div style="max-width:1000px;margin:0 auto">' +
+        '<h2 style="font-size:24px;font-weight:800;color:#2F2F2F;margin-bottom:32px">Upcoming</h2>' +
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">';
+
+    upcoming.forEach(function(w) {
+      html += '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px;text-align:left">' +
+        '<p style="font-size:13px;font-weight:600;color:#F47C2C;margin-bottom:12px">' + w.date + '</p>' +
+        '<h3 style="font-size:20px;font-weight:700;color:#2F2F2F;line-height:1.3;margin-bottom:12px">' + w.title + '</h3>' +
+        '<p style="font-size:15px;color:#6E6E6E;line-height:1.6;margin-bottom:24px">' + w.desc + '</p>' +
+        '<a href="/demo" class="pf-btn-primary" style="display:inline-flex;align-items:center;gap:8px;padding:14px 32px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:linear-gradient(to right,#F47C2C,#FBC02D);color:#fff;border:none">Register Now</a>' +
+      '</div>';
+    });
+
+    html += '</div></div></section>' +
+      '<section style="padding:0 48px 64px"><div style="max-width:1000px;margin:0 auto">' +
+        '<h2 style="font-size:24px;font-weight:800;color:#2F2F2F;margin-bottom:32px">On-Demand Library</h2>' +
+        '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">';
+
+    onDemand.forEach(function(w) {
+      html += '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:32px;text-align:left">' +
+        '<h3 style="font-size:17px;font-weight:700;color:#2F2F2F;line-height:1.3;margin-bottom:10px">' + w.title + '</h3>' +
+        '<p style="font-size:14px;color:#6E6E6E;line-height:1.6;margin-bottom:20px">' + w.desc + '</p>' +
+        '<a href="#" style="font-size:14px;font-weight:600;color:#F47C2C;text-decoration:none">Watch Now \u2192</a>' +
+      '</div>';
+    });
+
+    html += '</div></div></section>' +
+      '<section style="padding:64px 48px;background:#F6F2E8"><div style="max-width:600px;margin:0 auto;text-align:center">' +
+        '<h2 style="font-size:clamp(24px,3vw,32px);font-weight:800;color:#2F2F2F;letter-spacing:-0.02em;margin-bottom:12px">Never Miss a Session</h2>' +
+        '<p style="font-size:16px;color:#6E6E6E;line-height:1.6;margin-bottom:32px">Subscribe to get notified about upcoming webinars and events.</p>' +
+        '<div style="display:flex;gap:12px;max-width:480px;margin:0 auto"><input type="email" placeholder="Your email address" class="pf-form-input" style="flex:1;border-radius:100px;padding:14px 24px"><button class="pf-form-submit" style="width:auto;padding:14px 32px;margin-top:0">Subscribe</button></div>' +
+      '</div></section>';
+
+    main.innerHTML = html;
+  }
+
+  function fixGuides() {
+    if (window.location.pathname.indexOf('/resources/guides') === -1) return;
+    var main = document.querySelector('[role="main"]') || document.querySelector('main') || document.body;
+
+    var guides = [
+      { title: 'The Renewal Blueprint', desc: 'A step-by-step guide to building a renewal campaign that starts the conversation 90 days out.', type: 'PDF Guide' },
+      { title: 'New Member Onboarding Checklist', desc: 'Everything your team needs to nail the first 90 days of membership.', type: 'Checklist' },
+      { title: 'Win-Back Campaign Templates', desc: 'Ready-to-use templates for re-engaging lapsed members with the right message at the right time.', type: 'Templates' },
+      { title: 'Member Data Starter Kit', desc: 'How to collect, organize, and act on member data without overwhelming your team.', type: 'Guide' },
+      { title: 'ROI Calculator for Member Engagement', desc: 'Quantify the impact of moving from broadcast communications to two-way engagement.', type: 'Tool' },
+      { title: 'Event Follow-Up Framework', desc: 'Turn event attendance into ongoing engagement with this post-event playbook.', type: 'Framework' }
+    ];
+
+    var html = '' +
+      '<section style="padding:96px 48px 0;text-align:center"><div style="max-width:800px;margin:0 auto">' +
+        '<p style="display:inline-flex;align-items:center;padding:8px 20px;border-radius:100px;background:rgba(251,192,45,0.08);border:1px solid rgba(249,168,37,0.35);font-size:13px;font-weight:600;color:#2F2F2F;letter-spacing:0.04em;margin-bottom:24px">Resources</p>' +
+        '<h1 style="font-size:clamp(36px,5vw,56px);font-weight:800;color:#2F2F2F;letter-spacing:-0.03em;line-height:1.1;margin-bottom:20px">Guides &amp; Resources</h1>' +
+        '<p style="font-size:18px;color:#6E6E6E;line-height:1.6;max-width:600px;margin:0 auto">Practical playbooks, templates, and tools to level up your member engagement strategy.</p>' +
+      '</div></section>' +
+
+      '<section style="padding:64px 48px"><div style="max-width:900px;margin:0 auto">' +
+        '<div class="pf-card" style="background:linear-gradient(135deg,#F47C2C,#F9A825,#FBC02D);border-radius:20px;padding:48px;text-align:left;color:#fff">' +
+          '<p style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;opacity:.85">Featured Guide \u2014 42 Pages</p>' +
+          '<h2 style="font-size:clamp(24px,3vw,32px);font-weight:800;letter-spacing:-0.02em;line-height:1.2;margin-bottom:16px">The 2026 Association Engagement Playbook</h2>' +
+          '<p style="font-size:16px;line-height:1.6;margin-bottom:24px;opacity:.9">The definitive guide to building a member engagement strategy that drives retention, revenue, and real conversations. Includes frameworks, templates, and benchmarks from 200+ associations.</p>' +
+          '<a href="#" style="display:inline-flex;align-items:center;gap:8px;padding:14px 32px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:#fff;color:#F47C2C;border:none">Download PDF \u2192</a>' +
+        '</div>' +
+      '</div></section>' +
+
+      '<section style="padding:0 48px 64px"><div style="max-width:1100px;margin:0 auto"><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">';
+
+    guides.forEach(function(g) {
+      html += '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:32px;text-align:left;display:flex;flex-direction:column">' +
+        '<span style="display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#F9A825;margin-bottom:12px">' + g.type + '</span>' +
+        '<h3 style="font-size:18px;font-weight:700;color:#2F2F2F;line-height:1.3;margin-bottom:10px">' + g.title + '</h3>' +
+        '<p style="font-size:14px;color:#6E6E6E;line-height:1.6;margin-bottom:20px;flex:1">' + g.desc + '</p>' +
+        '<a href="#" style="font-size:14px;font-weight:600;color:#F47C2C;text-decoration:none">Download \u2192</a>' +
+      '</div>';
+    });
+
+    html += '</div></div></section>' +
+      '<section class="pf-cta-section" style="padding:96px 48px;text-align:center"><div style="max-width:600px;margin:0 auto">' +
+        '<h2 class="pf-cta-heading" style="font-size:clamp(28px,4vw,42px);font-weight:800;color:#EDE8DF;letter-spacing:-0.02em;line-height:1.1;margin-bottom:20px">Want More Like This?</h2>' +
+        '<p style="font-size:17px;color:#8C8479;line-height:1.6;margin-bottom:32px">Subscribe to get new guides, templates, and resources delivered straight to your inbox.</p>' +
+        '<a href="/resources/newsletter" class="pf-btn-primary" style="display:inline-flex;align-items:center;gap:8px;padding:16px 36px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:linear-gradient(to right,#F47C2C,#FBC02D);color:#fff;border:none">Subscribe Now</a>' +
+      '</div></section>';
+
+    main.innerHTML = html;
+  }
+
+  function fixHelp() {
+    if (window.location.pathname.indexOf('/resources/help') === -1) return;
+    var main = document.querySelector('[role="main"]') || document.querySelector('main') || document.body;
+
+    var topics = [
+      { icon: '\u{1F680}', title: 'Getting Started', items: ['Setting up your account', 'Importing members', 'Creating your first campaign', 'Connecting your AMS'] },
+      { icon: '\u{1F4E7}', title: 'Email Campaigns', items: ['Building a PropFuel email', 'Response collection', 'A/B testing', 'Deliverability best practices'] },
+      { icon: '\u{1F310}', title: 'Website Widget', items: ['Installing the widget', 'Customizing appearance', 'Targeting rules', 'Tracking conversions'] },
+      { icon: '\u{1F4AC}', title: 'SMS', items: ['SMS setup & compliance', 'Opt-in management', 'Two-way messaging', 'Campaign scheduling'] },
+      { icon: '\u{1F4CA}', title: 'Insights & Reporting', items: ['Dashboard overview', 'Member profiles', 'Engagement scoring', 'Exporting data'] },
+      { icon: '\u{1F517}', title: 'Integrations', items: ['AMS integrations', 'CRM connections', 'API documentation', 'Webhooks'] }
+    ];
+
+    var faqs = [
+      { q: 'How do I reset my password?', a: 'Click "Forgot Password" on the login page, or contact your account administrator to reset it from the admin panel.' },
+      { q: 'Can I import members from a CSV file?', a: 'Yes. Go to Members > Import and upload a CSV with at least an email address column. PropFuel will map fields automatically.' },
+      { q: 'How do I connect my AMS?', a: 'Navigate to Settings > Integrations and select your AMS provider. Follow the guided setup to authenticate and configure sync settings.' },
+      { q: 'What browsers are supported?', a: 'PropFuel supports the latest versions of Chrome, Firefox, Safari, and Edge. We recommend Chrome for the best experience.' },
+      { q: 'How do I cancel a scheduled campaign?', a: 'Go to Campaigns > Scheduled, find the campaign, and click "Cancel Send." You can reschedule it at any time.' },
+      { q: 'Is there a mobile app?', a: 'PropFuel is a web-based platform optimized for desktop use. The dashboard is responsive and works on tablets and mobile browsers.' }
+    ];
+
+    var html = '' +
+      '<section style="padding:96px 48px 0;text-align:center"><div style="max-width:800px;margin:0 auto">' +
+        '<p style="display:inline-flex;align-items:center;padding:8px 20px;border-radius:100px;background:rgba(251,192,45,0.08);border:1px solid rgba(249,168,37,0.35);font-size:13px;font-weight:600;color:#2F2F2F;letter-spacing:0.04em;margin-bottom:24px">Help Center</p>' +
+        '<h1 style="font-size:clamp(36px,5vw,56px);font-weight:800;color:#2F2F2F;letter-spacing:-0.03em;line-height:1.1;margin-bottom:20px">How Can We Help?</h1>' +
+        '<div style="max-width:500px;margin:24px auto 0"><input type="text" placeholder="Search for help articles..." class="pf-form-input" style="border-radius:100px;padding:16px 24px;font-size:16px"></div>' +
+      '</div></section>' +
+
+      '<section style="padding:64px 48px"><div style="max-width:1000px;margin:0 auto">' +
+        '<h2 style="font-size:20px;font-weight:800;color:#2F2F2F;margin-bottom:24px">Quick Actions</h2>' +
+        '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">' +
+          '<a href="/company/contact" class="pf-card" style="background:#F6F2E8;border-radius:16px;padding:28px;text-align:center;text-decoration:none"><div style="font-size:28px;margin-bottom:12px">\u{1F4E9}</div><h3 style="font-size:16px;font-weight:700;color:#2F2F2F;margin-bottom:6px">Contact Support</h3><p style="font-size:13px;color:#6E6E6E">Get help from our team</p></a>' +
+          '<a href="/demo" class="pf-card" style="background:#F6F2E8;border-radius:16px;padding:28px;text-align:center;text-decoration:none"><div style="font-size:28px;margin-bottom:12px">\u{1F4C5}</div><h3 style="font-size:16px;font-weight:700;color:#2F2F2F;margin-bottom:6px">Schedule Demo</h3><p style="font-size:13px;color:#6E6E6E">See PropFuel in action</p></a>' +
+          '<a href="#" class="pf-card" style="background:#F6F2E8;border-radius:16px;padding:28px;text-align:center;text-decoration:none"><div style="font-size:28px;margin-bottom:12px">\u{2705}</div><h3 style="font-size:16px;font-weight:700;color:#2F2F2F;margin-bottom:6px">System Status</h3><p style="font-size:13px;color:#6E6E6E">All systems operational</p></a>' +
+        '</div>' +
+      '</div></section>' +
+
+      '<section style="padding:0 48px 64px"><div style="max-width:1100px;margin:0 auto">' +
+        '<h2 style="font-size:20px;font-weight:800;color:#2F2F2F;margin-bottom:24px">Knowledge Base</h2>' +
+        '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">';
+
+    topics.forEach(function(t) {
+      html += '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:32px;text-align:left">' +
+        '<div style="font-size:28px;margin-bottom:16px">' + t.icon + '</div>' +
+        '<h3 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:16px">' + t.title + '</h3>' +
+        '<ul style="list-style:none;padding:0;margin:0">';
+      t.items.forEach(function(item) {
+        html += '<li style="padding:8px 0;border-bottom:1px solid #E3DDD2"><a href="#" style="font-size:14px;color:#6E6E6E;text-decoration:none">' + item + '</a></li>';
+      });
+      html += '</ul></div>';
+    });
+
+    html += '</div></div></section>' +
+      '<section style="padding:64px 48px"><div style="max-width:1000px;margin:0 auto">' +
+        '<h2 style="font-size:20px;font-weight:800;color:#2F2F2F;margin-bottom:24px">Contact Methods</h2>' +
+        '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px">' +
+          '<div class="pf-card" style="background:#F6F2E8;border-radius:16px;padding:24px;text-align:center"><div style="font-size:24px;margin-bottom:10px">\u{1F4E7}</div><h4 style="font-size:14px;font-weight:700;color:#2F2F2F;margin-bottom:4px">Email</h4><p style="font-size:13px;color:#6E6E6E">support@propfuel.com</p></div>' +
+          '<div class="pf-card" style="background:#F6F2E8;border-radius:16px;padding:24px;text-align:center"><div style="font-size:24px;margin-bottom:10px">\u{1F4AC}</div><h4 style="font-size:14px;font-weight:700;color:#2F2F2F;margin-bottom:4px">Live Chat</h4><p style="font-size:13px;color:#6E6E6E">Mon\u2013Fri, 9am\u20135pm ET</p></div>' +
+          '<div class="pf-card" style="background:#F6F2E8;border-radius:16px;padding:24px;text-align:center"><div style="font-size:24px;margin-bottom:10px">\u{1F4DE}</div><h4 style="font-size:14px;font-weight:700;color:#2F2F2F;margin-bottom:4px">Phone</h4><p style="font-size:13px;color:#6E6E6E">For enterprise clients</p></div>' +
+          '<div class="pf-card" style="background:#F6F2E8;border-radius:16px;padding:24px;text-align:center"><div style="font-size:24px;margin-bottom:10px">\u{1F4DA}</div><h4 style="font-size:14px;font-weight:700;color:#2F2F2F;margin-bottom:4px">Documentation</h4><p style="font-size:13px;color:#6E6E6E">API & developer docs</p></div>' +
+        '</div>' +
+      '</div></section>' +
+
+      '<section style="padding:0 48px 64px"><div style="max-width:800px;margin:0 auto">' +
+        '<h2 style="font-size:20px;font-weight:800;color:#2F2F2F;margin-bottom:32px;text-align:center">Frequently Asked Questions</h2>';
+
+    faqs.forEach(function(f) {
+      html += '<div class="pf-faq-item" style="border-bottom:1px solid #E3DDD2;padding:24px 0">' +
+        '<button class="pf-faq-question" style="width:100%;display:flex;align-items:center;justify-content:space-between;background:none;border:none;cursor:pointer;font:700 17px/1.4 \'DM Sans\',sans-serif;color:#2F2F2F;text-align:left;padding:0">' + f.q + ' <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2F2F2F" stroke-width="2" style="flex-shrink:0;margin-left:16px;transition:transform .3s ease"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>' +
+        '<div class="pf-faq-answer" style="max-height:0;overflow:hidden;transition:max-height .35s ease"><p style="font-size:16px;color:#6E6E6E;line-height:1.65;padding-top:16px">' + f.a + '</p></div></div>';
+    });
+
+    html += '</div></section>' +
+      '<section class="pf-cta-section" style="padding:96px 48px;text-align:center"><div style="max-width:600px;margin:0 auto">' +
+        '<h2 class="pf-cta-heading" style="font-size:clamp(28px,4vw,42px);font-weight:800;color:#EDE8DF;letter-spacing:-0.02em;line-height:1.1;margin-bottom:20px">Still Have Questions?</h2>' +
+        '<p style="font-size:17px;color:#8C8479;line-height:1.6;margin-bottom:32px">Our team is here to help. Reach out and we\'ll get back to you within one business day.</p>' +
+        '<a href="/company/contact" class="pf-btn-primary" style="display:inline-flex;align-items:center;gap:8px;padding:16px 36px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:linear-gradient(to right,#F47C2C,#FBC02D);color:#fff;border:none">Contact Support</a>' +
+      '</div></section>';
+
+    main.innerHTML = html;
+  }
+
+  function fixNewsletter() {
+    if (window.location.pathname.indexOf('/resources/newsletter') === -1) return;
+    var main = document.querySelector('[role="main"]') || document.querySelector('main') || document.body;
+
+    var benefits = [
+      { icon: '\u{1F4A1}', title: 'Engagement Insights', desc: 'Data-backed strategies for improving member retention and participation.' },
+      { icon: '\u{1F4CB}', title: 'Playbooks & Templates', desc: 'Ready-to-use campaign frameworks you can implement immediately.' },
+      { icon: '\u{1F4E3}', title: 'Product Updates', desc: 'Be the first to know about new PropFuel features and capabilities.' },
+      { icon: '\u{1F3AF}', title: 'Industry Benchmarks', desc: 'See how your engagement metrics stack up against peer organizations.' }
+    ];
+
+    var html = '' +
+      '<section style="padding:96px 48px 0;text-align:center"><div style="max-width:800px;margin:0 auto">' +
+        '<p style="display:inline-flex;align-items:center;padding:8px 20px;border-radius:100px;background:rgba(251,192,45,0.08);border:1px solid rgba(249,168,37,0.35);font-size:13px;font-weight:600;color:#2F2F2F;letter-spacing:0.04em;margin-bottom:24px">Newsletter</p>' +
+        '<h1 style="font-size:clamp(36px,5vw,56px);font-weight:800;color:#2F2F2F;letter-spacing:-0.03em;line-height:1.1;margin-bottom:20px">Stay Ahead of Membership Engagement Trends</h1>' +
+        '<p style="font-size:18px;color:#6E6E6E;line-height:1.6;max-width:600px;margin:0 auto">Join 5,000+ association professionals getting actionable insights on member engagement, retention, and growth \u2014 delivered twice a month.</p>' +
+      '</div></section>' +
+
+      '<section style="padding:64px 48px"><div style="max-width:520px;margin:0 auto">' +
+        '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:40px">' +
+          '<div class="pf-form-group"><label class="pf-form-label">First Name</label><input type="text" placeholder="Jane" class="pf-form-input"></div>' +
+          '<div class="pf-form-group"><label class="pf-form-label">Last Name</label><input type="text" placeholder="Doe" class="pf-form-input"></div>' +
+          '<div class="pf-form-group"><label class="pf-form-label">Email</label><input type="email" placeholder="jane@association.org" class="pf-form-input"></div>' +
+          '<div class="pf-form-group"><label class="pf-form-label">Organization</label><input type="text" placeholder="Your association or company" class="pf-form-input"></div>' +
+          '<button class="pf-form-submit">Subscribe</button>' +
+        '</div>' +
+      '</div></section>' +
+
+      '<section style="padding:0 48px 64px"><div style="max-width:1000px;margin:0 auto">' +
+        '<h2 style="font-size:24px;font-weight:800;color:#2F2F2F;margin-bottom:32px;text-align:center">What You\'ll Get</h2>' +
+        '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px">';
+
+    benefits.forEach(function(b) {
+      html += '<div class="pf-card" style="background:#F6F2E8;border-radius:16px;padding:28px;text-align:center">' +
+        '<div style="font-size:32px;margin-bottom:14px">' + b.icon + '</div>' +
+        '<h3 style="font-size:16px;font-weight:700;color:#2F2F2F;margin-bottom:8px">' + b.title + '</h3>' +
+        '<p style="font-size:14px;color:#6E6E6E;line-height:1.5">' + b.desc + '</p>' +
+      '</div>';
+    });
+
+    html += '</div></div></section>' +
+
+      '<section style="padding:64px 48px;background:#F6F2E8"><div style="max-width:700px;margin:0 auto;text-align:center">' +
+        '<p style="font-size:18px;color:#6E6E6E;line-height:1.7;font-style:italic;margin-bottom:24px">\u201CThe PropFuel newsletter is one of the few I actually read. Every issue has at least one idea I can put into practice that week.\u201D</p>' +
+        '<p style="font-size:14px;font-weight:600;color:#2F2F2F;margin-bottom:32px">\u2014 Director of Membership, State Medical Association</p>' +
+        '<div style="display:flex;justify-content:center;gap:48px">' +
+          '<div style="text-align:center"><p style="font-size:32px;font-weight:900;background:linear-gradient(135deg,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">5,000+</p><p style="font-size:13px;color:#8C8479;margin-top:4px">Subscribers</p></div>' +
+          '<div style="text-align:center"><p style="font-size:32px;font-weight:900;background:linear-gradient(135deg,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">48%</p><p style="font-size:13px;color:#8C8479;margin-top:4px">Open Rate</p></div>' +
+        '</div>' +
+      '</div></section>' +
+
+      '<section class="pf-cta-section" style="padding:96px 48px;text-align:center"><div style="max-width:600px;margin:0 auto">' +
+        '<h2 class="pf-cta-heading" style="font-size:clamp(28px,4vw,42px);font-weight:800;color:#EDE8DF;letter-spacing:-0.02em;line-height:1.1;margin-bottom:20px">Don\'t Miss an Issue</h2>' +
+        '<p style="font-size:17px;color:#8C8479;line-height:1.6;margin-bottom:32px">Subscribe now and get our latest guide free \u2014 The 2026 Association Engagement Playbook.</p>' +
+        '<a href="#" class="pf-btn-primary" style="display:inline-flex;align-items:center;gap:8px;padding:16px 36px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:linear-gradient(to right,#F47C2C,#FBC02D);color:#fff;border:none">Subscribe Now</a>' +
+      '</div></section>';
+
+    main.innerHTML = html;
+  }
+
+  function fixApi() {
+    if (window.location.pathname.indexOf('/resources/api') === -1) return;
+    var main = document.querySelector('[role="main"]') || document.querySelector('main') || document.body;
+
+    var capabilities = [
+      { title: 'Member Data', desc: 'Read and write member profiles, tags, scores, and custom fields via RESTful endpoints.' },
+      { title: 'Campaigns', desc: 'Create, schedule, and manage engagement campaigns programmatically.' },
+      { title: 'Insights', desc: 'Pull engagement metrics, response data, and trend analysis in real time.' },
+      { title: 'Webhooks', desc: 'Subscribe to events like responses, score changes, and campaign completions.' },
+      { title: 'Authentication', desc: 'OAuth 2.0 with API keys and scoped tokens for secure access control.' },
+      { title: 'Rate Limits', desc: '1,000 requests/minute for standard plans. Higher limits available for enterprise.' }
+    ];
+
+    var html = '' +
+      '<section style="padding:96px 48px 0;text-align:center"><div style="max-width:800px;margin:0 auto">' +
+        '<p style="display:inline-flex;align-items:center;padding:8px 20px;border-radius:100px;background:rgba(251,192,45,0.08);border:1px solid rgba(249,168,37,0.35);font-size:13px;font-weight:600;color:#2F2F2F;letter-spacing:0.04em;margin-bottom:24px">Developer API</p>' +
+        '<h1 style="font-size:clamp(36px,5vw,56px);font-weight:800;color:#2F2F2F;letter-spacing:-0.03em;line-height:1.1;margin-bottom:20px">PropFuel API</h1>' +
+        '<p style="font-size:18px;color:#6E6E6E;line-height:1.6;max-width:600px;margin:0 auto">Build custom integrations, sync member data, and extend PropFuel\'s capabilities with our RESTful API.</p>' +
+      '</div></section>' +
+
+      '<section style="padding:64px 48px"><div style="max-width:800px;margin:0 auto">' +
+        '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:40px;text-align:left">' +
+          '<h2 style="font-size:22px;font-weight:800;color:#2F2F2F;margin-bottom:12px">Overview</h2>' +
+          '<p style="font-size:16px;color:#6E6E6E;line-height:1.7">The PropFuel API provides programmatic access to your engagement platform. Use it to sync member data from your AMS, trigger campaigns based on external events, pull response data into your data warehouse, and build custom workflows that extend PropFuel\'s core capabilities.</p>' +
+        '</div>' +
+      '</div></section>' +
+
+      '<section style="padding:0 48px 64px"><div style="max-width:1100px;margin:0 auto">' +
+        '<h2 style="font-size:24px;font-weight:800;color:#2F2F2F;margin-bottom:32px;text-align:center">Key Capabilities</h2>' +
+        '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">';
+
+    capabilities.forEach(function(c) {
+      html += '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:32px;text-align:left">' +
+        '<h3 style="font-size:17px;font-weight:700;color:#2F2F2F;margin-bottom:10px">' + c.title + '</h3>' +
+        '<p style="font-size:14px;color:#6E6E6E;line-height:1.6">' + c.desc + '</p>' +
+      '</div>';
+    });
+
+    html += '</div></div></section>' +
+
+      '<section style="padding:64px 48px"><div style="max-width:800px;margin:0 auto">' +
+        '<h2 style="font-size:24px;font-weight:800;color:#2F2F2F;margin-bottom:32px;text-align:center">Getting Started</h2>' +
+        '<div style="display:flex;flex-direction:column;gap:24px">' +
+          '<div style="display:flex;align-items:flex-start;gap:16px"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#F47C2C,#FBC02D);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff;flex-shrink:0">1</div><div><h4 style="font-size:16px;font-weight:700;color:#2F2F2F;margin-bottom:4px">Generate an API Key</h4><p style="font-size:14px;color:#6E6E6E;line-height:1.6">Navigate to Settings &gt; API in your PropFuel dashboard and create a new API key with the appropriate scopes.</p></div></div>' +
+          '<div style="display:flex;align-items:flex-start;gap:16px"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#F47C2C,#FBC02D);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff;flex-shrink:0">2</div><div><h4 style="font-size:16px;font-weight:700;color:#2F2F2F;margin-bottom:4px">Make Your First Request</h4><p style="font-size:14px;color:#6E6E6E;line-height:1.6">Test your connection with a simple GET request to the members endpoint.</p></div></div>' +
+          '<div style="display:flex;align-items:flex-start;gap:16px"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#F47C2C,#FBC02D);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff;flex-shrink:0">3</div><div><h4 style="font-size:16px;font-weight:700;color:#2F2F2F;margin-bottom:4px">Build Your Integration</h4><p style="font-size:14px;color:#6E6E6E;line-height:1.6">Use our SDKs (Node.js, Python) or make direct HTTP requests to build your custom workflows.</p></div></div>' +
+        '</div>' +
+        '<div style="margin-top:32px;background:#1A1713;border-radius:12px;padding:24px;overflow-x:auto">' +
+          '<pre style="margin:0;font-family:\'SF Mono\',Monaco,Consolas,monospace;font-size:13px;line-height:1.6;color:#EDE8DF"><code>curl -X GET https://api.propfuel.com/v1/members \\\n  -H "Authorization: Bearer YOUR_API_KEY" \\\n  -H "Content-Type: application/json"</code></pre>' +
+        '</div>' +
+      '</div></section>' +
+
+      '<section class="pf-cta-section" style="padding:96px 48px;text-align:center"><div style="max-width:600px;margin:0 auto">' +
+        '<h2 class="pf-cta-heading" style="font-size:clamp(28px,4vw,42px);font-weight:800;color:#EDE8DF;letter-spacing:-0.02em;line-height:1.1;margin-bottom:20px">Ready to Build?</h2>' +
+        '<p style="font-size:17px;color:#8C8479;line-height:1.6;margin-bottom:32px">Explore the full API documentation or reach out to our developer support team.</p>' +
+        '<div style="display:flex;justify-content:center;gap:16px">' +
+          '<a href="#" class="pf-btn-primary" style="display:inline-flex;align-items:center;gap:8px;padding:16px 36px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:linear-gradient(to right,#F47C2C,#FBC02D);color:#fff;border:none">View Full Docs</a>' +
+          '<a href="/company/contact" style="display:inline-flex;align-items:center;gap:8px;padding:15px 35px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:transparent;color:#EDE8DF;border:1.5px solid rgba(237,232,223,0.35)">Contact Dev Support</a>' +
+        '</div>' +
+      '</div></section>';
+
+    main.innerHTML = html;
+  }
+
+  // ─────────────────────────────────────────
+  // COMPANY PAGES
+  // ─────────────────────────────────────────
+
+  function fixAbout() {
+    if (window.location.pathname.indexOf('/company/about') === -1) return;
+    var main = document.querySelector('[role="main"]') || document.querySelector('main') || document.body;
+
+    var departments = [
+      { name: 'Leadership', members: [
+        { name: 'Alex Voci', title: 'CEO & Co-Founder' },
+        { name: 'Mike Eliason', title: 'CTO & Co-Founder' },
+        { name: 'Doug Discher', title: 'COO' }
+      ]},
+      { name: 'Client Success', members: [
+        { name: 'Rachel Kim', title: 'VP, Client Success' },
+        { name: 'Jordan Hayes', title: 'Sr. Client Success Manager' },
+        { name: 'Priya Sharma', title: 'Client Success Manager' }
+      ]},
+      { name: 'Sales', members: [
+        { name: 'Marcus Webb', title: 'VP, Sales' },
+        { name: 'Taylor Brooks', title: 'Account Executive' }
+      ]},
+      { name: 'Marketing', members: [
+        { name: 'Olivia Chen', title: 'VP, Marketing' },
+        { name: 'Nate Rivera', title: 'Content Marketing Manager' }
+      ]},
+      { name: 'Engineering', members: [
+        { name: 'David Park', title: 'Sr. Software Engineer' },
+        { name: 'Anika Patel', title: 'Software Engineer' },
+        { name: 'Chris Mueller', title: 'DevOps Engineer' }
+      ]}
+    ];
+
+    var milestones = [
+      { year: '2018', title: 'Founded', desc: 'PropFuel launches with the vision of turning one-way communications into two-way conversations for associations.' },
+      { year: '2020', title: 'Product-Market Fit', desc: 'Crossed 50 association customers and proved that micro-conversations drive measurably better engagement than traditional email.' },
+      { year: '2022', title: 'Multi-Channel Expansion', desc: 'Launched SMS and website engagement channels, enabling associations to listen everywhere their members are.' },
+      { year: '2024', title: '200+ Customers', desc: 'Surpassed 200 association customers and 10 million members reached through PropFuel-powered conversations.' },
+      { year: 'Today', title: 'Membership AI', desc: 'Introducing AI-powered insights and campaign generation that make every association smarter about their members.' }
+    ];
+
+    var html = '' +
+      '<section style="padding:96px 48px 0;text-align:center"><div style="max-width:800px;margin:0 auto">' +
+        '<p style="display:inline-flex;align-items:center;padding:8px 20px;border-radius:100px;background:rgba(251,192,45,0.08);border:1px solid rgba(249,168,37,0.35);font-size:13px;font-weight:600;color:#2F2F2F;letter-spacing:0.04em;margin-bottom:24px">About Us</p>' +
+        '<h1 style="font-size:clamp(36px,5vw,56px);font-weight:800;color:#2F2F2F;letter-spacing:-0.03em;line-height:1.1;margin-bottom:20px">About PropFuel</h1>' +
+        '<p style="font-size:18px;color:#6E6E6E;line-height:1.6;max-width:640px;margin:0 auto">We believe every member has something to say \u2014 and every association should have an easy way to listen. PropFuel turns one-way communications into two-way conversations that drive retention, revenue, and real connection.</p>' +
+      '</div></section>' +
+
+      '<section style="padding:64px 48px"><div style="max-width:1000px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:32px">' +
+        '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:40px;text-align:left">' +
+          '<p style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#F9A825;margin-bottom:12px">Our Mission</p>' +
+          '<p style="font-size:17px;color:#2F2F2F;line-height:1.65;font-weight:500">To give every association the power to listen to their members at scale \u2014 and turn what they hear into action.</p>' +
+        '</div>' +
+        '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:40px;text-align:left">' +
+          '<p style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#F9A825;margin-bottom:12px">Our Vision</p>' +
+          '<p style="font-size:17px;color:#2F2F2F;line-height:1.65;font-weight:500">A world where every member feels heard, every organization understands its people, and engagement is a conversation \u2014 not a broadcast.</p>' +
+        '</div>' +
+      '</div></section>' +
+
+      '<section style="padding:64px 48px"><div style="max-width:1100px;margin:0 auto">' +
+        '<h2 style="font-size:clamp(24px,3vw,32px);font-weight:800;color:#2F2F2F;letter-spacing:-0.02em;margin-bottom:48px;text-align:center">Leadership Team</h2>';
+
+    departments.forEach(function(dept) {
+      html += '<div style="margin-bottom:48px">' +
+        '<p style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#F9A825;margin-bottom:20px">' + dept.name + '</p>' +
+        '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px">';
+      dept.members.forEach(function(m) {
+        var initials = m.name.split(' ').map(function(n){ return n[0]; }).join('');
+        html += '<div class="pf-card" style="background:#F6F2E8;border-radius:16px;padding:24px;text-align:center">' +
+          '<div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#F47C2C,#FBC02D);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:#fff;margin:0 auto 12px">' + initials + '</div>' +
+          '<h4 style="font-size:15px;font-weight:700;color:#2F2F2F;margin-bottom:4px">' + m.name + '</h4>' +
+          '<p style="font-size:13px;color:#8C8479">' + m.title + '</p>' +
+        '</div>';
+      });
+      html += '</div></div>';
+    });
+
+    html += '</div></section>' +
+
+      '<section style="padding:64px 48px;background:#F6F2E8"><div style="max-width:900px;margin:0 auto">' +
+        '<h2 style="font-size:clamp(24px,3vw,32px);font-weight:800;color:#2F2F2F;letter-spacing:-0.02em;margin-bottom:48px;text-align:center">Our Journey</h2>' +
+        '<div style="display:flex;flex-direction:column;gap:32px">';
+
+    milestones.forEach(function(m) {
+      html += '<div style="display:flex;align-items:flex-start;gap:24px">' +
+        '<div style="min-width:80px;text-align:right"><span style="font-size:20px;font-weight:900;background:linear-gradient(135deg,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">' + m.year + '</span></div>' +
+        '<div style="width:2px;background:#E3DDD2;flex-shrink:0;min-height:60px"></div>' +
+        '<div><h4 style="font-size:17px;font-weight:700;color:#2F2F2F;margin-bottom:6px">' + m.title + '</h4><p style="font-size:15px;color:#6E6E6E;line-height:1.6">' + m.desc + '</p></div>' +
+      '</div>';
+    });
+
+    html += '</div></div></section>' +
+
+      '<section class="pf-section-dark" style="padding:80px 48px"><div style="max-width:1000px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:32px;text-align:center">' +
+        '<div><p style="font-size:clamp(32px,4vw,48px);font-weight:900;background:linear-gradient(to top,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1">2018</p><p style="font-size:14px;color:#8C8479;margin-top:8px">Founded</p></div>' +
+        '<div><p style="font-size:clamp(32px,4vw,48px);font-weight:900;background:linear-gradient(to top,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1">50+</p><p style="font-size:14px;color:#8C8479;margin-top:8px">Team Members</p></div>' +
+        '<div><p style="font-size:clamp(32px,4vw,48px);font-weight:900;background:linear-gradient(to top,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1">200+</p><p style="font-size:14px;color:#8C8479;margin-top:8px">Customers</p></div>' +
+        '<div><p style="font-size:clamp(32px,4vw,48px);font-weight:900;background:linear-gradient(to top,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1">10M+</p><p style="font-size:14px;color:#8C8479;margin-top:8px">Members Reached</p></div>' +
+      '</div></section>' +
+
+      '<section class="pf-cta-section" style="padding:96px 48px;text-align:center"><div style="max-width:600px;margin:0 auto">' +
+        '<h2 class="pf-cta-heading" style="font-size:clamp(28px,4vw,42px);font-weight:800;color:#EDE8DF;letter-spacing:-0.02em;line-height:1.1;margin-bottom:20px">Ready to Transform Member Engagement?</h2>' +
+        '<p style="font-size:17px;color:#8C8479;line-height:1.6;margin-bottom:32px">See how PropFuel can help your association build deeper connections with every member.</p>' +
+        '<a href="/demo" class="pf-btn-primary" style="display:inline-flex;align-items:center;gap:8px;padding:16px 36px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:linear-gradient(to right,#F47C2C,#FBC02D);color:#fff;border:none">Request a Demo</a>' +
+      '</div></section>';
+
+    main.innerHTML = html;
+  }
+
+  function fixCareers() {
+    if (window.location.pathname.indexOf('/company/careers') === -1) return;
+    var main = document.querySelector('[role="main"]') || document.querySelector('main') || document.body;
+
+    var values = [
+      { title: 'Members First', desc: 'Everything we build starts with a simple question: does this help associations serve their members better?' },
+      { title: 'Bias Toward Action', desc: 'We ship fast, learn faster, and trust our team to make decisions without waiting for permission.' },
+      { title: 'Radical Transparency', desc: 'We share context openly \u2014 financials, strategy, challenges. Everyone deserves the full picture.' },
+      { title: 'Enjoy the Ride', desc: 'We\u2019re building something meaningful. We celebrate wins, learn from setbacks, and don\u2019t take ourselves too seriously.' }
+    ];
+
+    var benefitsList = [
+      { icon: '\u{1F3E0}', title: 'Remote-First', desc: 'Work from anywhere. We\u2019ve been distributed since day one.' },
+      { icon: '\u{1FA7A}', title: 'Health & Wellness', desc: 'Comprehensive medical, dental, and vision coverage for you and your family.' },
+      { icon: '\u{1F4BB}', title: 'Equipment Budget', desc: '$1,500 annual stipend to set up your ideal workspace.' },
+      { icon: '\u{1F334}', title: 'Unlimited PTO', desc: 'Take the time you need. We trust you to manage your schedule.' },
+      { icon: '\u{1F4DA}', title: 'Learning Budget', desc: '$1,000 annual budget for courses, conferences, and professional development.' },
+      { icon: '\u{1F4C8}', title: 'Equity', desc: 'Stock options so you share in the success you help create.' }
+    ];
+
+    var html = '' +
+      '<section style="padding:96px 48px 0;text-align:center"><div style="max-width:800px;margin:0 auto">' +
+        '<p style="display:inline-flex;align-items:center;padding:8px 20px;border-radius:100px;background:rgba(251,192,45,0.08);border:1px solid rgba(249,168,37,0.35);font-size:13px;font-weight:600;color:#2F2F2F;letter-spacing:0.04em;margin-bottom:24px">Careers</p>' +
+        '<h1 style="font-size:clamp(36px,5vw,56px);font-weight:800;color:#2F2F2F;letter-spacing:-0.03em;line-height:1.1;margin-bottom:20px">Join the Team</h1>' +
+        '<p style="font-size:18px;color:#6E6E6E;line-height:1.6;max-width:600px;margin:0 auto">Help us build the future of member engagement. We\u2019re a small, remote-first team solving big problems for associations.</p>' +
+      '</div></section>' +
+
+      '<section style="padding:64px 48px"><div style="max-width:1000px;margin:0 auto">' +
+        '<h2 style="font-size:24px;font-weight:800;color:#2F2F2F;margin-bottom:32px;text-align:center">Our Values</h2>' +
+        '<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:24px">';
+
+    values.forEach(function(v) {
+      html += '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px;text-align:left">' +
+        '<h3 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:10px">' + v.title + '</h3>' +
+        '<p style="font-size:15px;color:#6E6E6E;line-height:1.6">' + v.desc + '</p>' +
+      '</div>';
+    });
+
+    html += '</div></div></section>' +
+
+      '<section style="padding:0 48px 64px"><div style="max-width:1100px;margin:0 auto">' +
+        '<h2 style="font-size:24px;font-weight:800;color:#2F2F2F;margin-bottom:32px;text-align:center">Benefits & Perks</h2>' +
+        '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">';
+
+    benefitsList.forEach(function(b) {
+      html += '<div class="pf-card" style="background:#F6F2E8;border-radius:16px;padding:28px;text-align:center">' +
+        '<div style="font-size:32px;margin-bottom:14px">' + b.icon + '</div>' +
+        '<h3 style="font-size:16px;font-weight:700;color:#2F2F2F;margin-bottom:8px">' + b.title + '</h3>' +
+        '<p style="font-size:14px;color:#6E6E6E;line-height:1.5">' + b.desc + '</p>' +
+      '</div>';
+    });
+
+    html += '</div></div></section>' +
+
+      '<section style="padding:64px 48px;background:#F6F2E8"><div style="max-width:800px;margin:0 auto;text-align:center">' +
+        '<h2 style="font-size:24px;font-weight:800;color:#2F2F2F;margin-bottom:16px">Open Positions</h2>' +
+        '<div class="pf-card" style="background:#fff;border-radius:16px;padding:48px;text-align:center">' +
+          '<p style="font-size:32px;margin-bottom:16px">\u{1F50D}</p>' +
+          '<p style="font-size:17px;font-weight:600;color:#2F2F2F;margin-bottom:8px">No open positions at this time</p>' +
+          '<p style="font-size:15px;color:#6E6E6E;line-height:1.6">We\u2019re always looking for great people. Send us your resume and we\u2019ll keep you in mind.</p>' +
+        '</div>' +
+      '</div></section>' +
+
+      '<section class="pf-cta-section" style="padding:96px 48px;text-align:center"><div style="max-width:600px;margin:0 auto">' +
+        '<h2 class="pf-cta-heading" style="font-size:clamp(28px,4vw,42px);font-weight:800;color:#EDE8DF;letter-spacing:-0.02em;line-height:1.1;margin-bottom:20px">Don\'t See Your Role?</h2>' +
+        '<p style="font-size:17px;color:#8C8479;line-height:1.6;margin-bottom:32px">We\u2019re always interested in hearing from talented people who are passionate about member engagement.</p>' +
+        '<a href="mailto:careers@propfuel.com" class="pf-btn-primary" style="display:inline-flex;align-items:center;gap:8px;padding:16px 36px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:linear-gradient(to right,#F47C2C,#FBC02D);color:#fff;border:none">Send Your Resume</a>' +
+      '</div></section>';
+
+    main.innerHTML = html;
+  }
+
+  function fixContact() {
+    if (window.location.pathname.indexOf('/company/contact') === -1) return;
+    var main = document.querySelector('[role="main"]') || document.querySelector('main') || document.body;
+
+    var html = '' +
+      '<section style="padding:96px 48px 0;text-align:center"><div style="max-width:800px;margin:0 auto">' +
+        '<p style="display:inline-flex;align-items:center;padding:8px 20px;border-radius:100px;background:rgba(251,192,45,0.08);border:1px solid rgba(249,168,37,0.35);font-size:13px;font-weight:600;color:#2F2F2F;letter-spacing:0.04em;margin-bottom:24px">Contact</p>' +
+        '<h1 style="font-size:clamp(36px,5vw,56px);font-weight:800;color:#2F2F2F;letter-spacing:-0.03em;line-height:1.1;margin-bottom:20px">Get in Touch</h1>' +
+        '<p style="font-size:18px;color:#6E6E6E;line-height:1.6;max-width:600px;margin:0 auto">Have a question, want a demo, or just want to say hello? We\'d love to hear from you.</p>' +
+      '</div></section>' +
+
+      '<section style="padding:64px 48px"><div style="max-width:1000px;margin:0 auto">' +
+        '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">' +
+          '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px;text-align:center">' +
+            '<div style="font-size:28px;margin-bottom:14px">\u{1F4B0}</div>' +
+            '<h3 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:8px">Sales</h3>' +
+            '<p style="font-size:15px;color:#6E6E6E;line-height:1.6;margin-bottom:12px">Interested in PropFuel for your association? Let\u2019s talk.</p>' +
+            '<a href="mailto:sales@propfuel.com" style="font-size:14px;font-weight:600;color:#F47C2C;text-decoration:none">sales@propfuel.com</a>' +
+          '</div>' +
+          '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px;text-align:center">' +
+            '<div style="font-size:28px;margin-bottom:14px">\u{1F6E0}\u{FE0F}</div>' +
+            '<h3 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:8px">Support</h3>' +
+            '<p style="font-size:15px;color:#6E6E6E;line-height:1.6;margin-bottom:12px">Need help with your PropFuel account? Our team is here for you.</p>' +
+            '<a href="mailto:support@propfuel.com" style="font-size:14px;font-weight:600;color:#F47C2C;text-decoration:none">support@propfuel.com</a>' +
+          '</div>' +
+          '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px;text-align:center">' +
+            '<div style="font-size:28px;margin-bottom:14px">\u{1F91D}</div>' +
+            '<h3 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:8px">Partnerships</h3>' +
+            '<p style="font-size:15px;color:#6E6E6E;line-height:1.6;margin-bottom:12px">Explore integration, referral, or content partnership opportunities.</p>' +
+            '<a href="mailto:partners@propfuel.com" style="font-size:14px;font-weight:600;color:#F47C2C;text-decoration:none">partners@propfuel.com</a>' +
+          '</div>' +
+        '</div>' +
+      '</div></section>' +
+
+      '<section style="padding:0 48px 64px"><div style="max-width:640px;margin:0 auto">' +
+        '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:40px">' +
+          '<h2 style="font-size:22px;font-weight:800;color:#2F2F2F;margin-bottom:24px">Send Us a Message</h2>' +
+          '<div class="pf-form-group"><label class="pf-form-label">Full Name</label><input type="text" placeholder="Jane Doe" class="pf-form-input"></div>' +
+          '<div class="pf-form-group"><label class="pf-form-label">Email</label><input type="email" placeholder="jane@association.org" class="pf-form-input"></div>' +
+          '<div class="pf-form-group"><label class="pf-form-label">Organization</label><input type="text" placeholder="Your association or company" class="pf-form-input"></div>' +
+          '<div class="pf-form-group"><label class="pf-form-label">Subject</label><select class="pf-form-input"><option value="">Select a topic...</option><option value="demo">Request a Demo</option><option value="support">Support Question</option><option value="partnership">Partnership Inquiry</option><option value="press">Press / Media</option><option value="other">Other</option></select></div>' +
+          '<div class="pf-form-group"><label class="pf-form-label">Message</label><textarea placeholder="How can we help?" class="pf-form-input pf-form-textarea"></textarea></div>' +
+          '<button class="pf-form-submit">Send Message</button>' +
+        '</div>' +
+      '</div></section>' +
+
+      '<section style="padding:64px 48px;background:#F6F2E8"><div style="max-width:600px;margin:0 auto;text-align:center">' +
+        '<h2 style="font-size:22px;font-weight:800;color:#2F2F2F;margin-bottom:12px">Office Location</h2>' +
+        '<p style="font-size:16px;color:#6E6E6E;line-height:1.6">PropFuel is a remote-first company headquartered in the United States. Our team works from coast to coast.</p>' +
+      '</div></section>' +
+
+      '<section class="pf-cta-section" style="padding:96px 48px;text-align:center"><div style="max-width:600px;margin:0 auto">' +
+        '<h2 class="pf-cta-heading" style="font-size:clamp(28px,4vw,42px);font-weight:800;color:#EDE8DF;letter-spacing:-0.02em;line-height:1.1;margin-bottom:20px">Ready to See PropFuel in Action?</h2>' +
+        '<p style="font-size:17px;color:#8C8479;line-height:1.6;margin-bottom:32px">Schedule a personalized demo and see how PropFuel can transform your member engagement.</p>' +
+        '<a href="/demo" class="pf-btn-primary" style="display:inline-flex;align-items:center;gap:8px;padding:16px 36px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:linear-gradient(to right,#F47C2C,#FBC02D);color:#fff;border:none">Request a Demo</a>' +
+      '</div></section>';
+
+    main.innerHTML = html;
+  }
+
+  function fixPartners() {
+    if (window.location.pathname.indexOf('/company/partners') === -1) return;
+    var main = document.querySelector('[role="main"]') || document.querySelector('main') || document.body;
+
+    var partnerTypes = [
+      { title: 'AMS Integration Partners', desc: 'Connect your AMS with PropFuel to unlock seamless member data sync and engagement automation.' },
+      { title: 'Consulting Partners', desc: 'Help your association clients implement engagement strategies powered by PropFuel.' },
+      { title: 'Technology Partners', desc: 'Integrate your platform with PropFuel to deliver richer member experiences.' },
+      { title: 'Content & Community Partners', desc: 'Co-create content, host events, and build community around member engagement best practices.' }
+    ];
+
+    var collaborations = [
+      { name: 'iMIS', desc: 'Deep AMS integration for real-time member data sync and engagement scoring.' },
+      { name: 'Nimble AMS', desc: 'Native Salesforce-based integration with bi-directional data flow.' },
+      { name: 'MemberSuite', desc: 'Automated member import and response data push-back to member records.' },
+      { name: 'Association Analytics', desc: 'Combined engagement + analytics for predictive member health scoring.' },
+      { name: 'Billhighway', desc: 'Chapter-level engagement data connected to financial performance metrics.' },
+      { name: 'Higher Logic', desc: 'Community engagement data enriched with PropFuel conversation insights.' }
+    ];
+
+    var partnerBenefits = [
+      { title: 'Revenue Share', desc: 'Earn recurring revenue for every client you bring to PropFuel.' },
+      { title: 'Co-Marketing', desc: 'Joint webinars, case studies, and content campaigns to drive mutual growth.' },
+      { title: 'Technical Support', desc: 'Dedicated partner engineering team and sandbox environments.' },
+      { title: 'Training & Certification', desc: 'Get certified on PropFuel to better serve your clients.' },
+      { title: 'Partner Portal', desc: 'Self-service dashboard for tracking referrals, revenue, and resources.' },
+      { title: 'Early Access', desc: 'Preview new features and shape the product roadmap with partner input.' }
+    ];
+
+    var html = '' +
+      '<section style="padding:96px 48px 0;text-align:center"><div style="max-width:800px;margin:0 auto">' +
+        '<p style="display:inline-flex;align-items:center;padding:8px 20px;border-radius:100px;background:rgba(251,192,45,0.08);border:1px solid rgba(249,168,37,0.35);font-size:13px;font-weight:600;color:#2F2F2F;letter-spacing:0.04em;margin-bottom:24px">Partnerships</p>' +
+        '<h1 style="font-size:clamp(36px,5vw,56px);font-weight:800;color:#2F2F2F;letter-spacing:-0.03em;line-height:1.1;margin-bottom:20px">Partner With PropFuel</h1>' +
+        '<p style="font-size:18px;color:#6E6E6E;line-height:1.6;max-width:600px;margin:0 auto">Join our partner ecosystem and help associations build deeper connections with their members.</p>' +
+      '</div></section>' +
+
+      '<section style="padding:64px 48px"><div style="max-width:1000px;margin:0 auto">' +
+        '<h2 style="font-size:24px;font-weight:800;color:#2F2F2F;margin-bottom:32px;text-align:center">Partnership Types</h2>' +
+        '<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:24px">';
+
+    partnerTypes.forEach(function(p) {
+      html += '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px;text-align:left">' +
+        '<h3 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:10px">' + p.title + '</h3>' +
+        '<p style="font-size:15px;color:#6E6E6E;line-height:1.6">' + p.desc + '</p>' +
+      '</div>';
+    });
+
+    html += '</div></div></section>' +
+
+      '<section style="padding:0 48px 64px"><div style="max-width:1100px;margin:0 auto">' +
+        '<h2 style="font-size:24px;font-weight:800;color:#2F2F2F;margin-bottom:32px;text-align:center">Past Collaborations</h2>' +
+        '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">';
+
+    collaborations.forEach(function(c) {
+      html += '<div class="pf-card" style="background:#F6F2E8;border-radius:16px;padding:28px;text-align:left">' +
+        '<h3 style="font-size:16px;font-weight:700;color:#2F2F2F;margin-bottom:8px">' + c.name + '</h3>' +
+        '<p style="font-size:14px;color:#6E6E6E;line-height:1.5">' + c.desc + '</p>' +
+      '</div>';
+    });
+
+    html += '</div></div></section>' +
+
+      '<section style="padding:64px 48px;background:#F6F2E8"><div style="max-width:1100px;margin:0 auto">' +
+        '<h2 style="font-size:24px;font-weight:800;color:#2F2F2F;margin-bottom:32px;text-align:center">Partner Benefits</h2>' +
+        '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">';
+
+    partnerBenefits.forEach(function(b) {
+      html += '<div class="pf-card" style="background:#fff;border-radius:16px;padding:28px;text-align:left">' +
+        '<h3 style="font-size:16px;font-weight:700;color:#2F2F2F;margin-bottom:8px">' + b.title + '</h3>' +
+        '<p style="font-size:14px;color:#6E6E6E;line-height:1.5">' + b.desc + '</p>' +
+      '</div>';
+    });
+
+    html += '</div></div></section>' +
+
+      '<section style="padding:64px 48px"><div style="max-width:640px;margin:0 auto">' +
+        '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:40px">' +
+          '<h2 style="font-size:22px;font-weight:800;color:#2F2F2F;margin-bottom:24px;text-align:center">Become a Partner</h2>' +
+          '<div class="pf-form-group"><label class="pf-form-label">Name</label><input type="text" placeholder="Your full name" class="pf-form-input"></div>' +
+          '<div class="pf-form-group"><label class="pf-form-label">Email</label><input type="email" placeholder="you@company.com" class="pf-form-input"></div>' +
+          '<div class="pf-form-group"><label class="pf-form-label">Organization</label><input type="text" placeholder="Your company" class="pf-form-input"></div>' +
+          '<div class="pf-form-group"><label class="pf-form-label">Partnership Type</label><select class="pf-form-input"><option value="">Select a type...</option><option value="ams">AMS Integration</option><option value="consulting">Consulting</option><option value="technology">Technology</option><option value="content">Content & Community</option></select></div>' +
+          '<div class="pf-form-group"><label class="pf-form-label">Message</label><textarea placeholder="Tell us about the partnership opportunity..." class="pf-form-input pf-form-textarea"></textarea></div>' +
+          '<button class="pf-form-submit">Submit Application</button>' +
+        '</div>' +
+      '</div></section>' +
+
+      '<section class="pf-cta-section" style="padding:96px 48px;text-align:center"><div style="max-width:600px;margin:0 auto">' +
+        '<h2 class="pf-cta-heading" style="font-size:clamp(28px,4vw,42px);font-weight:800;color:#EDE8DF;letter-spacing:-0.02em;line-height:1.1;margin-bottom:20px">Ready to Partner with PropFuel?</h2>' +
+        '<p style="font-size:17px;color:#8C8479;line-height:1.6;margin-bottom:32px">Let\u2019s explore how we can grow together and deliver more value to associations.</p>' +
+        '<a href="mailto:partners@propfuel.com" class="pf-btn-primary" style="display:inline-flex;align-items:center;gap:8px;padding:16px 36px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:linear-gradient(to right,#F47C2C,#FBC02D);color:#fff;border:none">Get in Touch</a>' +
+      '</div></section>';
+
+    main.innerHTML = html;
+  }
+
+  // ─────────────────────────────────────────
+  // LEGAL PAGES
+  // ─────────────────────────────────────────
+
+  function fixPrivacy() {
+    if (window.location.pathname.indexOf('/legal/privacy') === -1) return;
+    var main = document.querySelector('[role="main"]') || document.querySelector('main') || document.body;
+
+    var ss = 'font-size:15px;color:#6E6E6E;line-height:1.7;margin-bottom:16px';
+    var sh = 'font-size:22px;font-weight:700;color:#2F2F2F;margin:40px 0 16px';
+    var sh2 = 'font-size:18px;font-weight:700;color:#2F2F2F;margin:32px 0 12px';
+
+    var html = '' +
+      '<section style="padding:96px 48px 0;text-align:center"><div style="max-width:800px;margin:0 auto">' +
+        '<h1 style="font-size:clamp(36px,5vw,56px);font-weight:800;color:#2F2F2F;letter-spacing:-0.03em;line-height:1.1;margin-bottom:12px">Privacy Policy</h1>' +
+        '<p style="font-size:16px;color:#8C8479">Last updated: January 7, 2022</p>' +
+      '</div></section>' +
+
+      '<section style="padding:64px 48px"><div style="max-width:800px;margin:0 auto;text-align:left">' +
+        '<p style="' + ss + '">This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You.</p>' +
+        '<p style="' + ss + '">We use Your Personal data to provide and improve the Service. By using the Service, You agree to the collection and use of information in accordance with this Privacy Policy.</p>' +
+
+        '<h2 style="' + sh + '">Interpretation and Definitions</h2>' +
+        '<h3 style="' + sh2 + '">Interpretation</h3>' +
+        '<p style="' + ss + '">The words of which the initial letter is capitalized have meanings defined under the following conditions. The following definitions shall have the same meaning regardless of whether they appear in singular or in plural.</p>' +
+        '<h3 style="' + sh2 + '">Definitions</h3>' +
+        '<p style="' + ss + '">For the purposes of this Privacy Policy:</p>' +
+        '<ul style="' + ss + ';padding-left:24px">' +
+          '<li style="margin-bottom:8px"><strong style="color:#2F2F2F">Account</strong> means a unique account created for You to access our Service or parts of our Service.</li>' +
+          '<li style="margin-bottom:8px"><strong style="color:#2F2F2F">Company</strong> (referred to as either "the Company", "We", "Us" or "Our" in this Agreement) refers to PropFuel.</li>' +
+          '<li style="margin-bottom:8px"><strong style="color:#2F2F2F">Cookies</strong> are small files that are placed on Your computer, mobile device or any other device by a website, containing the details of Your browsing history on that website among its many uses.</li>' +
+          '<li style="margin-bottom:8px"><strong style="color:#2F2F2F">Country</strong> refers to the United States of America.</li>' +
+          '<li style="margin-bottom:8px"><strong style="color:#2F2F2F">Device</strong> means any device that can access the Service such as a computer, a cellphone or a digital tablet.</li>' +
+          '<li style="margin-bottom:8px"><strong style="color:#2F2F2F">Personal Data</strong> is any information that relates to an identified or identifiable individual.</li>' +
+          '<li style="margin-bottom:8px"><strong style="color:#2F2F2F">Service</strong> refers to the Website.</li>' +
+          '<li style="margin-bottom:8px"><strong style="color:#2F2F2F">Service Provider</strong> means any natural or legal person who processes the data on behalf of the Company.</li>' +
+          '<li style="margin-bottom:8px"><strong style="color:#2F2F2F">Website</strong> refers to PropFuel, accessible from <a href="https://www.propfuel.com" style="color:#F47C2C">https://www.propfuel.com</a>.</li>' +
+          '<li style="margin-bottom:8px"><strong style="color:#2F2F2F">You</strong> means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.</li>' +
+        '</ul>' +
+
+        '<h2 style="' + sh + '">Collecting and Using Your Personal Data</h2>' +
+        '<h3 style="' + sh2 + '">Types of Data Collected</h3>' +
+        '<p style="' + ss + '"><strong style="color:#2F2F2F">Personal Data:</strong> While using Our Service, We may ask You to provide Us with certain personally identifiable information that can be used to contact or identify You. Personally identifiable information may include, but is not limited to: email address, first name and last name, phone number, address, state, province, ZIP/postal code, city, and usage data.</p>' +
+        '<p style="' + ss + '"><strong style="color:#2F2F2F">Usage Data:</strong> Usage Data is collected automatically when using the Service. Usage Data may include information such as Your Device\'s Internet Protocol address, browser type, browser version, the pages of our Service that You visit, the time and date of Your visit, the time spent on those pages, unique device identifiers and other diagnostic data.</p>' +
+
+        '<h2 style="' + sh + '">Use of Your Personal Data</h2>' +
+        '<p style="' + ss + '">The Company may use Personal Data for the following purposes: to provide and maintain our Service; to manage Your Account; for the performance of a contract; to contact You; to provide You with news, special offers and general information; to manage Your requests; for business transfers; and for other purposes such as data analysis, identifying usage trends, and improving our Service.</p>' +
+
+        '<h2 style="' + sh + '">Sharing Your Personal Data</h2>' +
+        '<p style="' + ss + '">We may share Your personal information in the following situations: with Service Providers, for business transfers, with affiliates, with business partners, with other users when You share information publicly, and with Your consent.</p>' +
+
+        '<h2 style="' + sh + '">Retention of Your Personal Data</h2>' +
+        '<p style="' + ss + '">The Company will retain Your Personal Data only for as long as is necessary for the purposes set out in this Privacy Policy. We will retain and use Your Personal Data to the extent necessary to comply with our legal obligations, resolve disputes, and enforce our legal agreements and policies.</p>' +
+
+        '<h2 style="' + sh + '">Transfer of Your Personal Data</h2>' +
+        '<p style="' + ss + '">Your information, including Personal Data, is processed at the Company\'s operating offices and in any other places where the parties involved in the processing are located. Your consent to this Privacy Policy followed by Your submission of such information represents Your agreement to that transfer.</p>' +
+
+        '<h2 style="' + sh + '">Disclosure of Your Personal Data</h2>' +
+        '<p style="' + ss + '">The Company may disclose Your Personal Data in the good faith belief that such action is necessary to: comply with a legal obligation; protect and defend the rights or property of the Company; prevent or investigate possible wrongdoing in connection with the Service; protect the personal safety of Users of the Service or the public; and protect against legal liability.</p>' +
+
+        '<h2 style="' + sh + '">Security of Your Personal Data</h2>' +
+        '<p style="' + ss + '">The security of Your Personal Data is important to Us, but remember that no method of transmission over the Internet, or method of electronic storage is 100% secure. While We strive to use commercially acceptable means to protect Your Personal Data, We cannot guarantee its absolute security.</p>' +
+
+        '<h2 style="' + sh + '">Analytics</h2>' +
+        '<p style="' + ss + '">We may use third-party Service providers to monitor and analyze the use of our Service. Google Analytics is a web analytics service offered by Google that tracks and reports website traffic. For more information on the privacy practices of Google, please visit the Google Privacy & Terms web page.</p>' +
+
+        '<h2 style="' + sh + '">GDPR Privacy</h2>' +
+        '<p style="' + ss + '">If You are a resident of the European Economic Area (EEA), You have certain data protection rights. PropFuel aims to take reasonable steps to allow You to correct, amend, delete or limit the use of Your Personal Data. You have the right to access, update or delete the information we have on You, the right of rectification, the right to object, the right of restriction, the right to data portability, and the right to withdraw consent.</p>' +
+
+        '<h2 style="' + sh + '">CCPA Privacy</h2>' +
+        '<p style="' + ss + '">If You are a California resident, You are entitled to learn what data we collect about You, ask to delete Your data, and not be discriminated against. To exercise Your data protection rights, You can contact Us.</p>' +
+
+        '<h2 style="' + sh + '">Contact Us</h2>' +
+        '<p style="' + ss + '">If you have any questions about this Privacy Policy, You can contact us by email at <a href="mailto:support@propfuel.com" style="color:#F47C2C">support@propfuel.com</a>.</p>' +
+
+      '</div></section>';
+
+    main.innerHTML = html;
+  }
+
+  function fixTerms() {
+    if (window.location.pathname.indexOf('/legal/terms') === -1) return;
+    var main = document.querySelector('[role="main"]') || document.querySelector('main') || document.body;
+
+    var html = '' +
+      '<section style="padding:96px 48px 0;text-align:center"><div style="max-width:800px;margin:0 auto">' +
+        '<h1 style="font-size:clamp(36px,5vw,56px);font-weight:800;color:#2F2F2F;letter-spacing:-0.03em;line-height:1.1;margin-bottom:20px">Terms of Service</h1>' +
+      '</div></section>' +
+
+      '<section style="padding:64px 48px"><div style="max-width:600px;margin:0 auto;text-align:center">' +
+        '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:64px 48px">' +
+          '<p style="font-size:32px;margin-bottom:20px">\u{1F4C4}</p>' +
+          '<h2 style="font-size:24px;font-weight:800;color:#2F2F2F;margin-bottom:12px">Coming Soon</h2>' +
+          '<p style="font-size:16px;color:#6E6E6E;line-height:1.6">Our Terms of Service are being updated. In the meantime, please contact us at <a href="mailto:support@propfuel.com" style="color:#F47C2C;font-weight:600">support@propfuel.com</a> with any questions.</p>' +
+        '</div>' +
+      '</div></section>';
+
+    main.innerHTML = html;
+  }
+
   // INIT
   // ─────────────────────────────────────────
   function init() {
@@ -4155,6 +4964,18 @@
     fixUseCaseEvents();
     fixUseCaseCertifications();
     fixUseCaseDataIntelligence();
+    fixBlog();
+    fixWebinars();
+    fixGuides();
+    fixHelp();
+    fixNewsletter();
+    fixApi();
+    fixAbout();
+    fixCareers();
+    fixContact();
+    fixPartners();
+    fixPrivacy();
+    fixTerms();
     initScrollAnimations();
     initFaqAccordion();
     initNavScroll();
