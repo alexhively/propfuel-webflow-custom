@@ -1388,6 +1388,29 @@
       }
     };
     document.head.appendChild(script);
+
+    // Load ChiliPiper for post-submit scheduling
+    var cpScript = document.createElement('script');
+    cpScript.src = 'https://js.chilipiper.com/marketing.js';
+    cpScript.type = 'text/javascript';
+    document.head.appendChild(cpScript);
+
+    // ChiliPiper listener — routes HubSpot form submission to Inbound_Router
+    var cpTenantDomain = 'propfuel';
+    var cpRouterName = 'Inbound_Router';
+    var cpFormId = 'f8009d2f-d93b-40b1-a669-d6c112abe6a5';
+    window.addEventListener('message', function(event) {
+      if (cpFormId && event.data.id !== cpFormId) return;
+      if (event.data.type === 'hsFormCallback' && event.data.eventName === 'onFormSubmitted') {
+        var lead = event.data.data.submissionValues;
+        for (var key in lead) {
+          if (Array.isArray(lead[key])) { lead[key] = lead[key].toString().replaceAll(',', ';'); }
+        }
+        if (window.ChiliPiper) {
+          ChiliPiper.submit(cpTenantDomain, cpRouterName, { map: true, lead: lead });
+        }
+      }
+    });
   }
 
   // ─────────────────────────────────────────
