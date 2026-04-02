@@ -1246,15 +1246,23 @@
             '<p style="font-size:16px;color:#6E6E6E;line-height:1.65">Every response flows back into the member profile and triggers the right next action \u2014 automatically. It is a continuous loop of listening and acting that turns passive members into engaged ones.</p>' +
           '</div>' +
           '<div style="display:flex;align-items:center;justify-content:center">' +
-            '<div style="max-width:320px;width:100%;text-align:center;font-family:DM Sans,sans-serif">' +
-              '<p style="font-size:13px;font-weight:600;color:#8C8479;letter-spacing:.04em;margin-bottom:16px">The Membership Engagement Loop</p>' +
-              '<svg viewBox="0 0 300 280" xmlns="http://www.w3.org/2000/svg" style="width:100%">' +
-                '<defs><linearGradient id="poLoopGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#F47C2C"/><stop offset="50%" stop-color="#F9A825"/><stop offset="100%" stop-color="#FBC02D"/></linearGradient></defs>' +
-                '<circle cx="150" cy="140" r="100" fill="none" stroke="#E7E2D8" stroke-width="2"/>' +
-                '<circle cx="150" cy="140" r="100" fill="none" stroke="url(#poLoopGrad)" stroke-width="3" stroke-linecap="round" stroke-dasharray="200 430"/>' +
-                '<circle cx="150" cy="40" r="36" fill="url(#poLoopGrad)"/><text x="150" y="36" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="16" font-weight="800" fill="#fff">Ask</text><text x="150" y="52" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="rgba(255,255,255,.85)">One question</text>' +
-                '<circle cx="250" cy="200" r="36" fill="url(#poLoopGrad)"/><text x="250" y="196" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="15" font-weight="800" fill="#fff">Capture</text><text x="250" y="212" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="rgba(255,255,255,.85)">Every response</text>' +
-                '<circle cx="50" cy="200" r="36" fill="url(#poLoopGrad)"/><text x="50" y="196" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="16" font-weight="800" fill="#fff">Act</text><text x="50" y="212" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="rgba(255,255,255,.85)">On data</text>' +
+            '<div style="max-width:400px;width:100%;font-family:DM Sans,sans-serif">' +
+              '<style>@keyframes poSpinLoop{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}</style>' +
+              '<svg viewBox="0 0 460 460" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%">' +
+                '<defs>' +
+                  '<linearGradient id="poLoopGrad" x1="0" y1="0" x2="460" y2="460" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#F47C2C"/><stop offset="100%" stop-color="#FBC02D"/></linearGradient>' +
+                  '<linearGradient id="poLoopGrad2" x1="0" y1="0" x2="460" y2="460" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#F47C2C" stop-opacity="0.15"/><stop offset="100%" stop-color="#FBC02D" stop-opacity="0.15"/></linearGradient>' +
+                '</defs>' +
+                '<circle cx="230" cy="230" r="180" stroke="url(#poLoopGrad2)" stroke-width="3" fill="none"/>' +
+                '<circle cx="230" cy="230" r="180" stroke="url(#poLoopGrad)" stroke-width="4" fill="none" stroke-dasharray="377 754" stroke-dashoffset="0" stroke-linecap="round" style="transform-origin:center;animation:poSpinLoop 8s linear infinite"/>' +
+                '<path d="M 310 98 Q 370 170 350 270" stroke="url(#poLoopGrad2)" stroke-width="2" fill="none" stroke-dasharray="6 6"/>' +
+                '<path d="M 330 310 Q 260 380 150 340" stroke="url(#poLoopGrad2)" stroke-width="2" fill="none" stroke-dasharray="6 6"/>' +
+                '<path d="M 120 300 Q 80 200 160 110" stroke="url(#poLoopGrad2)" stroke-width="2" fill="none" stroke-dasharray="6 6"/>' +
+                '<circle cx="230" cy="50" r="42" fill="url(#poLoopGrad)"/><text x="230" y="46" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="14" font-weight="800" fill="#fff">ASK</text><text x="230" y="62" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="rgba(255,255,255,0.8)">One Question</text>' +
+                '<circle cx="386" cy="330" r="42" fill="url(#poLoopGrad)"/><text x="386" y="326" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="13" font-weight="800" fill="#fff">CAPTURE</text><text x="386" y="342" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="rgba(255,255,255,0.8)">Every Response</text>' +
+                '<circle cx="74" cy="330" r="42" fill="url(#poLoopGrad)"/><text x="74" y="326" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="14" font-weight="800" fill="#fff">ACT</text><text x="74" y="342" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="rgba(255,255,255,0.8)">Right Action</text>' +
+                '<text x="230" y="218" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="15" font-weight="700" fill="#2F2F2F">The Membership</text>' +
+                '<text x="230" y="240" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="15" font-weight="700" fill="#2F2F2F">Engagement Loop</text>' +
               '</svg>' +
             '</div>' +
           '</div>' +
