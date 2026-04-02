@@ -2273,14 +2273,7 @@
     // SECTION 5: HIDE EXISTING WEBFLOW FEATURE SECTIONS
     // (the generic "70+ campaign blueprints" and "Conditional logic" sections)
     // ═══════════════════════════════════════
-    var featureTitles = document.querySelectorAll('.pf-feature-title');
-    featureTitles.forEach(function(titleEl) {
-      var txt = titleEl.textContent.trim().toLowerCase();
-      if (txt.indexOf('campaign blueprints') !== -1 || txt.indexOf('conditional logic') !== -1) {
-        var section = titleEl.closest('[class*="feature"]') || titleEl.closest('section') || titleEl.parentElement;
-        if (section) section.style.display = 'none';
-      }
-    });
+    document.querySelectorAll('.pf-section').forEach(function(s) { s.style.display = 'none'; });
   }
 
   // ─────────────────────────────────────────
@@ -2707,11 +2700,7 @@
     // ═══════════════════════════════════════
     // SECTION 5: HIDE EXISTING WEBFLOW FEATURE SECTIONS
     // ═══════════════════════════════════════
-    var featureTitles = document.querySelectorAll('.pf-feature-title');
-    featureTitles.forEach(function(titleEl) {
-      var section = titleEl.closest('[class*="feature"]') || titleEl.closest('section') || titleEl.parentElement;
-      if (section) section.style.display = 'none';
-    });
+    document.querySelectorAll('.pf-section').forEach(function(s) { s.style.display = 'none'; });
   }
 
   // ─────────────────────────────────────────
@@ -3257,11 +3246,7 @@
     // ═══════════════════════════════════════
     // SECTION 5: HIDE EXISTING WEBFLOW FEATURE SECTIONS
     // ═══════════════════════════════════════
-    var featureTitles = document.querySelectorAll('.pf-feature-title');
-    featureTitles.forEach(function(titleEl) {
-      var section = titleEl.closest('[class*="feature"]') || titleEl.closest('section') || titleEl.parentElement;
-      if (section) section.style.display = 'none';
-    });
+    document.querySelectorAll('.pf-section').forEach(function(s) { s.style.display = 'none'; });
   }
 
   // ─────────────────────────────────────────
