@@ -932,6 +932,48 @@
       }
     });
 
+    // ═══════════════════════════════════════
+    // USE CASES SECTION — inject between stats and testimonials
+    // ═══════════════════════════════════════
+    if (!document.querySelector('.hp-use-cases')) {
+      var ucCards = [
+        { type: 'Win-Back', num: '80%', label: 'of lapsed members re-engaged within 90 days', org: 'AAP \u2014 American Academy of Pediatrics', featured: true },
+        { type: 'Renewals', num: '$320K', label: 'recovered revenue from at-risk members', org: 'ASAE' },
+        { type: 'Data Intelligence', num: '42K', label: 'member insights captured in one quarter', org: 'ISTE', dark: true },
+        { type: 'Onboarding', num: '3x', label: 'new member engagement in the first 60 days', org: 'NACUBO' },
+        { type: 'Events', num: '45%', label: 'attendee engagement rate at annual conference', org: 'NAPNAP' },
+        { type: 'Acquisition', num: '2.4x', label: 'conversion rate on non-member prospects', org: 'INCOSE' },
+        { type: 'Data Enrichment', num: '4,500+', label: 'member profiles updated instantly', org: 'INS', dark: true, wide: true }
+      ];
+      var ucGridHTML = '';
+      ucCards.forEach(function(c) {
+        var cardBg = c.featured ? 'background:linear-gradient(135deg,#F47C2C,#F9A825,#FBC02D);color:#fff' :
+          c.dark ? 'background:#2F2F2F;color:#fff' : 'background:#FFFBF2';
+        var span = c.featured ? 'grid-column:span 2;' : c.wide ? 'grid-column:span 2;' : '';
+        var typeColor = c.featured ? 'color:rgba(255,255,255,0.85)' : c.dark ? 'color:rgba(255,255,255,0.6)' : 'color:#F47C2C';
+        var numStyle = c.featured ? 'color:#fff' : c.dark ? 'color:#FBC02D' :
+          'background:linear-gradient(to top,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text';
+        var labelColor = c.featured ? 'color:rgba(255,255,255,0.9)' : c.dark ? 'color:rgba(255,255,255,0.7)' : 'color:#6E6E6E';
+        var orgColor = c.featured ? 'color:rgba(255,255,255,0.75)' : c.dark ? 'color:rgba(255,255,255,0.5)' : 'color:#8C8479';
+        ucGridHTML += '<div style="' + cardBg + ';border-radius:20px;padding:36px 32px;display:flex;flex-direction:column;justify-content:space-between;min-height:240px;' + span + 'transition:transform .3s ease,box-shadow .3s ease">' +
+          '<div><p style="font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;' + typeColor + '">' + c.type + '</p></div>' +
+          '<div style="margin-top:auto"><p style="font-size:clamp(36px,5vw,48px);font-weight:900;letter-spacing:-0.03em;line-height:1;' + numStyle + '">' + c.num + '</p>' +
+          '<p style="font-size:15px;line-height:1.5;margin-top:8px;' + labelColor + '">' + c.label + '</p>' +
+          '<p style="font-size:12px;margin-top:8px;' + orgColor + '">' + c.org + '</p></div></div>';
+      });
+      var ucHTML = '<section class="hp-use-cases" style="padding:120px 48px;background:#EBE6DA">' +
+        '<div style="max-width:1200px;margin:0 auto">' +
+        '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F47C2C;text-align:center;margin-bottom:16px">Use Cases</p>' +
+        '<h2 style="font-size:clamp(32px,5vw,48px);font-weight:800;color:#2F2F2F;letter-spacing:-0.03em;line-height:1.1;text-align:center;margin-bottom:56px">Real outcomes. Real associations.</h2>' +
+        '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">' + ucGridHTML + '</div>' +
+        '<div style="text-align:center;margin-top:48px"><a href="/client-success/case-studies" class="pf-btn-primary" style="display:inline-flex;align-items:center;gap:8px;padding:16px 36px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:linear-gradient(to right,#F47C2C,#FBC02D);color:#fff;border:none;box-shadow:0 4px 16px rgba(240,90,40,0.2)">View All Case Studies <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>' +
+        '</div></section>';
+      var testTarget = document.querySelector('.pf-testimonials-section');
+      if (testTarget) {
+        testTarget.insertAdjacentHTML('beforebegin', ucHTML);
+      }
+    }
+
     // Add testimonial dots
     var section = document.querySelector('.pf-testimonials-section');
     if (section && allSlides.length > 1) {
