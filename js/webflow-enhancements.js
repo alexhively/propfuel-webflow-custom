@@ -3532,8 +3532,7 @@
     if (ctaHeading) { ctaHeading.innerHTML = 'Stop guessing.<br><span style="background:linear-gradient(135deg,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Start knowing.</span>'; }
     var ctaSub = document.querySelector('.pf-cta-sub');
     if (ctaSub) { ctaSub.textContent = 'Your members are telling you what they need. You just need the right way to hear them.'; }
-    var featureTitles = document.querySelectorAll('.pf-feature-title');
-    featureTitles.forEach(function(titleEl) { var txt = titleEl.textContent.trim().toLowerCase(); if (txt.indexOf('ai response') !== -1 || txt.indexOf('super contact') !== -1 || txt.indexOf('insights dashboard') !== -1) { var section = titleEl.closest('[class*="feature"]') || titleEl.closest('section') || titleEl.parentElement; if (section) section.style.display = 'none'; } });
+    document.querySelectorAll('.pf-section').forEach(function(s) { s.style.display = 'none'; });
 
     // CTA Fix
     var ctaHeading2 = ctaSection.querySelector('h2, [class*="title"]');
