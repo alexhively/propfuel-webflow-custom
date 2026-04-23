@@ -156,6 +156,10 @@
       '.pf-logos-bar{width:100%!important;max-width:100%!important;box-sizing:border-box}' +
       /* Mobile-menu CTAs are hidden by default; only shown when .pf-nav-links.mobile-open */
       '.pf-mobile-ctas{display:none!important}' +
+      /* Webinar CMS cards: fill grid cell so landscape thumbnails render properly on desktop */
+      '.webinar-card{width:100%!important;max-width:100%!important}' +
+      '.webinar-card-thumb{width:100%!important;aspect-ratio:16/9;height:auto!important;min-height:0!important}' +
+      '.webinar-card-thumb-img{width:100%!important;height:100%!important;object-fit:cover!important;display:block}' +
 
       /* Fix nav button */
       '.pf-btn-nav{background-image:linear-gradient(to right,#F47C2C,#FBC02D)!important;' +
