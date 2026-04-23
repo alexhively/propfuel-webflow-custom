@@ -164,8 +164,10 @@
       '.webinar-card-grid.w-dyn-items{display:flex!important;flex-wrap:wrap!important;justify-content:center!important;gap:28px!important;grid-template-columns:none!important}' +
       '.webinar-card-grid.w-dyn-items > .w-dyn-item{flex:0 1 calc(50% - 14px);max-width:calc(50% - 14px)}' +
       '.webinar-card{width:100%!important;max-width:100%!important}' +
-      '.webinar-card-thumb{width:100%!important;aspect-ratio:16/9;height:auto!important;min-height:0!important}' +
-      '.webinar-card-thumb-img{width:100%!important;height:100%!important;object-fit:cover!important;display:block}' +
+      /* Source thumbnails are ~3:1 (e.g. 1200×400); use contain + auto height so full image shows,
+         no cropped text/faces, and a subtle background absorbs any letterbox gap from off-ratio images */
+      '.webinar-card-thumb{width:100%!important;height:auto!important;min-height:0!important;aspect-ratio:auto!important;background:#1A1713}' +
+      '.webinar-card-thumb-img{width:100%!important;height:auto!important;object-fit:contain!important;display:block}' +
 
       /* Fix nav button */
       '.pf-btn-nav{background-image:linear-gradient(to right,#F47C2C,#FBC02D)!important;' +
