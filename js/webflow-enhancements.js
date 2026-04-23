@@ -158,9 +158,11 @@
       '.pf-mobile-ctas{display:none!important}' +
       /* Webinar CMS cards: the colleague\'s template has nested grids (outer 508px×2, inner 240px×2)
          with only one w-dyn-list in the outer grid — so the right outer column sits empty.
-         Flatten: outer grid single-column (list fills full width), inner grid 2-column. */
+         Flatten: outer grid single-column (list fills full width). Inner uses flex-wrap so an
+         odd-count last row (17 cards = 1 orphan) centers itself instead of hugging the left. */
       '.webinar-card-grid:not(.w-dyn-items){grid-template-columns:1fr!important}' +
-      '.webinar-card-grid.w-dyn-items{grid-template-columns:repeat(2,1fr)!important;gap:28px}' +
+      '.webinar-card-grid.w-dyn-items{display:flex!important;flex-wrap:wrap!important;justify-content:center!important;gap:28px!important;grid-template-columns:none!important}' +
+      '.webinar-card-grid.w-dyn-items > .w-dyn-item{flex:0 1 calc(50% - 14px);max-width:calc(50% - 14px)}' +
       '.webinar-card{width:100%!important;max-width:100%!important}' +
       '.webinar-card-thumb{width:100%!important;aspect-ratio:16/9;height:auto!important;min-height:0!important}' +
       '.webinar-card-thumb-img{width:100%!important;height:100%!important;object-fit:cover!important;display:block}' +
