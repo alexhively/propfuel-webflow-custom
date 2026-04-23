@@ -4772,6 +4772,14 @@
   function fixWebinars() {
     // Only run on the webinars listing page, not individual webinar templates
     if (!/^\/resources\/webinars\/?$/.test(window.location.pathname)) return;
+    // Hide the empty "Strategy sessions / Product deep-dives" category-card section
+    // (colleague\'s Webflow template has it but no content is configured in it)
+    Array.from(document.querySelectorAll('h2.pf-feature-title, .pf-feature-title')).forEach(function(h) {
+      if (h.textContent.trim() === 'Strategy sessions') {
+        var sec = h.closest('.pf-section, section');
+        if (sec) sec.style.display = 'none';
+      }
+    });
     // If Webflow CMS has rendered real webinar items, defer to the CMS template
     if (document.querySelector('.w-dyn-item')) return;
     var main = document.querySelector('[role="main"]') || document.querySelector('main') || document.body;
