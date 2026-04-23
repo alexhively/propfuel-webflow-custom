@@ -1233,6 +1233,13 @@
       footerBrand.insertBefore(logo, footerBrand.firstChild);
     }
 
+    // Rewrite any static Help Center anchors (Webflow footer, etc.) to external URL
+    document.querySelectorAll('a[href="/resources/help-center"], a[href$="/resources/help-center/"]').forEach(function(a) {
+      a.href = 'https://help.propfuel.com/';
+      a.setAttribute('target', '_blank');
+      a.setAttribute('rel', 'noopener noreferrer');
+    });
+
     // Fix any "This is some text inside of a div block." placeholders
     document.querySelectorAll('div, p, span').forEach(function(el) {
       if (el.textContent.trim() === 'This is some text inside of a div block.') {
