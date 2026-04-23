@@ -788,7 +788,7 @@
           { title: 'Blog', desc: 'Insights on member engagement', href: '/resources/blog' },
           { title: 'Webinars', desc: 'On-demand sessions & recordings', href: '/resources/webinars' },
           { title: 'Guides & Playbooks', desc: 'Deep-dive strategy content', href: '/resources/guides' },
-          { title: 'Help Center', desc: 'Documentation & support', href: '/resources/help-center' },
+          { title: 'Help Center', desc: 'Documentation & support', href: 'https://help.propfuel.com/' },
           { title: 'Newsletter', desc: 'Stay in the loop', href: '/resources/newsletter' },
           { title: 'API Docs', desc: 'For technical teams', href: '/resources/api-docs' }
         ]}]
@@ -824,7 +824,8 @@
         html += '<div class="pf-dd-col">';
         if (col.heading) html += '<div class="pf-dd-heading">' + col.heading + '</div>';
         col.links.forEach(function(l) {
-          html += '<a href="' + l.href + '" class="pf-dd-link"><span class="pf-dd-title">' + l.title + '</span><span class="pf-dd-desc">' + l.desc + '</span></a>';
+          var extAttr = /^https?:\/\//.test(l.href) ? ' target="_blank" rel="noopener noreferrer"' : '';
+          html += '<a href="' + l.href + '"' + extAttr + ' class="pf-dd-link"><span class="pf-dd-title">' + l.title + '</span><span class="pf-dd-desc">' + l.desc + '</span></a>';
         });
         html += '</div>';
       });
@@ -4834,6 +4835,10 @@
 
   function fixHelp() {
     if (window.location.pathname.indexOf('/resources/help-center') === -1) return;
+    // Help Center now lives externally — redirect anyone landing here to help.propfuel.com
+    window.location.replace('https://help.propfuel.com/');
+    return;
+    // Legacy in-page help center content kept below for reference but unreachable.
     var main = document.querySelector('[role="main"]') || document.querySelector('main') || document.body;
 
     var topics = [
