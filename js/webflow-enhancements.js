@@ -682,6 +682,25 @@
     });
   }
 
+  // Safe page-content root: never returns <body>, which would wipe nav + footer.
+  // Falls back to creating a <main> between nav and footer if the page lacks one.
+  function getPageMain() {
+    var m = document.querySelector('[role="main"]') || document.querySelector('main');
+    if (m) return m;
+    m = document.createElement('main');
+    m.setAttribute('role', 'main');
+    var nav = document.querySelector('.pf-nav-bar');
+    var footer = document.querySelector('.pf-footer');
+    if (nav && nav.parentNode) {
+      nav.parentNode.insertBefore(m, nav.nextSibling);
+    } else if (footer && footer.parentNode) {
+      footer.parentNode.insertBefore(m, footer);
+    } else {
+      document.body.appendChild(m);
+    }
+    return m;
+  }
+
   // ─────────────────────────────────────────
   // 4. NAV SCROLL DETECTION
   // ─────────────────────────────────────────
@@ -4721,7 +4740,7 @@
     if (!/^\/resources\/blog\/?$/.test(window.location.pathname)) return;
     // If Webflow CMS has rendered real blog items, defer to the CMS template (no hardcoded fallback)
     if (document.querySelector('.w-dyn-item')) return;
-    var main = document.querySelector('[role="main"]') || document.querySelector('main') || document.body;
+    var main = getPageMain();
 
     var blogArticles = [
       { cat: 'Engagement', title: 'How One Association Increased Renewals by 34%', excerpt: 'Learn how a mid-size professional association used PropFuel to transform their renewal process from transactional reminders into meaningful conversations.', author: 'Sarah Mitchell', date: 'Mar 15, 2026' },
@@ -4782,7 +4801,7 @@
     });
     // If Webflow CMS has rendered real webinar items, defer to the CMS template
     if (document.querySelector('.w-dyn-item')) return;
-    var main = document.querySelector('[role="main"]') || document.querySelector('main') || document.body;
+    var main = getPageMain();
 
     var upcoming = [
       { title: 'The Future of Member Engagement in 2026', date: 'April 15, 2026 \u2014 1:00 PM ET', desc: 'Join our panel of association leaders as they share what\u2019s working now and what\u2019s next in member engagement strategy.' },
@@ -4845,7 +4864,7 @@
     if (!/^\/resources\/guides\/?$/.test(window.location.pathname)) return;
     // If Webflow CMS has rendered real guide items, defer to the CMS template
     if (document.querySelector('.w-dyn-item')) return;
-    var main = document.querySelector('[role="main"]') || document.querySelector('main') || document.body;
+    var main = getPageMain();
 
     var guides = [
       { title: 'The Renewal Blueprint', desc: 'A step-by-step guide to building a renewal campaign that starts the conversation 90 days out.', type: 'PDF Guide' },
@@ -4899,7 +4918,7 @@
     window.location.replace('https://help.propfuel.com/');
     return;
     // Legacy in-page help center content kept below for reference but unreachable.
-    var main = document.querySelector('[role="main"]') || document.querySelector('main') || document.body;
+    var main = getPageMain();
 
     var topics = [
       { icon: '\u{1F680}', title: 'Getting Started', items: ['Setting up your account', 'Importing members', 'Creating your first campaign', 'Connecting your AMS'] },
@@ -4982,7 +5001,7 @@
 
   function fixNewsletter() {
     if (window.location.pathname.indexOf('/resources/newsletter') === -1) return;
-    var main = document.querySelector('[role="main"]') || document.querySelector('main') || document.body;
+    var main = getPageMain();
 
     var benefits = [
       { icon: '\u{1F4A1}', title: 'Engagement Insights', desc: 'Data-backed strategies for improving member retention and participation.' },
@@ -5042,7 +5061,7 @@
 
   function fixApi() {
     if (window.location.pathname.indexOf('/resources/api-docs') === -1) return;
-    var main = document.querySelector('[role="main"]') || document.querySelector('main') || document.body;
+    var main = getPageMain();
 
     var capabilities = [
       { title: 'Member Data', desc: 'Read and write member profiles, tags, scores, and custom fields via RESTful endpoints.' },
@@ -5110,7 +5129,7 @@
 
   function fixAbout() {
     if (window.location.pathname.indexOf('/company/about') === -1) return;
-    var main = document.querySelector('[role="main"]') || document.querySelector('main') || document.body;
+    var main = getPageMain();
 
     var departments = [
       { name: 'Leadership', members: [
@@ -5216,7 +5235,7 @@
 
   function fixCareers() {
     if (window.location.pathname.indexOf('/company/careers') === -1) return;
-    var main = document.querySelector('[role="main"]') || document.querySelector('main') || document.body;
+    var main = getPageMain();
 
     var values = [
       { title: 'Members First', desc: 'Everything we build starts with a simple question: does this help associations serve their members better?' },
@@ -5288,7 +5307,7 @@
 
   function fixContact() {
     if (window.location.pathname.indexOf('/company/contact') === -1) return;
-    var main = document.querySelector('[role="main"]') || document.querySelector('main') || document.body;
+    var main = getPageMain();
 
     var html = '' +
       '<section style="padding:96px 48px 0;text-align:center"><div style="max-width:800px;margin:0 auto">' +
@@ -5348,7 +5367,7 @@
 
   function fixPartners() {
     if (window.location.pathname.indexOf('/company/partners') === -1) return;
-    var main = document.querySelector('[role="main"]') || document.querySelector('main') || document.body;
+    var main = getPageMain();
 
     var partnerTypes = [
       { title: 'AMS Integration Partners', desc: 'Connect your AMS with PropFuel to unlock seamless member data sync and engagement automation.' },
@@ -5448,7 +5467,7 @@
 
   function fixPrivacy() {
     if (window.location.pathname.indexOf('/legal/privacy') === -1) return;
-    var main = document.querySelector('[role="main"]') || document.querySelector('main') || document.body;
+    var main = getPageMain();
 
     var ss = 'font-size:15px;color:#6E6E6E;line-height:1.7;margin-bottom:16px';
     var sh = 'font-size:22px;font-weight:700;color:#2F2F2F;margin:40px 0 16px';
@@ -5524,7 +5543,7 @@
 
   function fixTerms() {
     if (window.location.pathname.indexOf('/legal/terms') === -1) return;
-    var main = document.querySelector('[role="main"]') || document.querySelector('main') || document.body;
+    var main = getPageMain();
 
     var html = '' +
       '<section style="padding:96px 48px 0;text-align:center"><div style="max-width:800px;margin:0 auto">' +
