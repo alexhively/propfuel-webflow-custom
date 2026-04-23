@@ -4702,7 +4702,8 @@
   // ─────────────────────────────────────────
 
   function fixBlog() {
-    if (window.location.pathname.indexOf('/resources/blog') === -1) return;
+    // Only run on the blog listing page, not individual blog post templates
+    if (!/^\/resources\/blog\/?$/.test(window.location.pathname)) return;
     // If Webflow CMS has rendered real blog items, defer to the CMS template (no hardcoded fallback)
     if (document.querySelector('.w-dyn-item')) return;
     var main = document.querySelector('[role="main"]') || document.querySelector('main') || document.body;
@@ -4754,7 +4755,8 @@
   }
 
   function fixWebinars() {
-    if (window.location.pathname.indexOf('/resources/webinars') === -1) return;
+    // Only run on the webinars listing page, not individual webinar templates
+    if (!/^\/resources\/webinars\/?$/.test(window.location.pathname)) return;
     // If Webflow CMS has rendered real webinar items, defer to the CMS template
     if (document.querySelector('.w-dyn-item')) return;
     var main = document.querySelector('[role="main"]') || document.querySelector('main') || document.body;
@@ -4816,8 +4818,10 @@
   }
 
   function fixGuides() {
-    if (window.location.pathname.indexOf('/resources/guides') !== -1 && document.querySelector('.w-dyn-item')) return;
-    if (window.location.pathname.indexOf('/resources/guides') === -1) return;
+    // Only run on the guides listing page, not individual guide templates
+    if (!/^\/resources\/guides\/?$/.test(window.location.pathname)) return;
+    // If Webflow CMS has rendered real guide items, defer to the CMS template
+    if (document.querySelector('.w-dyn-item')) return;
     var main = document.querySelector('[role="main"]') || document.querySelector('main') || document.body;
 
     var guides = [
@@ -5540,7 +5544,8 @@
   // FIX CASE STUDIES PAGE
   // ─────────────────────────────────────────
   function fixCaseStudies() {
-    if (window.location.pathname.indexOf('client-success/case-studies') === -1) return;
+    // Only run on the case studies listing page, not individual case study templates
+    if (!/^\/client-success\/case-studies\/?$/.test(window.location.pathname)) return;
     // If Webflow CMS has rendered real case study items, defer to the CMS template
     if (document.querySelector('.w-dyn-item')) return;
     var heroLabel=document.querySelector('.pf-page-hero-label');if(heroLabel){heroLabel.textContent='Client Success';}else{var heroTitle=document.querySelector('.pf-page-hero-title');if(heroTitle){var parent=heroTitle.parentElement;if(!parent.querySelector('.pf-hero-label-injected')){var label=document.createElement('p');label.className='pf-hero-label-injected fade-up';label.style.cssText='display:inline-flex;align-items:center;padding:8px 20px;border-radius:100px;background:rgba(251,192,45,0.08);border:1px solid rgba(249,168,37,0.35);font-size:13px;font-weight:600;color:#2F2F2F;letter-spacing:0.04em;margin-bottom:48px;box-shadow:0 2px 8px rgba(120,110,95,0.06)';label.textContent='Client Success';parent.insertBefore(label,heroTitle);}}}
@@ -5579,7 +5584,8 @@
   // FIX CUSTOMERS PAGE
   // ─────────────────────────────────────────
   function fixCustomers() {
-    if (window.location.pathname.indexOf('client-success/customers') === -1) return;
+    // Only run on the customers listing page, not individual customer templates
+    if (!/^\/client-success\/customers\/?$/.test(window.location.pathname)) return;
     // If Webflow CMS has rendered real customer/logo items, defer to the CMS template
     if (document.querySelector('.w-dyn-item')) return;
     var heroLabel=document.querySelector('.pf-page-hero-label');if(heroLabel){heroLabel.textContent='Customer Wall';}else{var heroTitle=document.querySelector('.pf-page-hero-title');if(heroTitle){var parent=heroTitle.parentElement;if(!parent.querySelector('.pf-hero-label-injected')){var label=document.createElement('p');label.className='pf-hero-label-injected fade-up';label.style.cssText='display:inline-flex;align-items:center;padding:8px 20px;border-radius:100px;background:rgba(251,192,45,0.08);border:1px solid rgba(249,168,37,0.35);font-size:13px;font-weight:600;color:#2F2F2F;letter-spacing:0.04em;margin-bottom:48px;box-shadow:0 2px 8px rgba(120,110,95,0.06)';label.textContent='Customer Wall';parent.insertBefore(label,heroTitle);}}}
