@@ -554,6 +554,9 @@
     var fadeEls = [];
     document.querySelectorAll(selectors).forEach(function (el) {
       if (el.closest('.pf-nav-bar') || el.closest('.pf-footer')) return;
+      // Skip any element that contains (or IS) a Webflow CMS list — the CMS may render
+      // async and we'd leave it stuck at opacity:0. Let it render at full opacity.
+      if (el.querySelector('.w-dyn-list, .w-dyn-item') || el.classList.contains('w-dyn-list')) return;
       fadeEls.push(el);
     });
 
