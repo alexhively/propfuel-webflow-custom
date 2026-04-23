@@ -5618,7 +5618,7 @@
     var ctaSection=document.querySelector('.pf-cta-section, [class*="cta-section"]');if(!ctaSection)return;
     // Inject shell + async fetch all customer logos from the CMS snapshot (js/customer-logos.json)
     if(!document.querySelector('.cu-logo-grid')){
-      var shellHTML='<section class="cu-logo-grid" style="padding:96px 48px;background:#F6F2E8"><div style="max-width:1200px;margin:0 auto"><div style="text-align:center;margin-bottom:56px"><p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">Customer Wall</p><h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15;margin-bottom:16px">Trusted by hundreds of associations.</h2><p style="font-size:16px;color:#6E6E6E;line-height:1.6;max-width:600px;margin:0 auto" class="cu-count-line">Browse the organizations using PropFuel to drive member engagement.</p></div><div class="cu-logo-grid-inner" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:20px;align-items:center;justify-items:center"></div></div></section>';
+      var shellHTML='<section class="cu-logo-grid" style="padding:64px 48px 96px;background:#F6F2E8"><div style="max-width:1200px;margin:0 auto"><div class="cu-logo-grid-inner" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:20px;align-items:center;justify-items:center"></div></div></section>';
       ctaSection.insertAdjacentHTML('beforebegin',shellHTML);
       fetch('https://alexhively.github.io/propfuel-webflow-custom/js/customer-logos.json?v=1')
         .then(function(r){return r.json();})
@@ -5629,11 +5629,9 @@
           logos.forEach(function(l){
             var openTag=l.w?'<a href="'+esc(l.w)+'" target="_blank" rel="noopener noreferrer"':'<div';
             var closeTag=l.w?'</a>':'</div>';
-            html+=openTag+' style="background:#fff;border-radius:12px;padding:20px;display:flex;align-items:center;justify-content:center;height:100px;box-shadow:0 1px 4px rgba(0,0,0,.04);transition:transform .2s ease,box-shadow .2s ease;text-decoration:none"><img loading="lazy" src="'+esc(l.u)+'" alt="'+esc(l.n)+'" style="max-height:60px;max-width:140px;object-fit:contain;filter:grayscale(100%) opacity(0.75);transition:filter .3s ease" onmouseover="this.style.filter=\'grayscale(0%) opacity(1)\'" onmouseout="this.style.filter=\'grayscale(100%) opacity(0.75)\'">'+closeTag;
+            html+=openTag+' style="background:#fff;border-radius:12px;padding:20px;display:flex;align-items:center;justify-content:center;height:100px;box-shadow:0 1px 4px rgba(0,0,0,.04);transition:transform .2s ease,box-shadow .2s ease;text-decoration:none"><img loading="lazy" src="'+esc(l.u)+'" alt="'+esc(l.n)+'" style="max-height:60px;max-width:140px;object-fit:contain">'+closeTag;
           });
           grid.innerHTML=html;
-          var line=document.querySelector('.cu-count-line');
-          if(line) line.textContent=logos.length+' associations use PropFuel to drive member engagement.';
         })
         .catch(function(){});
     }
