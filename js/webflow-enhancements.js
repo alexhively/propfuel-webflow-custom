@@ -235,11 +235,17 @@
         /* Dropdown: full width bottom sheet */
         '.pf-dropdown-menu{min-width:calc(100vw - 32px)!important;left:16px!important;right:16px!important;transform:none!important;border-radius:0 0 20px 20px!important;padding:24px!important}' +
         '.pf-dropdown-menu .pf-dd-cols{grid-template-columns:1fr!important;gap:24px!important}' +
-        /* Nav: hide links, show hamburger */
+        /* Nav: hide links + right-side CTAs (Log In, Get Started), show hamburger */
         '.pf-nav-links{display:none!important}' +
+        '.pf-nav-right{display:none!important}' +
         '.pf-hamburger{display:flex!important}' +
         '.pf-nav-links.mobile-open{display:flex!important;flex-direction:column;position:fixed;top:84px;left:16px;right:16px;background:rgba(246,242,232,0.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:24px;border-radius:20px;border:1px solid #E3DDD2;box-shadow:0 12px 48px rgba(120,110,95,0.15);z-index:199;gap:8px}' +
         '.pf-nav-links.mobile-open .pf-nav-link,.pf-nav-links.mobile-open .pf-dropdown{font-size:16px;padding:12px 0}' +
+        /* Mobile menu bottom CTAs (Log In + Get Started) */
+        '.pf-nav-links .pf-mobile-ctas{display:none}' +
+        '.pf-nav-links.mobile-open .pf-mobile-ctas{display:flex;flex-direction:column;gap:10px;margin-top:16px;padding-top:20px;border-top:1px solid rgba(227,221,210,0.8)}' +
+        '.pf-mobile-login{display:block;text-align:center;padding:12px 20px;font:600 15px/1 "DM Sans",sans-serif;color:#2F2F2F;text-decoration:none;border:1.5px solid rgba(0,0,0,0.12);border-radius:100px}' +
+        '.pf-mobile-started{display:block;text-align:center;padding:14px 24px;font:700 15px/1 "DM Sans",sans-serif;color:#fff!important;text-decoration:none;background:linear-gradient(to right,#F47C2C,#FBC02D)!important;border-radius:100px;box-shadow:0 4px 14px rgba(240,90,40,0.25)}' +
         /* Hero buttons stack */
         '.pf-hero-btns-injected{flex-direction:column!important;align-items:center!important;gap:12px!important}' +
         /* Tab pills: horizontal scroll */
@@ -867,6 +873,20 @@
       else { navInner.appendChild(burger); }
 
       var navLinksEl = document.querySelector('.pf-nav-links');
+
+      // Move Log In + Get Started into the mobile menu so they remain accessible
+      // when .pf-nav-right is hidden on mobile.
+      if (navLinksEl && !navLinksEl.querySelector('.pf-mobile-ctas')) {
+        var loginSrc = Array.from(document.querySelectorAll('.pf-nav-right a, .pf-nav-right button')).find(function(a) { return a.textContent.trim() === 'Log In'; });
+        var startedSrc = Array.from(document.querySelectorAll('.pf-nav-right a, .pf-nav-right button')).find(function(a) { return a.textContent.trim() === 'Get Started'; });
+        var ctaWrap = document.createElement('div');
+        ctaWrap.className = 'pf-mobile-ctas';
+        var ctaHTML = '';
+        if (loginSrc) { ctaHTML += '<a href="' + (loginSrc.getAttribute('href')||'#') + '" class="pf-mobile-login">Log In</a>'; }
+        if (startedSrc) { ctaHTML += '<a href="' + (startedSrc.getAttribute('href')||'/demo') + '" class="pf-mobile-started pf-btn-nav">Get Started</a>'; }
+        ctaWrap.innerHTML = ctaHTML;
+        navLinksEl.appendChild(ctaWrap);
+      }
       var menuOpen = false;
 
       burger.addEventListener('click', function(e) {
