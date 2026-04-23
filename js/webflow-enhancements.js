@@ -156,10 +156,11 @@
       '.pf-logos-bar{width:100%!important;max-width:100%!important;box-sizing:border-box}' +
       /* Mobile-menu CTAs are hidden by default; only shown when .pf-nav-links.mobile-open */
       '.pf-mobile-ctas{display:none!important}' +
-      /* Webinar CMS cards: the colleague\'s template has nested grids (outer 508px×2, inner 240px×2),
-         which forces cards to 240px wide. Collapse the inner grid to single-column so each card fills
-         its 508px outer cell, letting landscape thumbnails render properly on desktop. */
-      '.webinar-card-grid.w-dyn-items{grid-template-columns:1fr!important}' +
+      /* Webinar CMS cards: the colleague\'s template has nested grids (outer 508px×2, inner 240px×2)
+         with only one w-dyn-list in the outer grid — so the right outer column sits empty.
+         Flatten: outer grid single-column (list fills full width), inner grid 2-column. */
+      '.webinar-card-grid:not(.w-dyn-items){grid-template-columns:1fr!important}' +
+      '.webinar-card-grid.w-dyn-items{grid-template-columns:repeat(2,1fr)!important;gap:28px}' +
       '.webinar-card{width:100%!important;max-width:100%!important}' +
       '.webinar-card-thumb{width:100%!important;aspect-ratio:16/9;height:auto!important;min-height:0!important}' +
       '.webinar-card-thumb-img{width:100%!important;height:100%!important;object-fit:cover!important;display:block}' +
