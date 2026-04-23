@@ -247,6 +247,8 @@
         '.pf-tab{white-space:nowrap;flex-shrink:0}' +
         /* Logo carousel gap */
         '.lc-track{gap:32px!important}' +
+        /* Reset full-bleed dark sections so they don't overflow viewport */
+        '.pf-fullbleed-dark{margin:0!important;width:100%!important;padding:64px 24px!important}' +
         /* Mockup containers */
         '.mu-card{font-size:12px}' +
         '[class*="-hero-mockup"]{max-width:100%!important;overflow:hidden}' +
@@ -289,6 +291,10 @@
         '.pf-footer-top{grid-template-columns:1fr!important;gap:32px!important}' +
         /* Mockups: prevent overflow */
         '[class*="mockup"],[class*="visual"]{max-width:100%!important;overflow:hidden!important}' +
+        /* Demo form: reclaim horizontal space so HubSpot iframe isn't cropped */
+        '.pf-demo-hero{padding:48px 12px!important}' +
+        '.pf-demo-form-card{padding:24px 20px!important}' +
+        '.hs-form-iframe{width:100%!important;min-width:0!important}' +
       '}' +
 
       '';
@@ -1822,6 +1828,7 @@
       // Apply dark background to Membership AI section (matches Vercel)
       var aiWrapper = aiTitle.closest('.pf-section') || aiSection;
       if (aiWrapper) {
+        aiWrapper.classList.add('pf-fullbleed-dark');
         aiWrapper.style.cssText += ';background:#1A1713!important;padding:96px 48px;margin:0 -48px;width:calc(100% + 96px)';
         aiWrapper.querySelectorAll('.pf-feature-title, h2').forEach(function(el) { el.style.color = '#EDE8DF'; });
         aiWrapper.querySelectorAll('.pf-feature-desc, p').forEach(function(el) { if (!el.closest('.mu-card')) el.style.color = '#8C8479'; });
