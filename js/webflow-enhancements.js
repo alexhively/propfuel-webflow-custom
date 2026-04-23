@@ -150,6 +150,11 @@
       'a,a:visited,a:link{color:inherit;text-decoration:none}' +
       'html{color:#2F2F2F}' +
 
+      /* Prevent horizontal page scroll from any decorative overflow (carousel marquees, video bg, etc.) */
+      'html,body{overflow-x:hidden!important;max-width:100vw}' +
+      /* Ensure logo carousel respects viewport width (overrides Webflow class default of 960px) */
+      '.pf-logos-bar{width:100%!important;max-width:100%!important;box-sizing:border-box}' +
+
       /* Fix nav button */
       '.pf-btn-nav{background-image:linear-gradient(to right,#F47C2C,#FBC02D)!important;' +
         'background-color:#FBC02D!important;border:none!important;border-color:transparent!important;color:#fff!important}' +
