@@ -4784,7 +4784,7 @@
         '<p style="font-size:13px;font-weight:600;color:#F47C2C;margin-bottom:12px">' + w.date + '</p>' +
         '<h3 style="font-size:20px;font-weight:700;color:#2F2F2F;line-height:1.3;margin-bottom:12px">' + w.title + '</h3>' +
         '<p style="font-size:15px;color:#6E6E6E;line-height:1.6;margin-bottom:24px">' + w.desc + '</p>' +
-        '<a href="/demo" class="pf-btn-primary" style="display:inline-flex;align-items:center;gap:8px;padding:14px 32px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:linear-gradient(to right,#F47C2C,#FBC02D);color:#fff;border:none">Register Now</a>' +
+        '<span aria-disabled="true" role="button" style="display:inline-flex;align-items:center;gap:8px;padding:14px 32px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;background:rgba(120,110,95,0.08);color:#8C8479;border:1.5px dashed rgba(120,110,95,0.3);cursor:default">Registration opening soon</span>' +
       '</div>';
     });
 
@@ -4836,7 +4836,7 @@
           '<p style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;opacity:.85">Featured Guide \u2014 42 Pages</p>' +
           '<h2 style="font-size:clamp(24px,3vw,32px);font-weight:800;letter-spacing:-0.02em;line-height:1.2;margin-bottom:16px">The 2026 Association Engagement Playbook</h2>' +
           '<p style="font-size:16px;line-height:1.6;margin-bottom:24px;opacity:.9">The definitive guide to building a member engagement strategy that drives retention, revenue, and real conversations. Includes frameworks, templates, and benchmarks from 200+ associations.</p>' +
-          '<a href="#" style="display:inline-flex;align-items:center;gap:8px;padding:14px 32px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:#fff;color:#F47C2C;border:none">Download PDF \u2192</a>' +
+          '<span aria-disabled="true" role="button" style="display:inline-flex;align-items:center;gap:8px;padding:14px 32px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;background:rgba(255,255,255,0.25);color:#fff;border:1.5px dashed rgba(255,255,255,0.55);cursor:default">Available soon</span>' +
         '</div>' +
       '</div></section>' +
 
@@ -4847,7 +4847,7 @@
         '<span style="display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#F9A825;margin-bottom:12px">' + g.type + '</span>' +
         '<h3 style="font-size:18px;font-weight:700;color:#2F2F2F;line-height:1.3;margin-bottom:10px">' + g.title + '</h3>' +
         '<p style="font-size:14px;color:#6E6E6E;line-height:1.6;margin-bottom:20px;flex:1">' + g.desc + '</p>' +
-        '<a href="#" style="font-size:14px;font-weight:600;color:#F47C2C;text-decoration:none">Download \u2192</a>' +
+        '<span aria-disabled="true" style="font-size:13px;font-weight:600;color:#8C8479">Available soon</span>' +
       '</div>';
     });
 
