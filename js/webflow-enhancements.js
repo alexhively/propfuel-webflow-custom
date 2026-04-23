@@ -4760,57 +4760,102 @@
   function fixWebinars() {
     // Only run on the webinars listing page, not individual webinar templates
     if (!/^\/resources\/webinars\/?$/.test(window.location.pathname)) return;
-    // If Webflow CMS has rendered real webinar items, defer to the CMS template
-    if (document.querySelector('.w-dyn-item')) return;
     var main = document.querySelector('[role="main"]') || document.querySelector('main') || document.body;
+
+    // Extract real webinars from Webflow CMS if present; otherwise use hardcoded fallback
+    function pullText(el, sel) { var e = el.querySelector(sel); return e ? e.textContent.trim() : ''; }
+    var cmsCards = Array.from(document.querySelectorAll('.webinar-card'));
+    var onDemand = cmsCards.length > 0
+      ? cmsCards.map(function(c) {
+          return {
+            title: pullText(c, '.webinar-card-title'),
+            desc: pullText(c, '.webinar-card-desc'),
+            date: pullText(c, '.webinar-card-date'),
+            duration: pullText(c, '.webinar-card-duration'),
+            href: c.getAttribute('href') || '#'
+          };
+        })
+      : [
+          { title: 'Conversational Engagement 101: Replacing Surveys with Real Dialogue', desc: 'Why one-question outreach gets 8x more responses than traditional surveys, and how to build your first conversational campaign in under an hour.', date: 'Feb 20, 2026', duration: '45 min', href: '#' },
+          { title: 'Win-Back Masterclass: Re-Engaging Lapsed Members at Scale', desc: 'A step-by-step walkthrough of the campaign framework that helped AAP recover 2,000+ lapsed members with an 80% win-back rate.', date: 'Jan 15, 2026', duration: '38 min', href: '#' },
+          { title: 'AI for Associations: Practical Applications Beyond the Hype', desc: 'Cut through the noise and see real examples of how membership AI agents personalize outreach, predict churn, and surface insights staff would otherwise miss.', date: 'Dec 5, 2025', duration: '52 min', href: '#' },
+          { title: 'Onboarding That Sticks: Building a 90-Day New Member Journey', desc: 'How to design an automated onboarding sequence that doubles new member engagement and reduces first-year attrition by 30%.', date: 'Nov 14, 2025', duration: '41 min', href: '#' },
+          { title: 'AMS Integration Deep Dive: Closing the Data Loop', desc: 'See how two-way sync between PropFuel and your AMS keeps member records current, triggers timely outreach, and eliminates manual data entry.', date: 'Oct 22, 2025', duration: '35 min', href: '#' },
+          { title: 'Winning Back Lapsed Members', desc: 'Proven strategies for re-engaging members who didn\u2019t renew.', date: 'Sep 18, 2025', duration: '40 min', href: '#' }
+        ];
 
     var upcoming = [
       { title: 'The Future of Member Engagement in 2026', date: 'April 15, 2026 \u2014 1:00 PM ET', desc: 'Join our panel of association leaders as they share what\u2019s working now and what\u2019s next in member engagement strategy.' },
       { title: 'From Data to Action: Using Insights to Drive Renewals', date: 'May 6, 2026 \u2014 2:00 PM ET', desc: 'Learn how to turn member response data into targeted renewal campaigns that actually convert.' }
     ];
-    var onDemand = [
-      { title: 'Onboarding That Sticks: The First 90 Days', desc: 'How to build an onboarding sequence that keeps new members engaged beyond the welcome email.' },
-      { title: 'SMS for Associations: Getting Started', desc: 'Everything you need to know about adding SMS to your member engagement toolkit.' },
-      { title: 'Building a Listening Culture at Your Association', desc: 'Why the most successful associations treat every touchpoint as a chance to learn.' },
-      { title: 'Website Engagement: Beyond the Homepage', desc: 'Turn your website into a two-way conversation with visitors and members alike.' },
-      { title: 'The ROI of Member Feedback', desc: 'How to measure and communicate the business impact of continuous member engagement.' },
-      { title: 'Winning Back Lapsed Members', desc: 'Proven strategies for re-engaging members who didn\u2019t renew.' }
+
+    function esc(s) { return String(s||'').replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+
+    var gradients = [
+      'linear-gradient(135deg,#1A1713 0%,#2C2720 40%,#F47C2C 100%)',
+      'linear-gradient(135deg,#2C2720 0%,#1A1713 50%,#FBC02D 100%)',
+      'linear-gradient(135deg,#F47C2C 0%,#FBC02D 60%,#1A1713 100%)',
+      'linear-gradient(135deg,#1A1713 0%,#F05A28 50%,#FBC02D 100%)',
+      'linear-gradient(135deg,#2C2720 0%,#F9A825 40%,#F47C2C 100%)',
+      'linear-gradient(135deg,#F05A28 0%,#1A1713 60%,#FBC02D 100%)'
     ];
 
     var html = '' +
+      /* Hero */
       '<section style="padding:96px 48px 0;text-align:center"><div style="max-width:800px;margin:0 auto">' +
         '<p style="display:inline-flex;align-items:center;padding:8px 20px;border-radius:100px;background:rgba(251,192,45,0.08);border:1px solid rgba(249,168,37,0.35);font-size:13px;font-weight:600;color:#2F2F2F;letter-spacing:0.04em;margin-bottom:24px">Resources</p>' +
         '<h1 style="font-size:clamp(36px,5vw,56px);font-weight:800;color:#2F2F2F;letter-spacing:-0.03em;line-height:1.1;margin-bottom:20px">Webinars &amp; Events</h1>' +
-        '<p style="font-size:18px;color:#6E6E6E;line-height:1.6;max-width:600px;margin:0 auto">Live and on-demand sessions to help you get more from PropFuel and your member engagement strategy.</p>' +
+        '<p style="font-size:18px;color:#6E6E6E;line-height:1.6;max-width:600px;margin:0 auto">Learn from association leaders and PropFuel experts in live workshops and on-demand sessions covering member engagement, retention strategy, and data-driven growth.</p>' +
       '</div></section>' +
 
+      /* Upcoming */
       '<section style="padding:64px 48px"><div style="max-width:1000px;margin:0 auto">' +
         '<h2 style="font-size:24px;font-weight:800;color:#2F2F2F;margin-bottom:32px">Upcoming</h2>' +
-        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">';
+        '<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:24px">';
 
     upcoming.forEach(function(w) {
       html += '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px;text-align:left">' +
-        '<p style="font-size:13px;font-weight:600;color:#F47C2C;margin-bottom:12px">' + w.date + '</p>' +
-        '<h3 style="font-size:20px;font-weight:700;color:#2F2F2F;line-height:1.3;margin-bottom:12px">' + w.title + '</h3>' +
-        '<p style="font-size:15px;color:#6E6E6E;line-height:1.6;margin-bottom:24px">' + w.desc + '</p>' +
+        '<p style="font-size:13px;font-weight:600;color:#F47C2C;margin-bottom:12px">' + esc(w.date) + '</p>' +
+        '<h3 style="font-size:20px;font-weight:700;color:#2F2F2F;line-height:1.3;margin-bottom:12px">' + esc(w.title) + '</h3>' +
+        '<p style="font-size:15px;color:#6E6E6E;line-height:1.6;margin-bottom:24px">' + esc(w.desc) + '</p>' +
         '<span aria-disabled="true" role="button" style="display:inline-flex;align-items:center;gap:8px;padding:14px 32px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;background:rgba(120,110,95,0.08);color:#8C8479;border:1.5px dashed rgba(120,110,95,0.3);cursor:default">Registration opening soon</span>' +
       '</div>';
     });
 
     html += '</div></div></section>' +
-      '<section style="padding:0 48px 64px"><div style="max-width:1000px;margin:0 auto">' +
-        '<h2 style="font-size:24px;font-weight:800;color:#2F2F2F;margin-bottom:32px">On-Demand Library</h2>' +
-        '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">';
 
-    onDemand.forEach(function(w) {
-      html += '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:32px;text-align:left">' +
-        '<h3 style="font-size:17px;font-weight:700;color:#2F2F2F;line-height:1.3;margin-bottom:10px">' + w.title + '</h3>' +
-        '<p style="font-size:14px;color:#6E6E6E;line-height:1.6;margin-bottom:20px">' + w.desc + '</p>' +
-        '<a href="#" style="font-size:14px;font-weight:600;color:#F47C2C;text-decoration:none">Watch Now \u2192</a>' +
-      '</div>';
+      /* On-Demand Library \u2014 Vercel style */
+      '<section style="padding:64px 48px 96px"><div style="max-width:1200px;margin:0 auto">' +
+        '<div style="text-align:center;margin-bottom:56px">' +
+          '<p style="display:inline-block;font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">On-Demand Library</p>' +
+          '<h2 style="font-size:clamp(28px,4vw,42px);font-weight:800;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15;margin:0 0 16px">Watch Anytime, Learn at Your Pace</h2>' +
+          '<p style="font-size:17px;color:#6E6E6E;line-height:1.6;max-width:560px;margin:0 auto">Catch up on past webinars covering everything from onboarding workflows to AI-powered engagement strategies.</p>' +
+        '</div>' +
+        '<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:28px">';
+
+    onDemand.forEach(function(w, i) {
+      var grad = gradients[i % gradients.length];
+      var dateLabel = w.date ? ('Recorded ' + esc(w.date)) : '';
+      html += '<a href="' + esc(w.href) + '" class="pf-card" style="display:block;background:#F6F2E8;border-radius:20px;overflow:hidden;box-shadow:0 8px 40px rgba(120,110,95,0.10);transition:transform .25s ease,box-shadow .25s ease;text-decoration:none;color:inherit">' +
+        '<div style="position:relative;height:200px;overflow:hidden">' +
+          '<div style="position:absolute;inset:0;background:' + grad + '"></div>' +
+          '<div style="position:absolute;inset:0;opacity:0.12;background-image:radial-gradient(circle at 20% 30%,rgba(255,255,255,0.3) 0%,transparent 50%),radial-gradient(circle at 80% 70%,rgba(255,255,255,0.2) 0%,transparent 40%),radial-gradient(circle at 50% 50%,rgba(255,255,255,0.1) 0%,transparent 60%)"></div>' +
+          '<span style="position:absolute;bottom:16px;left:16px;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:100px;background:rgba(255,255,255,0.95);font-size:12px;font-weight:700;color:#2F2F2F;letter-spacing:0.04em;text-transform:uppercase;box-shadow:0 2px 12px rgba(0,0,0,0.15)">' +
+            '<svg viewBox="0 0 24 24" width="14" height="14" fill="#F47C2C"><polygon points="5 3 19 12 5 21 5 3"/></svg> Watch Now' +
+          '</span>' +
+          (w.duration ? '<span style="position:absolute;top:16px;right:16px;padding:6px 12px;border-radius:100px;background:rgba(0,0,0,0.50);font-size:12px;font-weight:600;color:#fff">' + esc(w.duration) + '</span>' : '') +
+        '</div>' +
+        '<div style="padding:24px 28px 28px">' +
+          '<h3 style="font-size:18px;font-weight:700;color:#2F2F2F;line-height:1.3;letter-spacing:-0.01em;margin:0 0 8px">' + esc(w.title) + '</h3>' +
+          (w.desc ? '<p style="font-size:14px;color:#6E6E6E;line-height:1.6;margin:0 0 16px">' + esc(w.desc) + '</p>' : '') +
+          (dateLabel ? '<span style="font-size:12px;font-weight:500;color:#8C8479">' + dateLabel + '</span>' : '') +
+        '</div>' +
+      '</a>';
     });
 
     html += '</div></div></section>' +
+
+      /* Newsletter CTA */
       '<section style="padding:64px 48px;background:#F6F2E8"><div style="max-width:600px;margin:0 auto;text-align:center">' +
         '<h2 style="font-size:clamp(24px,3vw,32px);font-weight:800;color:#2F2F2F;letter-spacing:-0.02em;margin-bottom:12px">Never Miss a Session</h2>' +
         '<p style="font-size:16px;color:#6E6E6E;line-height:1.6;margin-bottom:32px">Subscribe to get notified about upcoming webinars and events.</p>' +
