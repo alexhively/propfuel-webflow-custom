@@ -5629,7 +5629,7 @@
           logos.forEach(function(l){
             var openTag=l.w?'<a href="'+esc(l.w)+'" target="_blank" rel="noopener noreferrer"':'<div';
             var closeTag=l.w?'</a>':'</div>';
-            html+=openTag+' style="background:#fff;border-radius:12px;padding:20px;display:flex;align-items:center;justify-content:center;height:100px;box-shadow:0 1px 4px rgba(0,0,0,.04);transition:transform .2s ease,box-shadow .2s ease;text-decoration:none"><img loading="lazy" src="'+esc(l.u)+'" alt="'+esc(l.n)+'" style="max-height:60px;max-width:140px;object-fit:contain">'+closeTag;
+            html+=openTag+' style="display:flex;align-items:center;justify-content:center;height:100px;padding:12px;text-decoration:none"><img loading="lazy" src="'+esc(l.u)+'" alt="'+esc(l.n)+'" style="max-height:60px;max-width:140px;object-fit:contain">'+closeTag;
           });
           grid.innerHTML=html;
         })
