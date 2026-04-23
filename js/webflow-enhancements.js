@@ -5618,7 +5618,7 @@
     var ctaSection=document.querySelector('.pf-cta-section, [class*="cta-section"]');if(!ctaSection)return;
     // Inject shell + async fetch all customer logos from the CMS snapshot (js/customer-logos.json)
     if(!document.querySelector('.cu-logo-grid')){
-      var shellHTML='<section class="cu-logo-grid" style="padding:64px 48px 96px;background:#F6F2E8"><div style="max-width:1200px;margin:0 auto"><div class="cu-logo-grid-inner" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:20px;align-items:center;justify-items:center"></div></div></section>';
+      var shellHTML='<section class="cu-logo-grid" style="padding:32px 48px 96px;background:transparent"><div style="max-width:1200px;margin:0 auto"><div class="cu-logo-grid-inner" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:20px;align-items:center;justify-items:center"></div></div></section>';
       ctaSection.insertAdjacentHTML('beforebegin',shellHTML);
       fetch('https://alexhively.github.io/propfuel-webflow-custom/js/customer-logos.json?v=1')
         .then(function(r){return r.json();})
