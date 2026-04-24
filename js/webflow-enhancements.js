@@ -224,8 +224,8 @@
       '.uc-label{font-size:16px;font-weight:500;color:#8C8479;margin-top:8px;line-height:1.4}' +
       '.uc-org{font-size:13px;font-weight:600;color:#8C8479;margin-top:16px;opacity:.7}' +
 
-      /* CTA heading line break fix */
-      '.pf-cta-heading{display:block!important}' +
+      /* CTA heading: H1-aligned display treatment */
+      '.pf-cta-heading{display:block!important;font-size:clamp(42px,5.6vw,80px)!important;line-height:1.08!important;letter-spacing:-0.025em!important;font-weight:800!important}' +
       '.pf-cta-heading br{display:block;content:"";margin:0}' +
 
       /* Mobile: single column (use-cases grid) */
