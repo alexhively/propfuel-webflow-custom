@@ -5081,49 +5081,100 @@
     if (window.location.pathname.indexOf('/company/about') === -1) return;
     var main = getPageMain();
 
-    // Preserve any Webflow CMS team list the designer set up (.w-dyn-list)
-    // so the scaffold rebuild below doesn't nuke it.
+    // Preserve any Webflow CMS team list the designer set up (.w-dyn-list).
+    // If present, the CMS wins; otherwise fall back to the real Vercel roster.
     var cmsTeamLists = Array.prototype.slice.call(main.querySelectorAll('.w-dyn-list'));
-    cmsTeamLists.forEach(function(el, i) { el.setAttribute('data-pf-cms-team', String(i)); });
     var cmsTeamHTML = cmsTeamLists.map(function(el){ return el.outerHTML; }).join('');
 
-    var milestones = [
-      { year: '2018', title: 'Founded', desc: 'PropFuel launches with the vision of turning one-way communications into two-way conversations for associations.' },
-      { year: '2020', title: 'Product-Market Fit', desc: 'Crossed 50 association customers and proved that micro-conversations drive measurably better engagement than traditional email.' },
-      { year: '2022', title: 'Multi-Channel Expansion', desc: 'Launched SMS and website engagement channels, enabling associations to listen everywhere their members are.' },
-      { year: '2024', title: '200+ Customers', desc: 'Surpassed 200 association customers and 10 million members reached through PropFuel-powered conversations.' },
-      { year: 'Today', title: 'Membership AI', desc: 'Introducing AI-powered insights and campaign generation that make every association smarter about their members.' }
+    // Real team data from Vercel (source of truth)
+    var departments = [
+      { name: 'Leadership', members: [
+        { name: 'Dave Will', title: 'Co-Founder, CEO' },
+        { name: 'Cameron Aubuchon', title: 'President, CTO' },
+        { name: 'Ryan Graham', title: 'Chief Revenue Officer' }
+      ]},
+      { name: 'Client Success', members: [
+        { name: 'Ashley Wucher', title: 'Director of Client Success' },
+        { name: 'Nick Kiesseg', title: 'Client Success Manager' },
+        { name: 'Brett Voeltz', title: 'Client Success Manager' },
+        { name: 'Clara Meek', title: 'Client Success Manager' },
+        { name: 'Bruna Letti', title: 'Managed Services Coordinator' }
+      ]},
+      { name: 'Marketing', members: [
+        { name: 'Alex Hively', title: 'Head of Marketing' },
+        { name: 'Brittany Lancor', title: 'Senior Marketing Manager' },
+        { name: 'Alejandra Prado', title: 'Marketing Coordinator' }
+      ]},
+      { name: 'Sales', members: [
+        { name: 'Lisa McNeil', title: 'Sales Development Representative' },
+        { name: 'Mike Arisco', title: 'Account Executive' }
+      ]},
+      { name: 'Engineering', members: [
+        { name: 'Sebastian Marulanda', title: 'Full-stack Software Engineer' },
+        { name: 'Allison Lee', title: 'Product Manager' }
+      ]}
     ];
+
+    var milestones = [
+      { year: '2018', title: 'The Spark', desc: 'PropFuel was founded on a simple observation: associations were broadcasting to their members, but nobody was truly listening. We set out to change that with conversational engagement technology.' },
+      { year: '2019', title: 'First Platform Launch', desc: 'Our initial platform launched, enabling associations to ask members one question at a time via email — and act on the answers automatically. Early customers saw response rates they’d never achieved before.' },
+      { year: '2021', title: 'Multi-Channel Expansion', desc: 'PropFuel expanded beyond email to include website personalization and SMS, giving associations the ability to meet members wherever they are with the right question at the right time.' },
+      { year: '2024', title: 'AI-Powered Intelligence', desc: 'We introduced Membership AI — intelligent agents that understand member context, predict needs, and automate personalized outreach at a scale never before possible for associations.' },
+      { year: 'Today', title: 'Trusted by Hundreds of Associations', desc: 'PropFuel now serves associations of all sizes, helping them reach millions of members with conversations that drive real engagement, retention, and growth.' }
+    ];
+
+    function buildTeamFallback(depts) {
+      var out = '';
+      depts.forEach(function(dept) {
+        out += '<div style="margin-bottom:48px">' +
+          '<p style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#F9A825;margin-bottom:20px">' + dept.name + '</p>' +
+          '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px">';
+        dept.members.forEach(function(m) {
+          var initials = m.name.split(' ').map(function(n){ return n[0]; }).join('');
+          out += '<div class="pf-card" style="background:#F6F2E8;border-radius:16px;padding:24px;text-align:center">' +
+            '<div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#F47C2C,#FBC02D);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:#fff;margin:0 auto 12px">' + initials + '</div>' +
+            '<h4 style="font-size:15px;font-weight:700;color:#2F2F2F;margin-bottom:4px">' + m.name + '</h4>' +
+            '<p style="font-size:13px;color:#8C8479">' + m.title + '</p>' +
+          '</div>';
+        });
+        out += '</div></div>';
+      });
+      return out;
+    }
 
     var html = '' +
       '<section style="padding:96px 48px 0;text-align:center"><div style="max-width:800px;margin:0 auto">' +
         '<p style="display:inline-flex;align-items:center;padding:8px 20px;border-radius:100px;background:rgba(251,192,45,0.08);border:1px solid rgba(249,168,37,0.35);font-size:13px;font-weight:600;color:#2F2F2F;letter-spacing:0.04em;margin-bottom:24px">About Us</p>' +
         '<h1 style="font-size:clamp(36px,5vw,56px);font-weight:800;color:#2F2F2F;letter-spacing:-0.03em;line-height:1.1;margin-bottom:20px">About PropFuel</h1>' +
-        '<p style="font-size:18px;color:#6E6E6E;line-height:1.6;max-width:640px;margin:0 auto">We believe every member has something to say \u2014 and every association should have an easy way to listen. PropFuel turns one-way communications into two-way conversations that drive retention, revenue, and real connection.</p>' +
+        '<p style="font-size:18px;color:#6E6E6E;line-height:1.6;max-width:640px;margin:0 auto">We help associations listen to and act on what their members actually want \u2014 turning one-way broadcasts into two-way conversations that drive retention, engagement, and growth.</p>' +
       '</div></section>' +
 
       '<section style="padding:64px 48px"><div style="max-width:1000px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:32px">' +
         '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:40px;text-align:left">' +
           '<p style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#F9A825;margin-bottom:12px">Our Mission</p>' +
-          '<p style="font-size:17px;color:#2F2F2F;line-height:1.65;font-weight:500">To give every association the power to listen to their members at scale \u2014 and turn what they hear into action.</p>' +
+          '<p style="font-size:17px;color:#2F2F2F;line-height:1.65;font-weight:500">We help association staff make membership meaningful.</p>' +
         '</div>' +
         '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:40px;text-align:left">' +
           '<p style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#F9A825;margin-bottom:12px">Our Vision</p>' +
-          '<p style="font-size:17px;color:#2F2F2F;line-height:1.65;font-weight:500">A world where every member feels heard, every organization understands its people, and engagement is a conversation \u2014 not a broadcast.</p>' +
+          '<p style="font-size:17px;color:#2F2F2F;line-height:1.65;font-weight:500">A world where association staff use their AI-enabled superpowers to deliver the value their membership promises.</p>' +
         '</div>' +
       '</div></section>' +
 
-      (cmsTeamHTML
-        ? '<section style="padding:64px 48px"><div style="max-width:1100px;margin:0 auto">' +
-            '<h2 style="font-size:clamp(24px,3vw,32px);font-weight:800;color:#2F2F2F;letter-spacing:-0.02em;margin-bottom:48px;text-align:center">Leadership Team</h2>' +
-            cmsTeamHTML +
-          '</div></section>'
-        : '') +
-
-      '' +
+      '<section style="padding:64px 48px"><div style="max-width:1100px;margin:0 auto">' +
+        '<div style="text-align:center;margin-bottom:48px">' +
+          '<p style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#F9A825;margin-bottom:12px">Our People</p>' +
+          '<h2 style="font-size:clamp(28px,3.5vw,40px);font-weight:800;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.1;margin-bottom:16px">Meet the Team</h2>' +
+          '<p style="font-size:17px;color:#6E6E6E;line-height:1.6;max-width:560px;margin:0 auto">The people behind PropFuel are passionate about helping associations thrive through better member engagement.</p>' +
+        '</div>' +
+        (cmsTeamHTML || buildTeamFallback(departments)) +
+      '</div></section>' +
 
       '<section style="padding:64px 48px;background:#F6F2E8"><div style="max-width:900px;margin:0 auto">' +
-        '<h2 style="font-size:clamp(24px,3vw,32px);font-weight:800;color:#2F2F2F;letter-spacing:-0.02em;margin-bottom:48px;text-align:center">Our Journey</h2>' +
+        '<div style="text-align:center;margin-bottom:48px">' +
+          '<p style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#F9A825;margin-bottom:12px">Our Story</p>' +
+          '<h2 style="font-size:clamp(24px,3vw,32px);font-weight:800;color:#2F2F2F;letter-spacing:-0.02em;margin-bottom:16px">The PropFuel Journey</h2>' +
+          '<p style="font-size:16px;color:#6E6E6E;line-height:1.6">From a simple idea to a platform trusted by associations across the country.</p>' +
+        '</div>' +
         '<div style="display:flex;flex-direction:column;gap:32px">';
 
     milestones.forEach(function(m) {
