@@ -229,6 +229,9 @@
       '.pf-cta-heading br{display:block;content:"";margin:0}' +
       '.pf-cta-sub{max-width:620px!important;margin-left:auto!important;margin-right:auto!important;font-size:clamp(16px,1.4vw,18px)!important;line-height:1.6!important}' +
 
+      /* Gradient-text glyph clip guard: any element using -webkit-background-clip:text + linear-gradient gets enough line-box height so heavy 900-weight glyphs do not get their tops/bottoms clipped. Applies site-wide so every case-study stat card is safe. */
+      '[style*="-webkit-background-clip:text"][style*="linear-gradient"]{line-height:1.2!important;padding-top:4px!important;padding-bottom:4px!important}' +
+
       /* Mobile: single column (use-cases grid) */
       '@media(max-width:900px){.uc-grid{grid-template-columns:1fr}.uc-featured,.uc-wide{grid-column:span 1}}' +
 
