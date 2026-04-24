@@ -227,9 +227,13 @@
       '.uc-org{font-size:13px;font-weight:600;color:#8C8479;margin-top:16px;opacity:.7}' +
 
       /* CTA heading + sub: constrained, H1-aligned display treatment */
-      '.pf-cta-heading{display:block!important;font-size:clamp(44px,5.2vw,72px)!important;line-height:1.08!important;letter-spacing:-0.025em!important;font-weight:800!important;max-width:720px!important;margin-left:auto!important;margin-right:auto!important;text-wrap:balance!important}' +
+      '.pf-cta-heading{display:block!important;font-size:clamp(32px,3.6vw,52px)!important;line-height:1.1!important;letter-spacing:-0.02em!important;font-weight:800!important;max-width:680px!important;margin-left:auto!important;margin-right:auto!important;text-wrap:balance!important}' +
       '.pf-cta-heading br{display:block;content:"";margin:0}' +
-      '.pf-cta-sub{max-width:620px!important;margin-left:auto!important;margin-right:auto!important;font-size:clamp(16px,1.4vw,18px)!important;line-height:1.6!important;text-wrap:pretty!important}' +
+      '.pf-cta-sub{max-width:620px!important;margin-left:auto!important;margin-right:auto!important;font-size:17px!important;line-height:1.6!important;text-wrap:pretty!important}' +
+      // CTA sections are dark — force readable colors on heading + sub (Webflow dark templates often set charcoal text)
+      '.pf-cta-section .pf-cta-heading,.pf-cta-section h1,.pf-cta-section h2{color:#EDE8DF!important}' +
+      '.pf-cta-section .pf-cta-sub,.pf-cta-section p:not([class*="btn"]):not([class*="label"]){color:#8C8479!important}' +
+      '.pf-cta-section{padding:80px 48px!important}' +
 
       /* Hero titles + subs: balanced wrapping so short headings never break as "5 words / 1 word" orphans; constrained width so they do not stretch edge-to-edge. */
       '.pf-page-hero-title,.pf-hero-title{max-width:900px!important;margin-left:auto!important;margin-right:auto!important;text-wrap:balance!important}' +
