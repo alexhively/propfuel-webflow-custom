@@ -312,6 +312,8 @@
         '[style*="grid-template-columns:repeat(5"]{grid-template-columns:repeat(2,1fr)!important}' +
         '[style*="grid-template-columns:repeat(3"]{grid-template-columns:repeat(2,1fr)!important}' +
         '[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr!important}' +
+        '[style*="grid-template-columns:2fr 1fr"]{grid-template-columns:1fr!important}' +
+        '[style*="grid-template-columns:1fr 2fr"]{grid-template-columns:1fr!important}' +
         /* Span overrides */
         '[style*="grid-column:span 2"]{grid-column:span 1!important}' +
         /* Section padding reduction */
