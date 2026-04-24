@@ -44,7 +44,9 @@
       /* Secondary button gentler transitions */
       '.pf-btn-secondary{transition:border-color .25s ease,box-shadow .25s ease,color .25s ease!important}' +
 
-      /* Nav link display fix */
+      /* Nav link display fix — force container + items to stay visible above 768px, overriding Webflow native nav hide at 991px */
+      '.pf-nav-links{display:flex!important;align-items:center!important}' +
+      '.pf-nav-right{display:flex!important;align-items:center!important}' +
       '.pf-nav-link{display:inline-flex!important;align-items:center!important;gap:4px}' +
       '.pf-chevron{flex-shrink:0}' +
       '.pf-dropdown{position:relative}' +
