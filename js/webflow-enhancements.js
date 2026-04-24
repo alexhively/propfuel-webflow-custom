@@ -4818,6 +4818,21 @@
       var t = (btn.textContent || '').trim();
       if (t === 'Get a Demo') btn.textContent = 'Get Started';
     });
+    // Nav overlaps top of blog content — push the article wrap down past the floating nav (nav = 96px tall)
+    var articleWrap = document.querySelector('.blog-article-wrap');
+    if (articleWrap) {
+      articleWrap.style.paddingTop = '120px';
+    }
+    // CTA heading in blog template hyphenates badly ("non-dues" / "data-driven" break at hyphens).
+    // Replace with punchier copy that has no mid-word hyphens.
+    var ctaH = document.querySelector('.pf-cta-section .pf-cta-heading, .pf-cta-section h2');
+    if (ctaH) {
+      ctaH.innerHTML = 'Turn member conversations<br>into <span style="background:linear-gradient(135deg,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">real revenue.</span>';
+    }
+    var ctaSub = document.querySelector('.pf-cta-section .pf-cta-sub, .pf-cta-section p');
+    if (ctaSub && /non-dues|data-driven/i.test(ctaSub.textContent)) {
+      ctaSub.textContent = 'See how associations like yours are using PropFuel to engage members and grow revenue year-round.';
+    }
   }
 
   function fixBlog() {
