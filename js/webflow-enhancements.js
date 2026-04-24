@@ -4932,6 +4932,62 @@
     main.innerHTML = html;
   }
 
+  // Wire webinar cards on /resources/webinars to their real /videos/{slug} detail pages.
+  // Colleague's Webflow template binds every card's href to a static "/videos" instead of the
+  // current item's slug — so we fetch a name→slug snapshot and rewrite.
+  function wireWebinarCardHrefs() {
+    if (!/^\/resources\/webinars\/?$/.test(window.location.pathname)) return;
+    var cards = document.querySelectorAll('.w-dyn-item');
+    if (!cards.length) return;
+    // Anchor candidates — card could be an <a> itself or contain one
+    var anchors = [];
+    cards.forEach(function(card){
+      var a = card.matches && card.matches('a') ? card : card.querySelector('a');
+      if (a) anchors.push(a);
+    });
+    if (!anchors.length) return;
+    var needsFixing = anchors.some(function(a){
+      var h = a.getAttribute('href') || '';
+      return !h || h === '#' || /^\/videos\/?$/.test(h);
+    });
+    if (!needsFixing) return;
+    fetch('https://alexhively.github.io/propfuel-webflow-custom/js/webinar-slugs.json?v=1')
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(data){
+        if (!data || !Array.isArray(data.items)) return;
+        var prefix = data.urlPrefix || '/videos/';
+        function normTitle(s) {
+          return String(s || '')
+            .toLowerCase()
+            .replace(/[‘’“”'"`]/g, '')
+            .replace(/[^\w\s]/g, ' ')
+            .replace(/\s+/g, ' ')
+            .trim();
+        }
+        var bySlug = {};
+        data.items.forEach(function(p){ bySlug[normTitle(p.name)] = p.slug; });
+        var fixed = 0, missed = [];
+        cards.forEach(function(card){
+          var a = card.matches && card.matches('a') ? card : card.querySelector('a');
+          if (!a) return;
+          var titleEl = card.querySelector('.webinar-card-title, h3, h4, h2, [class*="title"]');
+          var title = titleEl ? titleEl.textContent : '';
+          var key = normTitle(title);
+          var slug = bySlug[key];
+          if (slug) {
+            a.setAttribute('href', prefix + slug);
+            fixed++;
+          } else if (title) {
+            missed.push(title);
+          }
+        });
+        if (missed.length && window.console) {
+          console.log('[pf] webinar hrefs: fixed', fixed, 'of', anchors.length, '; no slug match for:', missed);
+        }
+      })
+      .catch(function(){});
+  }
+
   function fixWebinars() {
     // Only run on the webinars listing page, not individual webinar templates
     if (!/^\/resources\/webinars\/?$/.test(window.location.pathname)) return;
@@ -4943,8 +4999,8 @@
         if (sec) sec.style.display = 'none';
       }
     });
-    // If Webflow CMS has rendered real webinar items, defer to the CMS template
-    if (document.querySelector('.w-dyn-item')) return;
+    // If Webflow CMS has rendered real webinar items, defer to the CMS template but wire up hrefs
+    if (document.querySelector('.w-dyn-item')) { wireWebinarCardHrefs(); return; }
     var main = getPageMain();
 
     var upcoming = [
