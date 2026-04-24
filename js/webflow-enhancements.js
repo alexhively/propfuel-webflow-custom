@@ -5123,6 +5123,56 @@
       { year: 'Today', title: 'Trusted by Hundreds of Associations', desc: 'PropFuel now serves associations of all sizes, helping them reach millions of members with conversations that drive real engagement, retention, and growth.' }
     ];
 
+    function buildTeamCard(m) {
+      var initials = m.initials || (m.name || '').split(' ').map(function(n){ return n[0]; }).join('').slice(0,2);
+      var photoHTML = m.photo
+        ? '<img src="' + m.photo + '" alt="' + (m.name || '') + '" style="width:80px;height:80px;border-radius:50%;object-fit:cover;margin:0 auto 14px;display:block;box-shadow:0 2px 8px rgba(0,0,0,0.08)" onerror="this.outerHTML=\'<div style=&quot;width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#F47C2C,#FBC02D);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;margin:0 auto 14px&quot;>' + initials + '</div>\'" />'
+        : '<div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#F47C2C,#FBC02D);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;margin:0 auto 14px">' + initials + '</div>';
+      return '<div class="pf-card" style="background:#F6F2E8;border-radius:16px;padding:28px 24px;text-align:center">' +
+        photoHTML +
+        '<h4 style="font-size:15px;font-weight:700;color:#2F2F2F;margin-bottom:4px">' + (m.name || '') + '</h4>' +
+        '<p style="font-size:13px;color:#8C8479">' + (m.title || '') + '</p>' +
+      '</div>';
+    }
+
+    function buildTeamFromSnapshot(data) {
+      if (!data || !Array.isArray(data.members)) return '';
+      var deptOrder = Array.isArray(data.departmentOrder) && data.departmentOrder.length
+        ? data.departmentOrder
+        : ['Leadership', 'Client Success', 'Marketing', 'Sales', 'Engineering'];
+      // Group
+      var groups = {};
+      data.members.forEach(function(m) {
+        var d = m.department || 'Team';
+        (groups[d] = groups[d] || []).push(m);
+      });
+      // Sort members inside each group by sort field
+      Object.keys(groups).forEach(function(k) {
+        groups[k].sort(function(a, b) { return (a.sort || 999) - (b.sort || 999); });
+      });
+      // Render in departmentOrder, then any leftover groups alphabetically
+      var seen = {};
+      var out = '';
+      deptOrder.forEach(function(d) {
+        if (!groups[d] || !groups[d].length) return;
+        seen[d] = true;
+        out += '<div style="margin-bottom:48px">' +
+          '<p style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#F9A825;margin-bottom:20px">' + d + '</p>' +
+          '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px">' +
+            groups[d].map(buildTeamCard).join('') +
+          '</div></div>';
+      });
+      Object.keys(groups).filter(function(k){return !seen[k];}).sort().forEach(function(d) {
+        out += '<div style="margin-bottom:48px">' +
+          '<p style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#F9A825;margin-bottom:20px">' + d + '</p>' +
+          '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px">' +
+            groups[d].map(buildTeamCard).join('') +
+          '</div></div>';
+      });
+      return out;
+    }
+
+    // Hardcoded fallback (initials only) used instantly while the real snapshot loads
     function buildTeamFallback(depts) {
       var out = '';
       depts.forEach(function(dept) {
@@ -5130,12 +5180,7 @@
           '<p style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#F9A825;margin-bottom:20px">' + dept.name + '</p>' +
           '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px">';
         dept.members.forEach(function(m) {
-          var initials = m.name.split(' ').map(function(n){ return n[0]; }).join('');
-          out += '<div class="pf-card" style="background:#F6F2E8;border-radius:16px;padding:24px;text-align:center">' +
-            '<div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#F47C2C,#FBC02D);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:#fff;margin:0 auto 12px">' + initials + '</div>' +
-            '<h4 style="font-size:15px;font-weight:700;color:#2F2F2F;margin-bottom:4px">' + m.name + '</h4>' +
-            '<p style="font-size:13px;color:#8C8479">' + m.title + '</p>' +
-          '</div>';
+          out += buildTeamCard(m);
         });
         out += '</div></div>';
       });
@@ -5166,7 +5211,7 @@
           '<h2 style="font-size:clamp(28px,3.5vw,40px);font-weight:800;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.1;margin-bottom:16px">Meet the Team</h2>' +
           '<p style="font-size:17px;color:#6E6E6E;line-height:1.6;max-width:560px;margin:0 auto">The people behind PropFuel are passionate about helping associations thrive through better member engagement.</p>' +
         '</div>' +
-        (cmsTeamHTML || buildTeamFallback(departments)) +
+        '<div class="pf-team-grid-slot">' + (cmsTeamHTML || buildTeamFallback(departments)) + '</div>' +
       '</div></section>' +
 
       '<section style="padding:64px 48px;background:#F6F2E8"><div style="max-width:900px;margin:0 auto">' +
@@ -5201,6 +5246,19 @@
       '</div></section>';
 
     main.innerHTML = html;
+
+    // Hydrate team grid from Webflow CMS snapshot (team.json) — replaces initials with real photos + full roster
+    if (!cmsTeamHTML) {
+      fetch('https://alexhively.github.io/propfuel-webflow-custom/js/team.json?v=1')
+        .then(function(r) { return r.ok ? r.json() : null; })
+        .then(function(data) {
+          if (!data) return;
+          var slot = document.querySelector('.pf-team-grid-slot');
+          var real = buildTeamFromSnapshot(data);
+          if (slot && real) slot.innerHTML = real;
+        })
+        .catch(function() {});
+    }
   }
 
   function fixCareers() {

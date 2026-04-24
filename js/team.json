@@ -1,0 +1,148 @@
+{
+  "_comment": "Snapshot of Webflow CMS > Team Members collection (69cd4006b1cfc54db1668b03). Re-run snapshot to refresh.",
+  "generatedAt": "2026-04-24",
+  "members": [
+    {
+      "name": "Dave Will",
+      "title": "Co-Founder, CEO",
+      "department": "Leadership",
+      "initials": "DW",
+      "photo": "https://cdn.prod.website-files.com/69cd3b6113342ddaaa180799/69cffdc928d4f5162f292d8e_6769646e5a824967713bc123_5f3c4e958d55f31b8c408af7_5d444508500bcb359bd3cb74_dave.jpeg",
+      "linkedin": "https://www.linkedin.com/in/davidrwill/",
+      "sort": 1
+    },
+    {
+      "name": "Cameron Aubuchon",
+      "title": "President, CTO",
+      "department": "Leadership",
+      "initials": "CA",
+      "photo": "https://cdn.prod.website-files.com/69cd3b6113342ddaaa180799/69cffdc928d4f5162f292d91_679d24f2c46b2ef535778da7_Cameron%2520Aubuchon.jpeg",
+      "linkedin": "https://www.linkedin.com/in/cameronaubuchon/",
+      "sort": 2
+    },
+    {
+      "name": "Ryan Graham",
+      "title": "Chief Revenue Officer",
+      "department": "Leadership",
+      "initials": "RG",
+      "photo": "https://cdn.prod.website-files.com/69cd3b6113342ddaaa180799/69cffdc928d4f5162f292d71_67696470b30e84ee213dffc3_5f3c4f2157a7556ade0e1209_5d44452295c1f50b8d8872ed_ryan.jpeg",
+      "linkedin": "https://www.linkedin.com/in/ryancgraham/",
+      "sort": 4
+    },
+    {
+      "name": "Ashley Wucher",
+      "title": "Director of Client Success",
+      "department": "Client Success",
+      "initials": "AW",
+      "photo": "https://cdn.prod.website-files.com/69cd3b6113342ddaaa180799/69cffdc928d4f5162f292d74_6769646e9ee0061b83b75fc0_60d4ad19032e8968064bac21_Ashley%252520Wucher%252520600%252520x%252520600.jpeg",
+      "linkedin": "https://www.linkedin.com/in/ashley-w-64b0b71b4/",
+      "sort": 3
+    },
+    {
+      "name": "Nick Kiesseg",
+      "title": "Client Success Manager",
+      "department": "Client Success",
+      "initials": "NK",
+      "photo": "https://cdn.prod.website-files.com/69cd3b6113342ddaaa180799/69cffdc928d4f5162f292d88_6956af614c35daf508068d5b_Screenshot%25202026-01-01%2520at%252011.31.08%25E2%2580%25AFAM.png",
+      "linkedin": "https://www.linkedin.com/in/nick-kiessig-b5b5844b/",
+      "sort": 9
+    },
+    {
+      "name": "Brett Voeltz",
+      "title": "Client Success Manager",
+      "department": "Client Success",
+      "initials": "BV",
+      "photo": "https://cdn.prod.website-files.com/69cd3b6113342ddaaa180799/69cffdc928d4f5162f292da0_67a0d54fd0ab8f9c498d7751_Brett%2520Voeltz.jpeg",
+      "linkedin": "https://www.linkedin.com/in/brettvoeltz/",
+      "sort": 14
+    },
+    {
+      "name": "Clara Meek",
+      "title": "Client Success Manager",
+      "department": "Client Success",
+      "initials": "CM",
+      "photo": "https://cdn.prod.website-files.com/69cd3b6113342ddaaa180799/69cffdc928d4f5162f292d65_6769646e434a0426a17278a2_6706b3e3806aed034cd61693_CM.jpeg",
+      "linkedin": "https://www.linkedin.com/in/clara-meek-17633685/",
+      "sort": 15
+    },
+    {
+      "name": "Bruna Letti",
+      "title": "Managed Services Coordinator",
+      "department": "Client Success",
+      "initials": "BL",
+      "photo": "https://cdn.prod.website-files.com/69cd3b6113342ddaaa180799/69cffdc928d4f5162f292d8b_6769646e9ee0061b83b75fc4_67647be53d562223a5d7cc15_IMG_0879.jpeg",
+      "linkedin": "https://www.linkedin.com/in/bruna-letti/",
+      "sort": 16
+    },
+    {
+      "name": "Alex Hively",
+      "title": "Head of Marketing",
+      "department": "Marketing",
+      "initials": "AH",
+      "photo": "https://cdn.prod.website-files.com/69cd3b6113342ddaaa180799/69cffdc928d4f5162f292d7e_696233faf63559e7a2323367_1750708748760.jpeg",
+      "linkedin": "https://www.linkedin.com/in/alexhively/",
+      "sort": 5
+    },
+    {
+      "name": "Brittany Lancor",
+      "title": "Senior Marketing Manager",
+      "department": "Marketing",
+      "initials": "BL",
+      "photo": "https://cdn.prod.website-files.com/69cd3b6113342ddaaa180799/69cffdc928d4f5162f292d77_68f1bb6f8bce37f7e954a76e_Dreamwave-Photo%2520(7).jpeg",
+      "linkedin": "https://www.linkedin.com/in/brittanylancor/",
+      "sort": 9
+    },
+    {
+      "name": "Alejandra Prado",
+      "title": "Marketing Coordinator",
+      "department": "Marketing",
+      "initials": "AP",
+      "photo": "https://cdn.prod.website-files.com/69cd3b6113342ddaaa180799/69cffdca28d4f5162f292de3_6957ea5b88084dcbb97ddd77_Single%2520image%2520post%2520(24).png",
+      "linkedin": "https://www.linkedin.com/in/paolaprado/",
+      "sort": 17
+    },
+    {
+      "name": "Mike Arisco",
+      "title": "Account Executive",
+      "department": "Sales",
+      "initials": "MA",
+      "photo": "https://cdn.prod.website-files.com/69cd3b6113342ddaaa180799/69cffdc928d4f5162f292d9d_679d247482540b6f4dd2632a_Mike%2520Arisco.jpeg",
+      "linkedin": "https://www.linkedin.com/in/michaelgarisco/",
+      "sort": 8
+    },
+    {
+      "name": "Lisa McNeil",
+      "title": "Sales Development Representative",
+      "department": "Sales",
+      "initials": "LM",
+      "photo": "https://cdn.prod.website-files.com/69cd3b6113342ddaaa180799/69cffdc928d4f5162f292dc6_679d24287de96f92280737c7_Lisa%2520McNeil.jpeg",
+      "linkedin": "https://www.linkedin.com/in/lisa-mcneil-40084110/",
+      "sort": 8
+    },
+    {
+      "name": "Sebastian Marulanda",
+      "title": "Full-stack Software Engineer",
+      "department": "Engineering",
+      "initials": "SM",
+      "photo": "https://cdn.prod.website-files.com/69cd3b6113342ddaaa180799/69cffdc928d4f5162f292dac_67696470a75dc198b9b0e907_62f160b1d64065150cd74790_00100sPORTRAIT_00100_BURST20180303133528353_COVER%252520(2).jpeg",
+      "linkedin": "https://www.linkedin.com/in/smarulanda/",
+      "sort": 7
+    },
+    {
+      "name": "Allison Lee",
+      "title": "Product Manager",
+      "department": "Engineering",
+      "initials": "AL",
+      "photo": "https://cdn.prod.website-files.com/69cd3b6113342ddaaa180799/69cffdc928d4f5162f292d83_69623aaf6b1463513975a428_T3305RJBA-U09CLJ7CF3N-1cb237893a6c-512.jpeg",
+      "linkedin": "https://www.linkedin.com/in/allisonbramlettlee/",
+      "sort": 10
+    }
+  ],
+  "departmentOrder": [
+    "Leadership",
+    "Client Success",
+    "Marketing",
+    "Sales",
+    "Engineering"
+  ]
+}
