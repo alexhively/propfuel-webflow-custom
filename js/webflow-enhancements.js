@@ -334,6 +334,9 @@
         '[class*="-hero-mockup"]{max-width:100%!important;overflow:hidden}' +
         /* Platform tab panels: stack */
         '.pf-tab-panel{grid-template-columns:1fr!important}' +
+        /* Platform section: desktop's 120px|48px padding (set by Webflow stylesheet, not inline) cramps bullets
+           against the viewport edge; at ≤768px drop horizontal to 20px so tab-panel content fits. Mobile only. */
+        '.pf-platform-section{padding:56px 20px!important}' +
       '}' +
 
       /* ── MOBILE BREAKPOINT (≤480px) ── */
