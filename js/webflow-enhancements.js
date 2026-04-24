@@ -4361,14 +4361,14 @@
     buildUseCasePage({
       path: 'use-cases/win-back',
       heroLabel: 'Use Case',
-      heroTitle: 'Some members don\u2019t renew on purpose. Some just lose track. PropFuel finds out which is which.',
-      heroSub: 'Win-back campaigns re-engage recently lapsed and long-dormant members with the right message at the right time. Not a blast email to an indifferent list \u2014 a conversation that acknowledges the relationship and asks what it would take to bring them back.',
+      heroTitle: 'Know why they left. Win them back.',
+      heroSub: 'PropFuel asks every lapsed member why they left \u2014 and runs personalized win-back campaigns based on what they say. Not a blast email to an indifferent list. A conversation.',
       problemLabel: 'The Problem',
-      problemH2: 'The only data point is non-payment. Nobody knows why they left.',
+      problemH2: 'You know when members leave. You don\u2019t know why.',
       problemBody: [
-        'A member\u2019s expiration date passes. They do not renew. The association marks them as lapsed. Maybe someone sends a \u201Cwe miss you\u201D email. Maybe they make a phone call. <strong>But they have no information about why the member left \u2014 so every outreach attempt is a guess.</strong>',
-        'Some of those members left intentionally. The membership was not valuable to them anymore. Some lost track \u2014 they meant to renew but life got in the way. And some would come back if anyone made it easy. <strong>The problem is that the association cannot tell the difference.</strong>',
-        '<strong>\u201CWe\u2019ve never actually asked lapsed members why they left.\u201D</strong> That is the starting point for most organizations. PropFuel changes that.'
+        'An expiration date passes. A \u201Cwe miss you\u201D email goes out. Maybe someone picks up the phone. <strong>But nobody knows why the member left \u2014 so every outreach is a guess.</strong>',
+        'Some left on purpose. Some just lost track. Some would come back if anyone made it easy. <strong>The association can\u2019t tell the difference \u2014 because no one ever asked.</strong>',
+        '<strong>\u201CWe\u2019ve never actually asked lapsed members why they left.\u201D</strong> That\u2019s the starting point for most associations. PropFuel changes it \u2014 one question at a time.'
       ],
       problemGraphic: '<div style="background:rgba(255,255,255,.06);border-radius:16px;padding:32px;border:1px solid rgba(255,255,255,.1);max-width:340px;text-align:center">' +
         '<div style="font-size:64px;font-weight:900;background:linear-gradient(to top,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px">?</div>' +
