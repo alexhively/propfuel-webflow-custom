@@ -4824,14 +4824,26 @@
       articleWrap.style.paddingTop = '120px';
     }
     // CTA heading in blog template hyphenates badly ("non-dues" / "data-driven" break at hyphens).
-    // Replace with punchier copy that has no mid-word hyphens.
+    // Replace with punchier copy that has no mid-word hyphens, stacked across 3 lines.
     var ctaH = document.querySelector('.pf-cta-section .pf-cta-heading, .pf-cta-section h2');
     if (ctaH) {
-      ctaH.innerHTML = 'Turn member conversations<br>into <span style="background:linear-gradient(135deg,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">real revenue.</span>';
+      ctaH.innerHTML = 'Turn member<br>conversations<br>into <span style="background:linear-gradient(135deg,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">real revenue.</span>';
+      ctaH.style.maxWidth = '560px';
+      ctaH.style.marginBottom = '40px';
     }
     var ctaSub = document.querySelector('.pf-cta-section .pf-cta-sub, .pf-cta-section p');
     if (ctaSub && /non-dues|data-driven/i.test(ctaSub.textContent)) {
       ctaSub.textContent = 'See how associations like yours are using PropFuel to engage members and grow revenue year-round.';
+    }
+    if (ctaSub) {
+      ctaSub.style.marginBottom = '48px';
+    }
+    // Add breathing room above buttons
+    var ctaButtons = document.querySelector('.pf-cta-section .pf-btn-group, .pf-cta-section .btn-group, .pf-cta-section [class*="button"]');
+    if (ctaButtons && ctaButtons.parentElement) {
+      // Find the flex container wrapping both buttons
+      var btnRow = document.querySelector('.pf-cta-section .pf-cta-buttons, .pf-cta-section .pf-btn-row');
+      if (btnRow) btnRow.style.marginTop = '16px';
     }
   }
 
