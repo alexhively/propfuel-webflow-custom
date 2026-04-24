@@ -4823,6 +4823,13 @@
     if (articleWrap) {
       articleWrap.style.paddingTop = '120px';
     }
+    // Blog template wraps nav in a 1200px .w-container — the 960px .pf-nav-inner inside is
+    // left-aligned by default, making the pill look offset from page center. Force centered.
+    var blogNavInner = document.querySelector('.pf-nav-bar .pf-nav-inner');
+    if (blogNavInner) {
+      blogNavInner.style.marginLeft = 'auto';
+      blogNavInner.style.marginRight = 'auto';
+    }
     // CTA heading in blog template hyphenates badly ("non-dues" / "data-driven" break at hyphens).
     // Replace with punchier copy that has no mid-word hyphens, stacked across 3 lines.
     var ctaH = document.querySelector('.pf-cta-section .pf-cta-heading, .pf-cta-section h2');
