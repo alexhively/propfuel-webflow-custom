@@ -399,6 +399,8 @@
         /* /case-studies/* detail template: .cs-stats-row is a 3-col fixed-px grid (~160+129+121) that
            overflows the 390px viewport. Collapse to single column on mobile. */
         '.cs-stats-row{grid-template-columns:1fr!important;gap:16px!important}' +
+        /* /videos/* embedly/YouTube player was rendering at its natural 440px on narrow viewports. */
+        '.w-video,.embedly-embed{max-width:100%!important;width:100%!important}' +
       '}' +
 
       /* ── MOBILE BREAKPOINT (≤480px) ── */
