@@ -4440,8 +4440,8 @@
     buildUseCasePage({
       path: 'use-cases/acquisition',
       heroLabel: 'Use Case',
-      heroTitle: 'Most associations know how many people visited their site. Almost none know what those people were looking for.',
-      heroSub: 'PropFuel captures interest from anonymous website visitors and known non-members \u2014 then nurtures them into members through conversation, not campaigns. With engagement rates 7-14x higher than typical website pop-ups, you stop losing prospects you never met.',
+      heroTitle: 'Your next member is already on your website.',
+      heroSub: 'PropFuel turns anonymous visitors into identified prospects \u2014 and nurtures them into members through conversation, not campaigns. 7\u201314\u00d7 more engagement than typical pop-ups.',
       problemLabel: 'The Problem',
       problemH2: 'Your website gets thousands of visitors a month. Most of them leave without a trace.',
       problemBody: [
