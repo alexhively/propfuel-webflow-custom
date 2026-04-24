@@ -949,9 +949,11 @@
       burger.style.cssText = 'display:none;align-items:center;justify-content:center;width:44px;height:44px;background:none;border:none;cursor:pointer;padding:0;-webkit-tap-highlight-color:transparent';
       burger.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2F2F2F" stroke-width="2" stroke-linecap="round"><line class="pf-burger-top" x1="4" y1="6" x2="20" y2="6" style="transition:all .3s ease"/><line class="pf-burger-mid" x1="4" y1="12" x2="20" y2="12" style="transition:all .3s ease"/><line class="pf-burger-bot" x1="4" y1="18" x2="20" y2="18" style="transition:all .3s ease"/></svg>';
 
-      // Insert before the nav CTA button (right side)
+      // Insert before the nav CTA button (right side). The ref node must be a
+      // DIRECT child of navInner — on some CMS templates the CTA is nested inside
+      // an anonymous wrapper div, which would throw NotFoundError.
       var navRight = navInner.querySelector('[class*="nav-right"], .pf-btn-nav, .pf-btn-primary');
-      if (navRight) { navInner.insertBefore(burger, navRight); }
+      if (navRight && navRight.parentNode === navInner) { navInner.insertBefore(burger, navRight); }
       else { navInner.appendChild(burger); }
 
       var navLinksEl = document.querySelector('.pf-nav-links');
