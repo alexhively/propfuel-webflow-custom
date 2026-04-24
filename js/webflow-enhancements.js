@@ -5098,6 +5098,20 @@
       navInner.style.marginLeft = 'auto';
       navInner.style.marginRight = 'auto';
     }
+    // Hide the vestigial "Home › About Us › {name}" breadcrumb section that
+    // sits right after the nav — the H1 already tells users where they are,
+    // and the breadcrumb visually overlaps the centered nav pill.
+    var nav = document.querySelector('.pf-nav-bar');
+    if (nav) {
+      var sib = nav.nextElementSibling;
+      while (sib) {
+        if (sib.tagName === 'SECTION' && /Home\s*›\s*About/i.test(sib.textContent || '')) {
+          sib.style.display = 'none';
+          break;
+        }
+        sib = sib.nextElementSibling;
+      }
+    }
     // Swap the stripped-down footer for the full main-site footer
     swapStrippedFooter();
   }
