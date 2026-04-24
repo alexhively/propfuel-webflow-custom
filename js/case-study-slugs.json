@@ -1,0 +1,31 @@
+{
+  "_comment": "Snapshot of Webflow CMS Case Studies collection. Re-run to refresh.",
+  "generatedAt": "2026-04-24",
+  "urlPrefix": "/case-studies/",
+  "items": [
+    {
+      "name": "12% Response Rate on a Website Pop-Up? Here’s How ALA Did It",
+      "slug": "12-response-rate-on-a-website-pop-up-heres-how-ala-did-it"
+    },
+    {
+      "name": "From 9,700+ Responses to 395 Leads: How ENA Turned Engagement Into Action",
+      "slug": "ena-workplace-engagement-turning-interest-into-membership"
+    },
+    {
+      "name": "How AMA Turned Website Visitors Into $304K in Membership Revenue",
+      "slug": "ama-website-engagement-membership-revenue"
+    },
+    {
+      "name": "How ARN Boosted Certification Applications by 32%",
+      "slug": "how-arn-boosted-certification-applications"
+    },
+    {
+      "name": "How VECCS Generated $315,300 in Revenue and 10% of Conference Registrations with Website Engagement",
+      "slug": "how-veccs-drove-10-of-conference-registrations-with-website-engagement"
+    },
+    {
+      "name": "Soaring Member Engagement: How AMA Doubled New Member Engagement with Personalized Onboarding",
+      "slug": "how-ama-doubled-new-member-engagement-with-personalized-onboarding"
+    }
+  ]
+}
