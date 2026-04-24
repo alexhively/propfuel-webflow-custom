@@ -5677,11 +5677,11 @@
       '<section style="padding:64px 48px"><div style="max-width:1000px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:32px">' +
         '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:40px;text-align:left">' +
           '<p style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#F9A825;margin-bottom:12px">Our Mission</p>' +
-          '<p style="font-size:17px;color:#2F2F2F;line-height:1.65;font-weight:500">We help association staff make membership meaningful.</p>' +
+          '<p style="font-size:17px;color:#2F2F2F;line-height:1.65;font-weight:500">Make membership meaningful.</p>' +
         '</div>' +
         '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:40px;text-align:left">' +
           '<p style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#F9A825;margin-bottom:12px">Our Vision</p>' +
-          '<p style="font-size:17px;color:#2F2F2F;line-height:1.65;font-weight:500">A world where association staff use their AI-enabled superpowers to deliver the value their membership promises.</p>' +
+          '<p style="font-size:17px;color:#2F2F2F;line-height:1.65;font-weight:500">A world where every association has the tools to make every member feel like membership was made for them.</p>' +
         '</div>' +
       '</div></section>' +
 
