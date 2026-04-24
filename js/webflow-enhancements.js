@@ -315,6 +315,10 @@
         '[style*="grid-template-columns:2fr 1fr"]{grid-template-columns:1fr!important}' +
         '[style*="grid-template-columns:1fr 2fr"]{grid-template-columns:1fr!important}' +
         '[style*="grid-template-columns:1.2fr 1fr"]{grid-template-columns:1fr!important}' +
+        /* Fixed-first-column 2-col grids (300px 1fr, 360px 1fr, 400px 1fr) that don't fit at 390. */
+        '[style*="grid-template-columns:300px 1fr"]{grid-template-columns:1fr!important}' +
+        '[style*="grid-template-columns:360px 1fr"]{grid-template-columns:1fr!important}' +
+        '[style*="grid-template-columns:400px 1fr"]{grid-template-columns:1fr!important}' +
         /* Span overrides */
         '[style*="grid-column:span 2"]{grid-column:span 1!important}' +
         /* Section padding reduction */
