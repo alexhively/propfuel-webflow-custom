@@ -5137,54 +5137,19 @@
 
     function buildTeamFromSnapshot(data) {
       if (!data || !Array.isArray(data.members)) return '';
-      var deptOrder = Array.isArray(data.departmentOrder) && data.departmentOrder.length
-        ? data.departmentOrder
-        : ['Leadership', 'Client Success', 'Marketing', 'Sales', 'Engineering'];
-      // Group
-      var groups = {};
-      data.members.forEach(function(m) {
-        var d = m.department || 'Team';
-        (groups[d] = groups[d] || []).push(m);
-      });
-      // Sort members inside each group by sort field
-      Object.keys(groups).forEach(function(k) {
-        groups[k].sort(function(a, b) { return (a.sort || 999) - (b.sort || 999); });
-      });
-      // Render in departmentOrder, then any leftover groups alphabetically
-      var seen = {};
-      var out = '';
-      deptOrder.forEach(function(d) {
-        if (!groups[d] || !groups[d].length) return;
-        seen[d] = true;
-        out += '<div style="margin-bottom:48px">' +
-          '<p style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#F9A825;margin-bottom:20px">' + d + '</p>' +
-          '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px">' +
-            groups[d].map(buildTeamCard).join('') +
-          '</div></div>';
-      });
-      Object.keys(groups).filter(function(k){return !seen[k];}).sort().forEach(function(d) {
-        out += '<div style="margin-bottom:48px">' +
-          '<p style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#F9A825;margin-bottom:20px">' + d + '</p>' +
-          '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px">' +
-            groups[d].map(buildTeamCard).join('') +
-          '</div></div>';
-      });
-      return out;
+      var members = data.members.slice().sort(function(a, b) { return (a.sort || 999) - (b.sort || 999); });
+      return '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px">' +
+        members.map(buildTeamCard).join('') +
+      '</div>';
     }
 
     // Hardcoded fallback (initials only) used instantly while the real snapshot loads
     function buildTeamFallback(depts) {
-      var out = '';
-      depts.forEach(function(dept) {
-        out += '<div style="margin-bottom:48px">' +
-          '<p style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#F9A825;margin-bottom:20px">' + dept.name + '</p>' +
-          '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px">';
-        dept.members.forEach(function(m) {
-          out += buildTeamCard(m);
-        });
-        out += '</div></div>';
-      });
-      return out;
+      var all = [];
+      depts.forEach(function(dept) { dept.members.forEach(function(m) { all.push(m); }); });
+      return '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px">' +
+        all.map(buildTeamCard).join('') +
+      '</div>';
     }
 
     var html = '' +
