@@ -224,9 +224,10 @@
       '.uc-label{font-size:16px;font-weight:500;color:#8C8479;margin-top:8px;line-height:1.4}' +
       '.uc-org{font-size:13px;font-weight:600;color:#8C8479;margin-top:16px;opacity:.7}' +
 
-      /* CTA heading: H1-aligned display treatment */
-      '.pf-cta-heading{display:block!important;font-size:clamp(40px,4.8vw,64px)!important;line-height:1.08!important;letter-spacing:-0.025em!important;font-weight:800!important;max-width:640px!important;margin-left:auto!important;margin-right:auto!important}' +
+      /* CTA heading + sub: constrained, H1-aligned display treatment */
+      '.pf-cta-heading{display:block!important;font-size:clamp(44px,5.2vw,72px)!important;line-height:1.08!important;letter-spacing:-0.025em!important;font-weight:800!important;max-width:720px!important;margin-left:auto!important;margin-right:auto!important}' +
       '.pf-cta-heading br{display:block;content:"";margin:0}' +
+      '.pf-cta-sub{max-width:620px!important;margin-left:auto!important;margin-right:auto!important;font-size:clamp(16px,1.4vw,18px)!important;line-height:1.6!important}' +
 
       /* Mobile: single column (use-cases grid) */
       '@media(max-width:900px){.uc-grid{grid-template-columns:1fr}.uc-featured,.uc-wide{grid-column:span 1}}' +
