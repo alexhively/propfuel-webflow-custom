@@ -2620,50 +2620,8 @@
       }
     }
 
-    // --- USE CASES ---
-    if (!document.querySelector('.ae-use-cases')) {
-      var ucHTML = '<section class="ae-use-cases" style="padding:96px 48px;background:#EBE6DA">' +
-        '<div style="max-width:1200px;margin:0 auto">' +
-          '<div style="text-align:center;margin-bottom:56px">' +
-            '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">Use Cases</p>' +
-            '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15">The Automation Engine turns insight into action across every lifecycle stage.</h2>' +
-          '</div>' +
-          '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">' +
-            '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 32px">' +
-              '<h4 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Onboarding</h4>' +
-              '<p style="font-size:15px;color:#6E6E6E;line-height:1.6">A structured first-year conversation: 3\u201311 check-ins over 3\u20139 months, running automatically. Learn what new members want and guide them to relevant benefits.</p>' +
-            '</div>' +
-            '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 32px">' +
-              '<h4 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Renewals</h4>' +
-              '<p style="font-size:15px;color:#6E6E6E;line-height:1.6">A 90-day renewal conversation that adapts based on responses. Members who plan to renew get a link. Members who are unsure get asked why. Staff get alerted.</p>' +
-            '</div>' +
-            '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 32px">' +
-              '<h4 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Win-Back</h4>' +
-              '<p style="font-size:15px;color:#6E6E6E;line-height:1.6">Automated re-engagement for recently lapsed and long-dormant members. Different cadence, different tone, different questions for different situations.</p>' +
-            '</div>' +
-            '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 32px">' +
-              '<h4 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Acquisition</h4>' +
-              '<p style="font-size:15px;color:#6E6E6E;line-height:1.6">Nurture warm prospects with personalized follow-up based on what they told you. Members who say \u201Cnot now\u201D get asked why. No one disappears without learning something.</p>' +
-            '</div>' +
-            '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 32px">' +
-              '<h4 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Events</h4>' +
-              '<p style="font-size:15px;color:#6E6E6E;line-height:1.6">Pre-event registration drives, attendee preparation, and post-event NPS with branching. Promoters get routed to testimonial requests. Detractors trigger staff alerts.</p>' +
-            '</div>' +
-            '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 32px">' +
-              '<h4 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Certifications</h4>' +
-              '<p style="font-size:15px;color:#6E6E6E;line-height:1.6">Guide members from discovery through credential renewal. Surface interest in onboarding campaigns, nurture through registration, and re-engage before expiration.</p>' +
-            '</div>' +
-          '</div>' +
-        '</div>' +
-      '</section>';
-      var capSection = document.querySelector('.ae-capabilities');
-      if (capSection) {
-        capSection.insertAdjacentHTML('afterend', ucHTML);
-      } else {
-        ctaSection.insertAdjacentHTML('beforebegin', ucHTML);
-      }
-    }
-
+    // Use Cases section removed per feedback — redundant with /use-cases hub pages
+    document.querySelectorAll('.ae-use-cases').forEach(function(n){ n.remove(); });
     // --- FAQ SECTION ---
     if (!document.querySelector('.ae-faq')) {
       var faqItems = [
@@ -2691,9 +2649,9 @@
         '</div>';
       });
       faqHTML += '</div></section>';
-      var ucSection = document.querySelector('.ae-use-cases');
-      if (ucSection) {
-        ucSection.insertAdjacentHTML('afterend', faqHTML);
+      var anchor = document.querySelector('.ae-capabilities');
+      if (anchor) {
+        anchor.insertAdjacentHTML('afterend', faqHTML);
       } else {
         ctaSection.insertAdjacentHTML('beforebegin', faqHTML);
       }
