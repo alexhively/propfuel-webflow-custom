@@ -1355,6 +1355,14 @@
       if (testTarget) {
         testTarget.insertAdjacentHTML('beforebegin', ucHTML);
       }
+      // Hide the Webflow-native duplicate use-cases section (same heading as hp-use-cases)
+      Array.from(document.querySelectorAll('section')).forEach(function(s){
+        if (s.classList.contains('hp-use-cases')) return;
+        var h = s.querySelector('h2');
+        if (h && /^Real outcomes\.\s*Real associations\.?$/i.test((h.textContent || '').trim())) {
+          s.style.display = 'none';
+        }
+      });
     }
 
     // Add testimonial dots
