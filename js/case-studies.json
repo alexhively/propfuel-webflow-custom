@@ -1,0 +1,93 @@
+[
+  {
+    "featured": true,
+    "name": "How VECCS Generated $315,300 in Revenue and 10% of Conference Registrations with Website Engagement",
+    "slug": "how-veccs-drove-10-of-conference-registrations-with-website-engagement",
+    "org": "VECCS",
+    "subtitle": "How VECCS drove 10% of conference registrations with a single website widget.",
+    "summary": "By utilizing PropFuel Website Engagement, VECCS solved navigation overwhelm on both their association and conference websites. In just a few clicks, they turned a cluttered user experience into a clear path that drove registrations.",
+    "quote": "For me, it's about moving past the guessing. Everyone has ideas about why something didn't work, but now we have actual data. We know what people are looking for.",
+    "kpis": [
+      { "value": "27%", "label": "Engagement Rate" },
+      { "value": "449", "label": "Event Registrations" },
+      { "value": "$315,300", "label": "Revenue Generated" }
+    ],
+    "image": "https://cdn.prod.website-files.com/69cd3b6113342ddaaa180799/69d5219cd50bf577725c0893_686dc75d973be7525ebff76f_veccs%20logo.png",
+    "category": "Registrations"
+  },
+  {
+    "name": "How AMA Turned Website Visitors Into $304K in Membership Revenue",
+    "slug": "ama-website-engagement-membership-revenue",
+    "org": "American Medical Association",
+    "subtitle": "Turning anonymous visitors into paying members with a simple digital shift.",
+    "summary": "AMA transformed anonymous website traffic into identified prospects and new members. With a single conversational question guiding every visitor, AMA captured thousands of leads and converted them into membership revenue.",
+    "quote": "We've been able to turn anonymous website traffic into qualified leads and then into paying members. It has been a game changer for us.",
+    "kpis": [
+      { "value": "3,803", "label": "Conversions" },
+      { "value": "$304K", "label": "Membership Revenue" },
+      { "value": "14%", "label": "Engagement Rate" }
+    ],
+    "image": "https://cdn.prod.website-files.com/69cd3b6113342ddaaa180799/69d5219843de54f0963594f8_67eb2dbe418c0867fa188318_ama%20logo.png",
+    "category": "Website Engagement"
+  },
+  {
+    "name": "From 9,700+ Responses to 395 Leads: How ENA Turned Engagement Into Action",
+    "slug": "ena-workplace-engagement-turning-interest-into-membership",
+    "org": "Emergency Nurses Association",
+    "subtitle": "How ENA engaged members and turned meaningful conversations into action.",
+    "summary": "ENA used a value-driven Workplace Engagement campaign to connect with members and prospects on the critical topic of workplace violence — turning thousands of responses into qualified leads and new members.",
+    "quote": "Workplace violence is a serious issue nurses deal with every day, so being able to ask visitors a related question and immediately provide resources was powerful.",
+    "kpis": [
+      { "value": "9,739", "label": "Responses" },
+      { "value": "395", "label": "Leads" },
+      { "value": "19", "label": "New Members" }
+    ],
+    "image": "https://cdn.prod.website-files.com/69cd3b6113342ddaaa180799/69d5219602b305ae11e962f8_68e966c4324a09160f3dcfdb_ENA%20logo.jpeg",
+    "category": "Website Engagement"
+  },
+  {
+    "name": "How ARN Boosted Certification Applications by 32%",
+    "slug": "how-arn-boosted-certification-applications",
+    "org": "Association of Rehabilitation Nurses",
+    "subtitle": "Personalized member onboarding that drove certification exam applications through a quiz-driven nurture campaign.",
+    "summary": "ARN personalized member onboarding and boosted certification exam applications by 32% through a highly engaging quiz-driven campaign built in PropFuel.",
+    "quote": "We always knew certification was a major driver, but PropFuel helped us segment and engage these members in a way we couldn't before.",
+    "kpis": [
+      { "value": "32%", "label": "Increase in Certification Apps" },
+      { "value": "72%", "label": "Engagement Rate" },
+      { "value": "1,300+", "label": "Quiz Sign-Ups" }
+    ],
+    "image": "https://cdn.prod.website-files.com/69cd3b6113342ddaaa180799/69d521994e1e16367a44f78f_686be717ede9de9362b9590c_arn-social-logo.jpeg",
+    "category": "Acquisition, Engagement & Profile Building"
+  },
+  {
+    "name": "12% Response Rate on a Website Pop-Up? Here's How ALA Did It",
+    "slug": "12-response-rate-on-a-website-pop-up-heres-how-ala-did-it",
+    "org": "Association of Legal Administrators",
+    "subtitle": "Capturing real-time visitor intent helped ALA guide members to action and gather insights traditional tools missed.",
+    "summary": "ALA used PropFuel's Website Engagement module to capture real-time visitor intent, guiding members to action and surfacing insights traditional tools couldn't see.",
+    "quote": "It's not pushy, it's not salesy. It's a better way to have real conversations when members are looking for answers.",
+    "kpis": [
+      { "value": "910", "label": "Check-Ins" },
+      { "value": "107", "label": "Responses" },
+      { "value": "12%", "label": "Response Rate" }
+    ],
+    "image": "https://cdn.prod.website-files.com/69cd3b6113342ddaaa180799/69d02e1a6df6466b5bb8a025_68433ebcb5c77fa5b75c86e6_ALA%20Case%20Study%20Image.png",
+    "category": "Website Engagement"
+  },
+  {
+    "name": "Soaring Member Engagement: How AMA Doubled New Member Engagement with Personalized Onboarding",
+    "slug": "how-ama-doubled-new-member-engagement-with-personalized-onboarding",
+    "org": "Academy of Model Aeronautics",
+    "subtitle": "How a 10-email personalized onboarding series doubled new member engagement at AMA.",
+    "summary": "AMA built a 10-email personalized onboarding series in PropFuel to welcome thousands of new members, doubling engagement and collecting rich feedback from the start.",
+    "quote": "The shift to PropFuel has completely transformed our ability to connect with new members. Seeing engagement double has been eye-opening.",
+    "kpis": [
+      { "value": "45%", "label": "Engagement Rate" },
+      { "value": "10", "label": "Emails in Series" },
+      { "value": "1,700+", "label": "Responses" }
+    ],
+    "image": "https://cdn.prod.website-files.com/69cd3b6113342ddaaa180799/69d5219843de54f0963594f2_67eb2dbe418c0867fa188318_ama%20logo.png",
+    "category": "Acquisition, Engagement & Profile Building"
+  }
+]
