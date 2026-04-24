@@ -5081,31 +5081,11 @@
     if (window.location.pathname.indexOf('/company/about') === -1) return;
     var main = getPageMain();
 
-    var departments = [
-      { name: 'Leadership', members: [
-        { name: 'Alex Voci', title: 'CEO & Co-Founder' },
-        { name: 'Mike Eliason', title: 'CTO & Co-Founder' },
-        { name: 'Doug Discher', title: 'COO' }
-      ]},
-      { name: 'Client Success', members: [
-        { name: 'Rachel Kim', title: 'VP, Client Success' },
-        { name: 'Jordan Hayes', title: 'Sr. Client Success Manager' },
-        { name: 'Priya Sharma', title: 'Client Success Manager' }
-      ]},
-      { name: 'Sales', members: [
-        { name: 'Marcus Webb', title: 'VP, Sales' },
-        { name: 'Taylor Brooks', title: 'Account Executive' }
-      ]},
-      { name: 'Marketing', members: [
-        { name: 'Olivia Chen', title: 'VP, Marketing' },
-        { name: 'Nate Rivera', title: 'Content Marketing Manager' }
-      ]},
-      { name: 'Engineering', members: [
-        { name: 'David Park', title: 'Sr. Software Engineer' },
-        { name: 'Anika Patel', title: 'Software Engineer' },
-        { name: 'Chris Mueller', title: 'DevOps Engineer' }
-      ]}
-    ];
+    // Preserve any Webflow CMS team list the designer set up (.w-dyn-list)
+    // so the scaffold rebuild below doesn't nuke it.
+    var cmsTeamLists = Array.prototype.slice.call(main.querySelectorAll('.w-dyn-list'));
+    cmsTeamLists.forEach(function(el, i) { el.setAttribute('data-pf-cms-team', String(i)); });
+    var cmsTeamHTML = cmsTeamLists.map(function(el){ return el.outerHTML; }).join('');
 
     var milestones = [
       { year: '2018', title: 'Founded', desc: 'PropFuel launches with the vision of turning one-way communications into two-way conversations for associations.' },
@@ -5133,25 +5113,14 @@
         '</div>' +
       '</div></section>' +
 
-      '<section style="padding:64px 48px"><div style="max-width:1100px;margin:0 auto">' +
-        '<h2 style="font-size:clamp(24px,3vw,32px);font-weight:800;color:#2F2F2F;letter-spacing:-0.02em;margin-bottom:48px;text-align:center">Leadership Team</h2>';
+      (cmsTeamHTML
+        ? '<section style="padding:64px 48px"><div style="max-width:1100px;margin:0 auto">' +
+            '<h2 style="font-size:clamp(24px,3vw,32px);font-weight:800;color:#2F2F2F;letter-spacing:-0.02em;margin-bottom:48px;text-align:center">Leadership Team</h2>' +
+            cmsTeamHTML +
+          '</div></section>'
+        : '') +
 
-    departments.forEach(function(dept) {
-      html += '<div style="margin-bottom:48px">' +
-        '<p style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#F9A825;margin-bottom:20px">' + dept.name + '</p>' +
-        '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px">';
-      dept.members.forEach(function(m) {
-        var initials = m.name.split(' ').map(function(n){ return n[0]; }).join('');
-        html += '<div class="pf-card" style="background:#F6F2E8;border-radius:16px;padding:24px;text-align:center">' +
-          '<div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#F47C2C,#FBC02D);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:#fff;margin:0 auto 12px">' + initials + '</div>' +
-          '<h4 style="font-size:15px;font-weight:700;color:#2F2F2F;margin-bottom:4px">' + m.name + '</h4>' +
-          '<p style="font-size:13px;color:#8C8479">' + m.title + '</p>' +
-        '</div>';
-      });
-      html += '</div></div>';
-    });
-
-    html += '</div></section>' +
+      '' +
 
       '<section style="padding:64px 48px;background:#F6F2E8"><div style="max-width:900px;margin:0 auto">' +
         '<h2 style="font-size:clamp(24px,3vw,32px);font-weight:800;color:#2F2F2F;letter-spacing:-0.02em;margin-bottom:48px;text-align:center">Our Journey</h2>' +
