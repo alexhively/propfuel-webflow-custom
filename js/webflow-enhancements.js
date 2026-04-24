@@ -4443,18 +4443,25 @@
       heroTitle: 'Your next member is already on your website.',
       heroSub: 'PropFuel turns anonymous visitors into identified prospects \u2014 and nurtures them into members through conversation, not campaigns. 7\u201314\u00d7 more engagement than typical pop-ups.',
       problemLabel: 'The Problem',
-      problemH2: 'Your website gets thousands of visitors a month. Most of them leave without a trace.',
+      problemH2: 'Your best prospects are already in the room. You just don\u2019t know who they are.',
       problemBody: [
-        'Someone finds your website through a Google search. They browse a few pages \u2014 events, certification requirements, maybe a blog post. They are exactly the kind of person who should join your association. <strong>And then they leave. You never knew they were there.</strong>',
-        'Meanwhile, your team is spending time and budget on paid ads, conference booths, and partnerships to attract new members. <strong>The irony is that the warmest prospects are already visiting your website every day \u2014 and you have no mechanism to capture them.</strong>'
+        '8,500 people visit your site this month. 2,000 show up at your conference. Hundreds more subscribe to your newsletter \u2014 without a membership. <strong>Most of them quietly leave: unidentified, untracked, unengaged.</strong>',
+        'Your team burns budget on paid ads and partnerships chasing new prospects \u2014 while the warmest ones already raised their hands. <strong>You just don\u2019t have a mechanism to capture the signal.</strong>'
       ],
-      problemGraphic: '<div style="background:rgba(255,255,255,.06);border-radius:16px;padding:32px;border:1px solid rgba(255,255,255,.1);max-width:340px;text-align:center">' +
-        '<div style="font-size:13px;font-weight:700;color:#F9A825;text-transform:uppercase;letter-spacing:.08em;margin-bottom:20px">Website Traffic</div>' +
-        '<div style="font-size:56px;font-weight:900;color:#EDE8DF;margin-bottom:4px">8,500</div>' +
-        '<div style="font-size:13px;color:#8C8479;margin-bottom:24px">monthly visitors</div>' +
-        '<div style="height:1px;background:rgba(255,255,255,.1);margin-bottom:24px"></div>' +
-        '<div style="font-size:56px;font-weight:900;color:#F47C2C;margin-bottom:4px">0</div>' +
-        '<div style="font-size:13px;color:#8C8479">conversations started</div>' +
+      problemGraphic: '<div style="background:rgba(255,255,255,.05);border-radius:18px;padding:28px 24px;border:1px solid rgba(255,255,255,.1);max-width:380px">' +
+        '<div style="font-size:13px;font-weight:700;color:#F9A825;text-transform:uppercase;letter-spacing:.08em;margin-bottom:22px;text-align:center">Prospects, Unseen</div>' +
+        '<div style="display:flex;justify-content:space-between;align-items:baseline;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:14px">' +
+          '<div><div style="font-size:13px;font-weight:600;color:#EDE8DF">Website</div><div style="font-size:11px;color:#8C8479">monthly visitors</div></div>' +
+          '<div style="text-align:right"><div style="font-size:22px;font-weight:900;color:#FBC02D;line-height:1">8,500</div><div style="font-size:11px;color:#F47C2C;margin-top:3px">\u2192 0 identified</div></div>' +
+        '</div>' +
+        '<div style="display:flex;justify-content:space-between;align-items:baseline;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:14px">' +
+          '<div><div style="font-size:13px;font-weight:600;color:#EDE8DF">Events</div><div style="font-size:11px;color:#8C8479">non-member attendees</div></div>' +
+          '<div style="text-align:right"><div style="font-size:22px;font-weight:900;color:#FBC02D;line-height:1">350</div><div style="font-size:11px;color:#F47C2C;margin-top:3px">\u2192 0 nurtured</div></div>' +
+        '</div>' +
+        '<div style="display:flex;justify-content:space-between;align-items:baseline">' +
+          '<div><div style="font-size:13px;font-weight:600;color:#EDE8DF">Newsletter</div><div style="font-size:11px;color:#8C8479">non-member subscribers</div></div>' +
+          '<div style="text-align:right"><div style="font-size:22px;font-weight:900;color:#FBC02D;line-height:1">720</div><div style="font-size:11px;color:#F47C2C;margin-top:3px">\u2192 0 engaged</div></div>' +
+        '</div>' +
       '</div>',
       centerpieceHTML: '<div style="text-align:center;margin-bottom:56px">' +
         '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">Two Methods</p>' +
