@@ -4878,51 +4878,54 @@
     // If Webflow CMS has rendered real guide items, defer to the CMS template
     if (document.querySelector('.w-dyn-item')) return;
     var main = getPageMain();
+    var esc = function(s){return String(s||'').replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});};
 
-    var guides = [
-      { title: 'The Renewal Blueprint', desc: 'A step-by-step guide to building a renewal campaign that starts the conversation 90 days out.', type: 'PDF Guide' },
-      { title: 'New Member Onboarding Checklist', desc: 'Everything your team needs to nail the first 90 days of membership.', type: 'Checklist' },
-      { title: 'Win-Back Campaign Templates', desc: 'Ready-to-use templates for re-engaging lapsed members with the right message at the right time.', type: 'Templates' },
-      { title: 'Member Data Starter Kit', desc: 'How to collect, organize, and act on member data without overwhelming your team.', type: 'Guide' },
-      { title: 'ROI Calculator for Member Engagement', desc: 'Quantify the impact of moving from broadcast communications to two-way engagement.', type: 'Tool' },
-      { title: 'Event Follow-Up Framework', desc: 'Turn event attendance into ongoing engagement with this post-event playbook.', type: 'Framework' }
-    ];
-
-    var html = '' +
+    // Skeleton render (hero + CTA) \u2014 featured + grid populate async from js/guides.json
+    main.innerHTML = '' +
       '<section style="padding:96px 48px 0;text-align:center"><div style="max-width:800px;margin:0 auto">' +
         '<p style="display:inline-flex;align-items:center;padding:8px 20px;border-radius:100px;background:rgba(251,192,45,0.08);border:1px solid rgba(249,168,37,0.35);font-size:13px;font-weight:600;color:#2F2F2F;letter-spacing:0.04em;margin-bottom:24px">Resources</p>' +
         '<h1 style="font-size:clamp(36px,5vw,56px);font-weight:800;color:#2F2F2F;letter-spacing:-0.03em;line-height:1.1;margin-bottom:20px">Guides &amp; Resources</h1>' +
         '<p style="font-size:18px;color:#6E6E6E;line-height:1.6;max-width:600px;margin:0 auto">Practical playbooks, templates, and tools to level up your member engagement strategy.</p>' +
       '</div></section>' +
-
-      '<section style="padding:64px 48px"><div style="max-width:900px;margin:0 auto">' +
-        '<div class="pf-card" style="background:linear-gradient(135deg,#F47C2C,#F9A825,#FBC02D);border-radius:20px;padding:48px;text-align:left;color:#fff">' +
-          '<p style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;opacity:.85">Featured Guide \u2014 42 Pages</p>' +
-          '<h2 style="font-size:clamp(24px,3vw,32px);font-weight:800;letter-spacing:-0.02em;line-height:1.2;margin-bottom:16px">The 2026 Association Engagement Playbook</h2>' +
-          '<p style="font-size:16px;line-height:1.6;margin-bottom:24px;opacity:.9">The definitive guide to building a member engagement strategy that drives retention, revenue, and real conversations. Includes frameworks, templates, and benchmarks from 200+ associations.</p>' +
-          '<span aria-disabled="true" role="button" style="display:inline-flex;align-items:center;gap:8px;padding:14px 32px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;background:rgba(255,255,255,0.25);color:#fff;border:1.5px dashed rgba(255,255,255,0.55);cursor:default">Available soon</span>' +
-        '</div>' +
-      '</div></section>' +
-
-      '<section style="padding:0 48px 64px"><div style="max-width:1100px;margin:0 auto"><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">';
-
-    guides.forEach(function(g) {
-      html += '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:32px;text-align:left;display:flex;flex-direction:column">' +
-        '<span style="display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#F9A825;margin-bottom:12px">' + g.type + '</span>' +
-        '<h3 style="font-size:18px;font-weight:700;color:#2F2F2F;line-height:1.3;margin-bottom:10px">' + g.title + '</h3>' +
-        '<p style="font-size:14px;color:#6E6E6E;line-height:1.6;margin-bottom:20px;flex:1">' + g.desc + '</p>' +
-        '<span aria-disabled="true" style="font-size:13px;font-weight:600;color:#8C8479">Available soon</span>' +
-      '</div>';
-    });
-
-    html += '</div></div></section>' +
+      '<section class="gd-featured-wrap" style="padding:64px 48px"><div style="max-width:900px;margin:0 auto" class="gd-featured-slot"></div></section>' +
+      '<section style="padding:0 48px 64px"><div style="max-width:1100px;margin:0 auto"><div class="gd-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px"></div></div></section>' +
       '<section class="pf-cta-section" style="padding:96px 48px;text-align:center"><div style="max-width:600px;margin:0 auto">' +
         '<h2 class="pf-cta-heading" style="font-size:clamp(28px,4vw,42px);font-weight:800;color:#EDE8DF;letter-spacing:-0.02em;line-height:1.1;margin-bottom:20px">Want More Like This?</h2>' +
         '<p style="font-size:17px;color:#8C8479;line-height:1.6;margin-bottom:32px">Subscribe to get new guides, templates, and resources delivered straight to your inbox.</p>' +
         '<a href="/resources/newsletter" class="pf-btn-primary" style="display:inline-flex;align-items:center;gap:8px;padding:16px 36px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:linear-gradient(to right,#F47C2C,#FBC02D);color:#fff;border:none">Subscribe Now</a>' +
       '</div></section>';
 
-    main.innerHTML = html;
+    fetch('https://alexhively.github.io/propfuel-webflow-custom/js/guides.json?v=1')
+      .then(function(r){return r.json();})
+      .then(function(guides){
+        if (!Array.isArray(guides) || !guides.length) return;
+        var featured = guides.find(function(g){return g.featured;}) || guides[0];
+        var rest = guides.filter(function(g){return g !== featured;});
+        var fSlot = document.querySelector('.gd-featured-slot');
+        if (fSlot) {
+          fSlot.innerHTML =
+            '<a href="' + esc(featured.url) + '" target="_blank" rel="noopener noreferrer" class="pf-card" style="display:block;background:linear-gradient(135deg,#F47C2C,#F9A825,#FBC02D);border-radius:20px;padding:48px;text-align:left;color:#fff;text-decoration:none;box-shadow:0 10px 40px rgba(244,124,44,0.18);transition:transform .2s ease,box-shadow .2s ease" onmouseover="this.style.transform=\'translateY(-2px)\';this.style.boxShadow=\'0 14px 48px rgba(244,124,44,0.28)\'" onmouseout="this.style.transform=\'\';this.style.boxShadow=\'0 10px 40px rgba(244,124,44,0.18)\'">' +
+              '<p style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;opacity:.85">Featured ' + esc(featured.type || 'Guide') + '</p>' +
+              '<h2 style="font-size:clamp(24px,3vw,32px);font-weight:800;letter-spacing:-0.02em;line-height:1.2;margin-bottom:16px;color:#fff">' + esc(featured.name) + '</h2>' +
+              '<p style="font-size:16px;line-height:1.6;margin-bottom:24px;opacity:.92;color:#fff">' + esc(featured.summary) + '</p>' +
+              '<span style="display:inline-flex;align-items:center;gap:8px;padding:14px 32px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;background:rgba(255,255,255,0.95);color:#F47C2C;border:none">Download Now \u2192</span>' +
+            '</a>';
+        }
+        var grid = document.querySelector('.gd-grid');
+        if (grid) {
+          var h = '';
+          rest.forEach(function(g){
+            h += '<a href="' + esc(g.url) + '" target="_blank" rel="noopener noreferrer" class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:32px;text-align:left;display:flex;flex-direction:column;text-decoration:none;transition:transform .2s ease,box-shadow .2s ease;border:1px solid rgba(140,132,121,0.08)" onmouseover="this.style.transform=\'translateY(-2px)\';this.style.boxShadow=\'0 10px 28px rgba(47,47,47,0.08)\'" onmouseout="this.style.transform=\'\';this.style.boxShadow=\'none\'">' +
+              '<span style="display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#F9A825;margin-bottom:12px">' + esc(g.type || 'Guide') + '</span>' +
+              '<h3 style="font-size:18px;font-weight:700;color:#2F2F2F;line-height:1.3;margin-bottom:10px">' + esc(g.name) + '</h3>' +
+              '<p style="font-size:14px;color:#6E6E6E;line-height:1.6;margin-bottom:20px;flex:1">' + esc(g.summary) + '</p>' +
+              '<span style="font-size:13px;font-weight:600;color:#F47C2C">Download \u2192</span>' +
+            '</a>';
+          });
+          grid.innerHTML = h;
+        }
+      })
+      .catch(function(){});
   }
 
   function fixHelp() {
