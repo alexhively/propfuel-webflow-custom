@@ -4697,11 +4697,57 @@
   // RESOURCES PAGES
   // ─────────────────────────────────────────
 
+  // Wire CMS blog card hrefs ('#') to real blog post URLs (/blog-posts/{slug})
+  // The colleague added a Collection List but forgot to bind the link URL.
+  function wireBlogCardHrefs() {
+    if (!/^\/resources\/blog\/?$/.test(window.location.pathname)) return;
+    var cards = document.querySelectorAll('a.blog-card');
+    if (!cards.length) return;
+    var needsFixing = Array.prototype.some.call(cards, function(a){
+      return !a.href || /\/resources\/blog\/?#?$/.test(a.href) || a.getAttribute('href') === '#';
+    });
+    if (!needsFixing) return;
+    fetch('https://alexhively.github.io/propfuel-webflow-custom/js/blog-slugs.json?v=1')
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(data){
+        if (!data || !Array.isArray(data.posts)) return;
+        var prefix = data.urlPrefix || '/blog-posts/';
+        // Build a case- and punctuation-insensitive lookup
+        function normTitle(s) {
+          return String(s || '')
+            .toLowerCase()
+            .replace(/[‘’“”'"`]/g, '')
+            .replace(/[^\w\s]/g, ' ')
+            .replace(/\s+/g, ' ')
+            .trim();
+        }
+        var bySlug = {};
+        data.posts.forEach(function(p){ bySlug[normTitle(p.name)] = p.slug; });
+        var fixed = 0, missed = [];
+        cards.forEach(function(card){
+          var titleEl = card.querySelector('.blog-card-title, h3, h4');
+          var title = titleEl ? titleEl.textContent : '';
+          var key = normTitle(title);
+          var slug = bySlug[key];
+          if (slug) {
+            card.setAttribute('href', prefix + slug);
+            fixed++;
+          } else if (title) {
+            missed.push(title);
+          }
+        });
+        if (missed.length && window.console) {
+          console.log('[pf] blog hrefs: fixed', fixed, 'of', cards.length, '; no slug match for:', missed);
+        }
+      })
+      .catch(function(){});
+  }
+
   function fixBlog() {
     // Only run on the blog listing page, not individual blog post templates
     if (!/^\/resources\/blog\/?$/.test(window.location.pathname)) return;
-    // If Webflow CMS has rendered real blog items, defer to the CMS template (no hardcoded fallback)
-    if (document.querySelector('.w-dyn-item')) return;
+    // If Webflow CMS has rendered real blog items, defer to the CMS template but still fix their hrefs
+    if (document.querySelector('.w-dyn-item')) { wireBlogCardHrefs(); return; }
     var main = getPageMain();
 
     var blogArticles = [
