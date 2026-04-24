@@ -683,7 +683,8 @@
   }
 
   // Safe page-content root: never returns <body>, which would wipe nav + footer.
-  // Falls back to creating a <main> between nav and footer if the page lacks one.
+  // Falls back to creating a <main> between nav and footer if the page lacks one,
+  // and hides the Webflow template's body content so the JS-injected page takes over cleanly.
   function getPageMain() {
     var m = document.querySelector('[role="main"]') || document.querySelector('main');
     if (m) return m;
@@ -691,6 +692,18 @@
     m.setAttribute('role', 'main');
     var nav = document.querySelector('.pf-nav-bar');
     var footer = document.querySelector('.pf-footer');
+    // Hide Webflow template body content between nav and footer — the calling fix function
+    // is about to replace it with a full page render, so leaving originals visible causes dupes.
+    if (nav && footer && nav.parentNode === footer.parentNode) {
+      var el = nav.nextElementSibling;
+      while (el && el !== footer) {
+        if (el.tagName !== 'SCRIPT' && el.tagName !== 'STYLE' && el.tagName !== 'NOSCRIPT') {
+          el.style.display = 'none';
+          el.setAttribute('data-pf-hidden-by-enhancer', 'true');
+        }
+        el = el.nextElementSibling;
+      }
+    }
     if (nav && nav.parentNode) {
       nav.parentNode.insertBefore(m, nav.nextSibling);
     } else if (footer && footer.parentNode) {
