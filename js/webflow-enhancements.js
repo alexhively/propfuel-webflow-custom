@@ -5037,11 +5037,27 @@
     swapStrippedFooter();
   }
 
-  // Shared: CMS template pages (videos, case-studies) render a minimal footer with
-  // only a few links. This replaces the inner content with the full main-site footer,
-  // or — if the full footer already exists — just ensures the "PropFuel" wordmark is white.
+  // Shared: CMS template pages (videos, case-studies, team-members) render a minimal
+  // footer with only a few links. This replaces the inner content with the full
+  // main-site footer, or — if the full footer already exists — just ensures the
+  // "PropFuel" wordmark is white.
   function swapStrippedFooter() {
     var footer = document.querySelector('.pf-footer');
+    // Some templates (team-members) ship the footer as an anonymous dark <section>
+    // with inline styles instead of .pf-footer. Detect by known tagline text and
+    // tag it so the site-wide .pf-footer CSS applies to the injected content.
+    if (!footer) {
+      var sections = document.querySelectorAll('section');
+      for (var i = sections.length - 1; i >= 0; i--) {
+        var s = sections[i];
+        if (/Member engagement,\s*powered by data/i.test(s.textContent || '')) {
+          footer = s;
+          footer.classList.add('pf-footer');
+          footer.removeAttribute('style');
+          break;
+        }
+      }
+    }
     if (!footer) return;
     if (!footer.querySelector('.pf-footer-inner')) {
       footer.innerHTML =
