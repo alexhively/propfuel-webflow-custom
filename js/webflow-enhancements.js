@@ -1938,6 +1938,14 @@
         aiWrapper.querySelectorAll('.pf-feature-list-item').forEach(function(el) { el.style.color = '#EDE8DF'; });
         aiWrapper.querySelectorAll('.eng-num-label').forEach(function(el) { el.style.color = '#4A7FA5'; });
         aiWrapper.querySelectorAll('.eng-tagline').forEach(function(el) { el.style.color = '#4A7FA5'; });
+        // Gradient on "Membership AI" title using AI steel palette (light -> steel for contrast on dark)
+        aiTitle.style.background = 'linear-gradient(135deg, #D0DFEA 0%, #8BB0CC 45%, #4A7FA5 100%)';
+        aiTitle.style.webkitBackgroundClip = 'text';
+        aiTitle.style.backgroundClip = 'text';
+        aiTitle.style.webkitTextFillColor = 'transparent';
+        aiTitle.style.color = 'transparent';
+        aiTitle.style.display = 'inline-block';
+        aiTitle.style.paddingBottom = '4px';
       }
       var aiCta = (aiWrapper || aiSection).querySelector('.pf-btn-primary, .w-button');
       if (aiCta && aiCta.textContent.trim() === 'Learn More') {
