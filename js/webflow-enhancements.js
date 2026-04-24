@@ -383,6 +383,10 @@
            and crushed the middle to 16px — so the title stacked ONE WORD PER LINE. Stack to column on
            mobile so each region gets full content width. */
         '.ee-channel-cards [style*="display:flex;align-items:center;gap:16px"]{flex-direction:column!important;align-items:flex-start!important;gap:8px!important}' +
+        /* /resources/blog CMS grid: Webflow-native 3-col fixed-width grid (194px|208px|198px) overflows
+           the 390px viewport. Collapse to single column so cards stack full-width on mobile. */
+        '.blog-collection-wrapper .w-dyn-items{grid-template-columns:1fr!important;display:grid!important;gap:24px!important}' +
+        '.blog-card,.blog-card-thumb,.blog-card-thumb-img{width:100%!important;max-width:100%!important}' +
       '}' +
 
       /* ── MOBILE BREAKPOINT (≤480px) ── */
