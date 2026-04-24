@@ -248,7 +248,8 @@
       /* Nav needs more horizontal room than the rest of the layout: switch to hamburger + bottom-sheet dropdowns earlier so items do not squish/overlap in the 768–1024 window. */
       '@media(max-width:1024px){' +
         /* Dropdown: full width bottom sheet */
-        '.pf-dropdown-menu{min-width:calc(100vw - 32px)!important;left:16px!important;right:16px!important;transform:none!important;border-radius:0 0 20px 20px!important;padding:24px!important}' +
+        '.pf-dropdown-menu{min-width:calc(100vw - 32px)!important;width:calc(100vw - 32px)!important;max-width:calc(100vw - 32px)!important;left:16px!important;right:16px!important;transform:none!important;border-radius:0 0 20px 20px!important;padding:24px!important;animation:none!important}' +
+        '.pf-dropdown-menu.open{animation:none!important;transform:none!important}' +
         '.pf-dropdown-menu .pf-dd-cols{grid-template-columns:1fr!important;gap:24px!important}' +
         /* Nav: hide links + right-side CTAs (Log In, Get Started), show hamburger */
         '.pf-nav-links{display:none!important}' +
