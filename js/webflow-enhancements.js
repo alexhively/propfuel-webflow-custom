@@ -4711,6 +4711,7 @@
   // The colleague added a Collection List but forgot to bind the link URL.
   function wireBlogCardHrefs() {
     if (!/^\/resources\/blog\/?$/.test(window.location.pathname)) return;
+    applyDefaultBlogThumb();
     var cards = document.querySelectorAll('a.blog-card');
     if (!cards.length) return;
     var needsFixing = Array.prototype.some.call(cards, function(a){
@@ -4753,10 +4754,53 @@
       .catch(function(){});
   }
 
+  // Fallback thumbnail for blog posts without a CMS-set image.
+  // Applies to both listing cards (.blog-card-thumb-img) and detail hero (.blog-hero-image).
+  function applyDefaultBlogThumb() {
+    var DEFAULT = 'https://alexhively.github.io/propfuel-webflow-custom/images/blog-default-thumb.png';
+    function isBad(src) {
+      if (!src) return true;
+      var s = String(src).trim();
+      return !s || s === 'about:blank' || /\/_default(\.|_)/.test(s);
+    }
+    var targets = document.querySelectorAll('.blog-card-thumb-img, .blog-hero-image, img.blog-card-thumb-img, .blog-hero-image-section img');
+    targets.forEach(function(img){
+      if (!img || img.tagName !== 'IMG') return;
+      if (isBad(img.getAttribute('src'))) {
+        img.src = DEFAULT;
+      } else {
+        // If the image fails to load later, swap to the default
+        img.addEventListener('error', function onErr(){
+          img.removeEventListener('error', onErr);
+          img.src = DEFAULT;
+        });
+      }
+    });
+    // Also watch for DOM insertions (Webflow CMS can render late)
+    if (!window.__pfBlogThumbObserver) {
+      var obs = new MutationObserver(function(mutations){
+        var newImgs = [];
+        mutations.forEach(function(m){
+          m.addedNodes && m.addedNodes.forEach(function(n){
+            if (n.nodeType !== 1) return;
+            if (n.matches && n.matches('img.blog-card-thumb-img, img.blog-hero-image, .blog-hero-image-section img')) newImgs.push(n);
+            if (n.querySelectorAll) Array.prototype.push.apply(newImgs, n.querySelectorAll('img.blog-card-thumb-img, img.blog-hero-image, .blog-hero-image-section img'));
+          });
+        });
+        newImgs.forEach(function(img){
+          if (isBad(img.getAttribute('src'))) img.src = DEFAULT;
+        });
+      });
+      obs.observe(document.body, { childList: true, subtree: true });
+      window.__pfBlogThumbObserver = obs;
+    }
+  }
+
   // Blog post detail template (/blog-posts/*) — colleague's Webflow template has
   // unbound placeholders: breadcrumb says "Article Title", category-badge is empty.
   function fixBlogPostTemplate() {
     if (!/^\/blog-posts\//.test(window.location.pathname)) return;
+    applyDefaultBlogThumb();
     // Breadcrumb: replace literal "Article Title" with the real post title
     var crumbPieces = document.querySelectorAll('.blog-breadcrumb div, .blog-breadcrumb span');
     var realTitle = (document.querySelector('.blog-article-title, h1') || {}).textContent;
