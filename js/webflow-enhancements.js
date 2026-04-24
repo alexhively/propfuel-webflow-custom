@@ -4210,7 +4210,7 @@
   function fixUseCaseOnboarding() {
     buildUseCasePage({
       path: 'use-cases/onboarding',
-      heroLabel: 'Use Case',
+      heroLabel: 'Onboarding',
       heroTitle: 'The retention conversation starts the day a member joins.',
       heroSub: 'Most associations send a welcome email and then go silent until renewal. PropFuel turns onboarding into a year-long engagement journey \u2014 with the right conversation at every milestone.',
       problemLabel: 'The Problem',
@@ -4291,7 +4291,7 @@
   function fixUseCaseRenewals() {
     buildUseCasePage({
       path: 'use-cases/renewals',
-      heroLabel: 'Use Case',
+      heroLabel: 'Renewals',
       heroTitle: 'Earn the renewal. Long before the invoice.',
       heroSub: 'PropFuel starts the renewal conversation 90 days before the invoice. Committed members renew faster. Wavering members get the nudge that matters.',
       problemLabel: 'The Problem',
@@ -4359,7 +4359,7 @@
   function fixUseCaseWinBack() {
     buildUseCasePage({
       path: 'use-cases/win-back',
-      heroLabel: 'Use Case',
+      heroLabel: 'Win-Back',
       heroTitle: 'Know why they left. Win them back.',
       heroSub: 'PropFuel asks every lapsed member why they left \u2014 and runs personalized win-back campaigns based on what they say. Not a blast email to an indifferent list. A conversation.',
       problemLabel: 'The Problem',
@@ -4445,7 +4445,7 @@
   function fixUseCaseAcquisition() {
     buildUseCasePage({
       path: 'use-cases/acquisition',
-      heroLabel: 'Use Case',
+      heroLabel: 'Acquisition',
       heroTitle: 'Turn warm prospects into new members.',
       heroSub: 'Non-members attend your events, subscribe to your newsletter, browse your website, and take your CE courses. PropFuel identifies them and nurtures them into membership \u2014 through conversation, not campaigns.',
       problemLabel: 'The Problem',
@@ -4545,7 +4545,7 @@
   function fixUseCaseEvents() {
     buildUseCasePage({
       path: 'use-cases/events',
-      heroLabel: 'Use Case',
+      heroLabel: 'Events',
       heroTitle: 'Your biggest event. Your richest signal.',
       heroSub: 'Capture what members tell you before, during, and after \u2014 so every session, booth, and survey turns into data that outlasts the event.',
       problemLabel: 'The Problem',
@@ -4632,7 +4632,7 @@
   function fixUseCaseCertifications() {
     buildUseCasePage({
       path: 'use-cases/certifications',
-      heroLabel: 'Use Case',
+      heroLabel: 'Certifications',
       heroTitle: 'A credential earned through you. A career built with you.',
       heroSub: 'PropFuel engages certification candidates from first interest through credential renewal \u2014 so every credential deepens the tie to your association.',
       problemLabel: 'The Problem',
@@ -4701,7 +4701,7 @@
   function fixUseCaseDataIntelligence() {
     buildUseCasePage({
       path: 'use-cases/data-intelligence',
-      heroLabel: 'Use Case',
+      heroLabel: 'Data & Intelligence',
       heroTitle: 'Every PropFuel interaction is a database update.',
       heroSub: 'Member data decays from the moment it is entered. PropFuel keeps profiles current by collecting zero-party data through conversations \u2014 not forms members hate filling out. And every response writes back to your AMS automatically.',
       problemLabel: 'The Problem',
