@@ -5329,60 +5329,69 @@
           '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:40px;box-shadow:0 8px 32px rgba(120,110,95,0.08);border:1px solid rgba(227,221,210,0.6)">' +
             '<h2 style="font-size:22px;font-weight:800;color:#2F2F2F;margin-bottom:6px">Subscribe free</h2>' +
             '<p style="font-size:14px;color:#6E6E6E;margin-bottom:28px">Two emails a month. Unsubscribe anytime.</p>' +
-            '<div id="pf-newsletter-form"></div>' +
+            '<form id="pf-newsletter-form" novalidate>' +
+              '<div class="pf-form-group"><label class="pf-form-label" for="pf-nl-fname">First Name</label><input id="pf-nl-fname" name="firstname" type="text" placeholder="Jane" class="pf-form-input" autocomplete="given-name" required></div>' +
+              '<div class="pf-form-group"><label class="pf-form-label" for="pf-nl-lname">Last Name</label><input id="pf-nl-lname" name="lastname" type="text" placeholder="Doe" class="pf-form-input" autocomplete="family-name" required></div>' +
+              '<div class="pf-form-group"><label class="pf-form-label" for="pf-nl-email">Email<span style="color:#F05A28;margin-left:2px">*</span></label><input id="pf-nl-email" name="email" type="email" placeholder="jane@association.org" class="pf-form-input" autocomplete="email" required></div>' +
+              '<div class="pf-form-group"><label class="pf-form-label" for="pf-nl-company">Organization</label><input id="pf-nl-company" name="company" type="text" placeholder="Your association or company" class="pf-form-input" autocomplete="organization"></div>' +
+              '<button type="submit" class="pf-form-submit" id="pf-nl-submit">Subscribe</button>' +
+              '<div id="pf-nl-msg" style="margin-top:16px;font-size:14px;line-height:1.5;display:none"></div>' +
+            '</form>' +
           '</div>' +
         '</div>' +
       '</div></section>' +
 
-            '<style>' +
-              '@media (max-width:900px){.nl-hero-grid{grid-template-columns:1fr!important;gap:40px!important}}' +
-              // Style the HubSpot v2 inline-rendered form to match the original placeholder look
-              '#pf-newsletter-form .hs-form-field{margin-bottom:18px}' +
-              '#pf-newsletter-form .hs-form-field label,#pf-newsletter-form .hs-form-field>label{display:block;font-size:13px;font-weight:600;color:#2F2F2F;margin-bottom:8px;letter-spacing:0.01em}' +
-              '#pf-newsletter-form .hs-form-required{color:#F05A28;margin-left:2px}' +
-              '#pf-newsletter-form .hs-input:not([type="checkbox"]):not([type="radio"]){width:100%!important;box-sizing:border-box;padding:14px 18px;border:1px solid rgba(120,110,95,0.25);border-radius:12px;background:#FFFDF8;font-size:15px;font-family:inherit;color:#2F2F2F;transition:border-color .15s,box-shadow .15s;outline:none}' +
-              '#pf-newsletter-form .hs-input:focus{border-color:#F47C2C;box-shadow:0 0 0 3px rgba(244,124,44,0.15)}' +
-              '#pf-newsletter-form .hs-input::placeholder{color:#B8AEA0}' +
-              '#pf-newsletter-form .hs-error-msgs,#pf-newsletter-form .hs-error-msg{color:#D84315;font-size:13px;margin-top:6px;list-style:none;padding:0}' +
-              '#pf-newsletter-form .hs-form-booleancheckbox label{font-size:13px;font-weight:400;color:#6E6E6E;display:flex;gap:10px;align-items:flex-start}' +
-              '#pf-newsletter-form .hs-submit{margin-top:24px}' +
-              '#pf-newsletter-form .hs-button{appearance:none;border:none;cursor:pointer;width:100%;padding:16px 32px;border-radius:100px;background:linear-gradient(135deg,#FBC02D 0%,#F9A825 45%,#F47C2C 100%);color:#fff;font-size:15px;font-weight:700;font-family:inherit;letter-spacing:0.01em;box-shadow:0 4px 14px rgba(244,124,44,0.35);transition:transform .1s,box-shadow .15s}' +
-              '#pf-newsletter-form .hs-button:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(244,124,44,0.45)}' +
-              '#pf-newsletter-form .hs-button:active{transform:translateY(0)}' +
-              '#pf-newsletter-form .submitted-message{color:#2F2F2F;font-size:15px;line-height:1.5;padding:16px;background:rgba(251,192,45,0.12);border-radius:12px;border:1px solid rgba(249,168,37,0.3)}' +
-              '#pf-newsletter-form .hs-fieldtype-select select.hs-input,#pf-newsletter-form select.hs-input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'12\' height=\'12\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%232F2F2F\' stroke-width=\'2.5\' stroke-linecap=\'round\' stroke-linejoin=\'round\'%3E%3Cpolyline points=\'6 9 12 15 18 9\'%3E%3C/polyline%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 18px center;padding-right:44px}' +
-            '</style>';
+            '<style>@media (max-width:900px){.nl-hero-grid{grid-template-columns:1fr!important;gap:40px!important}}</style>';
 
     main.innerHTML = html;
 
-    // Load the HubSpot classic v2 embed once (renders the form inline so we can style it with site CSS)
-    function createForm() {
-      if (window.hbspt && window.hbspt.forms && !document.querySelector('#pf-newsletter-form form')) {
-        window.hbspt.forms.create({
-          portalId: '21158441',
-          formId: 'e62f4793-4fde-4a54-ad2b-e0735c3e7984',
-          region: 'na1',
-          target: '#pf-newsletter-form'
-        });
+    // Custom form submits directly to HubSpot's Forms API (no iframe, fully styleable)
+    var form = document.getElementById('pf-newsletter-form');
+    if (!form) return;
+    form.addEventListener('submit', function(ev){
+      ev.preventDefault();
+      var submitBtn = document.getElementById('pf-nl-submit');
+      var msg = document.getElementById('pf-nl-msg');
+      var fd = new FormData(form);
+      var fields = [];
+      fd.forEach(function(val, name){
+        if (val && String(val).trim()) fields.push({ name: name, value: String(val).trim() });
+      });
+      if (!fields.find(function(f){ return f.name === 'email'; })) {
+        msg.style.display = 'block';
+        msg.style.color = '#D84315';
+        msg.textContent = 'Please enter a valid email.';
+        return;
       }
-    }
-    if (window.hbspt && window.hbspt.forms) {
-      createForm();
-    } else if (!document.querySelector('script[src*="js.hsforms.net/forms/embed/v2.js"]')) {
-      var hsScript = document.createElement('script');
-      hsScript.src = 'https://js.hsforms.net/forms/embed/v2.js';
-      hsScript.charset = 'utf-8';
-      hsScript.onload = createForm;
-      document.head.appendChild(hsScript);
-    } else {
-      // Script is loading — retry shortly
-      var tries = 0;
-      var iv = setInterval(function(){
-        tries++;
-        if (window.hbspt && window.hbspt.forms) { createForm(); clearInterval(iv); }
-        else if (tries > 40) clearInterval(iv);
-      }, 100);
-    }
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Subscribing...';
+      // Get hutk cookie for HubSpot tracking (if present)
+      var hutk = (document.cookie.match(/(?:^|; )hubspotutk=([^;]+)/) || [])[1];
+      var payload = {
+        submittedAt: Date.now(),
+        fields: fields,
+        context: {
+          pageUri: window.location.href,
+          pageName: document.title
+        }
+      };
+      if (hutk) payload.context.hutk = hutk;
+      fetch('https://api.hsforms.com/submissions/v3/integration/submit/21158441/e62f4793-4fde-4a54-ad2b-e0735c3e7984', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(function(r){
+        return r.ok ? r.json() : r.json().then(function(e){ throw new Error((e && e.errors && e.errors[0] && e.errors[0].message) || 'Submission failed'); });
+      }).then(function(){
+        form.innerHTML = '<div style="color:#2F2F2F;font-size:15px;line-height:1.6;padding:20px;background:rgba(251,192,45,0.15);border-radius:12px;border:1px solid rgba(249,168,37,0.35);text-align:center"><p style="font-weight:700;margin-bottom:6px;font-size:17px">You\'re on the list</p><p style="color:#6E6E6E">Check your inbox for a welcome email. Talk soon!</p></div>';
+      }).catch(function(err){
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Subscribe';
+        msg.style.display = 'block';
+        msg.style.color = '#D84315';
+        msg.textContent = err.message || 'Something went wrong. Please try again.';
+      });
+    });
   }
 
   function fixApi() {
