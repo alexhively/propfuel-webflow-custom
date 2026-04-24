@@ -388,6 +388,9 @@
   };
 
   var SITE_URL = 'https://propfuel-v2.webflow.io';
+  // OG images are hosted on GitHub Pages (same repo as this JS file) so they
+  // are reachable regardless of which domain the Webflow site is served from.
+  var OG_IMAGE_BASE = 'https://alexhively.github.io/propfuel-webflow-custom';
 
   function injectSEOMeta() {
     var path = window.location.pathname.replace(/\/$/, '') || '/';
@@ -411,9 +414,12 @@
     setMeta('name', 'robots', 'index, follow');
 
     // Open Graph
+    var ogImageURL = /^https?:\/\//.test(data.ogImage) ? data.ogImage : OG_IMAGE_BASE + data.ogImage;
     setMeta('property', 'og:title', data.title);
     setMeta('property', 'og:description', data.desc);
-    setMeta('property', 'og:image', SITE_URL + data.ogImage);
+    setMeta('property', 'og:image', ogImageURL);
+    setMeta('property', 'og:image:width', '1200');
+    setMeta('property', 'og:image:height', '630');
     setMeta('property', 'og:url', SITE_URL + path);
     setMeta('property', 'og:type', 'website');
     setMeta('property', 'og:site_name', 'PropFuel');
@@ -422,7 +428,7 @@
     setMeta('name', 'twitter:card', 'summary_large_image');
     setMeta('name', 'twitter:title', data.title);
     setMeta('name', 'twitter:description', data.desc);
-    setMeta('name', 'twitter:image', SITE_URL + data.ogImage);
+    setMeta('name', 'twitter:image', ogImageURL);
 
     // Canonical
     var canon = document.querySelector('link[rel="canonical"]');
