@@ -388,9 +388,47 @@
   };
 
   var SITE_URL = 'https://propfuel-v2.webflow.io';
-  // OG images are hosted on GitHub Pages (same repo as this JS file) so they
-  // are reachable regardless of which domain the Webflow site is served from.
-  var OG_IMAGE_BASE = 'https://alexhively.github.io/propfuel-webflow-custom';
+  // OG images live on Webflow's CDN — the user uploaded them to the PropFuel V2
+  // asset library, so we reference them directly instead of routing through
+  // GitHub Pages. Keys match the SEO_DATA ogImage filename (e.g. "company-about.png").
+  var WF_OG_CDN = 'https://cdn.prod.website-files.com/69ca88e6c52b04fb85f74a02/';
+  var WF_OG_MAP = {
+    'index.png': '69ebb0b7cefcc8b8b7971817_Home.png',
+    'demo.png': '69ebb0b7cd336f675b4a3165_demo.png',
+    'platform-overview.png': '69ebb0b893f2f9e41e9287a3_platform-overview.png',
+    'platform-insights.png': '69ebb0b8dd01ecb4a388d8f0_platform-insights.png',
+    'platform-automation.png': '69ebb0b7b4e1e3e3c69484c7_platform-automation.png',
+    'platform-engagement.png': '69ebb0b899ba29fe7ccecfd5_platform-engagement.png',
+    'platform-email.png': '69ebb0b815d99adacb6473ee_platform-email.png',
+    'platform-sms.png': '69ebb0b81c05c0474ef86355_platform-sms.png',
+    'platform-website.png': '69ebb0b869a8d17afbfb9f7c_platform-website.png',
+    'platform-integrations.png': '69ebb0b808aa0608d8bd8f09_platform-integrations.png',
+    'platform-membership-ai.png': '69ebb0b8fd7426ad0c062a4c_platform-membership-ai.png',
+    'use-cases-onboarding.png': '69ebb0b808aa0608d8bd8f25_use-cases-onboarding.png',
+    'use-cases-renewals.png': '69ebb0b8ea20b3efba5534b5_use-cases-renewals.png',
+    'use-cases-win-back.png': '69ebb0b8308e9b8afc0577ae_use-cases-win-back.png',
+    'use-cases-acquisition.png': '69ebb0b849485c8467f7b791_use-cases-acquisition.png',
+    'use-cases-events.png': '69ebb0b89128f1732101b14e_use-cases-events.png',
+    'use-cases-certifications.png': '69ebb0b84be1878d3fa8c288_use-cases-certifications.png',
+    'use-cases-data-intelligence.png': '69ebb0b857b9c7c677f073dc_use-cases-data-intelligence.png',
+    'client-success-case-studies.png': '69ebb0b962a9160dff7917bd_client-success-case-studies.png',
+    'client-success-customers.png': '69ebb0b734d8c9e65d9852c6_client-success-customers.png',
+    'client-success-roi-results.png': '69ebb0b7d8ec906b8f3bf9f4_client-success-roi-results.png',
+    'client-success-testimonials.png': '69ebb0b76a5348bfd0b84f2a_client-success-testimonials.png',
+    'client-success-implementation.png': '69ebb0b7d3c3da1ee4829eb5_client-success-implementation.png',
+    'resources-blog.png': '69ebb0b8f158f4c588f3b615_resources-blog.png',
+    'resources-webinars.png': '69ebb0b82807a2d37e1a27e8_resources-webinars.png',
+    'resources-guides.png': '69ebb0b83dfd30c83a4fc0b5_resources-guides.png',
+    'resources-help.png': '69ebb0b8cd637b9786c6eda3_resources-help.png',
+    'resources-newsletter.png': '69ebb0b80b7e2520b7d44783_resources-newsletter.png',
+    'resources-api.png': '69ebb0b82d3234c2f8cd5dcc_resources-api.png',
+    'company-about.png': '69ebb0b73781f93611a606de_company-about.png',
+    'company-careers.png': '69ebb0b7ceb75ccd7c205a41_company-careers.png',
+    'company-contact.png': '69ebb0b7cf0de11a360aa3cc_company-contact.png',
+    'company-partners.png': '69ebb0b7308e9b8afc0574a5_company-partners.png',
+    'legal-privacy.png': '69ebb0b76c8e953dce3c8b30_legal-privacy.png',
+    'legal-terms.png': '69ebb0b7838220a7461c3a5f_legal-terms.png'
+  };
 
   function injectSEOMeta() {
     var path = window.location.pathname.replace(/\/$/, '') || '/';
@@ -413,8 +451,16 @@
     // Robots
     setMeta('name', 'robots', 'index, follow');
 
-    // Open Graph
-    var ogImageURL = /^https?:\/\//.test(data.ogImage) ? data.ogImage : OG_IMAGE_BASE + data.ogImage;
+    // Open Graph — prefer the Webflow CDN URL for the uploaded asset
+    var ogFilename = (data.ogImage || '').split('/').pop();
+    var ogImageURL;
+    if (WF_OG_MAP[ogFilename]) {
+      ogImageURL = WF_OG_CDN + WF_OG_MAP[ogFilename];
+    } else if (/^https?:\/\//.test(data.ogImage)) {
+      ogImageURL = data.ogImage;
+    } else {
+      ogImageURL = SITE_URL + data.ogImage;
+    }
     setMeta('property', 'og:title', data.title);
     setMeta('property', 'og:description', data.desc);
     setMeta('property', 'og:image', ogImageURL);
