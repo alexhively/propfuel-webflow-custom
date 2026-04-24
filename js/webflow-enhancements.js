@@ -225,7 +225,7 @@
       '.uc-org{font-size:13px;font-weight:600;color:#8C8479;margin-top:16px;opacity:.7}' +
 
       /* CTA heading: H1-aligned display treatment */
-      '.pf-cta-heading{display:block!important;font-size:clamp(42px,5.6vw,80px)!important;line-height:1.08!important;letter-spacing:-0.025em!important;font-weight:800!important}' +
+      '.pf-cta-heading{display:block!important;font-size:clamp(40px,4.8vw,64px)!important;line-height:1.08!important;letter-spacing:-0.025em!important;font-weight:800!important;max-width:640px!important;margin-left:auto!important;margin-right:auto!important}' +
       '.pf-cta-heading br{display:block;content:"";margin:0}' +
 
       /* Mobile: single column (use-cases grid) */
@@ -4602,8 +4602,8 @@
     buildUseCasePage({
       path: 'use-cases/certifications',
       heroLabel: 'Use Case',
-      heroTitle: 'When a member earns a credential through your association, membership becomes part of their professional identity.',
-      heroSub: 'PropFuel engages certification candidates from discovery through credential renewal \u2014 turning a transaction into a long-term relationship that ties membership to who they are as a professional.',
+      heroTitle: 'A credential earned through you. A career built with you.',
+      heroSub: 'PropFuel engages certification candidates from first interest through credential renewal \u2014 so every credential deepens the tie to your association.',
       problemLabel: 'The Problem',
       problemH2: 'Certifications are one of your most valuable non-dues revenue streams. They are also one of the most neglected parts of the member experience.',
       problemBody: [
