@@ -5017,6 +5017,61 @@
       });
       if (!anyPopulated) card.style.display = 'none';
     });
+    // 3) Nav pill is left-aligned inside the template's 1200px .w-container — center it
+    var navInner = document.querySelector('.pf-nav-bar .pf-nav-inner');
+    if (navInner) {
+      navInner.style.marginLeft = 'auto';
+      navInner.style.marginRight = 'auto';
+    }
+    // 4) The /videos/* template ships a stripped-down footer (only 3 links). Replace the inner
+    //    content with the full main-site footer markup so every page has consistent nav + "PropFuel"
+    //    brand text shows in white.
+    var footer = document.querySelector('.pf-footer');
+    if (footer && !footer.querySelector('.pf-footer-inner')) {
+      footer.innerHTML =
+        '<div class="pf-footer-inner">' +
+          '<div class="pf-footer-top">' +
+            '<div class="pf-footer-brand">' +
+              '<img src="https://cdn.prod.website-files.com/69ca88e6c52b04fb85f74a02/69cc30a4a0dc86d4b55ee8a1_logo.png" alt="PropFuel" style="height:48px;width:auto;display:block;margin-bottom:16px">' +
+              '<h4 class="pf-nav-logo-text" style="color:#fff">PropFuel</h4>' +
+              '<p>The membership insights and engagement platform that helps associations understand what members want and act on it.</p>' +
+            '</div>' +
+            '<div>' +
+              '<h4 class="pf-footer-col-title">Product</h4>' +
+              '<a href="/platform/insights" class="pf-footer-link">The Insights Engine</a>' +
+              '<a href="/platform/automation" class="pf-footer-link">The Automation Engine</a>' +
+              '<a href="/platform/website" class="pf-footer-link">The Engagement Engine</a>' +
+              '<a href="/membership-ai" class="pf-footer-link">Membership AI</a>' +
+              '<a href="/integrations" class="pf-footer-link">Integrations</a>' +
+            '</div>' +
+            '<div>' +
+              '<h4 class="pf-footer-col-title">Resources</h4>' +
+              '<a href="/client-success/case-studies" class="pf-footer-link">Case Studies</a>' +
+              '<a href="/resources/blog" class="pf-footer-link">Blog</a>' +
+              '<a href="/client-success/roi-results" class="pf-footer-link">ROI</a>' +
+              '<a href="https://help.propfuel.com/" class="pf-footer-link" target="_blank" rel="noopener noreferrer">Help Center</a>' +
+            '</div>' +
+            '<div>' +
+              '<h4 class="pf-footer-col-title">Company</h4>' +
+              '<a href="/company/about" class="pf-footer-link">About</a>' +
+              '<a href="/company/careers" class="pf-footer-link">Careers</a>' +
+              '<a href="/company/contact" class="pf-footer-link">Contact</a>' +
+              '<a href="/company/partners" class="pf-footer-link">Partners</a>' +
+            '</div>' +
+          '</div>' +
+          '<div class="pf-footer-bottom">' +
+            '<p class="pf-footer-copy">© 2026 PropFuel. All rights reserved.</p>' +
+            '<div class="pf-footer-legal">' +
+              '<a href="/legal/privacy" class="pf-footer-link">Privacy</a>' +
+              '<a href="/legal/terms" class="pf-footer-link">Terms</a>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
+    } else if (footer) {
+      // Full footer exists — just make sure the "PropFuel" wordmark is white
+      var logoText = footer.querySelector('.pf-nav-logo-text');
+      if (logoText) logoText.style.color = '#fff';
+    }
   }
 
   function fixWebinars() {
