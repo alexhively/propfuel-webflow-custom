@@ -168,6 +168,8 @@
       '.pf-logos-bar{width:100%!important;max-width:100%!important;box-sizing:border-box}' +
       /* Mobile-menu CTAs are hidden by default; only shown when .pf-nav-links.mobile-open */
       '.pf-mobile-ctas{display:none!important}' +
+      /* Mobile nav panel (PF_MOBILE_PANEL_V1) — default hidden; shown only inside @media(max-width:1024px) */
+      '.pf-mobile-panel{display:none!important}' +
       /* Webinar CMS cards: the colleague\'s template has nested grids (outer 508px×2, inner 240px×2)
          with only one w-dyn-list in the outer grid — so the right outer column sits empty.
          Flatten: outer grid single-column (list fills full width). Inner uses flex-wrap so an
@@ -275,6 +277,32 @@
         '.pf-nav-links.mobile-open .pf-mobile-ctas{display:flex!important;flex-direction:column;gap:10px;margin-top:16px;padding-top:20px;border-top:1px solid rgba(227,221,210,0.8)}' +
         '.pf-mobile-login{display:block;text-align:center;padding:12px 20px;font:600 15px/1 "DM Sans",sans-serif;color:#2F2F2F;text-decoration:none;border:1.5px solid rgba(0,0,0,0.12);border-radius:100px}' +
         '.pf-mobile-started{display:block;text-align:center;padding:14px 24px;font:700 15px/1 "DM Sans",sans-serif;color:#fff!important;text-decoration:none;background:linear-gradient(to right,#F47C2C,#FBC02D)!important;border-radius:100px;box-shadow:0 4px 14px rgba(240,90,40,0.25)}' +
+        /* ── Mobile nav panel (PF_MOBILE_PANEL_V1) ── full-screen slide-in; desktop pill+dropdown code path unchanged */
+        '.pf-mobile-panel{display:flex!important;position:fixed;inset:0;z-index:1000;background:#F6F2E8;flex-direction:column;transform:translateX(100%);transition:transform .2s ease-out;overflow-y:auto;-webkit-overflow-scrolling:touch;pointer-events:none}' +
+        '.pf-mobile-panel.open{transform:translateX(0);pointer-events:auto}' +
+        '.pf-mp-header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid rgba(0,0,0,0.06);flex-shrink:0;min-height:68px;background:#F6F2E8}' +
+        '.pf-mp-logo{display:flex;align-items:center;text-decoration:none}' +
+        '.pf-mp-logo img{height:36px;width:auto;display:block}' +
+        '.pf-mp-close{width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:none;border:none;cursor:pointer;color:#2F2F2F;border-radius:50%;padding:0;-webkit-tap-highlight-color:transparent}' +
+        '.pf-mp-close:active{background:rgba(0,0,0,0.06)}' +
+        '.pf-mp-body{flex:1 1 auto;padding:4px 12px 12px;display:flex;flex-direction:column}' +
+        '.pf-mp-acc{border-bottom:1px solid rgba(0,0,0,0.06)}' +
+        '.pf-mp-acc-btn{width:100%;min-height:56px;display:flex;align-items:center;justify-content:space-between;background:none;border:none;cursor:pointer;padding:14px 12px;font:600 17px/1.2 "DM Sans",sans-serif;color:#2F2F2F;text-align:left;-webkit-tap-highlight-color:transparent}' +
+        '.pf-mp-acc-btn:active{background:rgba(0,0,0,0.04)}' +
+        '.pf-mp-acc-ico{transition:transform .2s ease-out;color:#8C8479;flex-shrink:0;margin-left:12px}' +
+        '.pf-mp-acc.open .pf-mp-acc-btn{color:#F47C2C}' +
+        '.pf-mp-acc.open .pf-mp-acc-ico{transform:rotate(180deg);color:#F47C2C}' +
+        '.pf-mp-acc-body{max-height:0;overflow:hidden;transition:max-height .22s ease-out;padding:0 4px}' +
+        '.pf-mp-acc.open .pf-mp-acc-body{max-height:1400px;padding:4px 4px 12px}' +
+        '.pf-mp-subhead{font:700 11px/1 "DM Sans",sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#F9A825;padding:16px 12px 6px}' +
+        '.pf-mp-sublink{display:block;min-height:48px;padding:10px 12px;text-decoration:none;color:#2F2F2F;border-radius:10px;-webkit-tap-highlight-color:transparent}' +
+        '.pf-mp-sublink:active{background:rgba(0,0,0,0.05)}' +
+        '.pf-mp-sub-title{display:block;font:600 16px/1.3 "DM Sans",sans-serif;color:#2F2F2F}' +
+        '.pf-mp-sub-desc{display:block;margin-top:2px;font:400 13px/1.4 "DM Sans",sans-serif;color:#6E6E6E}' +
+        '.pf-mp-sublink-ai .pf-mp-sub-title{color:#4A7FA5}' +
+        '.pf-mp-footer{padding:16px 20px 24px;border-top:1px solid rgba(0,0,0,0.08);display:flex;flex-direction:column;gap:10px;background:#F6F2E8;flex-shrink:0;position:sticky;bottom:0}' +
+        '.pf-mp-cta-ghost{display:flex;align-items:center;justify-content:center;min-height:48px;padding:12px 20px;border:1.5px solid rgba(0,0,0,0.14);border-radius:100px;font:600 15px/1 "DM Sans",sans-serif;color:#2F2F2F!important;text-decoration:none;box-sizing:border-box}' +
+        '.pf-mp-cta-primary{display:flex;align-items:center;justify-content:center;min-height:52px;padding:14px 24px;background:linear-gradient(to right,#F47C2C,#FBC02D);border-radius:100px;font:700 16px/1 "DM Sans",sans-serif;color:#fff!important;text-decoration:none;box-shadow:0 4px 14px rgba(240,90,40,0.25);box-sizing:border-box}' +
       '}' +
 
       /* ── TABLET BREAKPOINT (≤768px) ── */
@@ -1061,18 +1089,21 @@
         ctaWrap.innerHTML = ctaHTML;
         navLinksEl.appendChild(ctaWrap);
       }
-      var menuOpen = false;
+      // ── MOBILE NAV PANEL (PF_MOBILE_PANEL_V1) ──
+      // Full-screen slide-in panel for mobile/tablet. Desktop pill + dropdowns
+      // are untouched — this panel lives outside .pf-nav-links and is built
+      // lazily on first burger tap, only when matchMedia('(max-width:1024px)').
+      // Source of truth for nav items = the `dropdowns` object above (shared
+      // with the desktop pill). Keep the two in sync if/when dropdowns change.
+      var mobilePanel = null;
+      var mobilePanelOpen = false;
 
-      burger.addEventListener('click', function(e) {
-        e.stopPropagation();
-        menuOpen = !menuOpen;
-        if (navLinksEl) navLinksEl.classList.toggle('mobile-open', menuOpen);
-        burger.setAttribute('aria-expanded', menuOpen);
-        // Animate burger to X
+      function syncBurgerIcon(open) {
+        burger.setAttribute('aria-expanded', open ? 'true' : 'false');
         var top = burger.querySelector('.pf-burger-top');
         var mid = burger.querySelector('.pf-burger-mid');
         var bot = burger.querySelector('.pf-burger-bot');
-        if (menuOpen) {
+        if (open) {
           if (top) { top.setAttribute('x1','6'); top.setAttribute('y1','6'); top.setAttribute('x2','18'); top.setAttribute('y2','18'); }
           if (mid) { mid.style.opacity = '0'; }
           if (bot) { bot.setAttribute('x1','6'); bot.setAttribute('y1','18'); bot.setAttribute('x2','18'); bot.setAttribute('y2','6'); }
@@ -1081,26 +1112,152 @@
           if (mid) { mid.style.opacity = '1'; }
           if (bot) { bot.setAttribute('x1','4'); bot.setAttribute('y1','18'); bot.setAttribute('x2','20'); bot.setAttribute('y2','18'); }
         }
-      });
+      }
 
-      // Close on outside click
-      document.addEventListener('click', function(e) {
-        if (menuOpen && navLinksEl && !navLinksEl.contains(e.target) && !burger.contains(e.target)) {
-          menuOpen = false;
-          navLinksEl.classList.remove('mobile-open');
-          burger.setAttribute('aria-expanded', 'false');
-          var top = burger.querySelector('.pf-burger-top');
-          var mid = burger.querySelector('.pf-burger-mid');
-          var bot = burger.querySelector('.pf-burger-bot');
-          if (top) { top.setAttribute('x1','4'); top.setAttribute('y1','6'); top.setAttribute('x2','20'); top.setAttribute('y2','6'); }
-          if (mid) { mid.style.opacity = '1'; }
-          if (bot) { bot.setAttribute('x1','4'); bot.setAttribute('y1','18'); bot.setAttribute('x2','20'); bot.setAttribute('y2','18'); }
+      function buildMobilePanel() {
+        if (mobilePanel) return mobilePanel;
+        var panel = document.createElement('div');
+        panel.className = 'pf-mobile-panel';
+        panel.setAttribute('role', 'dialog');
+        panel.setAttribute('aria-modal', 'true');
+        panel.setAttribute('aria-label', 'Navigation menu');
+        panel.setAttribute('aria-hidden', 'true');
+
+        var logoSrc = 'https://cdn.prod.website-files.com/69ca88e6c52b04fb85f74a02/69cc30a4a0dc86d4b55ee8a1_logo.png';
+        // Spec order: Platform, Use Cases, Resources, Client Success
+        var ddOrder = ['Platform', 'Use Cases', 'Resources', 'Client Success'];
+
+        // Read Log In + Get a Demo destinations from the existing desktop nav DOM
+        // (single source of truth — if a CMS template changes them, we inherit it).
+        var loginEl = Array.from(document.querySelectorAll('.pf-nav-right a, .pf-nav-right button, .pf-nav-bar a, .pf-nav-bar button')).find(function(a) { return (a.textContent || '').trim() === 'Log In'; });
+        var demoEl  = document.querySelector('.pf-btn-nav');
+        var loginHref = (loginEl && loginEl.getAttribute('href')) || '#';
+        var demoHref  = (demoEl  && demoEl.getAttribute('href'))  || '/book-a-demo';
+
+        var htmlParts = [];
+        htmlParts.push(
+          '<div class="pf-mp-header">' +
+            '<a href="/" class="pf-mp-logo" aria-label="PropFuel home"><img src="' + logoSrc + '" alt="PropFuel"></a>' +
+            '<button type="button" class="pf-mp-close" aria-label="Close menu">' +
+              '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg>' +
+            '</button>' +
+          '</div>',
+          '<nav class="pf-mp-body">'
+        );
+        ddOrder.forEach(function(title, idx) {
+          var dd = dropdowns[title];
+          if (!dd) return;
+          var accId = 'pf-mp-acc-' + idx;
+          htmlParts.push(
+            '<div class="pf-mp-acc">' +
+              '<button type="button" class="pf-mp-acc-btn" aria-expanded="false" aria-controls="' + accId + '">' +
+                '<span>' + title + '</span>' +
+                '<svg class="pf-mp-acc-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>' +
+              '</button>' +
+              '<div class="pf-mp-acc-body" id="' + accId + '" role="region">'
+          );
+          if (dd.overview) {
+            htmlParts.push(
+              '<a class="pf-mp-sublink" href="' + dd.overview.href + '">' +
+                '<span class="pf-mp-sub-title">' + dd.overview.title + '</span>' +
+                '<span class="pf-mp-sub-desc">' + dd.overview.desc + '</span>' +
+              '</a>'
+            );
+          }
+          if (dd.ai) {
+            htmlParts.push(
+              '<a class="pf-mp-sublink pf-mp-sublink-ai" href="' + dd.ai.href + '">' +
+                '<span class="pf-mp-sub-title">' + dd.ai.title + '</span>' +
+                '<span class="pf-mp-sub-desc">' + dd.ai.desc + '</span>' +
+              '</a>'
+            );
+          }
+          (dd.cols || []).forEach(function(col) {
+            if (col.heading) htmlParts.push('<div class="pf-mp-subhead">' + col.heading + '</div>');
+            (col.links || []).forEach(function(l) {
+              var ext = /^https?:\/\//.test(l.href || '') ? ' target="_blank" rel="noopener noreferrer"' : '';
+              htmlParts.push(
+                '<a class="pf-mp-sublink" href="' + l.href + '"' + ext + '>' +
+                  '<span class="pf-mp-sub-title">' + l.title + '</span>' +
+                  (l.desc ? '<span class="pf-mp-sub-desc">' + l.desc + '</span>' : '') +
+                '</a>'
+              );
+            });
+          });
+          htmlParts.push('</div></div>');
+        });
+        htmlParts.push(
+          '</nav>',
+          '<div class="pf-mp-footer">' +
+            '<a class="pf-mp-cta-ghost" href="' + loginHref + '">Log In</a>' +
+            '<a class="pf-mp-cta-primary" href="' + demoHref + '">Get a Demo</a>' +
+          '</div>'
+        );
+        panel.innerHTML = htmlParts.join('');
+        document.body.appendChild(panel);
+
+        // Accordion: one-open-at-a-time so the scroll stays manageable
+        panel.querySelectorAll('.pf-mp-acc-btn').forEach(function(btn) {
+          btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            var isOpen = btn.getAttribute('aria-expanded') === 'true';
+            panel.querySelectorAll('.pf-mp-acc-btn').forEach(function(b) {
+              if (b !== btn) {
+                b.setAttribute('aria-expanded', 'false');
+                b.parentNode.classList.remove('open');
+              }
+            });
+            btn.setAttribute('aria-expanded', String(!isOpen));
+            btn.parentNode.classList.toggle('open', !isOpen);
+          });
+        });
+
+        // X closes
+        var closeBtn = panel.querySelector('.pf-mp-close');
+        if (closeBtn) closeBtn.addEventListener('click', function(e) { e.stopPropagation(); closeMobilePanel(); });
+
+        // Tapping any link navigates (closes implicitly on page unload; also explicit for same-page anchors)
+        panel.querySelectorAll('a').forEach(function(a) {
+          a.addEventListener('click', function() { closeMobilePanel(); });
+        });
+
+        mobilePanel = panel;
+        return panel;
+      }
+
+      function openMobilePanel() {
+        // Defense-in-depth: never open on desktop even if something else fires the burger.
+        if (!window.matchMedia('(max-width:1024px)').matches) return;
+        var panel = buildMobilePanel();
+        // rAF so the .open transition animates from the initial translateX(100%)
+        requestAnimationFrame(function() { panel.classList.add('open'); });
+        panel.setAttribute('aria-hidden', 'false');
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden';
+        mobilePanelOpen = true;
+        syncBurgerIcon(true);
+      }
+
+      function closeMobilePanel() {
+        if (mobilePanel) {
+          mobilePanel.classList.remove('open');
+          mobilePanel.setAttribute('aria-hidden', 'true');
         }
+        document.documentElement.style.overflow = '';
+        document.body.style.overflow = '';
+        mobilePanelOpen = false;
+        syncBurgerIcon(false);
+      }
+
+      burger.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (mobilePanelOpen) closeMobilePanel();
+        else openMobilePanel();
       });
 
-      // Close on ESC
+      // ESC closes the panel
       document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && menuOpen) { burger.click(); }
+        if (e.key === 'Escape' && mobilePanelOpen) closeMobilePanel();
       });
     }
 
