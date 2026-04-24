@@ -4527,20 +4527,28 @@
       heroTitle: 'Your biggest event. Your richest signal.',
       heroSub: 'Capture what members tell you before, during, and after \u2014 so every session, booth, and survey turns into data that outlasts the event.',
       problemLabel: 'The Problem',
-      problemH2: 'Your conference is a massive engagement opportunity \u2014 and most of that data disappears the day the event ends.',
+      problemH2: 'Your event is loaded with signal. Most of it vanishes the day it ends.',
       problemBody: [
-        'You spend months planning the conference. Registration data tells you who is coming. Attendance data tells you who showed up. But <strong>nobody captures what attendees were hoping to get out of the experience \u2014 or whether they got it.</strong>',
-        'Post-event surveys have abysmal response rates. By the time you send one, attendees have moved on. The insights that would have shaped next year\u2019s programming, sponsorship strategy, and member outreach <strong>are gone before you even ask for them.</strong>',
+        'Registration tells you who signed up. Attendance tells you who showed up. But <strong>nobody captures what attendees hoped to get \u2014 or whether they got it.</strong>',
         '<strong>\u201CWe know 2,000 people attended. We have no idea what 2,000 people thought.\u201D</strong> That is the gap PropFuel closes.'
       ],
-      problemGraphic: '<div style="background:rgba(255,255,255,.06);border-radius:16px;padding:32px;border:1px solid rgba(255,255,255,.1);max-width:340px;text-align:center">' +
-        '<div style="font-size:13px;font-weight:700;color:#F9A825;text-transform:uppercase;letter-spacing:.08em;margin-bottom:20px">Conference Data</div>' +
-        '<div style="display:flex;justify-content:space-around;margin-bottom:20px">' +
-          '<div><div style="font-size:36px;font-weight:900;color:#FBC02D">2,000</div><div style="font-size:11px;color:#8C8479">attended</div></div>' +
-          '<div><div style="font-size:36px;font-weight:900;color:#F47C2C">47</div><div style="font-size:11px;color:#8C8479">surveyed</div></div>' +
+      problemGraphic: '<div style="background:rgba(255,255,255,.05);border-radius:18px;padding:28px 24px;border:1px solid rgba(255,255,255,.1);max-width:360px">' +
+        '<div style="font-size:13px;font-weight:700;color:#F9A825;text-transform:uppercase;letter-spacing:.08em;margin-bottom:22px;text-align:center">Signal, Captured</div>' +
+        '<div style="margin-bottom:18px">' +
+          '<div style="font-size:11px;font-weight:700;color:#F9A825;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Before</div>' +
+          '<div style="background:rgba(255,255,255,.05);border-radius:10px;padding:10px 12px;font-size:13px;color:#EDE8DF;line-height:1.45">\u201CWhat do you hope to get out of this year\u2019s conference?\u201D</div>' +
+          '<div style="font-size:12px;color:#F47C2C;font-style:italic;margin-top:6px">\u2192 1,247 responses</div>' +
         '</div>' +
-        '<div style="height:1px;background:rgba(255,255,255,.1);margin-bottom:16px"></div>' +
-        '<div style="font-size:13px;color:#8C8479;font-style:italic">97.6% of attendee insights \u2014 lost</div>' +
+        '<div style="margin-bottom:18px">' +
+          '<div style="font-size:11px;font-weight:700;color:#F9A825;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">During</div>' +
+          '<div style="background:rgba(255,255,255,.05);border-radius:10px;padding:10px 12px;font-size:13px;color:#EDE8DF;line-height:1.45">\u201CHow is today\u2019s session landing for you?\u201D</div>' +
+          '<div style="font-size:12px;color:#F47C2C;font-style:italic;margin-top:6px">\u2192 893 responses</div>' +
+        '</div>' +
+        '<div>' +
+          '<div style="font-size:11px;font-weight:700;color:#F9A825;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">After</div>' +
+          '<div style="background:rgba(255,255,255,.05);border-radius:10px;padding:10px 12px;font-size:13px;color:#EDE8DF;line-height:1.45">\u201CWhat one thing will you take back to your work?\u201D</div>' +
+          '<div style="font-size:12px;color:#F47C2C;font-style:italic;margin-top:6px">\u2192 1,508 responses</div>' +
+        '</div>' +
       '</div>',
       centerpieceHTML: '<div style="text-align:center;margin-bottom:56px">' +
         '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">Three Phases</p>' +
