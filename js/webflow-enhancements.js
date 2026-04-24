@@ -5023,6 +5023,11 @@
       navInner.style.marginLeft = 'auto';
       navInner.style.marginRight = 'auto';
     }
+    // 3.5) Hide the orphan "Videos" breadcrumb at the very top of the page (vestigial wrapper
+    //      from a different template variant — the real breadcrumb lives inside .webinar-hero-wrap)
+    document.querySelectorAll('.cs-breadcrumb-wrap').forEach(function(el){
+      el.style.display = 'none';
+    });
     // 4) The /videos/* template ships a stripped-down footer (only 3 links). Replace the inner
     //    content with the full main-site footer markup so every page has consistent nav + "PropFuel"
     //    brand text shows in white.
