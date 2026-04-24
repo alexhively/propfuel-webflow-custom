@@ -388,6 +388,10 @@
            the 390px viewport. Collapse to single column so cards stack full-width on mobile. */
         '.blog-collection-wrapper .w-dyn-items{grid-template-columns:1fr!important;display:grid!important;gap:24px!important}' +
         '.blog-card,.blog-card-thumb,.blog-card-thumb-img{width:100%!important;max-width:100%!important}' +
+        /* /blog-posts/* detail page: .blog-article-grid is a 2-col (body + 360px sidebar) grid; sidebar
+           overflows the viewport right. Collapse to 1 col and force sidebar to 100% width on mobile. */
+        '.blog-article-grid{grid-template-columns:1fr!important;gap:32px!important}' +
+        '.blog-sidebar,.blog-sidebar-card,.blog-sidebar-dark-card{width:100%!important;max-width:100%!important}' +
       '}' +
 
       /* ── MOBILE BREAKPOINT (≤480px) ── */
