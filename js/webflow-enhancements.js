@@ -369,6 +369,15 @@
         '.sms-timeline [style*="min-width:900px"]>[style*="position:absolute"]{display:none!important}' +
         '.sms-timeline [style*="min-width:900px"]>div:not([style*="position:absolute"])>[style*="border:3px solid"]{display:none!important}' +
         '.sms-timeline [style*="min-width:900px"]>div:not([style*="position:absolute"]){padding:0!important;text-align:left!important}' +
+        /* /platform/automation Renewal Campaign builder mockup: the inner 2-col row (200px Blueprints
+           sidebar + flex:1 workflow) doesn\'t stack on mobile, pushing the workflow column off-viewport
+           right. Stack it vertically and drop the 48px inline indent on the Positive/Neutral/Negative
+           branch row so the 3 outcome cards fit in the content width. Header flex-wraps so Preview +
+           Launch controls drop below the campaign title on narrow screens. */
+        '.ae-campaign-builder [style*="min-height:260px"]{flex-direction:column!important}' +
+        '.ae-campaign-builder [style*="width:200px"]{width:100%!important;border-right:none!important}' +
+        '.ae-campaign-builder [style*="justify-content:space-between"]{flex-wrap:wrap!important;gap:8px!important}' +
+        '.ae-campaign-builder [style*="padding-left:48px"]{padding-left:0!important;gap:6px!important}' +
       '}' +
 
       /* ── MOBILE BREAKPOINT (≤480px) ── */
