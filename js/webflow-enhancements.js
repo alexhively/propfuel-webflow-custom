@@ -225,9 +225,16 @@
       '.uc-org{font-size:13px;font-weight:600;color:#8C8479;margin-top:16px;opacity:.7}' +
 
       /* CTA heading + sub: constrained, H1-aligned display treatment */
-      '.pf-cta-heading{display:block!important;font-size:clamp(44px,5.2vw,72px)!important;line-height:1.08!important;letter-spacing:-0.025em!important;font-weight:800!important;max-width:720px!important;margin-left:auto!important;margin-right:auto!important}' +
+      '.pf-cta-heading{display:block!important;font-size:clamp(44px,5.2vw,72px)!important;line-height:1.08!important;letter-spacing:-0.025em!important;font-weight:800!important;max-width:720px!important;margin-left:auto!important;margin-right:auto!important;text-wrap:balance!important}' +
       '.pf-cta-heading br{display:block;content:"";margin:0}' +
-      '.pf-cta-sub{max-width:620px!important;margin-left:auto!important;margin-right:auto!important;font-size:clamp(16px,1.4vw,18px)!important;line-height:1.6!important}' +
+      '.pf-cta-sub{max-width:620px!important;margin-left:auto!important;margin-right:auto!important;font-size:clamp(16px,1.4vw,18px)!important;line-height:1.6!important;text-wrap:pretty!important}' +
+
+      /* Hero titles + subs: balanced wrapping so short headings never break as "5 words / 1 word" orphans; constrained width so they do not stretch edge-to-edge. */
+      '.pf-page-hero-title,.pf-hero-title{max-width:900px!important;margin-left:auto!important;margin-right:auto!important;text-wrap:balance!important}' +
+      '.pf-page-hero-sub,.pf-hero-sub{max-width:640px!important;margin-left:auto!important;margin-right:auto!important;text-wrap:pretty!important}' +
+
+      /* Injected centerpiece H2s and problem/stats H2s: balance wrapping */
+      '.pf-section h2,.cs-wrap h2,.tm-famewall h2,.tm-featured-quote p,.cs-aggregate h2{text-wrap:balance}' +
 
       /* Gradient-text glyph clip guard: any element using -webkit-background-clip:text + linear-gradient gets enough line-box height so heavy 900-weight glyphs do not get their tops/bottoms clipped. Applies site-wide so every case-study stat card is safe. */
       '[style*="-webkit-background-clip:text"][style*="linear-gradient"]{line-height:1.2!important;padding-top:4px!important;padding-bottom:4px!important}' +
