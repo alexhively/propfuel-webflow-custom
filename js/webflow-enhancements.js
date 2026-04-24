@@ -404,6 +404,9 @@
            single column so the video wrapper gets full viewport width. */
         '.webinar-hero-grid{grid-template-columns:1fr!important}' +
         '.w-video,.embedly-embed{max-width:100%!important;width:100%!important}' +
+        /* /membership-ai dashboard mockup: a 3-agent flex row (Insights/Recommendations/Initiative
+           Builder) doesn\'t wrap, overflowing right by ~300px. Stack to column on mobile. */
+        '.mai-dashboard [style*="display:flex;gap:16px;flex:1"]{flex-direction:column!important}' +
       '}' +
 
       /* ── MOBILE BREAKPOINT (≤480px) ── */
