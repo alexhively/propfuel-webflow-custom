@@ -359,6 +359,14 @@
         '.em-comparison [style*="grid-template-columns:200px 1fr 1fr"]>div:first-child{font-size:15px!important;margin-bottom:4px!important}' +
         '.em-comparison [style*="grid-template-columns:200px 1fr 1fr"]>div:nth-child(2)::before{content:"Traditional";display:block;font:700 11px/1 "DM Sans",sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#8C8479;margin-bottom:4px}' +
         '.em-comparison [style*="grid-template-columns:200px 1fr 1fr"]>div:nth-child(3)::before{content:"PropFuel";display:block;font:700 11px/1 "DM Sans",sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#F9A825;margin-bottom:4px}' +
+        /* /platform/sms event-day timeline: the inner row has inline min-width:900px to render the
+           horizontal gradient+markers layout, which forces horizontal scroll on narrow viewports.
+           Stack vertically on mobile, hide the gradient bar + circle markers (decorative, only make
+           sense when the steps are arranged horizontally along a line). */
+        '.sms-timeline [style*="min-width:900px"]{min-width:0!important;flex-direction:column!important;gap:24px!important}' +
+        '.sms-timeline [style*="min-width:900px"]>[style*="position:absolute"]{display:none!important}' +
+        '.sms-timeline [style*="min-width:900px"]>div:not([style*="position:absolute"])>[style*="border:3px solid"]{display:none!important}' +
+        '.sms-timeline [style*="min-width:900px"]>div:not([style*="position:absolute"]){padding:0!important;text-align:left!important}' +
       '}' +
 
       /* ── MOBILE BREAKPOINT (≤480px) ── */
