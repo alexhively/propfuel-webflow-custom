@@ -5055,16 +5055,7 @@
         '</div>' +
       '</div></section>' +
 
-      '<section style="padding:64px 48px;background:#F6F2E8"><div style="max-width:700px;margin:0 auto;text-align:center">' +
-        '<p style="font-size:18px;color:#6E6E6E;line-height:1.7;font-style:italic;margin-bottom:24px">\u201CThe PropFuel newsletter is one of the few I actually read. Every issue has at least one idea I can put into practice that week.\u201D</p>' +
-        '<p style="font-size:14px;font-weight:600;color:#2F2F2F;margin-bottom:32px">\u2014 Director of Membership, State Medical Association</p>' +
-        '<div style="display:flex;justify-content:center;gap:48px;flex-wrap:wrap">' +
-          '<div style="text-align:center"><p style="font-size:32px;font-weight:900;background:linear-gradient(135deg,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">5,000+</p><p style="font-size:13px;color:#8C8479;margin-top:4px">Subscribers</p></div>' +
-          '<div style="text-align:center"><p style="font-size:32px;font-weight:900;background:linear-gradient(135deg,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">48%</p><p style="font-size:13px;color:#8C8479;margin-top:4px">Open Rate</p></div>' +
-        '</div>' +
-      '</div></section>' +
-
-      '<style>@media (max-width:900px){.nl-hero-grid{grid-template-columns:1fr!important;gap:40px!important}}</style>';
+            '<style>@media (max-width:900px){.nl-hero-grid{grid-template-columns:1fr!important;gap:40px!important}}</style>';
 
     main.innerHTML = html;
   }
