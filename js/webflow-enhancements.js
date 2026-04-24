@@ -378,6 +378,11 @@
         '.ae-campaign-builder [style*="width:200px"]{width:100%!important;border-right:none!important}' +
         '.ae-campaign-builder [style*="justify-content:space-between"]{flex-wrap:wrap!important;gap:8px!important}' +
         '.ae-campaign-builder [style*="padding-left:48px"]{padding-left:0!important;gap:6px!important}' +
+        /* /platform/engagement .ee-channel-cards "Jane Doe — Unified Member Timeline" row: a flex row
+           with avatar + flex:1 middle + fixed-width colored bars. The bars monopolized horizontal space
+           and crushed the middle to 16px — so the title stacked ONE WORD PER LINE. Stack to column on
+           mobile so each region gets full content width. */
+        '.ee-channel-cards [style*="display:flex;align-items:center;gap:16px"]{flex-direction:column!important;align-items:flex-start!important;gap:8px!important}' +
       '}' +
 
       /* ── MOBILE BREAKPOINT (≤480px) ── */
