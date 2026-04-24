@@ -5329,11 +5329,7 @@
           '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:40px;box-shadow:0 8px 32px rgba(120,110,95,0.08);border:1px solid rgba(227,221,210,0.6)">' +
             '<h2 style="font-size:22px;font-weight:800;color:#2F2F2F;margin-bottom:6px">Subscribe free</h2>' +
             '<p style="font-size:14px;color:#6E6E6E;margin-bottom:28px">Two emails a month. Unsubscribe anytime.</p>' +
-            '<div class="pf-form-group"><label class="pf-form-label">First Name</label><input type="text" placeholder="Jane" class="pf-form-input"></div>' +
-            '<div class="pf-form-group"><label class="pf-form-label">Last Name</label><input type="text" placeholder="Doe" class="pf-form-input"></div>' +
-            '<div class="pf-form-group"><label class="pf-form-label">Email</label><input type="email" placeholder="jane@association.org" class="pf-form-input"></div>' +
-            '<div class="pf-form-group"><label class="pf-form-label">Organization</label><input type="text" placeholder="Your association or company" class="pf-form-input"></div>' +
-            '<button class="pf-form-submit">Subscribe</button>' +
+            '<div class="hs-form-frame" data-region="na1" data-form-id="e62f4793-4fde-4a54-ad2b-e0735c3e7984" data-portal-id="21158441"></div>' +
           '</div>' +
         '</div>' +
       '</div></section>' +
@@ -5341,6 +5337,14 @@
             '<style>@media (max-width:900px){.nl-hero-grid{grid-template-columns:1fr!important;gap:40px!important}}</style>';
 
     main.innerHTML = html;
+
+    // Load the HubSpot forms v4 embed script once
+    if (!document.querySelector('script[src*="js.hsforms.net/forms/embed/21158441.js"]')) {
+      var hsScript = document.createElement('script');
+      hsScript.src = 'https://js.hsforms.net/forms/embed/21158441.js';
+      hsScript.defer = true;
+      document.head.appendChild(hsScript);
+    }
   }
 
   function fixApi() {
