@@ -381,8 +381,9 @@
         '.pf-footer-top{grid-template-columns:1fr!important;gap:32px!important}' +
         /* Mockups: prevent overflow */
         '[class*="mockup"],[class*="visual"]{max-width:100%!important;overflow:hidden!important}' +
-        /* Demo form: reclaim horizontal space so HubSpot iframe isn't cropped */
-        '.pf-demo-hero{padding:48px 12px!important}' +
+        /* Demo form: reclaim horizontal space so HubSpot iframe isn't cropped.
+           Top padding bumped to 96 so the "Request a Demo" eyebrow label clears the floating nav pill. */
+        '.pf-demo-hero{padding:96px 12px 48px!important}' +
         '.pf-demo-form-card{padding:24px 20px!important}' +
         '.hs-form-iframe{width:100%!important;min-width:0!important}' +
       '}' +
