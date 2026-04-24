@@ -11,6 +11,16 @@
   if (window.__pfEnhancementsLoaded) return;
   window.__pfEnhancementsLoaded = true;
 
+  // Legacy URL redirect: /demo is the old slug, page has been renamed to /book-a-demo.
+  // This script loads in <head> so the redirect fires before the 404 page paints.
+  // Preserves query string + hash (e.g. UTM params, anchors).
+  (function redirectLegacyPaths() {
+    var p = window.location.pathname.replace(/\/$/, '') || '/';
+    if (p === '/demo' || p === '/request-demo') {
+      window.location.replace('/book-a-demo' + window.location.search + window.location.hash);
+    }
+  })();
+
   var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // ─────────────────────────────────────────
