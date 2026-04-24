@@ -4758,21 +4758,38 @@
   // Applies to both listing cards (.blog-card-thumb-img) and detail hero (.blog-hero-image).
   function applyDefaultBlogThumb() {
     var DEFAULT = 'https://alexhively.github.io/propfuel-webflow-custom/images/blog-default-thumb.png';
-    function isBad(src) {
+    function isBad(img) {
+      if (!img) return false;
+      // Webflow marks unbound CMS images with this class and sets display:none
+      if (img.classList && img.classList.contains('w-dyn-bind-empty')) return true;
+      var src = img.getAttribute('src');
       if (!src) return true;
       var s = String(src).trim();
-      return !s || s === 'about:blank' || /\/_default(\.|_)/.test(s);
+      if (!s || s === 'about:blank') return true;
+      // Webflow default placeholder SVG
+      if (/\/plugins\/Basic\/assets\/placeholder/.test(s)) return true;
+      if (/placeholder\.(svg|png)$/i.test(s)) return true;
+      if (/\/_default(\.|_)/.test(s)) return true;
+      return false;
+    }
+    function swap(img) {
+      if (!img || img.tagName !== 'IMG') return;
+      img.src = DEFAULT;
+      img.removeAttribute('srcset');
+      img.classList.remove('w-dyn-bind-empty');
+      // Webflow hides placeholders; unhide so the default shows
+      if (img.style.display === 'none') img.style.display = '';
+      img.style.removeProperty('display');
     }
     var targets = document.querySelectorAll('.blog-card-thumb-img, .blog-hero-image, img.blog-card-thumb-img, .blog-hero-image-section img');
     targets.forEach(function(img){
       if (!img || img.tagName !== 'IMG') return;
-      if (isBad(img.getAttribute('src'))) {
-        img.src = DEFAULT;
+      if (isBad(img)) {
+        swap(img);
       } else {
-        // If the image fails to load later, swap to the default
         img.addEventListener('error', function onErr(){
           img.removeEventListener('error', onErr);
-          img.src = DEFAULT;
+          swap(img);
         });
       }
     });
@@ -4788,7 +4805,7 @@
           });
         });
         newImgs.forEach(function(img){
-          if (isBad(img.getAttribute('src'))) img.src = DEFAULT;
+          if (isBad(img)) swap(img);
         });
       });
       obs.observe(document.body, { childList: true, subtree: true });
