@@ -4524,8 +4524,8 @@
     buildUseCasePage({
       path: 'use-cases/events',
       heroLabel: 'Use Case',
-      heroTitle: 'Your annual conference is the richest opportunity you have to learn what members care about.',
-      heroSub: 'PropFuel turns events from one-time experiences into data-generating touchpoints \u2014 before, during, and after. Every interaction captures signal. Every response enriches the member\u2019s profile. And the data does not disappear when the event ends.',
+      heroTitle: 'Your biggest event. Your richest signal.',
+      heroSub: 'Capture what members tell you before, during, and after \u2014 so every session, booth, and survey turns into data that outlasts the event.',
       problemLabel: 'The Problem',
       problemH2: 'Your conference is a massive engagement opportunity \u2014 and most of that data disappears the day the event ends.',
       problemBody: [
