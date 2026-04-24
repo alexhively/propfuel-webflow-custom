@@ -5197,10 +5197,9 @@
 
     html += '</div></div></section>' +
 
-      '<section class="pf-section-dark" style="padding:80px 48px"><div style="max-width:1000px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:32px;text-align:center">' +
+      '<section class="pf-section-dark" style="padding:80px 48px"><div style="max-width:800px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:32px;text-align:center">' +
         '<div><p style="font-size:clamp(32px,4vw,48px);font-weight:900;background:linear-gradient(to top,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1">2018</p><p style="font-size:14px;color:#8C8479;margin-top:8px">Founded</p></div>' +
-        '<div><p style="font-size:clamp(32px,4vw,48px);font-weight:900;background:linear-gradient(to top,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1">50+</p><p style="font-size:14px;color:#8C8479;margin-top:8px">Team Members</p></div>' +
-        '<div><p style="font-size:clamp(32px,4vw,48px);font-weight:900;background:linear-gradient(to top,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1">200+</p><p style="font-size:14px;color:#8C8479;margin-top:8px">Customers</p></div>' +
+        '<div><p style="font-size:clamp(32px,4vw,48px);font-weight:900;background:linear-gradient(to top,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1">340+</p><p style="font-size:14px;color:#8C8479;margin-top:8px">Customers</p></div>' +
         '<div><p style="font-size:clamp(32px,4vw,48px);font-weight:900;background:linear-gradient(to top,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1">10M+</p><p style="font-size:14px;color:#8C8479;margin-top:8px">Members Reached</p></div>' +
       '</div></section>' +
 
