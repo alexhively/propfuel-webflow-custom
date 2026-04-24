@@ -870,6 +870,12 @@
       }
     });
 
+    // Site-wide: force the footer "PropFuel" wordmark to the off-white palette color.
+    // Webflow's native footer ships it at #2F2F2F (unreadable on dark footer background).
+    document.querySelectorAll('.pf-footer .pf-nav-logo-text, .pf-footer-brand .pf-nav-logo-text, .pf-footer-brand h4').forEach(function(el){
+      if ((el.textContent || '').trim() === 'PropFuel') el.style.color = '#EDE8DF';
+    });
+
     // Site-wide: rewrite nav CTA buttons that have href="#" (CMS templates) to /book-a-demo
     document.querySelectorAll('.pf-nav-bar a.pf-btn-primary[href="#"], .pf-nav-bar a.pf-btn-nav[href="#"]').forEach(function(a){
       a.setAttribute('href', '/book-a-demo');
@@ -5151,7 +5157,7 @@
           '<div class="pf-footer-top">' +
             '<div class="pf-footer-brand">' +
               '<img src="https://cdn.prod.website-files.com/69ca88e6c52b04fb85f74a02/69cc30a4a0dc86d4b55ee8a1_logo.png" alt="PropFuel" style="height:48px;width:auto;display:block;margin-bottom:16px">' +
-              '<h4 class="pf-nav-logo-text" style="color:#fff">PropFuel</h4>' +
+              '<h4 class="pf-nav-logo-text" style="color:#EDE8DF">PropFuel</h4>' +
               '<p>The membership insights and engagement platform that helps associations understand what members want and act on it.</p>' +
             '</div>' +
             '<div>' +
@@ -5187,7 +5193,7 @@
         '</div>';
     } else {
       var logoText = footer.querySelector('.pf-nav-logo-text');
-      if (logoText) logoText.style.color = '#fff';
+      if (logoText) logoText.style.color = '#EDE8DF';
     }
   }
 
