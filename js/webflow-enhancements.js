@@ -820,7 +820,7 @@
           { heading: 'Solutions', links: [
             { title: 'The Insights Engine', desc: 'Turn fragmented data into clear member signals', href: '/platform/insights' },
             { title: 'The Automation Engine', desc: 'Build smart workflows that run themselves', href: '/platform/automation' },
-            { title: 'The Engagement Engine', desc: 'One question, every channel, real answers', href: '/platform/website' }
+            { title: 'The Engagement Engine', desc: 'One question, every channel, real answers', href: '/platform/engagement' }
           ]},
           { heading: 'Tools', links: [
             { title: 'Email', desc: 'Conversational emails that get replies', href: '/platform/email' },
