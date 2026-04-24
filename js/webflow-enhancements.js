@@ -802,8 +802,24 @@
       a.setAttribute('href', '/demo');
     });
 
-    // Add logo icon
+    // Site-wide: rewrite nav CTA buttons that have href="#" (CMS templates) to /demo
+    document.querySelectorAll('.pf-nav-bar a.pf-btn-primary[href="#"], .pf-nav-bar a.pf-btn-nav[href="#"]').forEach(function(a){
+      a.setAttribute('href', '/demo');
+    });
+
+    // Add logo icon. On some CMS templates .pf-nav-logo is a <div> (not clickable);
+    // wrap it in an anchor to the homepage.
     var logoLink = document.querySelector('.pf-nav-logo');
+    if (logoLink && logoLink.tagName === 'DIV' && !logoLink.closest('a')) {
+      var wrap = document.createElement('a');
+      wrap.href = '/';
+      wrap.className = logoLink.className + ' w-inline-block';
+      wrap.style.textDecoration = 'none';
+      wrap.style.color = 'inherit';
+      logoLink.parentNode.insertBefore(wrap, logoLink);
+      wrap.appendChild(logoLink);
+      logoLink = wrap;
+    }
     if (logoLink && !logoLink.querySelector('img')) {
       var img = document.createElement('img');
       img.src = 'https://cdn.prod.website-files.com/69ca88e6c52b04fb85f74a02/69cc30a4a0dc86d4b55ee8a1_logo.png';
@@ -5128,6 +5144,16 @@
           break;
         }
         sib = sib.nextElementSibling;
+      }
+      // The nav pill is centered but without background, so the content below
+      // rides right up under it. Push the first content section down so the
+      // pill gets breathing room.
+      var firstContent = nav.nextElementSibling;
+      while (firstContent && (firstContent.style.display === 'none' || firstContent.offsetHeight === 0)) {
+        firstContent = firstContent.nextElementSibling;
+      }
+      if (firstContent) {
+        firstContent.style.paddingTop = '120px';
       }
     }
     // Swap the stripped-down footer for the full main-site footer
