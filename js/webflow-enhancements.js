@@ -4633,7 +4633,7 @@
       '</div>' +
       '<div class="pf-card" style="background:#1A1713;border-radius:20px;padding:40px;max-width:700px;margin:0 auto;text-align:center">' +
         '<div style="font-size:13px;font-weight:700;color:#F9A825;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px">Case Study: ARN</div>' +
-        '<div style="font-size:clamp(36px,4vw,48px);font-weight:900;background:linear-gradient(to top,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px">32% Increase</div>' +
+        '<div style="font-size:clamp(34px,3.6vw,44px);font-weight:900;line-height:1.15;padding:6px 0;background:linear-gradient(to top,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px">32% Increase</div>' +
         '<div style="font-size:18px;font-weight:700;color:#EDE8DF;margin-bottom:8px">Certification Engagement</div>' +
         '<p style="font-size:14px;color:#8C8479;line-height:1.6">ARN used PropFuel to engage certification candidates throughout the learning process \u2014 resulting in a 32% increase in engagement and significantly higher completion rates.</p>' +
       '</div>',
