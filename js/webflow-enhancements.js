@@ -4874,6 +4874,14 @@
   function fixBlog() {
     // Only run on the blog listing page, not individual blog post templates
     if (!/^\/resources\/blog\/?$/.test(window.location.pathname)) return;
+    // Hide the "Expert perspectives / Practical guides" category-card section (empty placeholder)
+    Array.from(document.querySelectorAll('h2.pf-feature-title, .pf-feature-title')).forEach(function(h) {
+      var t = (h.textContent || '').trim();
+      if (t === 'Expert perspectives' || t === 'Practical guides') {
+        var sec = h.closest('.pf-section, section');
+        if (sec) sec.style.display = 'none';
+      }
+    });
     // If Webflow CMS has rendered real blog items, defer to the CMS template but still fix their hrefs
     if (document.querySelector('.w-dyn-item')) { wireBlogCardHrefs(); return; }
     var main = getPageMain();
