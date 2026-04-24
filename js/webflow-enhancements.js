@@ -4988,6 +4988,37 @@
       .catch(function(){});
   }
 
+  // Webinar / video detail template (/videos/*). Webflow template renders static placeholders
+  // for optional fields (slides PDF, related videos) that fall back to href="#" when CMS
+  // fields are empty — creating orphan buttons and an empty "related videos" dark card.
+  function fixVideoTemplate() {
+    if (!/^\/videos\/[^/]+/.test(window.location.pathname)) return;
+    // 1) Hide Download Slides button when there's no slides file attached (href="#" or empty)
+    var dlBtns = document.querySelectorAll('a.pf-btn-secondary, a.pf-btn-primary, a.w-button');
+    dlBtns.forEach(function(a){
+      if (!/Download Slides/i.test((a.textContent || '').trim())) return;
+      var href = a.getAttribute('href');
+      if (!href || href === '#' || href === '' || href === 'javascript:void(0)') {
+        a.style.display = 'none';
+      }
+    });
+    // 2) Hide the related-videos dark card when CMS didn't populate it (empty titles + "#" links)
+    document.querySelectorAll('.blog-sidebar-dark-card.is-below-content').forEach(function(card){
+      var cards = card.querySelectorAll('.video-related-card');
+      if (!cards.length) { card.style.display = 'none'; return; }
+      var anyPopulated = false;
+      cards.forEach(function(rc){
+        var title = rc.querySelector('.video-related-card-title');
+        var link = rc.querySelector('.video-related-card-link, a');
+        var hasTitle = title && title.textContent.trim().length > 0;
+        var href = link && link.getAttribute('href');
+        var hasLink = href && href !== '#' && href !== '';
+        if (hasTitle || hasLink) anyPopulated = true;
+      });
+      if (!anyPopulated) card.style.display = 'none';
+    });
+  }
+
   function fixWebinars() {
     // Only run on the webinars listing page, not individual webinar templates
     if (!/^\/resources\/webinars\/?$/.test(window.location.pathname)) return;
@@ -5942,6 +5973,7 @@
     fixImplementation();
     fixBlog();
     fixBlogPostTemplate();
+    fixVideoTemplate();
     fixWebinars();
     fixGuides();
     fixHelp();
