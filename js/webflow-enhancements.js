@@ -349,6 +349,16 @@
            to wrap so the pill drops below its label instead of breaking mid-word. Mobile only. */
         '.mu-pill{white-space:nowrap!important;flex-shrink:0!important}' +
         '.mu-hdr{flex-wrap:wrap!important;gap:8px!important}' +
+        /* /platform/email "Send vs Listen" comparison table: desktop builds it as a 200px|1fr|1fr grid.
+           On narrow viewports each 1fr column collapses to ~45px and the rightmost PropFuel column is
+           cut off past the viewport. Stack to single column on mobile, hide the dark header bar, and
+           insert "Traditional" / "PropFuel" labels via ::before on each row so the grouping stays clear. */
+        '.em-comparison [style*="background:#2F2F2F"]{display:none!important}' +
+        '.em-comparison [style*="grid-template-columns:200px 1fr 1fr"]{grid-template-columns:1fr!important;padding:16px 20px!important;gap:6px!important}' +
+        '.em-comparison [style*="grid-template-columns:200px 1fr 1fr"]>div{text-align:left!important}' +
+        '.em-comparison [style*="grid-template-columns:200px 1fr 1fr"]>div:first-child{font-size:15px!important;margin-bottom:4px!important}' +
+        '.em-comparison [style*="grid-template-columns:200px 1fr 1fr"]>div:nth-child(2)::before{content:"Traditional";display:block;font:700 11px/1 "DM Sans",sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#8C8479;margin-bottom:4px}' +
+        '.em-comparison [style*="grid-template-columns:200px 1fr 1fr"]>div:nth-child(3)::before{content:"PropFuel";display:block;font:700 11px/1 "DM Sans",sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#F9A825;margin-bottom:4px}' +
       '}' +
 
       /* ── MOBILE BREAKPOINT (≤480px) ── */
