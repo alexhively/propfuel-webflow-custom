@@ -797,6 +797,11 @@
       }
     });
 
+    // Site-wide: rewrite the legacy /request-demo URL (which 404s) to /demo on any anchor
+    document.querySelectorAll('a[href="/request-demo"], a[href="request-demo"]').forEach(function(a){
+      a.setAttribute('href', '/demo');
+    });
+
     // Add logo icon
     var logoLink = document.querySelector('.pf-nav-logo');
     if (logoLink && !logoLink.querySelector('img')) {
