@@ -341,6 +341,9 @@
            Expand the hit area to 44×44 with transparent padding + background-clip:content-box so the visible
            dot stays 10×10, just centered inside a tappable ring. */
         '.pf-testimonials-section [data-slide]{width:44px!important;height:44px!important;padding:17px!important;box-sizing:border-box!important;background-clip:content-box!important;-webkit-background-clip:content-box!important}' +
+        /* /book-a-demo hero: desktop padding-top of 48px puts the "Request a Demo" label behind the
+           floating nav pill (which extends to ~84px on mobile). Push the section down on mobile only. */
+        '.pf-demo-hero{padding-top:96px!important}' +
       '}' +
 
       /* ── MOBILE BREAKPOINT (≤480px) ── */
