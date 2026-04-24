@@ -1962,7 +1962,8 @@
     // ═══════════════════════════════════════
     var ctaSectionEl = document.querySelector('.pf-cta-section, [class*="cta-section"]');
     if (ctaSectionEl && !document.querySelector('.po-channels')) {
-      var channelsHTML = '<section class="po-channels" style="padding:96px 48px;max-width:1200px;margin:0 auto">' +
+      var channelsHTML = '<section class="po-channels" style="background:#EAE4D8;padding:96px 48px;width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)">' +
+        '<div style="max-width:1200px;margin:0 auto">' +
         '<div style="text-align:center;margin-bottom:56px">' +
           '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">Channels</p>' +
           '<h2 style="font-size:clamp(32px,5vw,42px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.1;margin-bottom:20px">Reach Members Where They Are</h2>' +
@@ -1987,6 +1988,7 @@
             '<p style="font-size:16px;color:#6E6E6E;line-height:1.6;margin-bottom:20px">Event-day texts, time-sensitive questions, and real-time engagement with built-in opt-in management and compliance.</p>' +
             '<a href="/platform/sms" style="font-size:14px;font-weight:600;color:#F47C2C;text-decoration:none;display:inline-flex;align-items:center;gap:6px">Learn more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>' +
           '</div>' +
+        '</div>' +
         '</div>' +
       '</section>';
       ctaSectionEl.insertAdjacentHTML('beforebegin', channelsHTML);
