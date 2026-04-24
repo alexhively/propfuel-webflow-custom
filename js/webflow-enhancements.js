@@ -5026,51 +5026,45 @@
       { icon: '\u{1F3AF}', title: 'Industry Benchmarks', desc: 'See how your engagement metrics stack up against peer organizations.' }
     ];
 
-    var html = '' +
-      '<section style="padding:96px 48px 0;text-align:center"><div style="max-width:800px;margin:0 auto">' +
-        '<p style="display:inline-flex;align-items:center;padding:8px 20px;border-radius:100px;background:rgba(251,192,45,0.08);border:1px solid rgba(249,168,37,0.35);font-size:13px;font-weight:600;color:#2F2F2F;letter-spacing:0.04em;margin-bottom:24px">Newsletter</p>' +
-        '<h1 style="font-size:clamp(36px,5vw,56px);font-weight:800;color:#2F2F2F;letter-spacing:-0.03em;line-height:1.1;margin-bottom:20px">Stay Ahead of Membership Engagement Trends</h1>' +
-        '<p style="font-size:18px;color:#6E6E6E;line-height:1.6;max-width:600px;margin:0 auto">Join 5,000+ association professionals getting actionable insights on member engagement, retention, and growth \u2014 delivered twice a month.</p>' +
-      '</div></section>' +
+    var benefitsHtml = benefits.map(function(b){
+      return '<li style="display:flex;align-items:flex-start;gap:16px;margin-bottom:20px">' +
+        '<div style="flex-shrink:0;width:44px;height:44px;border-radius:12px;background:rgba(251,192,45,0.12);display:flex;align-items:center;justify-content:center;font-size:22px;border:1px solid rgba(249,168,37,0.25)">' + b.icon + '</div>' +
+        '<div><p style="font-size:16px;font-weight:700;color:#2F2F2F;margin-bottom:4px">' + b.title + '</p><p style="font-size:14px;color:#6E6E6E;line-height:1.55">' + b.desc + '</p></div>' +
+      '</li>';
+    }).join('');
 
-      '<section style="padding:64px 48px"><div style="max-width:520px;margin:0 auto">' +
-        '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:40px">' +
-          '<div class="pf-form-group"><label class="pf-form-label">First Name</label><input type="text" placeholder="Jane" class="pf-form-input"></div>' +
-          '<div class="pf-form-group"><label class="pf-form-label">Last Name</label><input type="text" placeholder="Doe" class="pf-form-input"></div>' +
-          '<div class="pf-form-group"><label class="pf-form-label">Email</label><input type="email" placeholder="jane@association.org" class="pf-form-input"></div>' +
-          '<div class="pf-form-group"><label class="pf-form-label">Organization</label><input type="text" placeholder="Your association or company" class="pf-form-input"></div>' +
-          '<button class="pf-form-submit">Subscribe</button>' +
+    var html = '' +
+      '<section style="padding:96px 48px 64px"><div class="nl-hero-grid" style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1.05fr 1fr;gap:72px;align-items:center">' +
+        '<div>' +
+          '<p style="display:inline-flex;align-items:center;padding:8px 20px;border-radius:100px;background:rgba(251,192,45,0.08);border:1px solid rgba(249,168,37,0.35);font-size:13px;font-weight:600;color:#2F2F2F;letter-spacing:0.04em;margin-bottom:24px">Newsletter</p>' +
+          '<h1 style="font-size:clamp(32px,4.2vw,48px);font-weight:800;color:#2F2F2F;letter-spacing:-0.03em;line-height:1.1;margin-bottom:20px">Stay Ahead of Membership Engagement Trends</h1>' +
+          '<p style="font-size:17px;color:#6E6E6E;line-height:1.6;margin-bottom:36px">Join 5,000+ association professionals getting actionable insights on member engagement, retention, and growth \u2014 delivered twice a month.</p>' +
+          '<p style="font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#F9A825;margin-bottom:20px">What you\'ll get</p>' +
+          '<ul style="list-style:none;padding:0;margin:0">' + benefitsHtml + '</ul>' +
+        '</div>' +
+        '<div>' +
+          '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:40px;box-shadow:0 8px 32px rgba(120,110,95,0.08);border:1px solid rgba(227,221,210,0.6)">' +
+            '<h2 style="font-size:22px;font-weight:800;color:#2F2F2F;margin-bottom:6px">Subscribe free</h2>' +
+            '<p style="font-size:14px;color:#6E6E6E;margin-bottom:28px">Two emails a month. Unsubscribe anytime.</p>' +
+            '<div class="pf-form-group"><label class="pf-form-label">First Name</label><input type="text" placeholder="Jane" class="pf-form-input"></div>' +
+            '<div class="pf-form-group"><label class="pf-form-label">Last Name</label><input type="text" placeholder="Doe" class="pf-form-input"></div>' +
+            '<div class="pf-form-group"><label class="pf-form-label">Email</label><input type="email" placeholder="jane@association.org" class="pf-form-input"></div>' +
+            '<div class="pf-form-group"><label class="pf-form-label">Organization</label><input type="text" placeholder="Your association or company" class="pf-form-input"></div>' +
+            '<button class="pf-form-submit">Subscribe</button>' +
+          '</div>' +
         '</div>' +
       '</div></section>' +
-
-      '<section style="padding:0 48px 64px"><div style="max-width:1000px;margin:0 auto">' +
-        '<h2 style="font-size:24px;font-weight:800;color:#2F2F2F;margin-bottom:32px;text-align:center">What You\'ll Get</h2>' +
-        '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px">';
-
-    benefits.forEach(function(b) {
-      html += '<div class="pf-card" style="background:#F6F2E8;border-radius:16px;padding:28px;text-align:center">' +
-        '<div style="font-size:32px;margin-bottom:14px">' + b.icon + '</div>' +
-        '<h3 style="font-size:16px;font-weight:700;color:#2F2F2F;margin-bottom:8px">' + b.title + '</h3>' +
-        '<p style="font-size:14px;color:#6E6E6E;line-height:1.5">' + b.desc + '</p>' +
-      '</div>';
-    });
-
-    html += '</div></div></section>' +
 
       '<section style="padding:64px 48px;background:#F6F2E8"><div style="max-width:700px;margin:0 auto;text-align:center">' +
         '<p style="font-size:18px;color:#6E6E6E;line-height:1.7;font-style:italic;margin-bottom:24px">\u201CThe PropFuel newsletter is one of the few I actually read. Every issue has at least one idea I can put into practice that week.\u201D</p>' +
         '<p style="font-size:14px;font-weight:600;color:#2F2F2F;margin-bottom:32px">\u2014 Director of Membership, State Medical Association</p>' +
-        '<div style="display:flex;justify-content:center;gap:48px">' +
+        '<div style="display:flex;justify-content:center;gap:48px;flex-wrap:wrap">' +
           '<div style="text-align:center"><p style="font-size:32px;font-weight:900;background:linear-gradient(135deg,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">5,000+</p><p style="font-size:13px;color:#8C8479;margin-top:4px">Subscribers</p></div>' +
           '<div style="text-align:center"><p style="font-size:32px;font-weight:900;background:linear-gradient(135deg,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">48%</p><p style="font-size:13px;color:#8C8479;margin-top:4px">Open Rate</p></div>' +
         '</div>' +
       '</div></section>' +
 
-      '<section class="pf-cta-section" style="padding:96px 48px;text-align:center"><div style="max-width:600px;margin:0 auto">' +
-        '<h2 class="pf-cta-heading" style="font-size:clamp(28px,4vw,42px);font-weight:800;color:#EDE8DF;letter-spacing:-0.02em;line-height:1.1;margin-bottom:20px">Don\'t Miss an Issue</h2>' +
-        '<p style="font-size:17px;color:#8C8479;line-height:1.6;margin-bottom:32px">Subscribe now and get our latest guide free \u2014 The 2026 Association Engagement Playbook.</p>' +
-        '<a href="#" class="pf-btn-primary" style="display:inline-flex;align-items:center;gap:8px;padding:16px 36px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:linear-gradient(to right,#F47C2C,#FBC02D);color:#fff;border:none">Subscribe Now</a>' +
-      '</div></section>';
+      '<style>@media (max-width:900px){.nl-hero-grid{grid-template-columns:1fr!important;gap:40px!important}}</style>';
 
     main.innerHTML = html;
   }
