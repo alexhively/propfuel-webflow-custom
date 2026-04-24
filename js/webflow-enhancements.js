@@ -5033,11 +5033,17 @@
     document.querySelectorAll('.cs-breadcrumb-wrap').forEach(function(el){
       el.style.display = 'none';
     });
-    // 4) The /videos/* template ships a stripped-down footer (only 3 links). Replace the inner
-    //    content with the full main-site footer markup so every page has consistent nav + "PropFuel"
-    //    brand text shows in white.
+    // 4) CMS templates ship a stripped-down footer — swap in the full main-site footer.
+    swapStrippedFooter();
+  }
+
+  // Shared: CMS template pages (videos, case-studies) render a minimal footer with
+  // only a few links. This replaces the inner content with the full main-site footer,
+  // or — if the full footer already exists — just ensures the "PropFuel" wordmark is white.
+  function swapStrippedFooter() {
     var footer = document.querySelector('.pf-footer');
-    if (footer && !footer.querySelector('.pf-footer-inner')) {
+    if (!footer) return;
+    if (!footer.querySelector('.pf-footer-inner')) {
       footer.innerHTML =
         '<div class="pf-footer-inner">' +
           '<div class="pf-footer-top">' +
@@ -5077,11 +5083,72 @@
             '</div>' +
           '</div>' +
         '</div>';
-    } else if (footer) {
-      // Full footer exists — just make sure the "PropFuel" wordmark is white
+    } else {
       var logoText = footer.querySelector('.pf-nav-logo-text');
       if (logoText) logoText.style.color = '#fff';
     }
+  }
+
+  function fixTeamMemberTemplate() {
+    if (!/^\/team-members\/[^/]+/.test(window.location.pathname)) return;
+    // Nav centering (same pattern as blog/video/case-study templates)
+    var navInner = document.querySelector('.pf-nav-bar .pf-nav-inner');
+    if (navInner) {
+      navInner.style.maxWidth = '960px';
+      navInner.style.marginLeft = 'auto';
+      navInner.style.marginRight = 'auto';
+    }
+    // Swap the stripped-down footer for the full main-site footer
+    swapStrippedFooter();
+  }
+
+  function wireTeamCardHrefs() {
+    // Only needed if Webflow's native CMS rendering is active (.w-dyn-item present).
+    // Our team.json hydration already generates anchored cards via buildTeamCard.
+    if (window.location.pathname.indexOf('/company/about') === -1) return;
+    var cards = document.querySelectorAll('.pf-team-grid-slot .w-dyn-item');
+    if (!cards.length) return;
+    fetch('https://alexhively.github.io/propfuel-webflow-custom/js/team.json?v=2')
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(data){
+        if (!data || !Array.isArray(data.members)) return;
+        var prefix = data.urlPrefix || '/team-members/';
+        function normName(s){ return String(s || '').toLowerCase().replace(/\s+/g, ' ').trim(); }
+        var bySlug = {};
+        data.members.forEach(function(m){ if (m.name && m.slug) bySlug[normName(m.name)] = m.slug; });
+        cards.forEach(function(card){
+          var a = card.matches && card.matches('a') ? card : card.querySelector('a');
+          if (!a) return;
+          var h = a.getAttribute('href') || '';
+          if (h && h !== '#' && !/\/company\/about\/?$/.test(h)) return;
+          var nameEl = card.querySelector('h1, h2, h3, h4, h5, [class*="name"], [class*="title"]');
+          var name = nameEl ? nameEl.textContent : '';
+          var slug = bySlug[normName(name)];
+          if (slug) a.setAttribute('href', prefix + slug);
+        });
+      })
+      .catch(function(){});
+  }
+
+  function fixCaseStudyTemplate() {
+    if (!/^\/case-studies\/[^/]+/.test(window.location.pathname)) return;
+    // The case study template binds the industry field twice, producing:
+    //   <div class="cs-industry-badge"><div>X</div><div>X</div></div>
+    // Keep the first child and remove the rest.
+    document.querySelectorAll('.cs-industry-badge').forEach(function(badge){
+      var kids = badge.children;
+      while (kids.length > 1) badge.removeChild(kids[kids.length - 1]);
+    });
+    // Nav pill stretches full-bleed because the template puts .pf-nav-inner inside a
+    // wide .w-container wrapper. Force the pill to its normal 960px and center it.
+    var navInner = document.querySelector('.pf-nav-bar .pf-nav-inner');
+    if (navInner) {
+      navInner.style.maxWidth = '960px';
+      navInner.style.marginLeft = 'auto';
+      navInner.style.marginRight = 'auto';
+    }
+    // Swap in the full main-site footer (template ships stripped-down version)
+    swapStrippedFooter();
   }
 
   function fixWebinars() {
@@ -5513,11 +5580,16 @@
       var photoHTML = m.photo
         ? '<img src="' + m.photo + '" alt="' + (m.name || '') + '" style="width:80px;height:80px;border-radius:50%;object-fit:cover;margin:0 auto 14px;display:block;box-shadow:0 2px 8px rgba(0,0,0,0.08)" onerror="this.outerHTML=\'<div style=&quot;width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#F47C2C,#FBC02D);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;margin:0 auto 14px&quot;>' + initials + '</div>\'" />'
         : '<div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#F47C2C,#FBC02D);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;margin:0 auto 14px">' + initials + '</div>';
-      return '<div class="pf-card" style="background:#F6F2E8;border-radius:16px;padding:28px 24px;text-align:center">' +
+      var inner =
         photoHTML +
         '<h4 style="font-size:15px;font-weight:700;color:#2F2F2F;margin-bottom:4px">' + (m.name || '') + '</h4>' +
-        '<p style="font-size:13px;color:#8C8479">' + (m.title || '') + '</p>' +
-      '</div>';
+        '<p style="font-size:13px;color:#8C8479">' + (m.title || '') + '</p>';
+      if (m.slug) {
+        return '<a href="/team-members/' + m.slug + '" class="pf-card" style="background:#F6F2E8;border-radius:16px;padding:28px 24px;text-align:center;display:block;text-decoration:none;color:inherit;transition:transform 0.15s,box-shadow 0.15s">' +
+          inner + '</a>';
+      }
+      return '<div class="pf-card" style="background:#F6F2E8;border-radius:16px;padding:28px 24px;text-align:center">' +
+        inner + '</div>';
     }
 
     function buildTeamFromSnapshot(data) {
@@ -6145,6 +6217,9 @@
     fixBlog();
     fixBlogPostTemplate();
     fixVideoTemplate();
+    fixCaseStudyTemplate();
+    fixTeamMemberTemplate();
+    wireTeamCardHrefs();
     fixWebinars();
     fixGuides();
     fixHelp();

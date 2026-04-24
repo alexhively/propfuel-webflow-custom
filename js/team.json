@@ -1,9 +1,11 @@
 {
   "_comment": "Snapshot of Webflow CMS > Team Members collection (69cd4006b1cfc54db1668b03). Re-run snapshot to refresh.",
   "generatedAt": "2026-04-24",
+  "urlPrefix": "/team-members/",
   "members": [
     {
       "name": "Dave Will",
+      "slug": "dave",
       "title": "Co-Founder, CEO",
       "department": "Leadership",
       "initials": "DW",
@@ -13,6 +15,7 @@
     },
     {
       "name": "Cameron Aubuchon",
+      "slug": "cameron",
       "title": "President, CTO",
       "department": "Leadership",
       "initials": "CA",
@@ -22,6 +25,7 @@
     },
     {
       "name": "Ryan Graham",
+      "slug": "ryan",
       "title": "Chief Revenue Officer",
       "department": "Leadership",
       "initials": "RG",
@@ -31,6 +35,7 @@
     },
     {
       "name": "Ashley Wucher",
+      "slug": "ashley-wucher",
       "title": "Director of Client Success",
       "department": "Client Success",
       "initials": "AW",
@@ -40,6 +45,7 @@
     },
     {
       "name": "Nick Kiesseg",
+      "slug": "nick-kiesseg",
       "title": "Client Success Manager",
       "department": "Client Success",
       "initials": "NK",
@@ -49,6 +55,7 @@
     },
     {
       "name": "Brett Voeltz",
+      "slug": "brett-voeltz",
       "title": "Client Success Manager",
       "department": "Client Success",
       "initials": "BV",
@@ -58,6 +65,7 @@
     },
     {
       "name": "Clara Meek",
+      "slug": "clara-meek",
       "title": "Client Success Manager",
       "department": "Client Success",
       "initials": "CM",
@@ -67,6 +75,7 @@
     },
     {
       "name": "Bruna Letti",
+      "slug": "bruna-letti",
       "title": "Managed Services Coordinator",
       "department": "Client Success",
       "initials": "BL",
@@ -76,6 +85,7 @@
     },
     {
       "name": "Alex Hively",
+      "slug": "alex-hively",
       "title": "Head of Marketing",
       "department": "Marketing",
       "initials": "AH",
@@ -85,6 +95,7 @@
     },
     {
       "name": "Brittany Lancor",
+      "slug": "brittany-lancor",
       "title": "Senior Marketing Manager",
       "department": "Marketing",
       "initials": "BL",
@@ -94,6 +105,7 @@
     },
     {
       "name": "Alejandra Prado",
+      "slug": "alejandra-prado",
       "title": "Marketing Coordinator",
       "department": "Marketing",
       "initials": "AP",
@@ -103,6 +115,7 @@
     },
     {
       "name": "Mike Arisco",
+      "slug": "mike-arisco",
       "title": "Account Executive",
       "department": "Sales",
       "initials": "MA",
@@ -112,6 +125,7 @@
     },
     {
       "name": "Lisa McNeil",
+      "slug": "lisa-mcneil",
       "title": "Sales Development Representative",
       "department": "Sales",
       "initials": "LM",
@@ -121,6 +135,7 @@
     },
     {
       "name": "Sebastian Marulanda",
+      "slug": "sebastian-marulanda",
       "title": "Full-stack Software Engineer",
       "department": "Engineering",
       "initials": "SM",
@@ -130,6 +145,7 @@
     },
     {
       "name": "Allison Lee",
+      "slug": "allison-lee",
       "title": "Product Manager",
       "department": "Engineering",
       "initials": "AL",
