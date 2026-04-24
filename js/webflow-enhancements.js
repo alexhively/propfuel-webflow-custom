@@ -3646,32 +3646,8 @@
       }
     }
 
-    // --- RELATED USE CASES ---
-    if (!document.querySelector('.em-related')) {
-      var relHTML = '<section class="em-related" style="padding:80px 24px;max-width:960px;margin:0 auto">' +
-        '<h2 style="font-size:32px;font-weight:700;color:#2F2F2F;margin-bottom:40px;text-align:center">Related Use Cases</h2>' +
-        '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px">' +
-          '<a href="/use-cases/acquisition" style="text-decoration:none;background:#F6F2E8;border-radius:16px;padding:32px;transition:transform 0.2s ease,box-shadow 0.2s ease">' +
-            '<h3 style="font-size:20px;font-weight:700;color:#2F2F2F;margin-bottom:8px">Member Acquisition</h3>' +
-            '<p style="font-size:15px;color:#6E6E6E;line-height:1.5">Convert prospects into members with personalized email conversations that build trust.</p>' +
-          '</a>' +
-          '<a href="/use-cases/onboarding" style="text-decoration:none;background:#F6F2E8;border-radius:16px;padding:32px;transition:transform 0.2s ease,box-shadow 0.2s ease">' +
-            '<h3 style="font-size:20px;font-weight:700;color:#2F2F2F;margin-bottom:8px">New Member Onboarding</h3>' +
-            '<p style="font-size:15px;color:#6E6E6E;line-height:1.5">Welcome new members with email check-ins that learn what they need from day one.</p>' +
-          '</a>' +
-          '<a href="/use-cases/events" style="text-decoration:none;background:#F6F2E8;border-radius:16px;padding:32px;transition:transform 0.2s ease,box-shadow 0.2s ease">' +
-            '<h3 style="font-size:20px;font-weight:700;color:#2F2F2F;margin-bottom:8px">Event Engagement</h3>' +
-            '<p style="font-size:15px;color:#6E6E6E;line-height:1.5">Drive event attendance and capture feedback with targeted email outreach.</p>' +
-          '</a>' +
-        '</div>' +
-      '</section>';
-      var faqSection = document.querySelector('.em-faq');
-      if (faqSection) {
-        faqSection.insertAdjacentHTML('afterend', relHTML);
-      } else {
-        ctaSection.insertAdjacentHTML('beforebegin', relHTML);
-      }
-    }
+    // Related Use Cases removed per feedback — redundant with global nav
+    document.querySelectorAll('.em-related').forEach(function(n){ n.remove(); });
 
     // ═══════════════════════════════════════
     // SECTION 4: FIX CTA
