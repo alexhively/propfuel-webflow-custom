@@ -392,6 +392,9 @@
            overflows the viewport right. Collapse to 1 col and force sidebar to 100% width on mobile. */
         '.blog-article-grid{grid-template-columns:1fr!important;gap:32px!important}' +
         '.blog-sidebar,.blog-sidebar-card,.blog-sidebar-dark-card{width:100%!important;max-width:100%!important}' +
+        /* /case-studies/* detail template: .cs-stats-row is a 3-col fixed-px grid (~160+129+121) that
+           overflows the 390px viewport. Collapse to single column on mobile. */
+        '.cs-stats-row{grid-template-columns:1fr!important;gap:16px!important}' +
       '}' +
 
       /* ── MOBILE BREAKPOINT (≤480px) ── */
