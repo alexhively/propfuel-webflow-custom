@@ -763,16 +763,22 @@
     // Fix nav link text and add chevrons
     var navLinks = document.querySelectorAll('.pf-nav-links .pf-nav-link');
     var linkMap = {
-      'Platform': { text: 'Platform', chevron: true },
-      'Use Cases': { text: 'Use Cases', chevron: true },
-      'Customers': { text: 'Client Success', chevron: true },
-      'Resources': { text: 'Resources', chevron: true }
+      'Platform':  { text: 'Platform',       chevron: true, href: '/platform/overview' },
+      'Product':   { text: 'Platform',       chevron: true, href: '/platform/overview' }, // alias used on old CMS templates
+      'Use Cases': { text: 'Use Cases',      chevron: true, href: '/use-cases/onboarding' },
+      'Solutions': { text: 'Use Cases',      chevron: true, href: '/use-cases/onboarding' }, // alias
+      'Customers': { text: 'Client Success', chevron: true, href: '/client-success/roi-results' },
+      'Company':   { text: 'Client Success', chevron: true, href: '/client-success/roi-results' }, // alias
+      'Resources': { text: 'Resources',      chevron: true, href: '/resources/blog' }
     };
     navLinks.forEach(function(link) {
       var text = link.textContent.trim();
       var config = linkMap[text];
       if (config) {
-        if (config.text !== text) link.childNodes[0].textContent = config.text;
+        if (config.text !== text) {
+          link.childNodes[0].textContent = config.text;
+          if (config.href) link.setAttribute('href', config.href);
+        }
         if (config.chevron && !link.querySelector('.pf-chevron')) {
           var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
           svg.setAttribute('class', 'pf-chevron');
@@ -4747,6 +4753,29 @@
       .catch(function(){});
   }
 
+  // Blog post detail template (/blog-posts/*) — colleague's Webflow template has
+  // unbound placeholders: breadcrumb says "Article Title", category-badge is empty.
+  function fixBlogPostTemplate() {
+    if (!/^\/blog-posts\//.test(window.location.pathname)) return;
+    // Breadcrumb: replace literal "Article Title" with the real post title
+    var crumbPieces = document.querySelectorAll('.blog-breadcrumb div, .blog-breadcrumb span');
+    var realTitle = (document.querySelector('.blog-article-title, h1') || {}).textContent;
+    crumbPieces.forEach(function(el){
+      var t = (el.textContent || '').trim();
+      if (t === 'Article Title' && realTitle) el.textContent = realTitle;
+    });
+    // Category badge: hide if empty (avoids the orphan orange pill)
+    document.querySelectorAll('.blog-category-badge').forEach(function(el){
+      var txt = (el.textContent || '').trim();
+      if (!txt) el.style.display = 'none';
+    });
+    // Update nav CTA button text on template (button class differs from main site)
+    document.querySelectorAll('.pf-btn-nav, .w-button').forEach(function(btn){
+      var t = (btn.textContent || '').trim();
+      if (t === 'Get a Demo') btn.textContent = 'Get Started';
+    });
+  }
+
   function fixBlog() {
     // Only run on the blog listing page, not individual blog post templates
     if (!/^\/resources\/blog\/?$/.test(window.location.pathname)) return;
@@ -5753,6 +5782,7 @@
     fixCustomers();
     fixImplementation();
     fixBlog();
+    fixBlogPostTemplate();
     fixWebinars();
     fixGuides();
     fixHelp();
