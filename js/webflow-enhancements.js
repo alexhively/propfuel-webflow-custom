@@ -4440,8 +4440,8 @@
     buildUseCasePage({
       path: 'use-cases/acquisition',
       heroLabel: 'Use Case',
-      heroTitle: 'Your next member is already on your website.',
-      heroSub: 'PropFuel turns anonymous visitors into identified prospects \u2014 and nurtures them into members through conversation, not campaigns. 7\u201314\u00d7 more engagement than typical pop-ups.',
+      heroTitle: 'Turn warm prospects into new members.',
+      heroSub: 'Non-members attend your events, subscribe to your newsletter, browse your website, and take your CE courses. PropFuel identifies them and nurtures them into membership \u2014 through conversation, not campaigns.',
       problemLabel: 'The Problem',
       problemH2: 'Your best prospects are already in the room. You just don\u2019t know who they are.',
       problemBody: [
@@ -4464,27 +4464,33 @@
         '</div>' +
       '</div>',
       centerpieceHTML: '<div style="text-align:center;margin-bottom:56px">' +
-        '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">Two Methods</p>' +
-        '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15">Capture and nurture. From visitor to member.</h2>' +
+        '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">Three Paths</p>' +
+        '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15">Every prospect has a starting point. PropFuel meets them there.</h2>' +
       '</div>' +
-      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-bottom:56px">' +
-        '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 32px">' +
-          '<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#F47C2C,#FBC02D);display:flex;align-items:center;justify-content:center;margin-bottom:20px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>' +
-          '<h3 style="font-size:22px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Website Visitor Capture</h3>' +
-          '<p style="font-size:15px;color:#6E6E6E;line-height:1.6;margin-bottom:16px">A conversational widget on your site asks one question \u2014 \u201CWhat brought you here today?\u201D Visitors who respond get a follow-up that matches their interest. Not a pop-up. Not a form. A conversation.</p>' +
-          '<div style="background:#EBE6DA;border-radius:10px;padding:14px 18px;font-size:14px;color:#2F2F2F;font-weight:600">7-14x higher engagement than traditional pop-ups</div>' +
+      '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:56px">' +
+        '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:32px 28px">' +
+          '<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#F47C2C,#FBC02D);display:flex;align-items:center;justify-content:center;margin-bottom:20px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M8 2v4"/><path d="M16 2v4"/><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18"/></svg></div>' +
+          '<h3 style="font-size:20px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Non-Member Event Attendees</h3>' +
+          '<p style="font-size:14px;color:#6E6E6E;line-height:1.6;margin-bottom:16px">Your conferences, webinars, and CE courses fill rooms with future members. PropFuel follows up with check-ins that turn attendance into a joining conversation.</p>' +
+          '<div style="background:#EBE6DA;border-radius:10px;padding:12px 16px;font-size:13px;color:#2F2F2F;font-weight:600">Convert the room you already filled</div>' +
         '</div>' +
-        '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 32px">' +
+        '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:32px 28px">' +
           '<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#FBC02D,#F47C2C);display:flex;align-items:center;justify-content:center;margin-bottom:20px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,6 12,13 2,6"/></svg></div>' +
-          '<h3 style="font-size:22px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Non-Member Nurture</h3>' +
-          '<p style="font-size:15px;color:#6E6E6E;line-height:1.6;margin-bottom:16px">For known non-members \u2014 event attendees, publication subscribers, certification prospects \u2014 PropFuel runs a personalized nurture sequence that builds toward membership.</p>' +
-          '<div style="background:#EBE6DA;border-radius:10px;padding:14px 18px;font-size:14px;color:#2F2F2F;font-weight:600">Conversations, not drip campaigns</div>' +
+          '<h3 style="font-size:20px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Newsletter & Content Subscribers</h3>' +
+          '<p style="font-size:14px;color:#6E6E6E;line-height:1.6;margin-bottom:16px">Non-members already reading your content are warm leads. PropFuel runs personalized check-ins that surface membership as the obvious next step \u2014 on their timeline, not yours.</p>' +
+          '<div style="background:#EBE6DA;border-radius:10px;padding:12px 16px;font-size:13px;color:#2F2F2F;font-weight:600">Conversations, not drip campaigns</div>' +
+        '</div>' +
+        '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:32px 28px">' +
+          '<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#F47C2C,#FBC02D);display:flex;align-items:center;justify-content:center;margin-bottom:20px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>' +
+          '<h3 style="font-size:20px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Anonymous Website Visitors</h3>' +
+          '<p style="font-size:14px;color:#6E6E6E;line-height:1.6;margin-bottom:16px">A single conversational question on your site \u2014 \u201CWhat brought you here today?\u201D \u2014 captures intent from anonymous traffic and turns the warmest visits into identified prospects.</p>' +
+          '<div style="background:#EBE6DA;border-radius:10px;padding:12px 16px;font-size:13px;color:#2F2F2F;font-weight:600">7\u201314\u00d7 more engagement than typical pop-ups</div>' +
         '</div>' +
       '</div>' +
       '<div style="max-width:700px;margin:0 auto">' +
         '<h3 style="font-size:20px;font-weight:700;color:#2F2F2F;text-align:center;margin-bottom:32px">5-Step Nurture Flow</h3>' +
         '<div style="display:flex;flex-direction:column;gap:16px">' +
-          ['1|Capture Interest|Website widget or initial outreach asks what brought them to the association.',
+          ['1|Capture Interest|A check-in at any touchpoint \u2014 event, newsletter, website, or CE course \u2014 asks what brought them to your association.',
            '2|Qualify Intent|Follow-up asks about their role, industry, and what they are looking for.',
            '3|Deliver Value|Share a relevant resource \u2014 event, publication, or community \u2014 based on their answers.',
            '4|Surface Membership|Position membership as the natural next step for what they have already shown interest in.',
@@ -4503,9 +4509,9 @@
       '</div>',
       enginesH2: 'Three engines working together to turn prospects into members.',
       engines: [
-        { name: 'Engagement Engine', desc: 'Captures interest through website widgets and email check-ins \u2014 the first conversation with a future member.' },
-        { name: 'Automation Engine', desc: 'Runs the nurture sequence automatically, branching by interest and qualifying prospects without staff involvement.' },
-        { name: 'Insights Engine', desc: 'Tracks the full acquisition funnel \u2014 from anonymous visitor to qualified prospect to new member \u2014 with attribution data.' }
+        { name: 'Engagement Engine', desc: 'Captures interest through check-ins across email, SMS, and the website \u2014 meeting prospects wherever they already are.' },
+        { name: 'Automation Engine', desc: 'Runs nurture sequences automatically, branching by interest and channel to keep every prospect moving toward membership.' },
+        { name: 'Insights Engine', desc: 'Tracks the full acquisition funnel \u2014 from first touchpoint to new member \u2014 with attribution by channel and campaign.' }
       ],
       statsH2: 'Proof that conversations convert prospects.',
       stats: [
@@ -4516,14 +4522,14 @@
       ],
       faqH2: 'Common questions about acquisition.',
       faqs: [
-        { q: 'How does the website widget work?', a: 'It is a lightweight conversational embed that appears on your site pages. It asks one question \u2014 \u201CWhat brought you here today?\u201D or similar \u2014 and captures the visitor\u2019s email and interest. No login, no form, no friction. Setup takes about 15 minutes.' },
-        { q: 'Is this a chatbot?', a: 'No. It is a single-question engagement widget. There is no AI conversation or back-and-forth chat. The visitor sees one question, taps a response, and provides their email. Everything after that is handled by PropFuel\u2019s automation engine.' },
-        { q: 'How do we nurture non-members who are not ready to join?', a: 'PropFuel runs a personalized drip based on what the prospect told you they are interested in. Someone who said \u201Ccertification\u201D gets different follow-up than someone who said \u201Cnetworking.\u201D The conversation continues until they are ready to convert \u2014 or tell you they are not interested.' },
-        { q: 'Can we track which pages drive the most conversions?', a: 'Yes. The Insights Engine shows which pages, questions, and response options generate the most captures and eventual conversions. This data helps you optimize both your website content and your acquisition messaging.' },
+        { q: 'What channels does PropFuel use to acquire members?', a: 'Wherever non-members show up: your website, your events, your newsletter, your CE courses, and your content library. PropFuel deploys lightweight check-ins to any of those touchpoints and routes the responses into the same nurture engine.' },
+        { q: 'How do you follow up with non-member event attendees?', a: 'After your conference, webinar, or CE course, PropFuel sends attendees a single-question check-in (\u201CWhat was your biggest takeaway?\u201D or similar). Responses kick off a personalized nurture that positions membership as the next step based on what they said.' },
+        { q: 'How does the website widget work?', a: 'A lightweight conversational embed asks one question \u2014 \u201CWhat brought you here today?\u201D or similar \u2014 and captures the visitor\u2019s email and interest. No login, no form, no friction. Setup takes about 15 minutes.' },
+        { q: 'How is this different from an email drip?', a: 'A drip broadcasts the same sequence to everyone. PropFuel starts with a single question, branches based on what the prospect tells you, and keeps the conversation going until they convert or opt out. It reads less like marketing and more like a human follow-up.' },
         { q: 'What if someone is already a member?', a: 'PropFuel cross-references captures against your AMS. Known members are routed to engagement campaigns instead of acquisition flows. No duplicate outreach, no confusion.' }
       ],
-      ctaH2: 'Stop losing prospects<br>you never met.',
-      ctaSub: 'Every day, people visit your website looking for exactly what your association offers \u2014 and leave without you knowing they were there. PropFuel turns that invisible traffic into real conversations and real members.'
+      ctaH2: 'Turn every touchpoint<br>into a member.',
+      ctaSub: 'Every event, every subscriber, every visitor is a potential member. PropFuel makes sure none of them slip away \u2014 and turns the warmest ones into dues-paying members.'
     });
   }
 
