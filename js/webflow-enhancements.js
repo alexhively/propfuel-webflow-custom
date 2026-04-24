@@ -344,6 +344,11 @@
         /* /book-a-demo hero: desktop padding-top of 48px puts the "Request a Demo" label behind the
            floating nav pill (which extends to ~84px on mobile). Push the section down on mobile only. */
         '.pf-demo-hero{padding-top:96px!important}' +
+        /* Mockup-card status pills (.mu-pill): multi-word labels like "Ready to Launch" wrap to 2 lines
+           inside the .mu-hdr flex row on narrow viewports. Force pills to single-line + allow the header
+           to wrap so the pill drops below its label instead of breaking mid-word. Mobile only. */
+        '.mu-pill{white-space:nowrap!important;flex-shrink:0!important}' +
+        '.mu-hdr{flex-wrap:wrap!important;gap:8px!important}' +
       '}' +
 
       /* ── MOBILE BREAKPOINT (≤480px) ── */
