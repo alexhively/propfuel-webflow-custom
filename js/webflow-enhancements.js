@@ -5220,7 +5220,7 @@
       { cat: 'Product', title: 'Introducing Membership AI: Your Always-On Engagement Partner', excerpt: 'Meet the AI that knows your members, builds campaigns, and surfaces insights \u2014 without adding headcount.', author: 'PropFuel Team', date: 'Feb 28, 2026' },
       { cat: 'Data', title: '5 Metrics That Actually Predict Member Retention', excerpt: 'Forget open rates. These are the engagement signals that tell you who is about to leave \u2014 and who is ready to upgrade.', author: 'Emily Nguyen', date: 'Feb 20, 2026' },
       { cat: 'Best Practices', title: 'Your Onboarding Emails Are Failing. Here\'s Why.', excerpt: 'Most associations lose new members in the first 90 days. The fix is simpler than you think: ask them what they need.', author: 'Sarah Mitchell', date: 'Feb 12, 2026' },
-      { cat: 'Case Study', title: 'How AMA Captured 7,400+ Contacts From Their Website', excerpt: 'The American Medical Association turned anonymous website visitors into known, engaged contacts using PropFuel\'s website widget.', author: 'Jake Thompson', date: 'Feb 5, 2026' }
+      { cat: 'Case Study', title: 'How AMA Captured 7,400+ Contacts From Their Website', excerpt: 'The Academy of Model Aeronautics turned anonymous website visitors into known, engaged contacts using PropFuel\'s website widget.', author: 'Jake Thompson', date: 'Feb 5, 2026' }
     ];
 
     var html = '' +
