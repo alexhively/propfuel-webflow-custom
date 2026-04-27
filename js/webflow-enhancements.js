@@ -392,10 +392,19 @@
            the 390px viewport. Collapse to single column so cards stack full-width on mobile. */
         '.blog-collection-wrapper .w-dyn-items{grid-template-columns:1fr!important;display:grid!important;gap:24px!important}' +
         '.blog-card,.blog-card-thumb,.blog-card-thumb-img{width:100%!important;max-width:100%!important}' +
-        /* /blog-posts/* detail page: .blog-article-grid is a 2-col (body + 360px sidebar) grid; sidebar
-           overflows the viewport right. Collapse to 1 col and force sidebar to 100% width on mobile. */
-        '.blog-article-grid{grid-template-columns:1fr!important;gap:32px!important}' +
+        /* /blog-posts/* and /case-studies/* detail pages: .blog-article-grid is a 2-col (body +
+           360px sidebar) grid; sidebar overflows the viewport right. Collapse to 1 col and force
+           sidebar to 100% width on mobile. Also reduce the inline 48px horizontal padding on the
+           grid so the article body isn't squeezed to ~215px on a 390 viewport. */
+        '.blog-article-grid{grid-template-columns:1fr!important;gap:32px!important;padding-left:16px!important;padding-right:16px!important}' +
+        '.blog-article-wrap{padding-left:0!important;padding-right:0!important}' +
         '.blog-sidebar,.blog-sidebar-card,.blog-sidebar-dark-card{width:100%!important;max-width:100%!important}' +
+        /* /case-studies/* "More Client Stories" cards grid was rendering as three fixed-px columns
+           (82px each), squishing each card so card titles wrap word-by-word and industry eyebrows
+           truncate. Stack to single column. */
+        '.cs-more-grid{grid-template-columns:1fr!important;gap:16px!important}' +
+        '.cs-more-section{padding-left:16px!important;padding-right:16px!important}' +
+        '.cs-card{width:100%!important;max-width:100%!important}' +
         /* /case-studies/* detail template: .cs-stats-row is a 3-col fixed-px grid (~160+129+121) that
            overflows the 390px viewport. Collapse to single column on mobile. */
         '.cs-stats-row{grid-template-columns:1fr!important;gap:16px!important}' +
