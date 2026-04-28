@@ -6070,8 +6070,7 @@
       { icon: '\u{1FA7A}', title: 'Health & Wellness', desc: 'Comprehensive medical, dental, and vision coverage for you and your family.' },
       { icon: '\u{1F4BB}', title: 'Equipment Budget', desc: '$1,500 annual stipend to set up your ideal workspace.' },
       { icon: '\u{1F334}', title: 'Unlimited PTO', desc: 'Take the time you need. We trust you to manage your schedule.' },
-      { icon: '\u{1F4DA}', title: 'Learning Budget', desc: '$1,000 annual budget for courses, conferences, and professional development.' },
-      { icon: '\u{1F4C8}', title: 'Equity', desc: 'Stock options so you share in the success you help create.' }
+      { icon: '\u{1F4DA}', title: 'Learning Budget', desc: '$1,000 annual budget for courses, conferences, and professional development.' }
     ];
 
     var html = '' +
