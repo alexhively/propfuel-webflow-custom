@@ -4167,7 +4167,7 @@
     }
     var heroSub = document.querySelector('.pf-page-hero-sub');
     if (heroSub) {
-      heroSub.textContent = 'Meet your new teammate trained on every part of the playbook and your association’s unique context.';
+      heroSub.innerHTML = 'Meet your new teammate trained on every part of the playbook<br>and your association’s unique context.';
     }
 
     // 6. Hero buttons (brand spec)
