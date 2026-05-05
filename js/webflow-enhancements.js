@@ -481,7 +481,7 @@
     '/platform/engagement': { title: 'Member Engagement Engine for Associations | PropFuel', desc: "PropFuel's Engagement Engine delivers one-question conversations via email, website, and SMS \u2014 getting real answers from members with a single tap.", ogImage: '/og-images/platform-engagement.png' },
     '/platform/website': { title: 'Website Personalization for Associations | PropFuel', desc: "PropFuel's website engagement widget asks targeted questions to site visitors, capturing intent and converting anonymous traffic into known member intelligence.", ogImage: '/og-images/platform-website.png' },
     '/integrations': { title: 'AMS & System Integrations for Associations | PropFuel', desc: 'PropFuel integrates with leading AMS platforms including iMIS, Nimble AMS, Fonteva, and Salesforce \u2014 with real-time two-way data sync and write-back.', ogImage: '/og-images/platform-integrations.png' },
-    '/membership-ai': { title: 'Membership AI \u2014 Smart Member Intelligence | PropFuel', desc: "PropFuel's Membership AI uses intelligent agents to surface insights, recommend actions, and build engagement initiatives for association staff automatically.", ogImage: '/og-images/platform-membership-ai.png' },
+    '/membership-ai': { title: 'Membership AI \u2014 Smart Member Intelligence | PropFuel', desc: "PropFuel's Membership AI uses intelligent agents to surface insights, recommend actions, and build engagement initiatives for association staff automatically.", ogImage: 'https://alexhively.github.io/propfuel-webflow-custom/og-images/platform-membership-ai.png' },
     '/use-cases/onboarding': { title: 'Automate New Member Onboarding Journeys | PropFuel', desc: "Turn new member silence into engagement. PropFuel's onboarding automation delivers personalized check-ins that drive 3x engagement in the first 60 days.", ogImage: '/og-images/use-cases-onboarding.png' },
     '/use-cases/renewals': { title: 'Membership Renewal Campaigns & Automation | PropFuel', desc: "Stop sending identical renewal reminders. PropFuel's renewal campaigns adapt to each member's response, recovering $320K+ in at-risk revenue.", ogImage: '/og-images/use-cases-renewals.png' },
     '/use-cases/win-back': { title: 'Win Back Lapsed Members with AI Campaigns | PropFuel', desc: "Re-engage lapsed members with conversations, not campaigns. PropFuel's win-back automation brings 80% back within 90 days.", ogImage: '/og-images/use-cases-win-back.png' },
@@ -524,7 +524,9 @@
     'platform-sms.png': '69ebb0b81c05c0474ef86355_platform-sms.png',
     'platform-website.png': '69ebb0b869a8d17afbfb9f7c_platform-website.png',
     'platform-integrations.png': '69ebb0b808aa0608d8bd8f09_platform-integrations.png',
-    'platform-membership-ai.png': '69ebb0b8fd7426ad0c062a4c_platform-membership-ai.png',
+    // 'platform-membership-ai.png' intentionally omitted — the new gradient OG image
+    // is hosted on GitHub Pages (see /membership-ai entry in OG_DATA) so the full
+    // HTTPS URL fall-through is used instead of the legacy Webflow CDN asset.
     'use-cases-onboarding.png': '69ebb0b808aa0608d8bd8f25_use-cases-onboarding.png',
     'use-cases-renewals.png': '69ebb0b8ea20b3efba5534b5_use-cases-renewals.png',
     'use-cases-win-back.png': '69ebb0b8308e9b8afc0577ae_use-cases-win-back.png',
