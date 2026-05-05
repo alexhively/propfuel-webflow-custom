@@ -4063,11 +4063,11 @@
         '.maif-v2-hero-accent{background:linear-gradient(135deg,#7AA8C9 0%,#4A7FA5 35%,#35607E 70%,#1F3A51 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}' +
         // Video
         '.maif-v2 .mai-video-wrap{max-width:1100px;margin:0 auto;padding:24px 24px 96px}' +
-        '.maif-v2 .mai-video{position:relative;width:100%;border-radius:24px;overflow:hidden;box-shadow:0 24px 80px rgba(31,58,81,0.25),0 8px 24px rgba(31,58,81,0.15);background:#1F3A51}' +
+        '.maif-v2 .mai-video{position:relative;width:100%;border-radius:24px;overflow:hidden;box-shadow:0 24px 80px rgba(31,58,81,0.25),0 8px 24px rgba(31,58,81,0.15);background:#F4F1EA}' +
         '.maif-v2 .mai-video wistia-player{display:block;width:100%}' +
-        // Wistia swatch placeholder — shows blurred poster frame until custom element registers,
-        // preventing unstyled-element flash and border artifacts during initial load.
-        'wistia-player[media-id="vpndoabz9k"]:not(:defined){background:center / contain no-repeat url("https://fast.wistia.com/embed/medias/vpndoabz9k/swatch");display:block;filter:blur(5px);padding-top:56.25%}' +
+        // Wistia swatch placeholder — uses cover (not contain) so the poster frame fills the
+        // 16:9 box without letterboxing bars while the custom element registers.
+        'wistia-player[media-id="vpndoabz9k"]:not(:defined){background:center / cover no-repeat url("https://fast.wistia.com/embed/medias/vpndoabz9k/swatch");display:block;filter:blur(5px);padding-top:56.25%}' +
         // Testimonial
         '.maif-v2 .mai-quote{text-align:center}' +
         '.maif-v2 .mai-quote .mark{font-size:120px;font-weight:800;color:rgba(249,168,37,0.20);line-height:1;margin-bottom:-12px;font-family:Georgia,serif}' +
