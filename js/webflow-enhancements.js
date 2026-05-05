@@ -4061,13 +4061,18 @@
         '.maif-v2 .btn.btn-secondary:active{box-shadow:0 2px 8px rgba(244,124,44,0.10)}' +
         // Hero accent (gradient on "Membership AI" word in H1)
         '.maif-v2-hero-accent{background:linear-gradient(135deg,#7AA8C9 0%,#4A7FA5 35%,#35607E 70%,#1F3A51 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}' +
-        // Video
+        // Video — facade pattern: clean poster + play button on initial load,
+        // swap to <wistia-player> only on click. Eliminates custom-element flash.
         '.maif-v2 .mai-video-wrap{max-width:1100px;margin:0 auto;padding:24px 24px 96px}' +
-        '.maif-v2 .mai-video{position:relative;width:100%;border-radius:24px;overflow:hidden;box-shadow:0 24px 80px rgba(31,58,81,0.25),0 8px 24px rgba(31,58,81,0.15);background:#F4F1EA}' +
-        '.maif-v2 .mai-video wistia-player{display:block;width:100%}' +
-        // Wistia swatch placeholder — uses cover (not contain) so the poster frame fills the
-        // 16:9 box without letterboxing bars while the custom element registers.
-        'wistia-player[media-id="vpndoabz9k"]:not(:defined){background:center / cover no-repeat url("https://fast.wistia.com/embed/medias/vpndoabz9k/swatch");display:block;filter:blur(5px);padding-top:56.25%}' +
+        '.maif-v2 .mai-video{position:relative;width:100%;aspect-ratio:16 / 9;border-radius:24px;overflow:hidden;box-shadow:0 24px 80px rgba(31,58,81,0.25),0 8px 24px rgba(31,58,81,0.15);background:#1F3A51}' +
+        '.maif-v2 .mai-video-poster-btn{position:absolute;inset:0;width:100%;height:100%;border:0;padding:0;margin:0;cursor:pointer;display:block;background:#1F3A51;-webkit-appearance:none;appearance:none;font:inherit}' +
+        '.maif-v2 .mai-video-poster-btn img{display:block;width:100%;height:100%;object-fit:cover;user-select:none;-webkit-user-drag:none}' +
+        '.maif-v2 .mai-video-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;transition:transform 200ms ease}' +
+        '.maif-v2 .mai-video-poster-btn:hover .mai-video-play,.maif-v2 .mai-video-poster-btn:focus-visible .mai-video-play{transform:scale(1.06)}' +
+        '.maif-v2 .mai-video-poster-btn:focus-visible{outline:3px solid #4A7FA5;outline-offset:3px}' +
+        '.maif-v2 .mai-video wistia-player{position:absolute;inset:0;display:block;width:100%;height:100%}' +
+        // Fallback for browsers without aspect-ratio support
+        '@supports not (aspect-ratio:1/1){.maif-v2 .mai-video{height:0;padding-top:56.25%}}' +
         // Testimonial
         '.maif-v2 .mai-quote{text-align:center}' +
         '.maif-v2 .mai-quote .mark{font-size:120px;font-weight:800;color:rgba(249,168,37,0.20);line-height:1;margin-bottom:-12px;font-family:Georgia,serif}' +
@@ -4129,20 +4134,8 @@
     // 2. Tag body so scoped styles apply
     document.body.classList.add('maif-v2');
 
-    // 3. Inject Wistia player loader once
-    if (!document.querySelector('script[data-maif-wistia]')) {
-      var wp = document.createElement('script');
-      wp.src = 'https://fast.wistia.com/player.js';
-      wp.async = true;
-      wp.setAttribute('data-maif-wistia', '1');
-      document.head.appendChild(wp);
-      var wm = document.createElement('script');
-      wm.src = 'https://fast.wistia.com/embed/vpndoabz9k.js';
-      wm.async = true;
-      wm.type = 'module';
-      wm.setAttribute('data-maif-wistia', '1');
-      document.head.appendChild(wm);
-    }
+    // 3. (Wistia scripts intentionally NOT loaded upfront — see step 11 below
+    //     for the facade pattern that loads them lazily on viewport approach + click.)
 
     // 4. Hero label (eyebrow pill — same blue style as production)
     var heroLabel = document.querySelector('.pf-page-hero-label');
@@ -4198,7 +4191,17 @@
       var sectionsHTML =
         '<div id="maif-v2-marker" style="display:none"></div>' +
         // Video
-        '<div class="mai-video-wrap"><div class="mai-video"><wistia-player media-id="vpndoabz9k" aspect="1.7777777777777777"></wistia-player></div></div>' +
+        '<div class="mai-video-wrap"><div class="mai-video">' +
+          '<button type="button" class="mai-video-poster-btn" aria-label="Play video">' +
+            '<img src="https://fast.wistia.com/embed/medias/vpndoabz9k/swatch" alt="" loading="lazy" decoding="async" />' +
+            '<span class="mai-video-play" aria-hidden="true">' +
+              '<svg viewBox="0 0 80 80" width="84" height="84" xmlns="http://www.w3.org/2000/svg">' +
+                '<circle cx="40" cy="40" r="40" fill="rgba(255,255,255,0.96)"/>' +
+                '<path d="M32 26 L32 54 L56 40 Z" fill="#1F3A51"/>' +
+              '</svg>' +
+            '</span>' +
+          '</button>' +
+        '</div></div>' +
         // Testimonial (light)
         '<section class="section warm mai-quote"><div class="container narrow"><div class="mark">“</div><blockquote>You just gave us another staff member.</blockquote><cite>Bryan Soady — Executive Director &amp; CEO, SUAA</cite></div></section>' +
         // Why MAI (dark, orange-gradient arrow + steel-blue glow on solution)
@@ -4299,6 +4302,57 @@
         }
       }
     });
+
+    // 11. Wistia video facade — load scripts lazily, swap player on click.
+    //     Page lands with a static poster image (zero custom-element flash, zero
+    //     letterbox bands). Scripts preload when the video nears the viewport so
+    //     click-to-play feels instant. Replacing the button with <wistia-player>
+    //     happens inside the same .mai-video container so border-radius/shadow
+    //     persist seamlessly.
+    var posterBtn = document.querySelector('.maif-v2 .mai-video-poster-btn');
+    if (posterBtn) {
+      var wistiaRequested = false;
+      function loadWistiaScripts() {
+        if (wistiaRequested) return;
+        wistiaRequested = true;
+        if (!document.querySelector('script[data-maif-wistia="player"]')) {
+          var s1 = document.createElement('script');
+          s1.src = 'https://fast.wistia.com/player.js';
+          s1.async = true;
+          s1.setAttribute('data-maif-wistia', 'player');
+          document.head.appendChild(s1);
+        }
+        if (!document.querySelector('script[data-maif-wistia="media"]')) {
+          var s2 = document.createElement('script');
+          s2.src = 'https://fast.wistia.com/embed/vpndoabz9k.js';
+          s2.async = true;
+          s2.type = 'module';
+          s2.setAttribute('data-maif-wistia', 'media');
+          document.head.appendChild(s2);
+        }
+      }
+      // Preload when section nears viewport so click → play is near-instant
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function(entries) {
+          for (var i = 0; i < entries.length; i++) {
+            if (entries[i].isIntersecting) { loadWistiaScripts(); io.disconnect(); break; }
+          }
+        }, { rootMargin: '600px 0px' });
+        io.observe(posterBtn);
+      } else {
+        loadWistiaScripts();
+      }
+      // Click swaps the poster for the real player and autoplays
+      posterBtn.addEventListener('click', function() {
+        loadWistiaScripts();
+        var player = document.createElement('wistia-player');
+        player.setAttribute('media-id', 'vpndoabz9k');
+        player.setAttribute('aspect', '1.7777777777777777');
+        player.setAttribute('autoplay', 'true');
+        var parent = posterBtn.parentNode;
+        if (parent) parent.replaceChild(player, posterBtn);
+      });
+    }
   }
 
   // ─────────────────────────────────────────
