@@ -4358,11 +4358,10 @@
   // ─────────────────────────────────────────
   function fixMembershipAIPage() {
     if (window.location.pathname.indexOf('membership-ai') === -1) return;
-    // STAGING (webflow.io): render the new design via renderMembershipAIPageStaging() and bail.
-    // Production code path below is preserved untouched.
-    if (location.hostname.indexOf('webflow.io') !== -1) {
-      return renderMembershipAIPageStaging();
-    }
+    // PROD + STAGING: render the new Membership AI design (formerly the staging-only path).
+    // The legacy code below is now unreachable but is left in place as a safe rollback target —
+    // restore the previous hostname gate to fall back if anything goes wrong on production.
+    return renderMembershipAIPageStaging();
 
     // Fix hero label — blue steel styling
     var heroLabel = document.querySelector('.pf-page-hero-label');
