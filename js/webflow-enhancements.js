@@ -4027,8 +4027,285 @@
 
 
   // ─────────────────────────────────────────
+  // STAGING-ONLY (webflow.io): renders the new Membership AI page design
+  // (qa/maif-page-preview.html). Production keeps the existing fixMembershipAIPage()
+  // implementation untouched until this is promoted.
+  // ─────────────────────────────────────────
+  function renderMembershipAIPageStaging() {
+    // 1. Inject scoped styles once
+    if (!document.getElementById('maif-v2-styles')) {
+      var styleEl = document.createElement('style');
+      styleEl.id = 'maif-v2-styles';
+      styleEl.textContent = (
+        // Section utilities
+        '.maif-v2 .section{padding:96px 32px}' +
+        '.maif-v2 .section.dark{background:#1A1713;color:#EDE8DF}' +
+        '.maif-v2 .section.warm{background:#EBE6DA}' +
+        '.maif-v2 .container{max-width:1200px;margin:0 auto}' +
+        '.maif-v2 .container.narrow{max-width:820px}' +
+        '.maif-v2 .container.medium{max-width:1000px}' +
+        '.maif-v2 .eyebrow{font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#4A7FA5;margin-bottom:16px}' +
+        '.maif-v2 .section.dark .eyebrow{color:#D0DFEA}' +
+        '.maif-v2 .h2{font-size:clamp(28px,4vw,40px);font-weight:700;letter-spacing:-0.02em;line-height:1.15;color:#2F2F2F}' +
+        '.maif-v2 .section.dark .h2{color:#EDE8DF}' +
+        // Brand-spec buttons (.btn.btn-* selectors bump specificity past the bundle\'s a:link reset)
+        '.maif-v2 .btn{display:inline-flex;align-items:center;gap:8px;font-family:\'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;cursor:pointer;letter-spacing:0.01em}' +
+        '.maif-v2 .btn.btn-primary{position:relative;overflow:hidden;isolation:isolate;padding:14px 36px;font:600 15px/1 \'DM Sans\',sans-serif;background:#FBC02D;color:#FFFFFF;border:1.5px solid transparent;box-shadow:0 4px 16px rgba(240,90,40,0.20);transition:color .3s ease,border-color .3s ease,box-shadow .3s ease}' +
+        '.maif-v2 .btn.btn-primary::after{content:\'\';position:absolute;inset:0;background:linear-gradient(to right,#F47C2C,#FBC02D);transition:opacity .35s ease;z-index:-1}' +
+        '.maif-v2 .btn.btn-primary svg{stroke:currentColor;transition:stroke .3s ease}' +
+        '.maif-v2 .btn.btn-primary:hover{color:#1A1714;border-color:#1A1714;box-shadow:0 4px 20px rgba(251,192,45,0.30)}' +
+        '.maif-v2 .btn.btn-primary:hover::after{opacity:0}' +
+        '.maif-v2 .btn.btn-primary:active{box-shadow:0 2px 10px rgba(251,192,45,0.20)}' +
+        '.maif-v2 .btn.btn-secondary{padding:13px 35px;font:600 15px/1 \'DM Sans\',sans-serif;background:transparent;color:#F47C2C;border:1.5px solid rgba(244,124,44,0.60);box-shadow:0 2px 8px rgba(244,124,44,0.06);transition:border-color .2s ease,box-shadow .2s ease,color .2s ease}' +
+        '.maif-v2 .btn.btn-secondary:hover{border-color:#F47C2C;box-shadow:0 4px 16px rgba(244,124,44,0.15)}' +
+        '.maif-v2 .btn.btn-secondary:active{box-shadow:0 2px 8px rgba(244,124,44,0.10)}' +
+        // Hero accent (gradient on "Membership AI" word in H1)
+        '.maif-v2-hero-accent{background:linear-gradient(135deg,#7AA8C9 0%,#4A7FA5 35%,#35607E 70%,#1F3A51 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}' +
+        // Video
+        '.maif-v2 .mai-video-wrap{max-width:1100px;margin:0 auto;padding:24px 24px 96px}' +
+        '.maif-v2 .mai-video{position:relative;width:100%;border-radius:24px;overflow:hidden;box-shadow:0 24px 80px rgba(31,58,81,0.25),0 8px 24px rgba(31,58,81,0.15);background:#1F3A51}' +
+        '.maif-v2 .mai-video wistia-player{display:block;width:100%}' +
+        // Testimonial
+        '.maif-v2 .mai-quote{text-align:center}' +
+        '.maif-v2 .mai-quote .mark{font-size:120px;font-weight:800;color:rgba(249,168,37,0.20);line-height:1;margin-bottom:-12px;font-family:Georgia,serif}' +
+        '.maif-v2 .mai-quote blockquote{font-size:clamp(22px,2.2vw,28px);font-weight:500;color:#2F2F2F;line-height:1.4;letter-spacing:-0.005em;margin:0 0 24px;max-width:760px;margin-left:auto;margin-right:auto}' +
+        '.maif-v2 .mai-quote cite{font-size:14px;font-weight:600;color:#6E6E6E;font-style:normal;letter-spacing:0;text-transform:none}' +
+        '.maif-v2 .section.warm.mai-quote{padding:96px 32px}' +
+        // Why
+        '.maif-v2 .mai-why{text-align:center}' +
+        '.maif-v2 .mai-why .pill{display:inline-flex;align-items:center;padding:10px 22px;border-radius:100px;background:rgba(208,223,234,0.08);border:1px solid rgba(208,223,234,0.25);font-size:13px;font-weight:600;color:#D0DFEA;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:80px}' +
+        '.maif-v2 .mai-why .why-line{font-size:clamp(32px,3.6vw,52px);font-weight:600;line-height:1.25;letter-spacing:-0.02em;color:#EDE8DF;max-width:1080px;margin:0 auto}' +
+        '.maif-v2 .mai-why .why-line.is-solution{text-shadow:0 0 28px rgba(122,168,201,0.40),0 0 80px rgba(74,127,165,0.25),0 0 140px rgba(74,127,165,0.18)}' +
+        '.maif-v2 .mai-why .why-arrow{display:flex;justify-content:center;align-items:center;margin:64px auto;filter:drop-shadow(0 6px 18px rgba(244,124,44,0.30))}' +
+        '.maif-v2 .mai-why .why-arrow svg{width:56px;height:56px;display:block}' +
+        '.maif-v2 .section.dark.mai-why{padding:128px 32px}' +
+        '@media (prefers-reduced-motion:no-preference){.maif-v2 .mai-why .why-arrow svg{animation:maif-v2-why-bob 2.4s ease-in-out infinite}@keyframes maif-v2-why-bob{0%,100%{transform:translateY(-4px)}50%{transform:translateY(4px)}}}' +
+        // Paper grain (T1)
+        '.maif-v2 .paper-grain{position:relative}' +
+        '.maif-v2 .paper-grain::before{content:\'\';position:absolute;inset:0;pointer-events:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'320\' height=\'320\'><filter id=\'n\'><feTurbulence type=\'fractalNoise\' baseFrequency=\'0.85\' numOctaves=\'2\' stitchTiles=\'stitch\' seed=\'3\'/><feColorMatrix values=\'0 0 0 0 0.18  0 0 0 0 0.16  0 0 0 0 0.13  0 0 0 0.55 0\'/></filter><rect width=\'100%\' height=\'100%\' filter=\'url(%23n)\'/></svg>");background-size:320px 320px;mix-blend-mode:multiply;opacity:0.35;z-index:0}' +
+        '.maif-v2 .paper-grain > *{position:relative;z-index:1}' +
+        // Texture overlay on features section
+        '.maif-v2 .membership-ai-features{position:relative}' +
+        '.maif-v2 .membership-ai-features::before{content:\'\';position:absolute;inset:0;pointer-events:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'320\' height=\'320\'><filter id=\'n\'><feTurbulence type=\'fractalNoise\' baseFrequency=\'0.85\' numOctaves=\'2\' stitchTiles=\'stitch\' seed=\'3\'/><feColorMatrix values=\'0 0 0 0 0.18  0 0 0 0 0.16  0 0 0 0 0.13  0 0 0 0.55 0\'/></filter><rect width=\'100%\' height=\'100%\' filter=\'url(%23n)\'/></svg>");background-size:320px 320px;mix-blend-mode:multiply;opacity:0.35;z-index:0}' +
+        '.maif-v2 .membership-ai-features > *{position:relative;z-index:1}' +
+        // What is MAI funnel
+        '.maif-v2 .mai-what{text-align:center}' +
+        '.maif-v2 .mai-what .pill{display:inline-flex;align-items:center;padding:10px 22px;border-radius:100px;background:rgba(74,127,165,0.08);border:1px solid rgba(74,127,165,0.35);font-size:13px;font-weight:600;color:#4A7FA5;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:64px}' +
+        '.maif-v2 .funnel{max-width:880px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto 96px auto;column-gap:48px;align-items:center;justify-items:stretch;position:relative}' +
+        '.maif-v2 .funnel-card{background:#F6F2E8;border:1px solid #E3DDD2;border-radius:20px;padding:32px 28px;font-size:clamp(16px,1.2vw,18px);font-weight:600;color:#2F2F2F;line-height:1.4;text-align:center;box-shadow:0 8px 28px rgba(120,110,95,0.08);min-height:108px;display:flex;align-items:center;justify-content:center}' +
+        '.maif-v2 .funnel-card-left{grid-column:1;grid-row:1}' +
+        '.maif-v2 .funnel-card-right{grid-column:2;grid-row:1}' +
+        '.maif-v2 .funnel-connector{grid-column:1 / 3;grid-row:2;width:100%;height:100%;display:block}' +
+        '.maif-v2 .funnel-result{grid-column:1 / 3;grid-row:3;justify-self:center;background:rgba(74,127,165,0.06);border:1.5px solid rgba(74,127,165,0.45);border-radius:20px;padding:28px 56px;box-shadow:0 12px 36px rgba(74,127,165,0.12);min-width:340px;text-align:center}' +
+        '.maif-v2 .funnel-result span{font-size:clamp(28px,3vw,40px);font-weight:700;letter-spacing:-0.02em;line-height:1.1;background:linear-gradient(135deg,#7AA8C9 0%,#4A7FA5 35%,#35607E 70%,#1F3A51 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;display:inline-block}' +
+        '.maif-v2 .section.warm.mai-what{padding:96px 32px 112px}' +
+        '@media (max-width:700px){.maif-v2 .funnel{grid-template-columns:1fr;grid-template-rows:auto 56px auto 56px auto;column-gap:0;row-gap:0;max-width:420px}.maif-v2 .funnel-card-left{grid-column:1;grid-row:1}.maif-v2 .funnel-card-right{grid-column:1;grid-row:3}.maif-v2 .funnel-connector{grid-column:1;grid-row:2}.maif-v2 .funnel-connector.connector-2{grid-column:1;grid-row:4;display:block}.maif-v2 .funnel-result{grid-column:1;grid-row:5;min-width:0;width:100%}.maif-v2 .funnel-connector svg.desktop-only{display:none}.maif-v2 .funnel-connector svg.mobile-only{display:block;margin:0 auto}}' +
+        '@media (min-width:701px){.maif-v2 .funnel-connector.connector-2{display:none}.maif-v2 .funnel-connector svg.mobile-only{display:none}}' +
+        // Stats
+        '.maif-v2 .mai-stats h2{text-align:center;margin-bottom:48px}' +
+        '.maif-v2 .mai-stats .stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:48px;text-align:center}' +
+        '.maif-v2 .mai-stats .stat .num{font-size:clamp(48px,6vw,84px);font-weight:800;letter-spacing:-0.03em;line-height:1;background:linear-gradient(180deg,#F47C2C,#FBC02D);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;display:inline-block}' +
+        '.maif-v2 .mai-stats .stat .desc{font-size:16px;color:#8C8479;margin-top:18px;line-height:1.55;max-width:320px;margin-left:auto;margin-right:auto}' +
+        // FAQ
+        '.maif-v2 .mai-faq h2{text-align:center;margin-bottom:8px}' +
+        '.maif-v2 .mai-faq .eyebrow{text-align:center;display:block}' +
+        '.maif-v2 .mai-faq .list{margin-top:48px;border-top:1px solid #E3DDD2}' +
+        '.maif-v2 .mai-faq details{border-bottom:1px solid #E3DDD2;padding:20px 0}' +
+        '.maif-v2 .mai-faq summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:24px;font-size:17px;font-weight:700;color:#2F2F2F;padding:0;transition:color .2s ease}' +
+        '.maif-v2 .mai-faq summary::-webkit-details-marker{display:none}' +
+        '.maif-v2 .mai-faq summary::after{content:"+";font-weight:400;font-size:24px;color:#6E6E6E;transition:transform .2s ease;flex-shrink:0}' +
+        '.maif-v2 .mai-faq details[open] summary::after{content:"–"}' +
+        '.maif-v2 .mai-faq summary:hover{color:#F47C2C}' +
+        '.maif-v2 .mai-faq .answer{padding-top:14px;font-size:15px;color:#6E6E6E;line-height:1.65}' +
+        // Mobile responsive
+        '@media (max-width:600px){.maif-v2 .mai-stats .stats-grid{grid-template-columns:1fr}.maif-v2 .section{padding:64px 20px}.maif-v2 .mai-video-wrap{padding:0 20px 64px}.maif-v2 .mai-video{border-radius:18px}}'
+      );
+      document.head.appendChild(styleEl);
+    }
+
+    // 2. Tag body so scoped styles apply
+    document.body.classList.add('maif-v2');
+
+    // 3. Inject Wistia player loader once
+    if (!document.querySelector('script[data-maif-wistia]')) {
+      var wp = document.createElement('script');
+      wp.src = 'https://fast.wistia.com/player.js';
+      wp.async = true;
+      wp.setAttribute('data-maif-wistia', '1');
+      document.head.appendChild(wp);
+      var wm = document.createElement('script');
+      wm.src = 'https://fast.wistia.com/embed/vpndoabz9k.js';
+      wm.async = true;
+      wm.type = 'module';
+      wm.setAttribute('data-maif-wistia', '1');
+      document.head.appendChild(wm);
+    }
+
+    // 4. Hero label (eyebrow pill — same blue style as production)
+    var heroLabel = document.querySelector('.pf-page-hero-label');
+    if (heroLabel) {
+      heroLabel.textContent = 'Membership AI';
+      heroLabel.style.cssText = 'display:inline-flex;align-items:center;padding:10px 22px;border-radius:100px;background:rgba(74,127,165,0.08);border:1px solid rgba(74,127,165,0.35);font-size:13px;font-weight:600;color:#4A7FA5;letter-spacing:0.08em;margin-bottom:48px;box-shadow:0 2px 8px rgba(74,127,165,0.06);text-transform:uppercase';
+    } else {
+      var heroTitle0 = document.querySelector('.pf-page-hero-title');
+      if (heroTitle0) {
+        var parent0 = heroTitle0.parentElement;
+        if (!parent0.querySelector('.pf-hero-label-injected')) {
+          var label = document.createElement('p');
+          label.className = 'pf-hero-label-injected fade-up';
+          label.style.cssText = 'display:inline-flex;align-items:center;padding:10px 22px;border-radius:100px;background:rgba(74,127,165,0.08);border:1px solid rgba(74,127,165,0.35);font-size:13px;font-weight:600;color:#4A7FA5;letter-spacing:0.08em;margin-bottom:48px;box-shadow:0 2px 8px rgba(74,127,165,0.06);text-transform:uppercase';
+          label.textContent = 'Membership AI';
+          parent0.insertBefore(label, heroTitle0);
+        }
+      }
+    }
+
+    // 5. Hero H1 + sub
+    var heroHeading = document.querySelector('.pf-page-hero-title');
+    if (heroHeading) {
+      heroHeading.innerHTML = '<span class="maif-v2-hero-accent">Membership AI</span>, for the ones who do the job of many.';
+    }
+    var heroSub = document.querySelector('.pf-page-hero-sub');
+    if (heroSub) {
+      heroSub.textContent = 'Meet your new teammate trained on every part of the playbook and your association’s unique context.';
+    }
+
+    // 6. Hero buttons (brand spec)
+    if (heroHeading) {
+      var heroParent = heroHeading.parentElement;
+      if (!heroParent.querySelector('.pf-hero-btns-injected')) {
+        var btnWrap = document.createElement('div');
+        btnWrap.className = 'pf-hero-btns-injected fade-up';
+        btnWrap.style.cssText = 'display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:40px';
+        btnWrap.innerHTML =
+          '<a href="/book-a-demo" class="btn btn-primary">Meet Your AI Membership Team <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>' +
+          '<a href="/book-a-demo" class="btn btn-secondary">Get Started</a>';
+        var sub = heroParent.querySelector('.pf-page-hero-sub');
+        if (sub) { sub.parentNode.insertBefore(btnWrap, sub.nextSibling); }
+        else { heroParent.appendChild(btnWrap); }
+      }
+    }
+
+    // 7. Find CTA section anchor (sections inserted before it)
+    var ctaSection = document.querySelector('.pf-cta-section, [class*="cta-section"]');
+    if (!ctaSection) return;
+
+    // 8. Inject all sections in one go (preserves order)
+    if (!document.getElementById('maif-v2-marker')) {
+      var sectionsHTML =
+        '<div id="maif-v2-marker" style="display:none"></div>' +
+        // Video
+        '<div class="mai-video-wrap"><div class="mai-video"><wistia-player media-id="vpndoabz9k" aspect="1.7777777777777777"></wistia-player></div></div>' +
+        // Testimonial (light)
+        '<section class="section warm mai-quote"><div class="container narrow"><div class="mark">“</div><blockquote>You just gave us another staff member.</blockquote><cite>Bryan Soady — Executive Director &amp; CEO, SUAA</cite></div></section>' +
+        // Why MAI (dark, orange-gradient arrow + steel-blue glow on solution)
+        '<section class="section dark mai-why"><div class="container">' +
+          '<span class="pill">Why Membership AI</span>' +
+          '<p class="why-line">Associations and membership teams are far too often understaffed and underresourced.</p>' +
+          '<div class="why-arrow" aria-hidden="true">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+              '<defs><linearGradient id="maif-v2-arrow-grad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#F47C2C"/><stop offset="100%" stop-color="#FBC02D"/></linearGradient></defs>' +
+              '<line x1="12" y1="5" x2="12" y2="19" stroke="url(#maif-v2-arrow-grad)"/>' +
+              '<polyline points="6 13 12 19 18 13" stroke="url(#maif-v2-arrow-grad)"/>' +
+            '</svg>' +
+          '</div>' +
+          '<p class="why-line is-solution">AI has the power to give them the bandwidth to completely reinvigorate the industry.</p>' +
+        '</div></section>' +
+        // What is MAI (funnel/Y, paper grain)
+        '<section class="section warm mai-what paper-grain"><div class="container">' +
+          '<span class="pill">What is Membership AI</span>' +
+          '<div class="funnel" role="img" aria-label="Membership AI sits at the convergence of what membership teams need most and what AI does best.">' +
+            '<div class="funnel-card funnel-card-left">What membership teams need most</div>' +
+            '<div class="funnel-card funnel-card-right">What AI does best</div>' +
+            '<div class="funnel-connector">' +
+              '<svg class="desktop-only" viewBox="0 0 600 96" preserveAspectRatio="none" width="100%" height="100%" aria-hidden="true">' +
+                '<line x1="170" y1="4" x2="285" y2="92" stroke="rgba(74,127,165,0.45)" stroke-width="1.25" stroke-linecap="round"/>' +
+                '<line x1="430" y1="4" x2="315" y2="92" stroke="rgba(74,127,165,0.45)" stroke-width="1.25" stroke-linecap="round"/>' +
+              '</svg>' +
+              '<svg class="mobile-only" viewBox="0 0 24 56" width="24" height="56" aria-hidden="true">' +
+                '<line x1="12" y1="4" x2="12" y2="52" stroke="rgba(74,127,165,0.45)" stroke-width="1.25" stroke-linecap="round"/>' +
+              '</svg>' +
+            '</div>' +
+            '<div class="funnel-connector connector-2">' +
+              '<svg class="mobile-only" viewBox="0 0 24 56" width="24" height="56" aria-hidden="true">' +
+                '<line x1="12" y1="4" x2="12" y2="52" stroke="rgba(74,127,165,0.45)" stroke-width="1.25" stroke-linecap="round"/>' +
+              '</svg>' +
+            '</div>' +
+            '<div class="funnel-result"><span>Membership&nbsp;AI</span></div>' +
+          '</div>' +
+        '</div></section>' +
+        // Features mount (rendered by renderMembershipAIFeatures)
+        '<section id="maif-v2-features-mount" class="membership-ai-features"></section>' +
+        // Stats (3-stat orange-yellow gradient)
+        '<section class="section dark mai-stats">' +
+          '<div class="container medium" style="text-align:center"><p class="eyebrow">Results</p><h2 class="h2">The numbers — even before the full AI layer.</h2></div>' +
+          '<div class="container medium" style="margin-top:48px"><div class="stats-grid">' +
+            '<div class="stat"><div class="num">8.68%</div><div class="desc">Average first-year revenue growth</div></div>' +
+            '<div class="stat"><div class="num">$100M+</div><div class="desc">Revenue growth across clients</div></div>' +
+            '<div class="stat"><div class="num">72%</div><div class="desc">Of declining orgs reversed course</div></div>' +
+          '</div></div>' +
+        '</section>' +
+        // FAQ
+        '<section class="section mai-faq">' +
+          '<div class="container narrow">' +
+            '<p class="eyebrow">FAQ</p>' +
+            '<h2 class="h2">Common questions about Membership AI.</h2>' +
+            '<div class="list">' +
+              '<details><summary>Most churn is decided in the first 30 days. Can Membership AI actually move that needle?</summary><p class="answer">Yes — that’s exactly where it shines. Engagement patterns in a member’s first month predict retention better than any other window. Membership AI watches every signal from sign-up forward — what they opened, what they ignored, where they got stuck — and surfaces at-risk members weeks before they show up in your churn report. By the time someone is “at-risk” in a spreadsheet, it’s already late. We flag them while there’s still time to re-engage.</p></details>' +
+              '<details><summary>We don’t have a data analyst. Can our membership director actually use this?</summary><p class="answer">That’s exactly who it’s built for. There’s no SQL, no dashboard authoring, no analyst required. You describe what you want in plain English — “members who attended last year’s conference but haven’t engaged this quarter” — and Membership AI builds the segment, drafts the campaign, and queues it for your review. Your team brings judgment. The system does the analytical work.</p></details>' +
+              '<details><summary>How is this different from ChatGPT or other general-purpose AI tools?</summary><p class="answer">General AI doesn’t know your AMS schema, your renewal cycle, which committees matter to which members, or what worked in last year’s win-back campaign. Membership AI is purpose-built for associations and operates inside PropFuel — where your member data, campaign history, and engagement signals already live. It carries your association’s context the way a long-tenured staff member would.</p></details>' +
+              '<details><summary>What kind of results have other associations seen?</summary><p class="answer">PropFuel clients have generated $100M+ in additional revenue, with $650K average first-year growth per organization. 72% of declining associations reverse course after implementing PropFuel. AAMFT moved from 80.5% to 95% on-time renewals. Membership AI accelerates these outcomes by identifying opportunities your team would miss and executing faster than any manual workflow.</p></details>' +
+              '<details><summary>What happens to our institutional knowledge when staff turn over?</summary><p class="answer">When a membership director leaves today, the institutional memory walks out the door with them — every member context, every campaign learning, every nuance about which board member cares about what. With Membership AI, the intelligence lives in the platform, not in people. A new hire is productive on day one because PropFuel already knows the member history, the campaign performance, and the recommended next actions.</p></details>' +
+              '<details><summary>How long until we see results?</summary><p class="answer">First campaign live in 2–3 weeks. Full ramp-up in 2–3 months. Staff training takes 10–45 minutes. You get a dedicated Customer Success Manager with a sub-3-hour response time. PropFuel’s onboarding has been recognized with an ASAE Gold Circle Award.</p></details>' +
+            '</div>' +
+          '</div>' +
+        '</section>';
+      ctaSection.insertAdjacentHTML('beforebegin', sectionsHTML);
+
+      // Mount features section now that the host element exists
+      var featSec = document.getElementById('maif-v2-features-mount');
+      if (featSec && typeof renderMembershipAIFeatures === 'function') {
+        renderMembershipAIFeatures(featSec);
+      }
+    }
+
+    // 9. Override CTA section to dark mode + new copy
+    if (ctaSection && !ctaSection.classList.contains('maif-v2-cta-staged')) {
+      ctaSection.classList.add('maif-v2-cta-staged');
+      ctaSection.style.background = '#1A1713';
+      ctaSection.style.color = '#EDE8DF';
+      var ctaHeading = ctaSection.querySelector('.pf-cta-heading');
+      if (ctaHeading) {
+        ctaHeading.style.color = '#EDE8DF';
+        ctaHeading.innerHTML = 'Meet your AI <br><span style="background:linear-gradient(135deg,#7AA8C9 0%,#4A7FA5 35%,#35607E 70%,#1F3A51 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent">membership team.</span>';
+      }
+      var ctaSub = ctaSection.querySelector('.pf-cta-sub');
+      if (ctaSub) {
+        ctaSub.style.color = '#A8A097';
+        ctaSub.textContent = 'Membership AI knows your members. It tells you what matters. It builds what you need. And it does it without asking you to add headcount, learn analytics, or spend weeks building campaigns.';
+      }
+    }
+
+    // 10. Hide original Webflow Insight/Initiative/Recommendation feature sections
+    document.querySelectorAll('.pf-section').forEach(function(s) {
+      var t = s.querySelector('.pf-feature-title, h2');
+      if (t) {
+        var txt = t.textContent.trim();
+        if (txt.indexOf('Insight Agent') !== -1 || txt.indexOf('Initiative') !== -1 || txt.indexOf('Recommendation') !== -1) {
+          s.style.display = 'none';
+        }
+      }
+    });
+  }
+
+  // ─────────────────────────────────────────
   function fixMembershipAIPage() {
     if (window.location.pathname.indexOf('membership-ai') === -1) return;
+    // STAGING (webflow.io): render the new design via renderMembershipAIPageStaging() and bail.
+    // Production code path below is preserved untouched.
+    if (location.hostname.indexOf('webflow.io') !== -1) {
+      return renderMembershipAIPageStaging();
+    }
 
     // Fix hero label — blue steel styling
     var heroLabel = document.querySelector('.pf-page-hero-label');
@@ -4110,28 +4387,43 @@
     var ctaSection = document.querySelector('.pf-cta-section, [class*="cta-section"]');
     if (!ctaSection) return;
 
+    // STAGING-ONLY gate: on propfuel-v2.webflow.io, the new Features section
+    // replaces progression/three-agents/staff-turnover and removes related-use-cases.
+    // Production (propfuel.com) is structurally untouched until this gate is removed.
+    var __maifStaging = location.hostname.indexOf('webflow.io') !== -1;
+
     // Problem Band
     if (!document.querySelector('.mai-problem-band')) {
       var problemHTML = '<section class="mai-problem-band" style="background:#1A1713;padding:96px 48px"><div style="max-width:800px;margin:0 auto;text-align:center"><p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#4A7FA5;margin-bottom:16px">The Problem</p><h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#EDE8DF;letter-spacing:-0.02em;line-height:1.15;margin-bottom:32px">You have the data. You don\u2019t have the answers.</h2><p style="font-size:17px;color:#8C8479;line-height:1.65;margin-bottom:20px">Your AMS has 47 fields per member. Your email tool has open rates. Your spreadsheet has last year\u2019s renewal numbers. Your head has the institutional knowledge about which members care about what.</p><p style="font-size:17px;color:#8C8479;line-height:1.65;margin-bottom:20px">None of it connects. None of it tells you what to do next. And none of it helps you explain to the board why 200 members didn\u2019t renew.</p><p style="font-size:17px;color:#8C8479;line-height:1.65"><strong style="color:#EDE8DF">\u201CIn the absence of data, blame defaults to marketing.\u201D</strong> \u2014 TXCPA customer interview</p></div><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:1100px;margin:48px auto 0"><div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:28px 24px"><h4 style="font-size:16px;font-weight:700;color:#D0DFEA;margin-bottom:10px">Data but no insight</h4><p style="font-size:14px;color:#8C8479;line-height:1.55">Thousands of data points captured across PropFuel and your AMS \u2014 but someone still has to figure out what it all means.</p></div><div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:28px 24px"><h4 style="font-size:16px;font-weight:700;color:#D0DFEA;margin-bottom:10px">Individuals treated the same</h4><p style="font-size:14px;color:#8C8479;line-height:1.55">You know you should communicate differently to different members. What stops you isn\u2019t desire \u2014 it\u2019s the work of building segments and campaign variants.</p></div><div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:28px 24px"><h4 style="font-size:16px;font-weight:700;color:#D0DFEA;margin-bottom:10px">Want to act but don\u2019t know what</h4><p style="font-size:14px;color:#8C8479;line-height:1.55">Fear of failure. Fear of being inundated with responses. You need a guide, not just a tool.</p></div><div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:28px 24px"><h4 style="font-size:16px;font-weight:700;color:#D0DFEA;margin-bottom:10px">Can\u2019t prove ROI to the board</h4><p style="font-size:14px;color:#8C8479;line-height:1.55">Every source surfaces the same emotional job: feel confident presenting to leadership with hard data, not anecdotes.</p></div></div></section>';
       ctaSection.insertAdjacentHTML('beforebegin', problemHTML);
     }
 
-    // Progression
-    if (!document.querySelector('.mai-progression')) {
+    // STAGING: insert new Features section between problem band and stats.
+    if (__maifStaging && !document.querySelector('.membership-ai-features')) {
+      var featSec = document.createElement('section');
+      featSec.className = 'membership-ai-features';
+      var pbForFeat = document.querySelector('.mai-problem-band');
+      if (pbForFeat) { pbForFeat.insertAdjacentElement('afterend', featSec); }
+      else { ctaSection.insertAdjacentElement('beforebegin', featSec); }
+      renderMembershipAIFeatures(featSec);
+    }
+
+    // Progression — PRODUCTION ONLY (skip on staging; new Features section replaces it)
+    if (!__maifStaging && !document.querySelector('.mai-progression')) {
       var progressionHTML = '<section class="mai-progression" style="padding:96px 48px;max-width:1100px;margin:0 auto;text-align:center"><p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#4A7FA5;margin-bottom:16px">The Progression</p><h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15;margin-bottom:56px">Know. Act. Build. Grow.</h2><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:32px;text-align:center"><div><p style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#4A7FA5,#35607E);color:#fff;font-size:18px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 16px">1</p><h4 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:10px">Know Your Members</h4><p style="font-size:15px;color:#6E6E6E;line-height:1.6">Not as a monolith. As individuals. Know what they want, what they\u2019re getting, and what they\u2019re not.</p></div><div><p style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#4A7FA5,#35607E);color:#fff;font-size:18px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 16px">2</p><h4 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:10px">Know What to Do Next</h4><p style="font-size:15px;color:#6E6E6E;line-height:1.6">Without guesswork. Without hoping the campaign you built is the right one. With data-backed confidence.</p></div><div><p style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#4A7FA5,#35607E);color:#fff;font-size:18px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 16px">3</p><h4 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:10px">Build It Automatically</h4><p style="font-size:15px;color:#6E6E6E;line-height:1.6">Without adding headcount. Without spending weeks configuring campaigns. Review and approve \u2014 don\u2019t build from scratch.</p></div><div><p style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#4A7FA5,#35607E);color:#fff;font-size:18px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 16px">4</p><h4 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:10px">Membership Grows Itself</h4><p style="font-size:15px;color:#6E6E6E;line-height:1.6">When every member believes the association understands them, engagement becomes natural. Retention follows. Growth follows.</p></div></div></section>';
       var pb = document.querySelector('.mai-problem-band');
       if (pb) { pb.insertAdjacentHTML('afterend', progressionHTML); } else { ctaSection.insertAdjacentHTML('beforebegin', progressionHTML); }
     }
 
-    // Three AI Agents
-    if (!document.querySelector('.mai-agents')) {
+    // Three AI Agents — PRODUCTION ONLY
+    if (!__maifStaging && !document.querySelector('.mai-agents')) {
       var agentsHTML = '<section class="mai-agents" style="padding:96px 48px;max-width:1200px;margin:0 auto"><div style="text-align:center;margin-bottom:56px"><p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#4A7FA5;margin-bottom:16px">Three AI Agents</p><h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15">Meet the team that never sleeps.</h2></div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:48px"><div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 28px;border-top:4px solid #4A7FA5"><p style="font-size:15px;font-weight:600;color:#4A7FA5;font-style:italic;margin-bottom:12px">\u201CWhat do I need to know?\u201D</p><h3 style="font-size:22px;font-weight:800;color:#2F2F2F;margin-bottom:16px">Insight Agent</h3><p style="font-size:15px;color:#6E6E6E;line-height:1.65;margin-bottom:20px">Continuously monitors everything \u2014 member responses, engagement rates, website activity, AMS data, campaign performance \u2014 and surfaces what matters. Not a dashboard of numbers. A clear picture of what is happening and why.</p><ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px"><li style="font-size:14px;color:#2F2F2F;line-height:1.5;padding-left:18px;position:relative"><span style="position:absolute;left:0;color:#4A7FA5">\u2022</span>Surfaces calculated metrics across segments \u2014 engagement, response rate, deliverability, trends</li><li style="font-size:14px;color:#2F2F2F;line-height:1.5;padding-left:18px;position:relative"><span style="position:absolute;left:0;color:#4A7FA5">\u2022</span>Identifies at-risk members before they lapse with AI-powered signals</li><li style="font-size:14px;color:#2F2F2F;line-height:1.5;padding-left:18px;position:relative"><span style="position:absolute;left:0;color:#4A7FA5">\u2022</span>Detects trends and anomalies you wouldn\u2019t catch manually</li><li style="font-size:14px;color:#2F2F2F;line-height:1.5;padding-left:18px;position:relative"><span style="position:absolute;left:0;color:#4A7FA5">\u2022</span>Builds Super Member Profiles \u2014 a complete picture of every individual</li></ul></div><div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 28px;border-top:4px solid #35607E"><p style="font-size:15px;font-weight:600;color:#35607E;font-style:italic;margin-bottom:12px">\u201CWhat should I do next?\u201D</p><h3 style="font-size:22px;font-weight:800;color:#2F2F2F;margin-bottom:16px">Recommendation Agent</h3><p style="font-size:15px;color:#6E6E6E;line-height:1.65;margin-bottom:20px">Identifies the highest-impact opportunities for engagement at any given moment \u2014 which segments need attention, which campaigns will move the needle, which members need personal outreach.</p><ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px"><li style="font-size:14px;color:#2F2F2F;line-height:1.5;padding-left:18px;position:relative"><span style="position:absolute;left:0;color:#35607E">\u2022</span>Identifies highest-impact engagement opportunities</li><li style="font-size:14px;color:#2F2F2F;line-height:1.5;padding-left:18px;position:relative"><span style="position:absolute;left:0;color:#35607E">\u2022</span>Generates personalized 1:1 messages based on member profiles</li><li style="font-size:14px;color:#2F2F2F;line-height:1.5;padding-left:18px;position:relative"><span style="position:absolute;left:0;color:#35607E">\u2022</span>Provides specific, prioritized recommendations \u2014 not dashboards</li><li style="font-size:14px;color:#2F2F2F;line-height:1.5;padding-left:18px;position:relative"><span style="position:absolute;left:0;color:#35607E">\u2022</span>Reduces fear of execution \u2014 confidence from data, not hunches</li></ul></div><div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 28px;border-top:4px solid #1F3A51"><p style="font-size:15px;font-weight:600;color:#1F3A51;font-style:italic;margin-bottom:12px">\u201CCan you just build it for me?\u201D</p><h3 style="font-size:22px;font-weight:800;color:#2F2F2F;margin-bottom:16px">Initiative Agent</h3><p style="font-size:15px;color:#6E6E6E;line-height:1.65;margin-bottom:20px">Doesn\u2019t just recommend campaigns \u2014 it builds them. Across email, website, and SMS. With the right segments already populated. Ready for your team to review, approve, and launch.</p><ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px"><li style="font-size:14px;color:#2F2F2F;line-height:1.5;padding-left:18px;position:relative"><span style="position:absolute;left:0;color:#1F3A51">\u2022</span>Builds campaigns automatically across all three channels</li><li style="font-size:14px;color:#2F2F2F;line-height:1.5;padding-left:18px;position:relative"><span style="position:absolute;left:0;color:#1F3A51">\u2022</span>Pre-populates segments based on AI analysis</li><li style="font-size:14px;color:#2F2F2F;line-height:1.5;padding-left:18px;position:relative"><span style="position:absolute;left:0;color:#1F3A51">\u2022</span>Walks staff through campaigns with visual review before launch</li><li style="font-size:14px;color:#2F2F2F;line-height:1.5;padding-left:18px;position:relative"><span style="position:absolute;left:0;color:#1F3A51">\u2022</span>Organizes campaigns under unified strategic Initiatives</li><li style="font-size:14px;color:#2F2F2F;line-height:1.5;padding-left:18px;position:relative"><span style="position:absolute;left:0;color:#1F3A51">\u2022</span>Learns from results and refines every recommendation</li></ul></div></div><div style="display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;padding:24px 0"><span style="font-size:14px;font-weight:600;color:#4A7FA5;background:rgba(74,127,165,0.08);padding:10px 20px;border-radius:100px;border:1px solid rgba(74,127,165,0.15)">Insight surfaces what matters</span><span style="font-size:18px;color:#D0DFEA">\u2192</span><span style="font-size:14px;font-weight:600;color:#35607E;background:rgba(53,96,126,0.08);padding:10px 20px;border-radius:100px;border:1px solid rgba(53,96,126,0.15)">Recommendation tells you what to do</span><span style="font-size:18px;color:#D0DFEA">\u2192</span><span style="font-size:14px;font-weight:600;color:#1F3A51;background:rgba(31,58,81,0.08);padding:10px 20px;border-radius:100px;border:1px solid rgba(31,58,81,0.15)">Initiative builds it</span><span style="font-size:18px;color:#D0DFEA">\u2192</span><span style="font-size:14px;font-weight:600;color:#2F2F2F;background:rgba(47,47,47,0.05);padding:10px 20px;border-radius:100px;border:1px solid rgba(47,47,47,0.12)">You review and launch</span></div></section>';
       var prog = document.querySelector('.mai-progression');
       if (prog) { prog.insertAdjacentHTML('afterend', agentsHTML); } else { ctaSection.insertAdjacentHTML('beforebegin', agentsHTML); }
     }
 
-    // Staff Turnover
-    if (!document.querySelector('.mai-turnover')) {
+    // Staff Turnover — PRODUCTION ONLY
+    if (!__maifStaging && !document.querySelector('.mai-turnover')) {
       var turnoverHTML = '<section class="mai-turnover" style="padding:96px 48px;background:#EBE6DA"><div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center"><div><p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#4A7FA5;margin-bottom:16px">The Staff Turnover Problem</p><h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15;margin-bottom:24px">The knowledge doesn\u2019t walk out the door.</h2><p style="font-size:16px;color:#6E6E6E;line-height:1.65;margin-bottom:16px">When a membership director leaves, the institutional knowledge walks out with them. Who are the at-risk members? What worked last renewal season? Which board member cares about certification revenue?</p><p style="font-size:16px;color:#2F2F2F;line-height:1.65;font-weight:600;margin-bottom:16px">With Membership AI, the intelligence lives in the platform \u2014 not in people.</p><p style="font-size:16px;color:#6E6E6E;line-height:1.65">PropFuel knows the member history. It knows the account objectives. It knows what campaigns have been run, what worked, what didn\u2019t, and what should happen next. A new staff member can be effective from day one.</p></div><div style="background:#fff;border-radius:16px;padding:32px;box-shadow:0 2px 16px rgba(0,0,0,0.06);font-family:\'DM Sans\',sans-serif"><div style="display:flex;align-items:center;gap:12px;margin-bottom:20px"><div style="width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#4A7FA5,#35607E);display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div><div style="font-size:14px;font-weight:700;color:#2F2F2F">New Staff Member \u2014 Day One</div><div style="font-size:11px;color:#6E6E6E">Full AI-powered context available</div></div></div><div style="display:flex;flex-direction:column;gap:10px"><div style="background:#F6F2E8;border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:10px"><div style="width:28px;height:28px;border-radius:8px;background:rgba(74,127,165,0.1);display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4A7FA5" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><div><div style="font-size:12px;font-weight:600;color:#2F2F2F">Member History</div><div style="font-size:10px;color:#6E6E6E">Full engagement timeline per member</div></div></div><div style="background:#F6F2E8;border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:10px"><div style="width:28px;height:28px;border-radius:8px;background:rgba(53,96,126,0.1);display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#35607E" stroke-width="2.5"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg></div><div><div style="font-size:12px;font-weight:600;color:#2F2F2F">Campaign Performance</div><div style="font-size:10px;color:#6E6E6E">What worked and what didn\u2019t</div></div></div><div style="background:#F6F2E8;border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:10px"><div style="width:28px;height:28px;border-radius:8px;background:rgba(31,58,81,0.1);display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1F3A51" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div><div><div style="font-size:12px;font-weight:600;color:#2F2F2F">Recommended Actions</div><div style="font-size:10px;color:#6E6E6E">What should happen next</div></div></div></div></div></div></section>';
       var ag = document.querySelector('.mai-agents');
       if (ag) { ag.insertAdjacentHTML('afterend', turnoverHTML); } else { ctaSection.insertAdjacentHTML('beforebegin', turnoverHTML); }
@@ -4171,8 +4463,8 @@
       if (te) { te.insertAdjacentHTML('afterend', faqHTML); } else { ctaSection.insertAdjacentHTML('beforebegin', faqHTML); }
     }
 
-    // Related Use Cases
-    if (!document.querySelector('.mai-related')) {
+    // Related Use Cases — PRODUCTION ONLY (removed on staging per design)
+    if (!__maifStaging && !document.querySelector('.mai-related')) {
       var relatedHTML = '<section class="mai-related" style="padding:80px 24px;max-width:960px;margin:0 auto"><h2 style="font-size:32px;font-weight:700;color:#2F2F2F;margin-bottom:40px;text-align:center">Related Use Cases</h2><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px"><a href="/use-cases/data-intelligence" style="text-decoration:none;background:#F6F2E8;border-radius:16px;padding:32px;transition:transform 0.2s ease,box-shadow 0.2s ease"><h3 style="font-size:20px;font-weight:700;color:#2F2F2F;margin-bottom:8px">Data Intelligence</h3><p style="font-size:15px;color:#6E6E6E;line-height:1.5">Let AI turn raw member data into actionable insights that drive smarter decisions.</p></a><a href="/use-cases/certifications" style="text-decoration:none;background:#F6F2E8;border-radius:16px;padding:32px;transition:transform 0.2s ease,box-shadow 0.2s ease"><h3 style="font-size:20px;font-weight:700;color:#2F2F2F;margin-bottom:8px">Certifications &amp; Credentials</h3><p style="font-size:15px;color:#6E6E6E;line-height:1.5">Use AI to guide members through certification journeys and boost completion rates.</p></a></div></section>';
       var fq = document.querySelector('.mai-faq');
       if (fq) { fq.insertAdjacentHTML('afterend', relatedHTML); } else { ctaSection.insertAdjacentHTML('beforebegin', relatedHTML); }
@@ -6671,6 +6963,694 @@
     injectSEOMeta();
     injectSchemaMarkup();
   }
+
+  // ─────────────────────────────────────────────────────────────
+  // Membership AI Features Section — self-contained CSS+HTML+JS.
+  // Used by fixMembershipAIPage() (gated to webflow.io staging) and by
+  // qa/maif-preview.html (called directly with relative headshotBase).
+  // CSS injects via runtime <style> so a stale-cache state can never
+  // split CSS from JS — they ship together as one file.
+  // ─────────────────────────────────────────────────────────────
+  var __maifStylesInjected = false;
+
+  var MAIF_CSS = "" +
+    ".membership-ai-features{--burnt-orange:#F47C2C;--page-bg:#F4F1EA;--card-bg:#F6F2E8;--deep-cream:#EAE4D8;--neutral-fill:#E7E2D8;--divider:#E3DDD2;--charcoal:#2F2F2F;--mid-grey:#6E6E6E;--light-grey:#BDBDBD;--ai-highlight:#D0DFEA;--ai-primary:#4A7FA5;--ai-shadow:#35607E;--ai-dark-edge:#1F3A51;--shadow-card:0 8px 40px rgba(120,110,95,0.10);font-family:'DM Sans',system-ui,-apple-system,sans-serif;font-weight:400;font-size:16px;line-height:1.6;color:var(--charcoal);background:var(--page-bg);position:relative;padding:96px 0;-webkit-font-smoothing:antialiased}" +
+    ".membership-ai-features *,.membership-ai-features *::before,.membership-ai-features *::after{box-sizing:border-box;margin:0;padding:0}" +
+    ".membership-ai-features img,.membership-ai-features svg{display:block;max-width:100%}" +
+    ".membership-ai-features h2,.membership-ai-features h3{font-family:'DM Sans',sans-serif;color:var(--charcoal);letter-spacing:-0.01em}" +
+    ".membership-ai-features h2{font-size:clamp(28px,3.4vw,42px);font-weight:600;line-height:1.15;letter-spacing:-0.015em}" +
+    ".membership-ai-features h3{font-size:clamp(28px,3.4vw,44px);font-weight:700;line-height:1.15;letter-spacing:-0.02em;background:linear-gradient(to top,#1F3A51,#4A7FA5 45%,#35607E);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;display:inline-block;padding-bottom:0.05em}" +
+    ".membership-ai-features .section-intro{max-width:720px;margin:0 auto 96px;padding:0 32px;text-align:center}" +
+    ".membership-ai-features .section-intro h2{margin-bottom:18px}" +
+    ".membership-ai-features .section-intro p{color:var(--mid-grey);font-size:18px;line-height:1.55}" +
+    ".membership-ai-features .reveal{opacity:0;transform:translateY(24px);transition:opacity 0.7s ease-out,transform 0.7s ease-out}" +
+    ".membership-ai-features .reveal.revealed{opacity:1;transform:translateY(0)}" +
+    ".membership-ai-features .feature-row{max-width:1200px;margin:0 auto;padding:80px 32px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:80px;align-items:center}" +
+    ".membership-ai-features .feature-row .text-side{max-width:480px;text-align:left}" +
+    ".membership-ai-features .feature-row .feature-kicker{font-size:clamp(14px,1.1vw,17px);font-weight:700;letter-spacing:0.14em;color:var(--ai-primary);text-transform:uppercase;margin-bottom:18px;display:flex;align-items:center;gap:8px}" +
+    ".membership-ai-features .feature-row .feature-kicker::before{content:\"\\2726\";font-size:1.05em}" +
+    ".membership-ai-features .feature-row h3{margin-bottom:18px}" +
+    ".membership-ai-features .feature-row p{font-size:17px;line-height:1.6;color:var(--mid-grey)}" +
+    ".membership-ai-features .feature-row .visual-side{width:100%;display:flex;align-items:center;justify-content:center}" +
+    ".membership-ai-features .feature-row.visual-right .text-side{grid-column:1;grid-row:1;justify-self:end}" +
+    ".membership-ai-features .feature-row.visual-right .visual-side{grid-column:2;grid-row:1}" +
+    ".membership-ai-features .feature-row.visual-left .text-side{grid-column:2;grid-row:1;justify-self:start}" +
+    ".membership-ai-features .feature-row.visual-left .visual-side{grid-column:1;grid-row:1}" +
+    "@media (max-width:900px){.membership-ai-features .feature-row{grid-template-columns:1fr;gap:40px;padding:64px 24px}.membership-ai-features .feature-row.visual-right .text-side,.membership-ai-features .feature-row.visual-left .text-side{grid-column:1;grid-row:1;justify-self:stretch;max-width:100%}.membership-ai-features .feature-row.visual-right .visual-side,.membership-ai-features .feature-row.visual-left .visual-side{grid-column:1;grid-row:2}}" +
+    ".membership-ai-features .loop-stage{width:100%;max-width:540px;aspect-ratio:1/1;background:var(--card-bg);border-radius:22px;position:relative;overflow:hidden;box-shadow:var(--shadow-card)}" +
+    ".membership-ai-features .loop-stage::before{content:\"\";position:absolute;inset:0;background-image:url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.0' numOctaves='2' seed='7'/><feColorMatrix values='0 0 0 0 0.94 0 0 0 0 0.91 0 0 0 0 0.86 0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>\");mix-blend-mode:multiply;opacity:0.5;pointer-events:none;z-index:1}" +
+    ".membership-ai-features .loop-stage .brand-mark{position:absolute;top:5%;left:6%;z-index:5;font-size:clamp(10px,1.4vw,13px);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--mid-grey);display:flex;align-items:center;gap:7px}" +
+    ".membership-ai-features .loop-stage .brand-mark::before{content:\"\";width:5px;height:5px;background:var(--burnt-orange);border-radius:50%}" +
+    ".membership-ai-features .loop-stage .step-rail{position:absolute;bottom:4%;left:50%;transform:translateX(-50%);z-index:4;display:flex;gap:9px}" +
+    ".membership-ai-features .loop-stage .step-rail .step{width:5px;height:5px;border-radius:50%;background:var(--neutral-fill);transition:background 400ms ease,transform 400ms ease}" +
+    ".membership-ai-features .loop-stage .step-rail .step.active{background:var(--ai-primary);transform:scale(1.4)}" +
+    ".membership-ai-features .signals-loop .population{position:absolute;inset:0;z-index:2}" +
+    ".membership-ai-features .signals-loop .member{position:absolute;border-radius:50%;overflow:hidden;border:2px solid transparent;box-shadow:0 2px 6px rgba(120,110,95,0.18);transition:left 1100ms cubic-bezier(0.65,0,0.35,1),top 1100ms cubic-bezier(0.65,0,0.35,1),width 900ms cubic-bezier(0.65,0,0.35,1),height 900ms cubic-bezier(0.65,0,0.35,1),border-color 600ms ease,box-shadow 600ms ease,filter 800ms ease,opacity 1000ms ease}" +
+    ".membership-ai-features .signals-loop .member img{width:100%;height:100%;object-fit:cover;display:block}" +
+    ".membership-ai-features .signals-loop .member.idle{filter:saturate(0.85)}" +
+    ".membership-ai-features .signals-loop .member.selected{border-color:var(--ai-primary);box-shadow:0 4px 14px rgba(31,58,81,0.22),0 0 0 3px rgba(74,127,165,0.16);filter:saturate(1) brightness(1.04);z-index:4}" +
+    ".membership-ai-features .signals-loop .member.faded{opacity:0;filter:saturate(0.4) brightness(0.95)}" +
+    ".membership-ai-features .signals-loop .reasoning-panel{position:absolute;right:6%;top:50%;transform:translateY(-50%);width:38%;max-width:280px;z-index:6;display:flex;flex-direction:column;gap:clamp(7px,1vw,12px);opacity:0;transition:opacity 500ms ease}" +
+    ".membership-ai-features .signals-loop .reasoning-panel.show{opacity:1}" +
+    ".membership-ai-features .signals-loop .reasoning-header{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:4px}" +
+    ".membership-ai-features .signals-loop .reasoning-header .badge{font-size:clamp(9px,1.2vw,11px);font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--ai-primary);display:flex;align-items:center;gap:5px;white-space:nowrap}" +
+    ".membership-ai-features .signals-loop .reasoning-header .badge::before{content:\"\\2726\";font-size:clamp(10px,1.3vw,12px)}" +
+    ".membership-ai-features .signals-loop .reasoning-headline{display:flex;align-items:baseline;gap:7px;margin-bottom:8px}" +
+    ".membership-ai-features .signals-loop .reasoning-headline .count{font-size:clamp(28px,4.2vw,44px);font-weight:700;color:var(--charcoal);line-height:0.95;letter-spacing:-0.025em;font-variant-numeric:tabular-nums}" +
+    ".membership-ai-features .signals-loop .reasoning-headline .label{font-size:clamp(13px,1.8vw,17px);font-weight:600;color:var(--ai-shadow);line-height:1.15}" +
+    ".membership-ai-features .signals-loop .criteria{display:flex;flex-direction:column;gap:clamp(7px,1vw,11px);border-top:1px solid var(--divider);padding-top:clamp(7px,1vw,11px)}" +
+    ".membership-ai-features .signals-loop .criterion{display:flex;align-items:flex-start;gap:clamp(6px,0.9vw,10px);opacity:0;transform:translateX(8px);transition:opacity 500ms ease,transform 500ms cubic-bezier(0.34,1.2,0.64,1)}" +
+    ".membership-ai-features .signals-loop .criterion.show{opacity:1;transform:translateX(0)}" +
+    ".membership-ai-features .signals-loop .criterion .check{width:clamp(13px,1.7vw,18px);height:clamp(13px,1.7vw,18px);border-radius:50%;background:var(--ai-primary);color:#FFF;display:flex;align-items:center;justify-content:center;font-size:clamp(7px,1vw,9px);font-weight:700;flex-shrink:0;margin-top:2px;box-shadow:0 2px 6px rgba(31,58,81,0.18)}" +
+    ".membership-ai-features .signals-loop .criterion .text{display:flex;flex-direction:column;gap:1px}" +
+    ".membership-ai-features .signals-loop .criterion .text .primary{font-size:clamp(10px,1.4vw,12.5px);font-weight:600;color:var(--charcoal);line-height:1.3;letter-spacing:-0.005em}" +
+    ".membership-ai-features .signals-loop .criterion .text .meta{font-size:clamp(9px,1.2vw,11px);font-weight:400;color:var(--mid-grey);line-height:1.3}" +
+    "@keyframes maif-sig-ambient{0%,100%{box-shadow:0 2px 6px rgba(120,110,95,0.18)}50%{box-shadow:0 2px 6px rgba(120,110,95,0.18),0 0 0 2px rgba(74,127,165,0.08)}}" +
+    ".membership-ai-features .signals-loop .member.idle.pulsing{animation:maif-sig-ambient 2.4s ease-in-out infinite}" +
+    ".membership-ai-features .segments-loop .thread{position:absolute;inset:0;z-index:2;padding:13% 8%;display:flex;flex-direction:column;justify-content:center;gap:2.4%;transition:transform 900ms cubic-bezier(0.65,0,0.35,1),opacity 700ms ease}" +
+    /* Hide pending chat rows so the layout doesn't reserve empty space for them. */
+    ".membership-ai-features .segments-loop .thread .row.ai:not(.show){display:none}" +
+    ".membership-ai-features .segments-loop .thread .row.result:not(.show){display:none}" +
+    ".membership-ai-features .segments-loop .thread .choice-row:not(.show){display:none}" +
+    ".membership-ai-features .segments-loop .thread.scrolled-up{transform:translateY(-26%);opacity:0.5}" +
+    ".membership-ai-features .segments-loop .row{display:flex;flex-direction:column;max-width:78%}" +
+    ".membership-ai-features .segments-loop .row.user{align-self:flex-end;align-items:flex-end}" +
+    ".membership-ai-features .segments-loop .row.ai{align-self:flex-start;align-items:flex-start}" +
+    ".membership-ai-features .segments-loop .row .speaker{font-size:clamp(9px,1.2vw,11px);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--mid-grey);margin-bottom:6px;display:flex;align-items:center;gap:5px}" +
+    ".membership-ai-features .segments-loop .row.ai .speaker{color:var(--ai-primary)}" +
+    ".membership-ai-features .segments-loop .row.ai .speaker::before{content:\"\\2726\";font-size:clamp(10px,1.3vw,12px)}" +
+    ".membership-ai-features .segments-loop .user-bubble{background:#FFF;border:1.5px solid var(--divider);border-radius:16px 16px 4px 16px;padding:clamp(10px,1.6vw,16px) clamp(13px,2vw,18px);font-size:clamp(13px,1.7vw,16px);color:var(--charcoal);line-height:1.4;box-shadow:0 2px 6px rgba(120,110,95,0.06);transition:border-color 0.4s ease,box-shadow 0.4s ease,background 0.4s ease,color 0.4s ease;display:flex;align-items:center}" +
+    ".membership-ai-features .segments-loop .user-bubble.typing{border-color:var(--ai-primary);box-shadow:0 0 0 3px rgba(74,127,165,0.10)}" +
+    ".membership-ai-features .segments-loop .user-bubble.sent{background:var(--ai-shadow);color:#FFF;border-color:var(--ai-shadow)}" +
+    ".membership-ai-features .segments-loop .cursor{display:inline-block;width:2px;height:clamp(13px,1.7vw,17px);background:var(--charcoal);margin-left:1px;vertical-align:middle;animation:maif-seg-blink 1s steps(2,start) infinite}" +
+    "@keyframes maif-seg-blink{to{visibility:hidden}}" +
+    ".membership-ai-features .segments-loop .ai-bubble{background:var(--ai-highlight);color:var(--ai-dark-edge);border-radius:16px 16px 16px 4px;padding:clamp(10px,1.6vw,16px) clamp(13px,2vw,18px);font-size:clamp(13px,1.7vw,16px);font-weight:500;line-height:1.4;box-shadow:0 4px 12px rgba(31,58,81,0.08);opacity:0;transform:translateY(8px);transition:opacity 500ms ease,transform 500ms cubic-bezier(0.34,1.2,0.64,1)}" +
+    ".membership-ai-features .segments-loop .row.ai.show .ai-bubble{opacity:1;transform:translateY(0)}" +
+    ".membership-ai-features .segments-loop .choice-row{display:flex;gap:8px;opacity:0;transform:translateY(8px);transition:opacity 400ms ease,transform 400ms cubic-bezier(0.34,1.2,0.64,1)}" +
+    ".membership-ai-features .segments-loop .choice-row.show{opacity:1;transform:translateY(0)}" +
+    ".membership-ai-features .segments-loop .choice{background:#FFF;color:var(--charcoal);border:1.5px solid var(--divider);padding:clamp(7px,1.1vw,10px) clamp(13px,1.8vw,17px);border-radius:100px;font-size:clamp(11px,1.5vw,13px);font-weight:500;transition:background 400ms ease,color 400ms ease,transform 400ms cubic-bezier(0.34,1.2,0.64,1),border-color 400ms ease}" +
+    ".membership-ai-features .segments-loop .choice.selected{background:var(--ai-primary);color:#FFF;border-color:var(--ai-primary);transform:scale(1.05);box-shadow:0 4px 10px rgba(31,58,81,0.18)}" +
+    ".membership-ai-features .segments-loop .row.result{align-self:stretch;align-items:stretch;max-width:100%}" +
+    ".membership-ai-features .segments-loop .segment-card{background:#FFF;border:1px solid var(--ai-highlight);border-radius:14px;padding:clamp(11px,1.8vw,18px) clamp(13px,2vw,20px);box-shadow:0 12px 32px rgba(31,58,81,0.12);opacity:0;transform:translateY(10px);transition:opacity 600ms ease,transform 600ms cubic-bezier(0.34,1.2,0.64,1)}" +
+    ".membership-ai-features .segments-loop .row.result.show .segment-card{opacity:1;transform:translateY(0)}" +
+    ".membership-ai-features .segments-loop .seg-tag{font-size:clamp(9px,1.2vw,11px);font-weight:700;letter-spacing:0.12em;color:var(--ai-primary);text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:5px}" +
+    ".membership-ai-features .segments-loop .seg-tag::before{content:\"\\2726\"}" +
+    ".membership-ai-features .segments-loop .seg-headline{display:flex;align-items:baseline;gap:10px;margin-bottom:10px;flex-wrap:wrap}" +
+    ".membership-ai-features .segments-loop .count{font-size:clamp(24px,3.4vw,36px);font-weight:700;color:var(--charcoal);line-height:0.95;letter-spacing:-0.025em;font-variant-numeric:tabular-nums}" +
+    ".membership-ai-features .segments-loop .label{font-size:clamp(13px,1.7vw,16px);font-weight:600;color:var(--ai-shadow);line-height:1.2}" +
+    ".membership-ai-features .segments-loop .filters{padding-top:8px;border-top:1px solid var(--divider);display:flex;flex-wrap:wrap;gap:5px}" +
+    ".membership-ai-features .segments-loop .filter-chip{background:rgba(208,223,234,0.45);color:var(--ai-dark-edge);padding:4px 10px;border-radius:100px;font-size:clamp(10px,1.3vw,12px);font-weight:500}" +
+    ".membership-ai-features .segments-loop .roster{position:absolute;left:8%;right:8%;bottom:8%;z-index:3;background:#FFF;border:1px solid var(--ai-highlight);border-top:3px solid var(--ai-primary);border-radius:14px;box-shadow:0 -12px 40px rgba(31,58,81,0.16);padding:clamp(12px,1.8vw,18px) clamp(12px,1.8vw,18px) clamp(14px,2vw,20px);opacity:0;transform:translateY(70%);transition:opacity 700ms ease,transform 900ms cubic-bezier(0.34,1.1,0.64,1);pointer-events:none}" +
+    ".membership-ai-features .segments-loop .roster.show{opacity:1;transform:translateY(0)}" +
+    ".membership-ai-features .segments-loop .roster-header{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--divider)}" +
+    ".membership-ai-features .segments-loop .roster-title{display:flex;align-items:baseline;gap:9px}" +
+    ".membership-ai-features .segments-loop .roster-count{font-size:clamp(20px,2.8vw,30px);font-weight:700;color:var(--charcoal);line-height:1;letter-spacing:-0.02em;font-variant-numeric:tabular-nums}" +
+    ".membership-ai-features .segments-loop .roster-label{font-size:clamp(11px,1.5vw,13px);font-weight:600;color:var(--ai-shadow)}" +
+    ".membership-ai-features .segments-loop .roster-meta{font-size:clamp(9px,1.2vw,11px);font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--ai-primary);display:flex;align-items:center;gap:4px}" +
+    ".membership-ai-features .segments-loop .roster-meta::before{content:\"\\2726\"}" +
+    ".membership-ai-features .segments-loop .roster-list{display:flex;flex-direction:column;gap:8px}" +
+    ".membership-ai-features .segments-loop .roster-row{display:flex;align-items:center;gap:10px;opacity:0;transform:translateY(8px);transition:opacity 350ms ease,transform 350ms cubic-bezier(0.34,1.1,0.64,1)}" +
+    ".membership-ai-features .segments-loop .roster-row.show{opacity:1;transform:translateY(0)}" +
+    ".membership-ai-features .segments-loop .roster-row .photo{width:clamp(24px,3vw,32px);height:clamp(24px,3vw,32px);border-radius:50%;overflow:hidden;border:1.5px solid var(--ai-highlight);flex-shrink:0;box-shadow:0 1px 3px rgba(120,110,95,0.12)}" +
+    ".membership-ai-features .segments-loop .roster-row .photo img{width:100%;height:100%;object-fit:cover;display:block}" +
+    ".membership-ai-features .segments-loop .roster-row .name{font-size:clamp(11px,1.5vw,13px);font-weight:500;color:var(--charcoal);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}" +
+    ".membership-ai-features .segments-loop .roster-row .role{font-size:clamp(10px,1.3vw,12px);color:var(--mid-grey);text-align:right;white-space:nowrap}" +
+    ".membership-ai-features .segments-loop .roster-more{display:flex;align-items:center;gap:9px;margin-top:6px;padding-top:7px;border-top:1px dashed var(--divider);opacity:0;transform:translateY(8px);transition:opacity 400ms ease,transform 400ms cubic-bezier(0.34,1.1,0.64,1)}" +
+    ".membership-ai-features .segments-loop .roster-more.show{opacity:1;transform:translateY(0)}" +
+    ".membership-ai-features .segments-loop .roster-more-stack{display:flex;align-items:center;flex-shrink:0}" +
+    ".membership-ai-features .segments-loop .roster-more-stack .photo{width:clamp(20px,2.6vw,26px);height:clamp(20px,2.6vw,26px);min-width:clamp(20px,2.6vw,26px);min-height:clamp(20px,2.6vw,26px);margin-left:-8px;border:2px solid #FFF;border-radius:50%;overflow:hidden;flex-shrink:0;box-shadow:0 1px 3px rgba(120,110,95,0.18)}" +
+    ".membership-ai-features .segments-loop .roster-more-stack .photo:first-child{margin-left:0}" +
+    ".membership-ai-features .segments-loop .roster-more-stack .photo img{width:100%;height:100%;object-fit:cover;display:block}" +
+    ".membership-ai-features .segments-loop .roster-more-text{font-size:clamp(11px,1.5vw,13px);font-weight:600;color:var(--ai-shadow);margin-left:9px}" +
+    ".membership-ai-features .cw-loop .workspace{position:absolute;inset:0;z-index:2;padding:11% 8% 10%;display:flex;flex-direction:column;justify-content:center;gap:clamp(11px,1.6vw,18px);transition:transform 700ms cubic-bezier(0.65,0,0.35,1),opacity 600ms ease}" +
+    ".membership-ai-features .cw-loop .workspace.shifted{transform:translateY(-22%);opacity:0.45}" +
+    ".membership-ai-features .cw-loop .section-title{font-size:clamp(9px,1.3vw,11px);font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--ai-primary);display:flex;align-items:center;gap:6px}" +
+    ".membership-ai-features .cw-loop .section-title::before{content:\"\\2726\";font-size:clamp(11px,1.5vw,13px)}" +
+    ".membership-ai-features .cw-loop .context-panel{background:#FFF;border:1px solid var(--divider);border-radius:13px;padding:clamp(12px,1.8vw,20px) clamp(14px,2vw,22px);box-shadow:0 4px 16px rgba(120,110,95,0.06)}" +
+    ".membership-ai-features .cw-loop .context-panel-header{display:flex;align-items:baseline;justify-content:space-between;padding-bottom:clamp(8px,1.2vw,11px);border-bottom:1px solid var(--divider);margin-bottom:clamp(9px,1.3vw,12px)}" +
+    ".membership-ai-features .cw-loop .context-panel-title{font-size:clamp(11px,1.5vw,14px);font-weight:600;color:var(--charcoal);letter-spacing:-0.01em}" +
+    ".membership-ai-features .cw-loop .context-panel-meta{font-size:clamp(8px,1.1vw,10px);font-weight:600;color:var(--ai-primary);letter-spacing:0.08em;text-transform:uppercase}" +
+    ".membership-ai-features .cw-loop .context-list{display:flex;flex-direction:column;gap:clamp(8px,1.2vw,12px)}" +
+    ".membership-ai-features .cw-loop .context-item{display:flex;align-items:flex-start;gap:clamp(8px,1.2vw,11px);opacity:0;transform:translateX(-10px);transition:opacity 460ms ease,transform 460ms cubic-bezier(0.34,1.1,0.64,1)}" +
+    ".membership-ai-features .cw-loop .context-item.show{opacity:1;transform:translateX(0)}" +
+    ".membership-ai-features .cw-loop .context-item .ctx-check{width:clamp(14px,1.9vw,18px);height:clamp(14px,1.9vw,18px);border-radius:50%;background:var(--ai-primary);color:#FFF;display:flex;align-items:center;justify-content:center;font-size:clamp(8px,1.1vw,10px);font-weight:700;flex-shrink:0;margin-top:1px;box-shadow:0 2px 6px rgba(31,58,81,0.18)}" +
+    ".membership-ai-features .cw-loop .context-item .ctx-text{flex:1;display:flex;flex-direction:column;gap:2px;min-width:0}" +
+    ".membership-ai-features .cw-loop .context-item .ctx-primary{font-size:clamp(11px,1.5vw,13.5px);color:var(--charcoal);font-weight:500;line-height:1.35;letter-spacing:-0.005em}" +
+    ".membership-ai-features .cw-loop .context-item .ctx-source{font-size:clamp(9px,1.25vw,11px);color:var(--mid-grey);font-style:italic}" +
+    ".membership-ai-features .cw-loop .context-item .ctx-source b{color:var(--ai-shadow);font-style:normal;font-weight:600}" +
+    ".membership-ai-features .cw-loop .email-compose{position:absolute;left:8%;right:8%;top:11%;bottom:9%;z-index:3;background:#FFF;border:1px solid var(--ai-highlight);border-top:3px solid var(--ai-primary);border-radius:14px;box-shadow:0 -12px 40px rgba(31,58,81,0.18);padding:clamp(11px,1.6vw,16px) clamp(13px,1.9vw,19px) clamp(10px,1.5vw,15px);opacity:0;transform:translateY(85%);transition:opacity 700ms ease,transform 900ms cubic-bezier(0.34,1.05,0.64,1);pointer-events:none;display:flex;flex-direction:column;gap:clamp(6px,0.9vw,9px);overflow:hidden}" +
+    ".membership-ai-features .cw-loop .email-compose.show{opacity:1;transform:translateY(0)}" +
+    ".membership-ai-features .cw-loop .compose-header{display:flex;align-items:center;justify-content:space-between;padding-bottom:clamp(6px,0.9vw,9px);border-bottom:1px solid var(--divider)}" +
+    ".membership-ai-features .cw-loop .compose-header-title{font-size:clamp(9px,1.25vw,11px);font-weight:700;color:var(--ai-primary);letter-spacing:0.12em;text-transform:uppercase;display:flex;align-items:center;gap:5px}" +
+    ".membership-ai-features .cw-loop .compose-header-title::before{content:\"\\2726\"}" +
+    ".membership-ai-features .cw-loop .compose-header-meta{font-size:clamp(8px,1.15vw,10px);color:var(--mid-grey);font-weight:500}" +
+    ".membership-ai-features .cw-loop .compose-field{display:flex;flex-direction:column;gap:4px}" +
+    ".membership-ai-features .cw-loop .compose-field-label{font-size:clamp(8px,1.1vw,10px);font-weight:600;color:var(--mid-grey);letter-spacing:0.08em;text-transform:uppercase}" +
+    ".membership-ai-features .cw-loop .compose-subject{font-size:clamp(12px,1.7vw,15.5px);font-weight:600;color:var(--charcoal);line-height:1.3;letter-spacing:-0.01em;opacity:0;transform:translateY(4px);transition:opacity 380ms ease,transform 380ms cubic-bezier(0.34,1.1,0.64,1)}" +
+    ".membership-ai-features .cw-loop .compose-subject.show{opacity:1;transform:translateY(0)}" +
+    ".membership-ai-features .cw-loop .compose-field-body{flex:1 1 auto;min-height:0;overflow:hidden;display:flex;flex-direction:column;gap:4px}" +
+    ".membership-ai-features .cw-loop .compose-body{font-size:clamp(10px,1.4vw,12px);font-weight:400;color:var(--charcoal);line-height:1.5;letter-spacing:-0.005em;overflow:hidden;display:flex;flex-direction:column;gap:0.55em;flex:1 1 auto;min-height:0}" +
+    ".membership-ai-features .cw-loop .compose-body .para{opacity:0;transform:translateY(6px);transition:opacity 380ms ease,transform 380ms cubic-bezier(0.34,1.1,0.64,1)}" +
+    ".membership-ai-features .cw-loop .compose-body .para.show{opacity:1;transform:translateY(0)}" +
+    ".membership-ai-features .cw-loop .spark-overlay{position:absolute;inset:0;pointer-events:none;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 220ms ease;z-index:4}" +
+    ".membership-ai-features .cw-loop .spark-overlay.show{opacity:1}" +
+    ".membership-ai-features .cw-loop .spark-overlay .spark{font-size:clamp(32px,5vw,48px);color:var(--ai-primary);animation:maif-cw-spark 600ms ease-out;text-shadow:0 0 24px rgba(74,127,165,0.5)}" +
+    "@keyframes maif-cw-spark{0%{transform:scale(0.6) rotate(-15deg);opacity:0}40%{transform:scale(1.15) rotate(8deg);opacity:1}100%{transform:scale(1) rotate(0deg);opacity:0.85}}" +
+    ".membership-ai-features .cw-loop .compose-actions{display:flex;gap:7px;padding-top:7px;border-top:1px solid var(--divider);opacity:0;transition:opacity 500ms ease}" +
+    ".membership-ai-features .cw-loop .compose-actions.show{opacity:1}" +
+    ".membership-ai-features .cw-loop .action{font-size:clamp(9px,1.3vw,11px);font-weight:600;padding:6px 13px;border-radius:100px}" +
+    ".membership-ai-features .cw-loop .action.primary{background:var(--burnt-orange);color:#FFF;box-shadow:0 3px 10px rgba(244,124,44,0.22)}" +
+    ".membership-ai-features .cw-loop .action.secondary{background:var(--neutral-fill);color:var(--mid-grey)}" +
+    ".membership-ai-features .static-visual{width:100%;max-width:540px;aspect-ratio:1/1;background:var(--card-bg);border-radius:22px;padding:36px;position:relative;overflow:hidden;box-shadow:var(--shadow-card);display:flex;flex-direction:column}" +
+    ".membership-ai-features .static-visual::before{content:\"\";position:absolute;inset:0;background-image:url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.0' numOctaves='2' seed='7'/><feColorMatrix values='0 0 0 0 0.94 0 0 0 0 0.91 0 0 0 0 0.86 0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>\");mix-blend-mode:multiply;opacity:0.45;pointer-events:none;z-index:1}" +
+    ".membership-ai-features .static-visual > *{position:relative;z-index:2}" +
+    ".membership-ai-features .form-visual{justify-content:center;gap:14px}" +
+    ".membership-ai-features .form-row{background:#FFF;border:1.5px solid var(--divider);border-radius:12px;padding:16px 20px;display:grid;grid-template-columns:130px 1fr auto;align-items:center;gap:16px;font-size:14.5px;transition:border-color 0.3s ease;opacity:0.4;box-shadow:0 1px 3px rgba(120,110,95,0.05)}" +
+    ".membership-ai-features .form-row.filled{opacity:1;border-color:var(--ai-highlight);animation:maif-form-pulse 0.8s ease-out}" +
+    "@keyframes maif-form-pulse{0%{border-color:var(--divider);box-shadow:0 0 0 0 rgba(74,127,165,0.4)}40%{border-color:var(--ai-primary);box-shadow:0 0 0 5px rgba(74,127,165,0.15)}100%{border-color:var(--ai-highlight);box-shadow:0 0 0 0 rgba(74,127,165,0)}}" +
+    ".membership-ai-features .form-label{color:var(--mid-grey);font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase}" +
+    ".membership-ai-features .form-value{color:var(--charcoal);font-weight:500;font-size:15px}" +
+    ".membership-ai-features .form-source{font-size:11.5px;color:var(--ai-shadow);font-style:italic;white-space:nowrap}" +
+    "@media (max-width:600px){.membership-ai-features .form-row{grid-template-columns:100px 1fr;padding:12px 14px}.membership-ai-features .form-source{display:none}}" +
+    "@media (prefers-reduced-motion:reduce){.membership-ai-features *,.membership-ai-features *::before,.membership-ai-features *::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important}.membership-ai-features .reveal{opacity:1!important;transform:none!important}.membership-ai-features .signals-loop .member{transition-delay:0ms!important}}";
+
+  function maifBuildHTML() {
+    return [
+      '<div class="section-intro reveal">',
+        '<h2><span style="background:linear-gradient(135deg,#7AA8C9 0%,#4A7FA5 35%,#35607E 70%,#1F3A51 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent">Membership AI</span> listens, builds, writes, and remembers.</h2>',
+        '<p>Signals surface what matters. Segments turn plain language into audiences. AI Content Writing drafts the campaign. Strategic Context keeps every output true to your association.</p>',
+      '</div>',
+
+      '<div class="feature-row visual-right reveal">',
+        '<div class="text-side">',
+          '<div class="feature-kicker">Signals</div>',
+          '<h3>Patterns you didn&rsquo;t have time to look for.</h3>',
+          '<p>Signals are patterns of behavior and intent that Membership AI detects in your existing data &mdash; automatically. Each pattern is a Signal. The matching members are one click away.</p>',
+        '</div>',
+        '<div class="visual-side">',
+          '<div class="loop-stage signals-loop" data-loop="signals">',
+            '<div class="population"></div>',
+            '<div class="reasoning-panel">',
+              '<div class="reasoning-header"><div class="badge">Signal detected</div></div>',
+              '<div class="reasoning-headline"><div class="count">12</div><div class="label">Churn risk</div></div>',
+              '<div class="criteria">',
+                '<div class="criterion" data-crit="0"><div class="check">&#10003;</div><div class="text"><div class="primary">Year-2 members</div><div class="meta">Past first renewal &middot; low retention cohort</div></div></div>',
+                '<div class="criterion" data-crit="1"><div class="check">&#10003;</div><div class="text"><div class="primary">Open rate down 40%</div><div class="meta">Last 90 days vs prior 90</div></div></div>',
+                '<div class="criterion" data-crit="2"><div class="check">&#10003;</div><div class="text"><div class="primary">No event RSVPs in 90 days</div><div class="meta">Previously active in events</div></div></div>',
+                '<div class="criterion" data-crit="3"><div class="check">&#10003;</div><div class="text"><div class="primary">Declined last campaign</div><div class="meta">Or did not respond</div></div></div>',
+              '</div>',
+            '</div>',
+            '<div class="step-rail"><div class="step"></div><div class="step"></div><div class="step"></div><div class="step"></div></div>',
+          '</div>',
+        '</div>',
+      '</div>',
+
+      '<div class="feature-row visual-left reveal">',
+        '<div class="text-side">',
+          '<div class="feature-kicker">Segments</div>',
+          '<h3>Type what you want. Get the audience.</h3>',
+          '<p>Tell Membership AI who you&rsquo;re looking for in plain language. It asks clarifying questions, then builds the audience from your PropFuel data, your AMS, and member behavior. Review, edit, add filters, finalize. No IQA setup.</p>',
+        '</div>',
+        '<div class="visual-side">',
+          '<div class="loop-stage segments-loop" data-loop="segments">',
+            '<div class="thread">',
+              '<div class="row user"><div class="speaker">You</div><div class="user-bubble"><span class="prompt-text"></span><span class="cursor"></span></div></div>',
+              '<div class="row ai"><div class="speaker">Membership AI</div><div class="ai-bubble">Should I include members who unsubscribed?</div></div>',
+              '<div class="row user"><div class="choice-row"><span class="choice include">Include</span><span class="choice exclude">Exclude</span></div></div>',
+              '<div class="row result"><div class="segment-card"><div class="seg-tag">Segment ready</div><div class="seg-headline"><div class="count">127</div><div class="label">members match</div></div><div class="filters"><span class="filter-chip">Joined &lt; 90 days</span><span class="filter-chip">No opens</span><span class="filter-chip">Excludes unsubscribes</span></div></div></div>',
+            '</div>',
+            '<div class="roster">',
+              '<div class="roster-header"><div class="roster-title"><div class="roster-count">127</div><div class="roster-label">members in segment</div></div><div class="roster-meta">Live</div></div>',
+              '<div class="roster-list"></div>',
+              '<div class="roster-more"><div class="roster-more-stack"></div><div class="roster-more-text">+ 119 more</div></div>',
+            '</div>',
+            '<div class="step-rail"><div class="step"></div><div class="step"></div><div class="step"></div><div class="step"></div></div>',
+          '</div>',
+        '</div>',
+      '</div>',
+
+      '<div class="feature-row visual-right reveal">',
+        '<div class="text-side">',
+          '<div class="feature-kicker">AI Content Writing</div>',
+          '<h3>A draft that already knows the room.</h3>',
+          '<p>Draft campaign content and landing page copy with an in-platform writing assistant &mdash; tuned to your org, your audience, and your campaign goal. Use it as a starting point, or keep it as written.</p>',
+        '</div>',
+        '<div class="visual-side">',
+          '<div class="loop-stage cw-loop" data-loop="cw">',
+            '<div class="workspace">',
+              '<div class="section-title">AI Content Writing</div>',
+              '<div class="context-panel">',
+                '<div class="context-panel-header"><div class="context-panel-title">What the AI knows</div><div class="context-panel-meta">Drawn from your suite</div></div>',
+                '<div class="context-list">',
+                  '<div class="context-item" data-ctx="0"><span class="ctx-check">&#10003;</span><div class="ctx-text"><span class="ctx-primary">Year-2 retention campaign &middot; warm, direct tone</span><span class="ctx-source">from <b>Membership AI Tab</b></span></div></div>',
+                  '<div class="context-item" data-ctx="1"><span class="ctx-check">&#10003;</span><div class="ctx-text"><span class="ctx-primary">127-member segment, mid-career professionals</span><span class="ctx-source">from <b>Segments</b> + <b>Strategic Context</b></span></div></div>',
+                  '<div class="context-item" data-ctx="2"><span class="ctx-check">&#10003;</span><div class="ctx-text"><span class="ctx-primary">Direct subject lines outperformed clever ones last quarter</span><span class="ctx-source">from <b>Campaign History Summary</b></span></div></div>',
+                '</div>',
+              '</div>',
+            '</div>',
+            '<div class="email-compose">',
+              '<div class="spark-overlay"><span class="spark">&#10022;</span></div>',
+              '<div class="compose-header"><div class="compose-header-title">AI draft &middot; email</div><div class="compose-header-meta">To: 127 members</div></div>',
+              '<div class="compose-field"><div class="compose-field-label">Subject</div><div class="compose-subject">Your membership is almost up &mdash; here&rsquo;s what&rsquo;s worth keeping.</div></div>',
+              '<div class="compose-field compose-field-body"><div class="compose-field-label">Body</div><div class="compose-body">',
+                '<div class="para" data-p="0">Hi Marcus,</div>',
+                '<div class="para" data-p="1">You joined us last year, and your renewal date is coming up on June 14.</div>',
+                '<div class="para" data-p="2">I wanted to reach out personally &mdash; not with a sales pitch, but to ask: has your membership been worth it? If yes, renewing takes 30 seconds at the link below. If not, I&rsquo;d genuinely like to hear what we could be doing better.</div>',
+                '<div class="para" data-p="3">Either way, thanks for being part of this.</div>',
+                '<div class="para" data-p="4">Sarah</div>',
+                '<div class="para" data-p="5">Director of Membership</div>',
+              '</div></div>',
+              '<div class="compose-actions"><span class="action primary">Use this</span><span class="action secondary">Regenerate</span><span class="action secondary">Edit</span></div>',
+            '</div>',
+            '<div class="step-rail"><div class="step"></div><div class="step"></div><div class="step"></div><div class="step"></div></div>',
+          '</div>',
+        '</div>',
+      '</div>',
+
+      '<div class="feature-row visual-left reveal">',
+        '<div class="text-side">',
+          '<div class="feature-kicker">Strategic Context</div>',
+          '<h3>The &ldquo;why&rdquo; behind every campaign.</h3>',
+          '<p>Every association is different. Strategic Context captures yours &mdash; your industry, your members, your mission, the goals you&rsquo;ve talked through with your CS team. Pulled in automatically from your website, your conversations, and your campaign history. It&rsquo;s the layer that lets every other AI feature understand what success means for <em>you</em>.</p>',
+        '</div>',
+        '<div class="visual-side">',
+          '<div class="static-visual form-visual" data-static="form">',
+            '<div class="form-row" data-idx="0"><span class="form-label">Industry</span><span class="form-value">Nursing education</span><span class="form-source">your website</span></div>',
+            '<div class="form-row" data-idx="1"><span class="form-label">Members</span><span class="form-value">3,400 active</span><span class="form-source">your website</span></div>',
+            '<div class="form-row" data-idx="2"><span class="form-label">Mission</span><span class="form-value">Advancing care through education</span><span class="form-source">your about page</span></div>',
+            '<div class="form-row" data-idx="3"><span class="form-label">Stated goal</span><span class="form-value">Increase year-2 retention</span><span class="form-source">CS call &middot; Mar 12</span></div>',
+          '</div>',
+        '</div>',
+      '</div>'
+    ].join('');
+  }
+
+  function renderMembershipAIFeatures(target, opts) {
+    if (!target) return;
+    opts = opts || {};
+    var headshotBase = opts.headshotBase || 'https://alexhively.github.io/propfuel-webflow-custom/images/headshots/';
+    if (!__maifStylesInjected) {
+      var style = document.createElement('style');
+      style.id = 'maif-styles';
+      style.textContent = MAIF_CSS;
+      document.head.appendChild(style);
+      __maifStylesInjected = true;
+    }
+    target.classList.add('membership-ai-features');
+    target.innerHTML = maifBuildHTML();
+    initMaifFlows(target, headshotBase);
+  }
+
+  function initMaifFlows(root, headshotBase) {
+    var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+    // Full membership pool — 28 headshots scattered as the "population"
+    // state for Signals. The animation selects 12 from this pool into
+    // the cluster; the rest fade out (representing AI evaluating everyone
+    // but surfacing only those matching the signal pattern).
+    var HEADSHOTS = [];
+    for (var i = 1; i <= 28; i++) {
+      HEADSHOTS.push(headshotBase + (i < 10 ? '0' + i : '' + i) + '.webp');
+    }
+
+    function makeRand(seed) {
+      var s = seed;
+      return function () { s = (s * 9301 + 49297) % 233280; return s / 233280; };
+    }
+    function wait(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+    function whenInView(el, cb, threshold) {
+      if (reducedMotion) return;
+      if (!('IntersectionObserver' in window)) { cb(); return; }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { cb(); io.unobserve(el); }
+        });
+      }, { threshold: threshold || 0.4 });
+      io.observe(el);
+    }
+
+    // Reveal on scroll
+    (function revealObserver() {
+      var items = root.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window) || reducedMotion) {
+        items.forEach(function (i) { i.classList.add('revealed'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('revealed'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+      items.forEach(function (i) { io.observe(i); });
+    })();
+
+    // Strategic Context — auto-populating form
+    (function formFillFlow() {
+      var host = root.querySelector('[data-static="form"]');
+      if (!host) return;
+      var rows = host.querySelectorAll('.form-row');
+      if (reducedMotion) { rows.forEach(function (r) { r.classList.add('filled'); }); return; }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            rows.forEach(function (r, i) { setTimeout(function () { r.classList.add('filled'); }, 300 + i * 420); });
+            io.unobserve(host);
+          }
+        });
+      }, { threshold: 0.4 });
+      io.observe(host);
+    })();
+
+    // SIGNALS
+    (function signalsLoop() {
+      var stage = root.querySelector('[data-loop="signals"]');
+      if (!stage) return;
+      var population = stage.querySelector('.population');
+      var panel      = stage.querySelector('.reasoning-panel');
+      var criteria   = stage.querySelectorAll('.criterion');
+      var stepEls    = stage.querySelectorAll('.step-rail .step');
+      var TOTAL = HEADSHOTS.length;
+      var SELECT_COUNT = 12;
+      var rand = makeRand(73);
+      // Pack 28 population members into the stage. MIN_DIST tuned so each
+      // face has a small gap (~0.5% past touching) on average. If after
+      // 8000 attempts we can't place all of them, accept what fits.
+      var positions = [];
+      var MIN_DIST = 10, attempts = 0;
+      while (positions.length < TOTAL && attempts < 8000) {
+        attempts++;
+        var x = 7 + rand() * 86, y = 9 + rand() * 82;
+        var tooClose = positions.some(function (p) { var dx = p.x - x, dy = p.y - y; return Math.sqrt(dx*dx + dy*dy) < MIN_DIST; });
+        if (!tooClose) positions.push({ x: x, y: y });
+      }
+      // If packing fell short, relax once and try again — better than blanks.
+      if (positions.length < TOTAL) {
+        var MIN_DIST_RELAX = 9;
+        var more = 0;
+        while (positions.length < TOTAL && more < 5000) {
+          more++;
+          var x2 = 7 + rand() * 86, y2 = 9 + rand() * 82;
+          var tooClose2 = positions.some(function (p) { var dx = p.x - x2, dy = p.y - y2; return Math.sqrt(dx*dx + dy*dy) < MIN_DIST_RELAX; });
+          if (!tooClose2) positions.push({ x: x2, y: y2 });
+        }
+      }
+      // Cluster geometry — 12 distinct readable faces, no clipping, no panel collision.
+      // All values are % of the STAGE (not viewport).
+      // Reasoning panel occupies right 38% (x ≥ 56%); cluster must stay left of 56%.
+      // With CX=28 + R_OUTER=22 + outer_face_half=4.5 → rightmost edge = 54.5% ✓
+      // With CX=28 - R_OUTER=22 - outer_face_half=4.5 → leftmost edge = 1.5% ✓
+      var CLUSTER_CX = 28, CLUSTER_CY = 50;
+      var R_INNER = 12;
+      var R_OUTER = 22;
+      var targets = [{ x: CLUSTER_CX, y: CLUSTER_CY }];
+      for (var k = 0; k < 5; k++) {
+        var a1 = (k / 5) * Math.PI * 2 - Math.PI / 2;
+        targets.push({ x: CLUSTER_CX + Math.cos(a1) * R_INNER, y: CLUSTER_CY + Math.sin(a1) * R_INNER });
+      }
+      for (var k2 = 0; k2 < 6; k2++) {
+        var a2 = (k2 / 6) * Math.PI * 2 - Math.PI / 3;
+        targets.push({ x: CLUSTER_CX + Math.cos(a2) * R_OUTER, y: CLUSTER_CY + Math.sin(a2) * R_OUTER });
+      }
+      // Sizes as % of stage. Tight, non-overlapping packing.
+      var POP_SIZE = 9.5;
+      function clusterSize(idx) { return idx === 0 ? 12 : idx < 6 ? 9 : 9; }
+
+      var members = [];
+      HEADSHOTS.forEach(function (src, i) {
+        var el = document.createElement('div');
+        el.className = 'member idle';
+        var pos = positions[i];
+        el.style.left = pos.x + '%';
+        el.style.top = pos.y + '%';
+        el.style.width = POP_SIZE + '%';
+        el.style.height = POP_SIZE + '%';
+        el.style.transform = 'translate(-50%, -50%)';
+        var img = document.createElement('img');
+        img.src = src; img.loading = 'lazy'; img.decoding = 'async'; img.alt = '';
+        el.appendChild(img);
+        population.appendChild(el);
+        members.push({ el: el, originalPos: pos });
+      });
+      members.forEach(function (m) {
+        m.el.classList.add('pulsing');
+        m.el.style.animationDelay = (rand() * 4).toFixed(2) + 's';
+      });
+
+      function pickSelected() {
+        var idxs = [];
+        for (var i = 0; i < TOTAL; i++) idxs.push(i);
+        var r = makeRand(101);
+        for (var j = idxs.length - 1; j > 0; j--) {
+          var n = Math.floor(r() * (j + 1));
+          var t = idxs[j]; idxs[j] = idxs[n]; idxs[n] = t;
+        }
+        return idxs.slice(0, SELECT_COUNT);
+      }
+      var selected = pickSelected();
+      function setStep(n) { stepEls.forEach(function (el) { el.classList.remove('active'); }); if (n >= 0 && stepEls[n]) stepEls[n].classList.add('active'); }
+
+      function runCycle() {
+        return Promise.resolve().then(function () {
+          members.forEach(function (m) {
+            m.el.className = 'member idle pulsing';
+            m.el.style.left = m.originalPos.x + '%';
+            m.el.style.top  = m.originalPos.y + '%';
+            m.el.style.width = POP_SIZE + '%';
+            m.el.style.height = POP_SIZE + '%';
+          });
+          panel.classList.remove('show');
+          criteria.forEach(function (el) { el.classList.remove('show'); });
+          setStep(-1);
+        }).then(function () { return wait(1000); }).then(function () {
+          setStep(0);
+          selected.forEach(function (idx, n) {
+            setTimeout(function () { members[idx].el.classList.remove('idle', 'pulsing'); members[idx].el.classList.add('selected'); }, n * 50);
+          });
+          return wait(800);
+        }).then(function () {
+          setStep(1);
+          members.forEach(function (m, i) { if (selected.indexOf(i) === -1) m.el.classList.add('faded'); });
+          return wait(1300);
+        }).then(function () {
+          setStep(2);
+          selected.forEach(function (idx, n) {
+            var t = targets[n], s = clusterSize(n);
+            members[idx].el.style.left = t.x + '%';
+            members[idx].el.style.top  = t.y + '%';
+            members[idx].el.style.width  = s + '%';
+            members[idx].el.style.height = s + '%';
+          });
+          return wait(1100);
+        }).then(function () {
+          setStep(3);
+          panel.classList.add('show');
+          return wait(700);
+        }).then(function () {
+          var p = Promise.resolve();
+          for (var i = 0; i < criteria.length; i++) (function (idx) {
+            p = p.then(function () { criteria[idx].classList.add('show'); return wait(700); });
+          })(i);
+          return p;
+        }).then(function () { return wait(3000); }).then(function () {
+          panel.classList.remove('show');
+          criteria.forEach(function (el) { el.classList.remove('show'); });
+          members.forEach(function (m, i) { if (selected.indexOf(i) === -1) m.el.classList.remove('faded'); });
+          return wait(800);
+        });
+      }
+      function loop() { runCycle().then(loop); }
+
+      if (reducedMotion) {
+        selected.forEach(function (idx, n) {
+          var t = targets[n], s = clusterSize(n);
+          members[idx].el.classList.remove('idle', 'pulsing');
+          members[idx].el.classList.add('selected');
+          members[idx].el.style.left = t.x + '%'; members[idx].el.style.top = t.y + '%';
+          members[idx].el.style.width = s + '%'; members[idx].el.style.height = s + '%';
+        });
+        members.forEach(function (m, i) { if (selected.indexOf(i) === -1) m.el.classList.add('faded'); });
+        panel.classList.add('show');
+        criteria.forEach(function (el) { el.classList.add('show'); });
+        setStep(3);
+      } else {
+        whenInView(stage, loop, 0.3);
+      }
+    })();
+
+    // SEGMENTS
+    (function segmentsLoop() {
+      var stage = root.querySelector('[data-loop="segments"]');
+      if (!stage) return;
+      var userBubble = stage.querySelector('.user-bubble');
+      var promptEl   = stage.querySelector('.prompt-text');
+      var cursor     = stage.querySelector('.cursor');
+      var rowAi      = stage.querySelector('.row.ai');
+      var choices    = stage.querySelector('.choice-row');
+      var choiceExc  = stage.querySelector('.choice.exclude');
+      var rowResult  = stage.querySelector('.row.result');
+      var thread     = stage.querySelector('.thread');
+      var roster     = stage.querySelector('.roster');
+      var rosterList = stage.querySelector('.roster-list');
+      var rosterMore = stage.querySelector('.roster-more');
+      var moreStack  = stage.querySelector('.roster-more-stack');
+      var stepEls    = stage.querySelectorAll('.step-rail .step');
+
+      var ROSTER = [
+        { name: 'Alana Ramirez',   role: 'Joined 14 days ago' },
+        { name: 'Marcus Chen',     role: 'Joined 22 days ago' },
+        { name: 'Priya Bhatt',     role: 'Joined 31 days ago' },
+        { name: 'Jordan Whitley',  role: 'Joined 38 days ago' },
+        { name: 'Elena Castillo',  role: 'Joined 47 days ago' },
+        { name: 'Devon Okafor',    role: 'Joined 56 days ago' },
+        { name: 'Sarah O’Brien', role: 'Joined 64 days ago' },
+        { name: 'Tomas Lindqvist', role: 'Joined 78 days ago' }
+      ];
+      ROSTER.forEach(function (m, i) {
+        var row = document.createElement('div');
+        row.className = 'roster-row';
+        row.innerHTML =
+          '<div class="photo"><img src="' + HEADSHOTS[i] + '" alt="" loading="lazy" decoding="async"></div>' +
+          '<div class="name">' + m.name + '</div>' +
+          '<div class="role">' + m.role + '</div>';
+        rosterList.appendChild(row);
+      });
+      for (var j = 8; j < 12 && j < HEADSHOTS.length; j++) {
+        var ph = document.createElement('div');
+        ph.className = 'photo';
+        ph.innerHTML = '<img src="' + HEADSHOTS[j] + '" alt="" loading="lazy" decoding="async">';
+        moreStack.appendChild(ph);
+      }
+      var rosterRows = rosterList.querySelectorAll('.roster-row');
+      var fullText = 'Members who joined in the last 90 days and haven’t opened an email yet.';
+
+      function setStep(n) { stepEls.forEach(function (el) { el.classList.remove('active'); }); if (n >= 0 && stepEls[n]) stepEls[n].classList.add('active'); }
+      function reset() {
+        promptEl.textContent = '';
+        userBubble.classList.remove('typing', 'sent');
+        rowAi.classList.remove('show');
+        choices.classList.remove('show');
+        rowResult.classList.remove('show');
+        choiceExc.classList.remove('selected');
+        if (cursor) cursor.style.display = 'inline-block';
+        thread.classList.remove('scrolled-up');
+        roster.classList.remove('show');
+        rosterRows.forEach(function (r) { r.classList.remove('show'); });
+        rosterMore.classList.remove('show');
+        setStep(-1);
+      }
+      function typeText(txt) {
+        return new Promise(function (resolve) {
+          userBubble.classList.add('typing');
+          var i = 0;
+          (function step() {
+            promptEl.textContent = txt.slice(0, i);
+            if (i++ >= txt.length) { resolve(); return; }
+            setTimeout(step, 40 + Math.random() * 35);
+          })();
+        });
+      }
+      function runCycle() {
+        return Promise.resolve().then(function () { reset(); return wait(700); })
+          .then(function () { setStep(0); return typeText(fullText); })
+          .then(function () { if (cursor) cursor.style.display = 'none'; return wait(350); })
+          .then(function () { userBubble.classList.remove('typing'); userBubble.classList.add('sent'); return wait(550); })
+          .then(function () { setStep(1); rowAi.classList.add('show'); return wait(1500); })
+          .then(function () { choices.classList.add('show'); return wait(750); })
+          .then(function () { choiceExc.classList.add('selected'); setStep(2); return wait(1100); })
+          .then(function () { setStep(3); rowResult.classList.add('show'); return wait(1700); })
+          .then(function () { thread.classList.add('scrolled-up'); return wait(250); })
+          .then(function () { roster.classList.add('show'); return wait(450); })
+          .then(function () {
+            var p = Promise.resolve();
+            for (var i = 0; i < rosterRows.length; i++) (function (idx) { p = p.then(function () { rosterRows[idx].classList.add('show'); return wait(120); }); })(i);
+            return p;
+          })
+          .then(function () { rosterMore.classList.add('show'); return wait(3500); })
+          .then(function () {
+            roster.classList.remove('show'); thread.classList.remove('scrolled-up');
+            rowAi.classList.remove('show'); choices.classList.remove('show'); rowResult.classList.remove('show');
+            rosterRows.forEach(function (r) { r.classList.remove('show'); });
+            rosterMore.classList.remove('show');
+            return wait(700);
+          });
+      }
+      function loop() { runCycle().then(loop); }
+
+      if (reducedMotion) {
+        promptEl.textContent = fullText;
+        userBubble.classList.add('sent');
+        if (cursor) cursor.style.display = 'none';
+        rowAi.classList.add('show'); choices.classList.add('show'); choiceExc.classList.add('selected');
+        rowResult.classList.add('show'); thread.classList.add('scrolled-up'); roster.classList.add('show');
+        rosterRows.forEach(function (r) { r.classList.add('show'); });
+        rosterMore.classList.add('show'); setStep(3);
+      } else {
+        whenInView(stage, loop, 0.4);
+      }
+    })();
+
+    // CONTENT WRITING
+    (function cwLoop() {
+      var stage = root.querySelector('[data-loop="cw"]');
+      if (!stage) return;
+      var workspace    = stage.querySelector('.workspace');
+      var ctxItems     = stage.querySelectorAll('.context-item');
+      var compose      = stage.querySelector('.email-compose');
+      var subjectText  = stage.querySelector('.compose-subject');
+      var paragraphs   = stage.querySelectorAll('.compose-body .para');
+      var composeActs  = stage.querySelector('.compose-actions');
+      var sparkOverlay = stage.querySelector('.spark-overlay');
+      var stepEls      = stage.querySelectorAll('.step-rail .step');
+
+      function setStep(n) { stepEls.forEach(function (el) { el.classList.remove('active'); }); if (n >= 0 && stepEls[n]) stepEls[n].classList.add('active'); }
+      function reset() {
+        ctxItems.forEach(function (el) { el.classList.remove('show'); });
+        workspace.classList.remove('shifted');
+        compose.classList.remove('show');
+        composeActs.classList.remove('show');
+        subjectText.classList.remove('show');
+        paragraphs.forEach(function (p) { p.classList.remove('show'); });
+        sparkOverlay.classList.remove('show');
+        setStep(-1);
+      }
+      function runCycle() {
+        return Promise.resolve().then(function () { reset(); return wait(600); })
+          .then(function () {
+            var p = Promise.resolve();
+            for (var i = 0; i < ctxItems.length; i++) (function (idx) {
+              p = p.then(function () { setStep(idx); ctxItems[idx].classList.add('show'); return wait(560); });
+            })(i);
+            return p;
+          })
+          .then(function () { return wait(450); })
+          .then(function () { workspace.classList.add('shifted'); setStep(3); return wait(200); })
+          .then(function () { compose.classList.add('show'); return wait(550); })
+          .then(function () { sparkOverlay.classList.add('show'); return wait(400); })
+          .then(function () { subjectText.classList.add('show'); return wait(180); })
+          .then(function () { sparkOverlay.classList.remove('show'); return wait(160); })
+          .then(function () {
+            var p = Promise.resolve();
+            for (var i = 0; i < paragraphs.length; i++) (function (idx) { p = p.then(function () { paragraphs[idx].classList.add('show'); return wait(220); }); })(i);
+            return p;
+          })
+          .then(function () { return wait(350); })
+          .then(function () { composeActs.classList.add('show'); return wait(4500); })
+          .then(function () { compose.classList.remove('show'); composeActs.classList.remove('show'); workspace.classList.remove('shifted'); return wait(700); });
+      }
+      function loop() { runCycle().then(loop); }
+
+      if (reducedMotion) {
+        ctxItems.forEach(function (el) { el.classList.add('show'); });
+        workspace.classList.add('shifted'); compose.classList.add('show');
+        subjectText.classList.add('show'); paragraphs.forEach(function (p) { p.classList.add('show'); });
+        composeActs.classList.add('show'); setStep(3);
+      } else {
+        whenInView(stage, loop, 0.4);
+      }
+    })();
+  }
+
+  // expose for the local preview harness only
+  window.__pfRenderMembershipAIFeatures = renderMembershipAIFeatures;
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
