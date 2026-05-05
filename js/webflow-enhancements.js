@@ -7136,11 +7136,6 @@
 
   function maifBuildHTML() {
     return [
-      '<div class="section-intro reveal">',
-        '<h2><span style="background:linear-gradient(135deg,#7AA8C9 0%,#4A7FA5 35%,#35607E 70%,#1F3A51 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent">Membership AI</span> listens, builds,<br>writes, and remembers.</h2>',
-        '<p>Signals surface what matters. Segments turn plain language into audiences. AI Content Writing drafts the campaign. Strategic Context keeps every output true to your association.</p>',
-      '</div>',
-
       '<div class="feature-row visual-right reveal">',
         '<div class="text-side">',
           '<div class="feature-kicker">Signals</div>',
