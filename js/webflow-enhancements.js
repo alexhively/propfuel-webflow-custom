@@ -4193,7 +4193,7 @@
         // Video
         '<div class="mai-video-wrap"><div class="mai-video">' +
           '<button type="button" class="mai-video-poster-btn" aria-label="Play video">' +
-            '<img src="https://fast.wistia.com/embed/medias/vpndoabz9k/swatch" alt="" loading="lazy" decoding="async" />' +
+            '<img src="https://alexhively.github.io/propfuel-webflow-custom/images/maif-poster.jpg" alt="" loading="eager" decoding="async" fetchpriority="high" />' +
             '<span class="mai-video-play" aria-hidden="true">' +
               '<svg viewBox="0 0 80 80" width="84" height="84" xmlns="http://www.w3.org/2000/svg">' +
                 '<circle cx="40" cy="40" r="40" fill="rgba(255,255,255,0.96)"/>' +
