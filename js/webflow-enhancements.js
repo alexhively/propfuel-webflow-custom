@@ -1069,7 +1069,6 @@
           { title: 'ROI & Results', desc: 'Hard numbers across the platform', href: '/roi' },
           { title: 'Case Studies', desc: 'Real results from real associations', href: '/client-success/case-studies' },
           { title: 'Testimonials', desc: 'What members and staff say', href: '/client-success/testimonials' },
-          { title: 'Customer Wall', desc: 'Organizations that trust PropFuel', href: '/client-success/customers' },
           { title: 'Implementation', desc: 'What getting started looks like', href: '/client-success/implementation' }
         ]}]
       },
