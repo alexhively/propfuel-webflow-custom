@@ -1384,17 +1384,8 @@
       wrap.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:300;background:linear-gradient(to right,#1F3A51,#35607E 50%,#4A7FA5);box-shadow:0 1px 0 rgba(0,0,0,0.10);font:600 14px/1.3 "DM Sans",sans-serif;color:#FFFFFF';
       wrap.innerHTML = '<a href="/membership-ai" style="display:flex;align-items:center;justify-content:center;gap:14px;padding:10px 56px 10px 24px;color:inherit;text-decoration:none"><span><strong style="font-weight:800">New:</strong> Meet Membership AI — the reinforcements you’ve been waiting for</span><span style="display:inline-flex;align-items:center;gap:4px;font-weight:700;white-space:nowrap">Learn more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span></a><button type="button" aria-label="Dismiss banner" class="pf-mai-banner-close" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:transparent;border:none;cursor:pointer;color:#FFFFFF;padding:6px;display:inline-flex;align-items:center;justify-content:center;opacity:0.85;border-radius:6px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>';
       document.body.insertBefore(wrap, document.body.firstChild);
-      var clearOffsets = function(){
-        wrap.remove();
-        document.body.style.paddingTop = '';
-        var n = document.querySelector('.pf-nav-bar'); if (n) n.style.top = '';
-      };
-      wrap.querySelector('.pf-mai-banner-close').addEventListener('click', function(e){
-        e.preventDefault(); e.stopPropagation();
-        clearOffsets();
-        try { localStorage.setItem('pf-mai-banner-dismissed','1'); } catch(_) {}
-      });
       var applyOffsets = function(){
+        if (!wrap.isConnected) return;
         var h = wrap.offsetHeight || 40;
         var nav = document.querySelector('.pf-nav-bar');
         if (nav) {
@@ -1403,8 +1394,36 @@
         }
         document.body.style.paddingTop = h + 'px';
       };
+      var dismiss = function(animate){
+        window.removeEventListener('scroll', onScroll);
+        window.removeEventListener('resize', applyOffsets);
+        var nav = document.querySelector('.pf-nav-bar');
+        var finish = function(){
+          wrap.remove();
+          document.body.style.transition = '';
+          document.body.style.paddingTop = '';
+          if (nav) { nav.style.transition = ''; nav.style.top = ''; }
+        };
+        if (!animate) { finish(); return; }
+        wrap.style.transition = 'transform .35s ease, opacity .35s ease';
+        wrap.style.transform = 'translateY(-100%)';
+        wrap.style.opacity = '0';
+        document.body.style.transition = 'padding-top .35s ease';
+        document.body.style.paddingTop = '0';
+        if (nav) { nav.style.transition = 'top .35s ease'; nav.style.top = '0'; }
+        setTimeout(finish, 380);
+      };
+      var onScroll = function(){
+        if (window.scrollY > 60) dismiss(true);
+      };
+      wrap.querySelector('.pf-mai-banner-close').addEventListener('click', function(e){
+        e.preventDefault(); e.stopPropagation();
+        dismiss(true);
+        try { localStorage.setItem('pf-mai-banner-dismissed','1'); } catch(_) {}
+      });
       applyOffsets();
       window.addEventListener('resize', applyOffsets);
+      window.addEventListener('scroll', onScroll, { passive: true });
       // Mobile: tighten padding so copy fits on small screens
       var mq = '@media (max-width:600px){.pf-mai-banner a{padding:10px 48px 10px 16px!important;font-size:12.5px!important;gap:10px!important}.pf-mai-banner a span:last-child svg{display:none}}';
       var st = document.createElement('style'); st.textContent = mq; document.head.appendChild(st);
