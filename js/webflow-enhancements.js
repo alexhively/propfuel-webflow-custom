@@ -1373,6 +1373,41 @@
   // 6. HOMEPAGE FIXES
   // ─────────────────────────────────────────
   function fixHomepage() {
+    // Membership AI announcement banner — homepage only, dismissible
+    (function injectMembershipAIBanner(){
+      try { if (localStorage.getItem('pf-mai-banner-dismissed') === '1') return; } catch(_) {}
+      if (document.querySelector('.pf-mai-banner')) return;
+      var wrap = document.createElement('div');
+      wrap.className = 'pf-mai-banner';
+      wrap.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:300;background:linear-gradient(90deg,#F47C2C 0%,#FBC02D 100%);box-shadow:0 1px 0 rgba(0,0,0,0.06);font:600 14px/1.3 "DM Sans",sans-serif;color:#2F2F2F';
+      wrap.innerHTML = '<a href="/membership-ai" style="display:flex;align-items:center;justify-content:center;gap:14px;padding:10px 56px 10px 24px;color:inherit;text-decoration:none"><span><strong style="font-weight:800">New:</strong> Meet Membership AI — the reinforcements you’ve been waiting for</span><span style="display:inline-flex;align-items:center;gap:4px;font-weight:700;white-space:nowrap">Learn more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span></a><button type="button" aria-label="Dismiss banner" class="pf-mai-banner-close" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:transparent;border:none;cursor:pointer;color:#2F2F2F;padding:6px;display:inline-flex;align-items:center;justify-content:center;opacity:0.7;border-radius:6px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>';
+      document.body.insertBefore(wrap, document.body.firstChild);
+      var clearOffsets = function(){
+        wrap.remove();
+        document.body.style.paddingTop = '';
+        var n = document.querySelector('.pf-nav-bar'); if (n) n.style.top = '';
+      };
+      wrap.querySelector('.pf-mai-banner-close').addEventListener('click', function(e){
+        e.preventDefault(); e.stopPropagation();
+        clearOffsets();
+        try { localStorage.setItem('pf-mai-banner-dismissed','1'); } catch(_) {}
+      });
+      var applyOffsets = function(){
+        var h = wrap.offsetHeight || 40;
+        var nav = document.querySelector('.pf-nav-bar');
+        if (nav) {
+          var pos = window.getComputedStyle(nav).position;
+          if (pos === 'fixed' || pos === 'sticky') nav.style.top = h + 'px';
+        }
+        document.body.style.paddingTop = h + 'px';
+      };
+      applyOffsets();
+      window.addEventListener('resize', applyOffsets);
+      // Mobile: tighten padding so copy fits on small screens
+      var mq = '@media (max-width:600px){.pf-mai-banner a{padding:10px 48px 10px 16px!important;font-size:12.5px!important;gap:10px!important}.pf-mai-banner a span:last-child svg{display:none}}';
+      var st = document.createElement('style'); st.textContent = mq; document.head.appendChild(st);
+    })();
+
     // Fix empty stat numbers
     var statNums = document.querySelectorAll('.pf-stat-number');
     var statValues = ['8.68%', '$100M+', '72%'];
