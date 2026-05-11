@@ -1045,8 +1045,7 @@
             { title: 'Email', desc: 'Conversational emails that get replies', href: '/platform/email' },
             { title: 'Website', desc: 'Personalized on-site engagement', href: '/platform/website' },
             { title: 'SMS', desc: 'Event-day texts that drive action', href: '/platform/sms' },
-            { title: 'Integrations', desc: 'Two-way sync with your AMS', href: '/integrations' },
-            { title: 'AI Data Security', desc: 'Zero retention, no PII, human in the loop', href: '/ai-security' }
+            { title: 'Integrations', desc: 'Two-way sync with your AMS', href: '/integrations' }
           ]}
         ]
       },
@@ -5821,6 +5820,7 @@
               '<a href="/resources/blog" class="pf-footer-link">Blog</a>' +
               '<a href="/roi" class="pf-footer-link">ROI</a>' +
               '<a href="https://help.propfuel.com/" class="pf-footer-link" target="_blank" rel="noopener noreferrer">Help Center</a>' +
+              '<a href="/ai-security" class="pf-footer-link">AI Security</a>' +
             '</div>' +
             '<div>' +
               '<h4 class="pf-footer-col-title">Company</h4>' +
@@ -5828,7 +5828,6 @@
               '<a href="/company/careers" class="pf-footer-link">Careers</a>' +
               '<a href="/company/contact" class="pf-footer-link">Contact</a>' +
               '<a href="/company/partners" class="pf-footer-link">Partners</a>' +
-              '<a href="/ai-security" class="pf-footer-link">AI Data Security</a>' +
             '</div>' +
           '</div>' +
           '<div class="pf-footer-bottom">' +
