@@ -482,6 +482,7 @@
     '/platform/website': { title: 'Website Personalization for Associations | PropFuel', desc: "PropFuel's website engagement widget asks targeted questions to site visitors, capturing intent and converting anonymous traffic into known member intelligence.", ogImage: '/og-images/platform-website.png' },
     '/integrations': { title: 'AMS & System Integrations for Associations | PropFuel', desc: 'PropFuel integrates with leading AMS platforms including iMIS, Nimble AMS, Fonteva, and Salesforce \u2014 with real-time two-way data sync and write-back.', ogImage: '/og-images/platform-integrations.png' },
     '/membership-ai': { title: 'Membership AI \u2014 Smart Member Intelligence | PropFuel', desc: "PropFuel's Membership AI uses intelligent agents to surface insights, recommend actions, and build engagement initiatives for association staff automatically.", ogImage: 'https://alexhively.github.io/propfuel-webflow-custom/og-images/platform-membership-ai.png' },
+    '/ai-security': { title: 'AI Data Security at PropFuel \u2014 Zero Retention, No PII, Human in the Loop', desc: "How PropFuel protects your members' data when using AI. Zero data retention, no PII in AI calls, and a human approves every campaign. Read the full AI policy.", ogImage: 'https://alexhively.github.io/propfuel-webflow-custom/og-images/platform-membership-ai.png' },
     '/use-cases/onboarding': { title: 'Automate New Member Onboarding Journeys | PropFuel', desc: "Turn new member silence into engagement. PropFuel's onboarding automation delivers personalized check-ins that drive 3x engagement in the first 60 days.", ogImage: '/og-images/use-cases-onboarding.png' },
     '/use-cases/renewals': { title: 'Membership Renewal Campaigns & Automation | PropFuel', desc: "Stop sending identical renewal reminders. PropFuel's renewal campaigns adapt to each member's response, recovering $320K+ in at-risk revenue.", ogImage: '/og-images/use-cases-renewals.png' },
     '/use-cases/win-back': { title: 'Win Back Lapsed Members with AI Campaigns | PropFuel', desc: "Re-engage lapsed members with conversations, not campaigns. PropFuel's win-back automation brings 80% back within 90 days.", ogImage: '/og-images/use-cases-win-back.png' },
@@ -1044,7 +1045,8 @@
             { title: 'Email', desc: 'Conversational emails that get replies', href: '/platform/email' },
             { title: 'Website', desc: 'Personalized on-site engagement', href: '/platform/website' },
             { title: 'SMS', desc: 'Event-day texts that drive action', href: '/platform/sms' },
-            { title: 'Integrations', desc: 'Two-way sync with your AMS', href: '/integrations' }
+            { title: 'Integrations', desc: 'Two-way sync with your AMS', href: '/integrations' },
+            { title: 'AI Data Security', desc: 'Zero retention, no PII, human in the loop', href: '/ai-security' }
           ]}
         ]
       },
@@ -5826,6 +5828,7 @@
               '<a href="/company/careers" class="pf-footer-link">Careers</a>' +
               '<a href="/company/contact" class="pf-footer-link">Contact</a>' +
               '<a href="/company/partners" class="pf-footer-link">Partners</a>' +
+              '<a href="/ai-security" class="pf-footer-link">AI Data Security</a>' +
             '</div>' +
           '</div>' +
           '<div class="pf-footer-bottom">' +
@@ -6787,6 +6790,199 @@
   }
 
   // ─────────────────────────────────────────
+  // FIX AI SECURITY PAGE
+  // ─────────────────────────────────────────
+  function fixAISecurityPage() {
+    if (window.location.pathname.indexOf('/ai-security') === -1) return;
+    var main = getPageMain();
+
+    var pillars = [
+      { num: '01', label: 'Zero Data Retention', title: 'Your data isn’t training anyone’s model.', body: 'Every AI model we use runs with zero data retention contractually enabled. We don’t call OpenAI, Anthropic, or Google directly — we route through an inference gateway (OpenRouter) that enforces ZDR across every provider. The labs never see your data, even if they wanted to.', micro: 'Nothing is logged. Nothing is stored. Nothing is used for training.' },
+      { num: '02', label: 'No PII in AI Calls', title: 'Your members’ identities never enter the AI layer.', body: 'Names, emails, and contact-level identifiers stay out of AI calls entirely. The AI works with patterns, metadata, and aggregate statistics — not identifiable member records. If it’s personal, it doesn’t get sent.', micro: 'The AI sees the shape of your audience, not the people in it.' },
+      { num: '03', label: 'Human in the Loop', title: 'Nothing ships to your members without you.', body: 'Membership AI does the thinking — drafting, suggesting, surfacing patterns. You do the approving. Every segment, every piece of copy, every campaign gets a human sign-off before it goes out the door.', micro: 'The AI never has the keys.' }
+    ];
+
+    var receipts = [
+      { title: 'Zero Data Retention', desc: 'Enforced contractually across all providers via OpenRouter' },
+      { title: 'TLS in Transit', desc: 'All AI calls encrypted end-to-end' },
+      { title: 'Internal Audit Logs', desc: 'Every prompt, response, and token count logged for audit' },
+      { title: 'Restricted Access', desc: 'AI configuration and logs limited to authorized personnel' },
+      { title: 'No Training on Your Data', desc: 'Contractually prohibited with every subprocessor' }
+    ];
+
+    var sendsRows = [
+      { yes: 'Campaign metadata (names, types, schedules)', no: 'Member names' },
+      { yes: 'Question text and survey configurations', no: 'Member email addresses' },
+      { yes: 'Aggregate response rates and engagement counts', no: 'Any personal identifier' },
+      { yes: 'Organization field definitions', no: 'Authentication credentials' },
+      { yes: 'Aggregate value distributions', no: 'Individual contact records' },
+      { yes: 'Segment filter configurations', no: 'Access tokens or API keys' },
+      { yes: 'Your natural-language queries', no: 'Anything that can identify a person' }
+    ];
+
+    var faqs = [
+      { q: 'Is my data being used to train AI models?', a: 'No. Every AI model we use runs with zero data retention contractually enabled. We also route AI requests through an intermediary (OpenRouter) so the AI labs — OpenAI, Anthropic, Google — never see your data directly. Your data is not used to train any model.' },
+      { q: 'Is my members’ personal information being sent to AI?', a: 'No. Names, email addresses, and other personally identifiable information are not sent into AI calls. The AI works with patterns and context, not identifiable member records.' },
+      { q: 'Can Membership AI send something to my members without my approval?', a: 'No. Membership AI drafts, suggests, summarizes, and surfaces patterns. You approve every segment, every piece of copy, and every campaign before anything goes out. Nothing ships to your members without a human hitting send.' },
+      { q: 'Then how is the AI smart enough to make good recommendations?', a: 'Two sources. First, our team’s twenty years inside association membership work — distilled into best practices the AI applies. Second, your organization’s own context — your goals, your campaigns, your member language. We don’t copy other clients’ campaigns. We apply general best practices to your specific data.' },
+      { q: 'Who else has access to my data?', a: 'PropFuel uses subprocessors (like AWS, where the platform is hosted) under contractual agreements that prohibit them from using your data for their own purposes. Your data is yours. The full list of subprocessors and the contractual terms are in our AI policy.' },
+      { q: 'I had to sign an AI use policy at my organization. Do I need separate approval to use this?', a: 'Your organization has a contract with PropFuel that covers how we provide this service. If your internal AI policy team has specific questions, send them our AI policy page and we’ll help them work through anything they need.' }
+    ];
+
+    var html = '';
+
+    // ── HERO (dark, AI Blue gradient) ─────────────────
+    html += '<section class="pf-aisec-hero" style="position:relative;padding:120px 48px 96px;background:linear-gradient(135deg,#1F3A51 0%,#35607E 55%,#4A7FA5 100%);overflow:hidden;text-align:center;color:#EDE8DF">' +
+      '<div style="position:absolute;inset:0;background-image:radial-gradient(circle at 20% 30%,rgba(208,223,234,0.10),transparent 40%),radial-gradient(circle at 80% 70%,rgba(208,223,234,0.08),transparent 40%);pointer-events:none"></div>' +
+      '<div style="position:relative;max-width:880px;margin:0 auto">' +
+        '<p style="display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border-radius:100px;background:rgba(208,223,234,0.12);border:1px solid rgba(208,223,234,0.30);font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#D0DFEA;margin-bottom:28px">' +
+          '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>' +
+          'AI Data Security' +
+        '</p>' +
+        '<h1 style="font-size:clamp(40px,5.6vw,64px);font-weight:800;letter-spacing:-0.03em;line-height:1.05;margin-bottom:24px;color:#FFFFFF">Your data isn’t training Sam Altman’s next model.</h1>' +
+        '<p style="font-size:clamp(17px,1.6vw,20px);color:#D0DFEA;line-height:1.55;max-width:680px;margin:0 auto 36px">Three commitments we won’t compromise on: zero data retention, no PII in AI calls, and a human approves every campaign before it ships.</p>' +
+        '<div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-bottom:36px">' +
+          '<a href="https://app.propfuel.com/ai-policy" target="_blank" rel="noopener noreferrer" class="pf-btn-primary" style="display:inline-flex;align-items:center;gap:8px;padding:16px 32px;font:700 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:#FFFFFF;color:#1F3A51;border:none">Read the full AI Policy <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>' +
+          '<a href="/company/contact" style="display:inline-flex;align-items:center;gap:8px;padding:16px 32px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:transparent;color:#FFFFFF;border:1.5px solid rgba(255,255,255,0.45)">Talk to our security team</a>' +
+        '</div>' +
+        '<div style="display:inline-flex;flex-wrap:wrap;gap:8px 24px;justify-content:center;font-size:13px;font-weight:600;letter-spacing:0.04em;color:#D0DFEA;opacity:0.95">' +
+          '<span>SOC 2 Type II</span><span style="opacity:0.4">•</span>' +
+          '<span>Zero Data Retention</span><span style="opacity:0.4">•</span>' +
+          '<span>No PII in AI</span><span style="opacity:0.4">•</span>' +
+          '<span>Human in the Loop</span>' +
+        '</div>' +
+      '</div>' +
+    '</section>';
+
+    // ── THREE PILLARS (cream) ─────────────────────────
+    html += '<section style="padding:96px 48px;background:#F4F1EA"><div style="max-width:1180px;margin:0 auto">' +
+      '<div style="text-align:center;margin-bottom:56px">' +
+        '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#4A7FA5;margin-bottom:16px">Three Pillars</p>' +
+        '<h2 style="font-size:clamp(28px,4vw,42px);font-weight:800;color:#2F2F2F;letter-spacing:-0.025em;line-height:1.1;margin-bottom:18px">How Membership AI keeps your data safe.</h2>' +
+        '<p style="font-size:17px;color:#6E6E6E;line-height:1.6;max-width:620px;margin:0 auto">We get the AI security question every week. Here’s the short version.</p>' +
+      '</div>' +
+      '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px" class="pf-aisec-pillars">';
+
+    pillars.forEach(function(p) {
+      html += '<div class="pf-card pf-aisec-pillar" style="background:#F6F2E8;border-radius:20px;padding:40px 32px;border:1px solid rgba(74,127,165,0.18);transition:transform 0.2s ease,box-shadow 0.2s ease;display:flex;flex-direction:column">' +
+        '<div style="display:flex;align-items:center;gap:14px;margin-bottom:24px">' +
+          '<span style="font-size:36px;font-weight:900;letter-spacing:-0.04em;background:linear-gradient(135deg,#1F3A51,#4A7FA5);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1">' + p.num + '</span>' +
+          '<span style="font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#35607E">' + p.label + '</span>' +
+        '</div>' +
+        '<h3 style="font-size:22px;font-weight:800;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.2;margin-bottom:16px">' + p.title + '</h3>' +
+        '<p style="font-size:15px;color:#6E6E6E;line-height:1.65;margin-bottom:20px;flex:1">' + p.body + '</p>' +
+        '<p style="font-size:13px;font-weight:600;color:#35607E;line-height:1.5;padding-top:18px;border-top:1px solid rgba(74,127,165,0.15);margin:0">' + p.micro + '</p>' +
+      '</div>';
+    });
+
+    html += '</div></div></section>';
+
+    // ── HOW ARE RECOMMENDATIONS GOOD (dark) ───────────
+    html += '<section style="padding:96px 48px;background:#1A1713;color:#EDE8DF"><div style="max-width:1080px;margin:0 auto">' +
+      '<div style="text-align:center;margin-bottom:56px">' +
+        '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#4A7FA5;margin-bottom:16px">The Follow-Up Question</p>' +
+        '<h2 style="font-size:clamp(28px,4vw,42px);font-weight:800;color:#EDE8DF;letter-spacing:-0.025em;line-height:1.1;margin-bottom:18px">“Okay, then how are the recommendations any good?”</h2>' +
+        '<p style="font-size:17px;color:#8C8479;line-height:1.6;max-width:640px;margin:0 auto">Fair question. The intelligence comes from two places — neither of them is “your data trained the model.”</p>' +
+      '</div>' +
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-bottom:48px" class="pf-aisec-twocol">' +
+        '<div style="background:rgba(74,127,165,0.08);border:1px solid rgba(74,127,165,0.25);border-radius:20px;padding:36px">' +
+          '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#4A7FA5;margin-bottom:14px">01</p>' +
+          '<h3 style="font-size:22px;font-weight:800;color:#FFFFFF;letter-spacing:-0.02em;line-height:1.2;margin-bottom:16px">Twenty years of association best practices.</h3>' +
+          '<p style="font-size:15px;color:#D0DFEA;line-height:1.65;opacity:0.85">Our team has spent two decades inside association membership work. We’ve watched what drives renewals, what wins back lapsed members, what onboarding flows actually stick. We distilled that into best practices the AI applies.</p>' +
+        '</div>' +
+        '<div style="background:rgba(74,127,165,0.08);border:1px solid rgba(74,127,165,0.25);border-radius:20px;padding:36px">' +
+          '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#4A7FA5;margin-bottom:14px">02</p>' +
+          '<h3 style="font-size:22px;font-weight:800;color:#FFFFFF;letter-spacing:-0.02em;line-height:1.2;margin-bottom:16px">Your organization’s own context.</h3>' +
+          '<p style="font-size:15px;color:#D0DFEA;line-height:1.65;opacity:0.85">Your goals, your campaigns, your member language, your engagement history — within your own environment. The AI applies general best practices to your specific situation. We don’t copy other clients’ campaigns. We don’t cross-pollinate data. Your context stays yours.</p>' +
+        '</div>' +
+      '</div>' +
+      '<p style="font-size:17px;font-style:italic;color:#D0DFEA;line-height:1.6;text-align:center;max-width:720px;margin:0 auto;opacity:0.95">Best practices are the recipe. Your context is the ingredients. The AI is the line cook — and you’re the one approving every plate.</p>' +
+    '</div></section>';
+
+    // ── WHAT WE SEND / DON'T SEND (cream compare) ─────
+    html += '<section style="padding:96px 48px;background:#F4F1EA"><div style="max-width:1100px;margin:0 auto">' +
+      '<div style="text-align:center;margin-bottom:48px">' +
+        '<h2 style="font-size:clamp(28px,4vw,42px);font-weight:800;color:#2F2F2F;letter-spacing:-0.025em;line-height:1.1;margin-bottom:18px">What the AI sees — and what it never sees.</h2>' +
+        '<p style="font-size:17px;color:#6E6E6E;line-height:1.6;max-width:620px;margin:0 auto">We send the minimum data necessary for each AI operation. Here’s the exact list.</p>' +
+      '</div>' +
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:24px" class="pf-aisec-compare">' +
+        '<div style="background:#F6F2E8;border-radius:20px;padding:36px;border:1px solid rgba(74,127,165,0.20)">' +
+          '<div style="display:flex;align-items:center;gap:10px;margin-bottom:24px">' +
+            '<div style="width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,#4A7FA5,#35607E);display:flex;align-items:center;justify-content:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>' +
+            '<h3 style="font-size:18px;font-weight:800;color:#2F2F2F;margin:0">What the AI sees</h3>' +
+          '</div>' +
+          '<ul style="list-style:none;padding:0;margin:0">';
+    sendsRows.forEach(function(r) {
+      html += '<li style="font-size:15px;color:#2F2F2F;line-height:1.5;padding:12px 0;border-bottom:1px solid rgba(74,127,165,0.10)">' + r.yes + '</li>';
+    });
+    html += '</ul></div>' +
+        '<div style="background:#F6F2E8;border-radius:20px;padding:36px;border:1px solid rgba(240,90,40,0.25)">' +
+          '<div style="display:flex;align-items:center;gap:10px;margin-bottom:24px">' +
+            '<div style="width:32px;height:32px;border-radius:10px;background:#F05A28;display:flex;align-items:center;justify-content:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>' +
+            '<h3 style="font-size:18px;font-weight:800;color:#2F2F2F;margin:0">What the AI never sees</h3>' +
+          '</div>' +
+          '<ul style="list-style:none;padding:0;margin:0">';
+    sendsRows.forEach(function(r) {
+      html += '<li style="font-size:15px;color:#2F2F2F;line-height:1.5;padding:12px 0;border-bottom:1px solid rgba(240,90,40,0.10)">' + r.no + '</li>';
+    });
+    html += '</ul></div>' +
+      '</div>' +
+    '</div></section>';
+
+    // ── RECEIPTS STRIP ────────────────────────────────
+    html += '<section style="padding:80px 48px;background:#EAE4D8"><div style="max-width:1180px;margin:0 auto">' +
+      '<h2 style="font-size:clamp(24px,3.2vw,32px);font-weight:800;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15;margin-bottom:40px;text-align:center">The receipts.</h2>' +
+      '<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px" class="pf-aisec-receipts">';
+    receipts.forEach(function(r) {
+      html += '<div style="background:#F6F2E8;border-radius:14px;padding:24px 20px;border:1px solid rgba(74,127,165,0.15);text-align:center">' +
+        '<div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#1F3A51,#4A7FA5);display:flex;align-items:center;justify-content:center;margin:0 auto 14px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>' +
+        '<h3 style="font-size:14px;font-weight:800;color:#2F2F2F;margin-bottom:8px;letter-spacing:-0.01em">' + r.title + '</h3>' +
+        '<p style="font-size:12px;color:#6E6E6E;line-height:1.5;margin:0">' + r.desc + '</p>' +
+      '</div>';
+    });
+    html += '</div></div></section>';
+
+    // ── FAQ ───────────────────────────────────────────
+    html += '<section class="pf-aisec-faq pf-faq-section" style="padding:96px 48px;background:#F4F1EA"><div style="max-width:820px;margin:0 auto">' +
+      '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#4A7FA5;margin-bottom:16px;text-align:center">FAQ</p>' +
+      '<h2 style="font-size:clamp(28px,4vw,42px);font-weight:800;color:#2F2F2F;letter-spacing:-0.025em;line-height:1.1;margin-bottom:48px;text-align:center">Frequently asked questions.</h2>';
+    faqs.forEach(function(f) {
+      html += '<div class="pf-faq-item" style="border-bottom:1px solid #E3DDD2;padding:20px 0">' +
+        '<button class="pf-faq-question" style="width:100%;display:flex;align-items:center;justify-content:space-between;background:none;border:none;cursor:pointer;font:700 17px/1.4 \'DM Sans\',sans-serif;color:#2F2F2F;text-align:left;padding:0">' + f.q + '</button>' +
+        '<div class="pf-faq-answer" style="max-height:0;overflow:hidden;transition:max-height .35s ease"><p style="font-size:15px;color:#6E6E6E;line-height:1.65;margin:0">' + f.a + '</p></div>' +
+      '</div>';
+    });
+    html += '</div></section>';
+
+    // ── CTA (dark, AI Blue gradient) ──────────────────
+    html += '<section class="pf-cta-section" style="padding:96px 48px;background:linear-gradient(135deg,#1F3A51 0%,#35607E 55%,#4A7FA5 100%);text-align:center;color:#EDE8DF"><div style="max-width:760px;margin:0 auto">' +
+      '<h2 class="pf-cta-heading" style="font-size:clamp(28px,4vw,42px);font-weight:800;color:#FFFFFF;letter-spacing:-0.02em;line-height:1.15;margin-bottom:20px">Have your security team review the details.</h2>' +
+      '<p style="font-size:17px;color:#D0DFEA;line-height:1.6;margin-bottom:32px">Our full AI Policy covers providers, subprocessors, data handling, audit logs, and known limitations. It’s written to be read by the people who have to approve it.</p>' +
+      '<div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center">' +
+        '<a href="https://app.propfuel.com/ai-policy" target="_blank" rel="noopener noreferrer" class="pf-btn-primary" style="display:inline-flex;align-items:center;gap:8px;padding:16px 32px;font:700 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:#FFFFFF;color:#1F3A51;border:none">Read the full AI Policy <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>' +
+        '<a href="/book-a-demo" style="display:inline-flex;align-items:center;gap:8px;padding:16px 32px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:transparent;color:#FFFFFF;border:1.5px solid rgba(255,255,255,0.45)">Book a security review call</a>' +
+      '</div>' +
+    '</div></section>';
+
+    main.innerHTML = html;
+
+    // Hover lift on pillar cards
+    document.querySelectorAll('.pf-aisec-pillar').forEach(function(c) {
+      c.addEventListener('mouseenter', function() { c.style.transform = 'translateY(-4px)'; c.style.boxShadow = '0 12px 32px rgba(31,58,81,0.12)'; });
+      c.addEventListener('mouseleave', function() { c.style.transform = 'translateY(0)'; c.style.boxShadow = 'none'; });
+    });
+
+    // Responsive: collapse grids on smaller viewports
+    var styleId = 'pf-aisec-responsive';
+    if (!document.getElementById(styleId)) {
+      var st = document.createElement('style');
+      st.id = styleId;
+      st.textContent = '@media (max-width:900px){.pf-aisec-pillars{grid-template-columns:1fr!important}.pf-aisec-twocol{grid-template-columns:1fr!important}.pf-aisec-compare{grid-template-columns:1fr!important}.pf-aisec-receipts{grid-template-columns:repeat(2,1fr)!important}}@media (max-width:520px){.pf-aisec-receipts{grid-template-columns:1fr!important}.pf-aisec-hero{padding:96px 24px 72px!important}}';
+      document.head.appendChild(st);
+    }
+  }
+
+  // ─────────────────────────────────────────
   // FIX ROI RESULTS PAGE
   // ─────────────────────────────────────────
   function fixRoiResults() {
@@ -7008,6 +7204,7 @@
     fixPartners();
     fixPrivacy();
     fixTerms();
+    fixAISecurityPage();
     // Clean up duplicates: hide original Webflow elements when injected ones exist
     var injectedBtns = document.querySelector('.pf-hero-btns-injected');
     if (injectedBtns) {
