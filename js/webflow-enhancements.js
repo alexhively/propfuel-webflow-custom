@@ -4323,6 +4323,23 @@
               '<details><summary>How long until we see results?</summary><p class="answer">First campaign live in 2–3 weeks. Full ramp-up in 2–3 months. Staff training takes 10–45 minutes. You get a dedicated Customer Success Manager with a sub-3-hour response time. PropFuel’s onboarding has been recognized with an ASAE Gold Circle Award.</p></details>' +
             '</div>' +
           '</div>' +
+        '</section>' +
+        // AI Security trust band — last section before CTA
+        '<section class="mai-security" style="padding:80px 32px;background:linear-gradient(135deg,#1F3A51 0%,#35607E 55%,#4A7FA5 100%);text-align:center;color:#EDE8DF">' +
+          '<div style="max-width:880px;margin:0 auto">' +
+            '<div style="display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border-radius:100px;background:rgba(208,223,234,0.12);border:1px solid rgba(208,223,234,0.30);font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#D0DFEA;margin-bottom:24px">' +
+              '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>' +
+              'AI Data Security' +
+            '</div>' +
+            '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#FFFFFF;letter-spacing:-0.02em;line-height:1.15;margin-bottom:20px">Built to pass your security team’s review.</h2>' +
+            '<p style="font-size:17px;color:#D0DFEA;line-height:1.6;margin:0 auto 32px;max-width:680px">Your data isn’t training anyone’s model. Your members’ PII never enters an AI call. And a human approves every campaign before it ships.</p>' +
+            '<div class="mai-security-pills" style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-bottom:36px">' +
+              '<span style="display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:100px;background:rgba(208,223,234,0.12);border:1px solid rgba(208,223,234,0.30);font-size:13px;font-weight:700;color:#D0DFEA"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4A7FA5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="background:#FFFFFF;border-radius:50%;padding:2px;box-sizing:border-box"><polyline points="20 6 9 17 4 12"/></svg>Zero Data Retention</span>' +
+              '<span style="display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:100px;background:rgba(208,223,234,0.12);border:1px solid rgba(208,223,234,0.30);font-size:13px;font-weight:700;color:#D0DFEA"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4A7FA5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="background:#FFFFFF;border-radius:50%;padding:2px;box-sizing:border-box"><polyline points="20 6 9 17 4 12"/></svg>No PII in AI Calls</span>' +
+              '<span style="display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:100px;background:rgba(208,223,234,0.12);border:1px solid rgba(208,223,234,0.30);font-size:13px;font-weight:700;color:#D0DFEA"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4A7FA5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="background:#FFFFFF;border-radius:50%;padding:2px;box-sizing:border-box"><polyline points="20 6 9 17 4 12"/></svg>Human in the Loop</span>' +
+            '</div>' +
+            '<a href="/legal/ai-security" style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;font:700 14px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:linear-gradient(to right,#F47C2C,#FBC02D) !important;background-image:linear-gradient(to right,#F47C2C,#FBC02D) !important;color:#FFFFFF !important;border:none;box-shadow:0 4px 14px rgba(240,90,40,0.25)">See how we protect your data <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>' +
+          '</div>' +
         '</section>';
       ctaSection.insertAdjacentHTML('beforebegin', sectionsHTML);
 
@@ -4584,32 +4601,7 @@
       if (fq) { fq.insertAdjacentHTML('afterend', relatedHTML); } else { ctaSection.insertAdjacentHTML('beforebegin', relatedHTML); }
     }
 
-    // AI Security trust band — last section before CTA
-    if (!document.querySelector('.mai-security')) {
-      var pillStyle = 'display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:100px;background:rgba(208,223,234,0.12);border:1px solid rgba(208,223,234,0.30);font-size:13px;font-weight:700;letter-spacing:0.02em;color:#D0DFEA';
-      var checkSvg = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4A7FA5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="background:#FFFFFF;border-radius:50%;padding:2px;box-sizing:border-box"><polyline points="20 6 9 17 4 12"/></svg>';
-      var securityHTML = '<section class="mai-security" style="padding:80px 48px;background:linear-gradient(135deg,#1F3A51 0%,#35607E 55%,#4A7FA5 100%);text-align:center;color:#EDE8DF">' +
-        '<div style="max-width:880px;margin:0 auto">' +
-          '<div style="display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border-radius:100px;background:rgba(208,223,234,0.12);border:1px solid rgba(208,223,234,0.30);font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#D0DFEA;margin-bottom:24px">' +
-            '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>' +
-            'AI Data Security' +
-          '</div>' +
-          '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#FFFFFF;letter-spacing:-0.02em;line-height:1.15;margin-bottom:20px">Built to pass your security team’s review.</h2>' +
-          '<p style="font-size:17px;color:#D0DFEA;line-height:1.6;margin:0 auto 32px;max-width:680px">Your data isn’t training anyone’s model. Your members’ PII never enters an AI call. And a human approves every campaign before it ships.</p>' +
-          '<div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-bottom:36px">' +
-            '<span style="' + pillStyle + '">' + checkSvg + 'Zero Data Retention</span>' +
-            '<span style="' + pillStyle + '">' + checkSvg + 'No PII in AI Calls</span>' +
-            '<span style="' + pillStyle + '">' + checkSvg + 'Human in the Loop</span>' +
-          '</div>' +
-          '<a href="/legal/ai-security" style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;font:700 14px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:linear-gradient(to right,#F47C2C,#FBC02D) !important;background-image:linear-gradient(to right,#F47C2C,#FBC02D) !important;color:#FFFFFF !important;border:none;box-shadow:0 4px 14px rgba(240,90,40,0.25)">See how we protect your data <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>' +
-        '</div>' +
-      '</section>';
-      var rl = document.querySelector('.mai-related');
-      var fq2 = document.querySelector('.mai-faq');
-      if (rl) { rl.insertAdjacentHTML('afterend', securityHTML); }
-      else if (fq2) { fq2.insertAdjacentHTML('afterend', securityHTML); }
-      else { ctaSection.insertAdjacentHTML('beforebegin', securityHTML); }
-    }
+    // (AI Security band lives in the staging renderer — this legacy path is unreachable)
 
     // Fix CTA heading to match Vercel
     var ctaHeading = document.querySelector('.pf-cta-heading');
