@@ -6815,16 +6815,16 @@
     var main = getPageMain();
 
     var pillars = [
-      { num: '01', label: 'Zero Data Retention', title: 'Your data isn’t training anyone’s model.', body: 'Every AI model we use runs with zero data retention contractually enabled. We don’t call OpenAI, Anthropic, or Google directly — we route through an inference gateway (OpenRouter) that enforces ZDR across every provider. The labs never see your data, even if they wanted to.', micro: 'Nothing is logged. Nothing is stored. Nothing is used for training.' },
-      { num: '02', label: 'No PII in AI Calls', title: 'Your members’ identities never enter the AI layer.', body: 'Names, emails, and contact-level identifiers stay out of AI calls entirely. The AI works with patterns, metadata, and aggregate statistics — not identifiable member records. If it’s personal, it doesn’t get sent.', micro: 'The AI sees the shape of your audience, not the people in it.' },
+      { num: '01', label: 'Zero Data Retention', title: 'Your data isn’t training anyone’s model.', body: 'PropFuel only uses inference providers with zero data retention policies, so the AI labs never see your data. No prompts, no responses, nothing logged on their end, and nothing used to train or improve any model.', micro: 'Externally: nothing retained. Nothing trained. Nothing shared.' },
+      { num: '02', label: 'No PII in AI Calls', title: 'Your members’ identities never enter the AI layer.', body: 'Names, emails, and other PII stay out of AI calls entirely. The AI works with patterns, metadata, and aggregate statistics — not identifiable member records. If it’s personal, it doesn’t get sent.', micro: 'The AI sees the shape of your audience, not the people in it.' },
       { num: '03', label: 'Human in the Loop', title: 'Nothing ships to your members without you.', body: 'Membership AI does the thinking — drafting, suggesting, surfacing patterns. You do the approving. Every segment, every piece of copy, every campaign gets a human sign-off before it goes out the door.', micro: 'The AI never has the keys.' }
     ];
 
     var receipts = [
-      { title: 'Zero Data Retention', desc: 'Enforced contractually across all providers via OpenRouter' },
+      { title: 'Zero Data Retention (External)', desc: 'AI providers retain nothing — not logged on their side, not used to train any model' },
       { title: 'TLS in Transit', desc: 'All AI calls encrypted end-to-end' },
-      { title: 'Internal Audit Logs', desc: 'Every prompt, response, and token count logged for audit' },
-      { title: 'Restricted Access', desc: 'AI configuration and logs limited to authorized personnel' },
+      { title: 'Internal Audit Logs (PropFuel)', desc: 'We log prompts and responses internally for our own debugging and audit — never shared externally' },
+      { title: 'Restricted Access', desc: 'Internal AI configuration and logs limited to authorized PropFuel personnel' },
       { title: 'No Training on Your Data', desc: 'Contractually prohibited with every subprocessor' }
     ];
 
@@ -6839,7 +6839,7 @@
     ];
 
     var faqs = [
-      { q: 'Is my data being used to train AI models?', a: 'No. Every AI model we use runs with zero data retention contractually enabled. We also route AI requests through an intermediary (OpenRouter) so the AI labs — OpenAI, Anthropic, Google — never see your data directly. Your data is not used to train any model.' },
+      { q: 'Is my data being used to train AI models?', a: 'No. PropFuel only uses inference providers with zero data retention policies, which means the AI labs — OpenAI, Anthropic, Google — never log, store, or train on your data. Your data is not used to train any model.' },
       { q: 'Is my members’ personal information being sent to AI?', a: 'No. Names, email addresses, and other personally identifiable information are not sent into AI calls. The AI works with patterns and context, not identifiable member records.' },
       { q: 'Can Membership AI send something to my members without my approval?', a: 'No. Membership AI drafts, suggests, summarizes, and surfaces patterns. You approve every segment, every piece of copy, and every campaign before anything goes out. Nothing ships to your members without a human hitting send.' },
       { q: 'Then how is the AI smart enough to make good recommendations?', a: 'Two sources. First, our team’s twenty years inside association membership work — distilled into best practices the AI applies. Second, your organization’s own context — your goals, your campaigns, your member language. We don’t copy other clients’ campaigns. We apply general best practices to your specific data.' },
@@ -6864,7 +6864,6 @@
           '<a href="/company/contact" style="display:inline-flex;align-items:center;gap:8px;padding:16px 32px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:transparent;color:#FFFFFF;border:1.5px solid rgba(255,255,255,0.45)">Talk to our security team</a>' +
         '</div>' +
         '<div style="display:inline-flex;flex-wrap:wrap;gap:8px 24px;justify-content:center;font-size:13px;font-weight:600;letter-spacing:0.04em;color:#D0DFEA;opacity:0.95">' +
-          '<span>SOC 2 Type II</span><span style="opacity:0.4">•</span>' +
           '<span>Zero Data Retention</span><span style="opacity:0.4">•</span>' +
           '<span>No PII in AI</span><span style="opacity:0.4">•</span>' +
           '<span>Human in the Loop</span>' +
