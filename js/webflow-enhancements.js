@@ -509,7 +509,10 @@
     '/legal/terms': { title: 'Terms of Service & Legal Information | PropFuel', desc: "Review PropFuel's terms of service. Understand the rules, usage rights, and responsibilities that govern your use of the PropFuel membership platform.", ogImage: '/og-images/legal-terms.png' }
   };
 
-  var SITE_URL = 'https://propfuel-v2.webflow.io';
+  // Canonical/OG URLs always point to the production domain (self-referencing on prod,
+  // and forces staging copies to canonicalize to prod so search engines consolidate
+  // signals to www.propfuel.com and don't index the .webflow.io staging mirror).
+  var SITE_URL = 'https://www.propfuel.com';
   // OG images live on Webflow's CDN — the user uploaded them to the PropFuel V2
   // asset library, so we reference them directly instead of routing through
   // GitHub Pages. Keys match the SEO_DATA ogImage filename (e.g. "company-about.png").
