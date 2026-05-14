@@ -483,6 +483,7 @@
     '/integrations': { title: 'AMS & System Integrations for Associations | PropFuel', desc: 'PropFuel integrates with leading AMS platforms including iMIS, Nimble AMS, Fonteva, and Salesforce \u2014 with real-time two-way data sync and write-back.', ogImage: '/og-images/platform-integrations.png' },
     '/membership-ai': { title: 'Membership AI \u2014 Smart Member Intelligence | PropFuel', desc: "PropFuel's Membership AI uses intelligent agents to surface insights, recommend actions, and build engagement initiatives for association staff automatically.", ogImage: 'https://alexhively.github.io/propfuel-webflow-custom/og-images/platform-membership-ai.png' },
     '/legal/ai-security': { title: 'AI Data Security at PropFuel \u2014 Zero Retention, No PII, Human in the Loop', desc: "How PropFuel protects your members' data when using AI. Zero data retention, no PII in AI calls, and a human approves every campaign. Read the full AI policy.", ogImage: 'https://alexhively.github.io/propfuel-webflow-custom/og-images/platform-membership-ai.png' },
+    '/capabilities': { title: 'Capabilities \u2014 Everything PropFuel Does | PropFuel', desc: "Every feature in PropFuel: engagement check-ins, campaigns, lists & contacts, connectors, analytics, actions, and conversations. The honest list of what every subscription includes.", ogImage: '/og-images/platform-overview.png' },
     '/use-cases/onboarding': { title: 'Automate New Member Onboarding Journeys | PropFuel', desc: "Turn new member silence into engagement. PropFuel's onboarding automation delivers personalized check-ins that drive 3x engagement in the first 60 days.", ogImage: '/og-images/use-cases-onboarding.png' },
     '/use-cases/renewals': { title: 'Membership Renewal Campaigns & Automation | PropFuel', desc: "Stop sending identical renewal reminders. PropFuel's renewal campaigns adapt to each member's response, recovering $320K+ in at-risk revenue.", ogImage: '/og-images/use-cases-renewals.png' },
     '/use-cases/win-back': { title: 'Win Back Lapsed Members with AI Campaigns | PropFuel', desc: "Re-engage lapsed members with conversations, not campaigns. PropFuel's win-back automation brings 80% back within 90 days.", ogImage: '/og-images/use-cases-win-back.png' },
@@ -5835,6 +5836,7 @@
               '<a href="/platform/website" class="pf-footer-link">The Engagement Engine</a>' +
               '<a href="/membership-ai" class="pf-footer-link">Membership AI</a>' +
               '<a href="/integrations" class="pf-footer-link">Integrations</a>' +
+              '<a href="/capabilities" class="pf-footer-link">Capabilities</a>' +
             '</div>' +
             '<div>' +
               '<h4 class="pf-footer-col-title">Resources</h4>' +
@@ -7003,6 +7005,136 @@
   }
 
   // ─────────────────────────────────────────
+  // FIX CAPABILITIES PAGE
+  // ─────────────────────────────────────────
+  function fixCapabilitiesPage() {
+    var p = window.location.pathname.replace(/\/$/, '');
+    if (p !== '/capabilities') return;
+    var main = getPageMain();
+
+    var sections = [
+      { eyebrow: 'Engagement Check-ins', features: [
+        { t: 'Automated Email Delivery', d: 'Enterprise email delivery, with unlimited emails sent per subscription period.' },
+        { t: 'Mobile Responsive Emails', d: 'Mobile-responsive emails — no additional configuration required to ensure mobile optimization.' },
+        { t: 'Custom Domains', d: 'Send PropFuel emails from an email address associated with any domain.' },
+        { t: 'Smart Check-in Reminders', d: 'Configurable reminders, with custom text and adjustable reminder scheduling.' },
+        { t: 'Customizable Email Templates', d: 'Custom email subject, along with email body and footer with rich text editor.' }
+      ]},
+      { eyebrow: 'Campaigns', features: [
+        { t: 'Scheduled Campaigns', d: 'Set up campaigns to deliver emails on specific dates.' },
+        { t: 'Campaign Management', d: 'Pin campaigns to the top of the campaign list, add notes and custom tags, and organize campaigns with sort/filter/search tools.' },
+        { t: 'Campaign Time Windows', d: 'Choose from four designated time windows to schedule campaign check-ins to send within specific time slots.' },
+        { t: 'Drip Sequence Campaigns', d: 'Deliver drip emails relative to contact enrollment in the campaign (hours, days, weeks, or months).' },
+        { t: 'External Embed with URL Builder', d: 'Embed campaigns in external emails, websites, and apps.' },
+        { t: 'Campaign Blueprints', d: 'Curated bank of questions, grouped by specific themes and goals (retention, student engagement, etc.).' },
+        { t: 'Campaign Cloning', d: 'Copy existing campaigns, including all campaign settings, emails, and actions.' },
+        { t: 'Contact Import and Field Mapping', d: 'Import a .csv file of contacts to a campaign, including advanced tools to import contacts into steps within an in-progress campaign.' },
+        { t: 'Saved Workflows and Workflows Library', d: 'Save PropFuel workflows as a collection of actions to a library within your account and use them across all of your campaigns.' }
+      ]},
+      { eyebrow: 'Lists and Contacts', features: [
+        { t: 'Contact Directory', d: 'View a list of every contact in your PropFuel account, sort/filter/search across all contacts, import/export contacts in bulk, and create individual contact records.' },
+        { t: 'View and Manage Contacts', d: 'View individual contacts — manage contacts to add to campaigns, view campaign status, and unsubscribe from PropFuel emails.' },
+        { t: 'Contact Lists', d: 'Segment and create custom lists of contacts based on any combination of demographic data (from your AMS, marketing system, etc.) and PropFuel question response data and/or custom PropFuel tags.' },
+        { t: 'Contact List Actions', d: 'Trigger actions for contacts within your segmented lists — add to a campaign, remove from a campaign, add tags, or remove tags.' }
+      ]},
+      { eyebrow: 'Connectors', features: [
+        { t: 'Plug-In Integration Connectors', d: 'Set up and configure native integrations PropFuel has built directly to AMS platforms, marketing automation systems, and other external applications.' },
+        { t: 'Zapier Connector', d: "Access PropFuel's private Zapier integration to connect any other external app with PropFuel." },
+        { t: 'Contact, Event, and Report Triggers', d: 'Automatically enroll contacts in PropFuel campaigns using contact, membership, profile, or event data — or existing reports and queries from your external data platform.' },
+        { t: 'Multi-Tiered Conditional Logic', d: 'Layer multiple fields, field values, and relative dates from your external data platform to automatically enroll contacts in PropFuel campaigns.' },
+        { t: 'External Write-Backs', d: 'Automatically write data collected within PropFuel back to specifically mapped fields within your external data platform.' }
+      ]},
+      { eyebrow: 'Analytics', features: [
+        { t: 'AI-Based Sentiment Analysis', d: 'AI analysis of open-ended question responses, categorizing response data by sentiment (negative, positive, neutral, mixed).' },
+        { t: 'AI-Based Keyword Extraction', d: 'AI analysis of open-ended question responses, categorizing responses with the same phrases or terms.' },
+        { t: 'Visualization and Report Download', d: 'Visualization of data pertaining to structured questions (multiple choice, yes/no, rating scale, NPS), including PDF download of visualizations and table format.' },
+        { t: 'Custom Filters', d: 'Filter analytics views by standard fields or custom fields mapped to PropFuel from your external data platform.' },
+        { t: 'Action Reporting', d: 'Detailed action analytics: total number of actions triggered by campaign and question, total email opens for action emails, and total landing page clicks organized by URL.' }
+      ]},
+      { eyebrow: 'Actions', features: [
+        { t: 'Conditional Logic', d: "Create 'if, then' logic that guides your engagement actions by individual question responses. Layer multiple response values and relative operators to trigger specific actions." },
+        { t: 'Relational Campaign Branching', d: 'Add individuals to other campaigns or remove them from existing ones, based on their question response.' },
+        { t: 'Internal Email Alerts', d: 'Send custom alert emails to staff based on a contact’s question response.' },
+        { t: 'Custom Check-In Landing Pages', d: 'Direct individuals to custom-built landing pages within PropFuel, based on their question response.' },
+        { t: 'Redirect to URL', d: 'Direct individuals to specific URLs, based on their question response.' },
+        { t: 'Custom Email', d: 'Send individuals a custom-built email within PropFuel, based on their question response.' },
+        { t: 'Question Logic', d: 'Direct individuals to a specific follow-up question, based on their question response.' },
+        { t: 'Contact Tag(s)', d: 'Automatically tag and untag contacts based on their response.' }
+      ]},
+      { eyebrow: 'Conversations', features: [
+        { t: 'In-Platform Email Replies', d: 'Draft and send email replies directly to PropFuel respondents within PropFuel — customize subject, body, and footer with a rich text editor.' },
+        { t: 'Email Reply Templates', d: 'Save sent emails as templates to use for future direct email replies.' },
+        { t: 'Account Admin Signatures', d: "Create custom email signatures for each account admin and automatically populate each reply with that user's signature." },
+        { t: 'Conversation Record', d: "As you reply to each contact, PropFuel saves a record of the email reply as a conversation within that contact's PropFuel record." }
+      ]}
+    ];
+
+    var totalFeatures = 0;
+    sections.forEach(function(s){ totalFeatures += s.features.length; });
+
+    var html = '';
+
+    // ── HERO (cream, T1 paper texture, brand orange eyebrow pill, two CTAs) ──
+    html += '<section class="pf-cap-hero" style="position:relative;padding:120px 48px 80px;background:#F4F1EA;text-align:center">' +
+      '<div style="max-width:880px;margin:0 auto">' +
+        '<p style="display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border-radius:100px;background:rgba(249,168,37,0.10);border:1px solid rgba(249,168,37,0.35);font-size:13px;font-weight:600;color:#2F2F2F;letter-spacing:0.06em;margin-bottom:28px">' +
+          '<span style="width:6px;height:6px;border-radius:50%;background:#F47C2C"></span>' +
+          'Capabilities' +
+        '</p>' +
+        '<h1 style="font-size:clamp(40px,5.6vw,56px);font-weight:700;letter-spacing:-0.02em;line-height:1.1;color:#2F2F2F;margin-bottom:24px">Everything you get with PropFuel.</h1>' +
+        '<p style="font-size:18px;color:#6E6E6E;line-height:1.6;max-width:680px;margin:0 auto 40px">We’re constantly shipping new features and functionality. This is an incomplete — but honest — list of what every PropFuel subscription includes.</p>' +
+        '<div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center">' +
+          '<a href="/book-a-demo" style="display:inline-flex;align-items:center;gap:8px;padding:16px 36px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:linear-gradient(to right,#F47C2C,#FBC02D);color:#FFFFFF;border:none;box-shadow:0 4px 16px rgba(240,90,40,0.20);transition:box-shadow .3s ease">Get a Demo <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>' +
+          '<a href="/platform/overview" style="display:inline-flex;align-items:center;gap:8px;padding:15px 35px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:transparent;color:#F47C2C;border:1.5px solid rgba(244,124,44,0.60);transition:border-color .2s ease,box-shadow .2s ease">See the Platform</a>' +
+        '</div>' +
+        '<p style="font-size:13px;font-weight:600;letter-spacing:0.05em;color:#6E6E6E;margin-top:48px"><span style="font-size:22px;font-weight:800;color:#2F2F2F">' + totalFeatures + '+</span> &nbsp;features across ' + sections.length + ' product areas</p>' +
+      '</div>' +
+    '</section>';
+
+    // ── 7 CAPABILITY SECTIONS ────────────────
+    sections.forEach(function(sec, idx) {
+      var bg = (idx % 2 === 0) ? '#F4F1EA' : '#EAE4D8';
+      html += '<section class="pf-cap-section" style="padding:80px 48px;background:' + bg + '"><div style="max-width:1100px;margin:0 auto">' +
+        '<div style="display:grid;grid-template-columns:280px 1fr;gap:56px;align-items:start" class="pf-cap-grid">' +
+          '<div style="position:sticky;top:120px">' +
+            '<p style="font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#F47C2C;margin-bottom:14px">0' + (idx + 1) + '</p>' +
+            '<h2 style="font-size:clamp(28px,3.4vw,34px);font-weight:600;color:#2F2F2F;letter-spacing:-0.01em;line-height:1.15;margin:0">' + sec.eyebrow + '</h2>' +
+            '<p style="font-size:13px;font-weight:600;color:#6E6E6E;margin-top:16px;letter-spacing:0.02em">' + sec.features.length + ' capabilities</p>' +
+          '</div>' +
+          '<div class="pf-cap-list">';
+      sec.features.forEach(function(f, i) {
+        var isLast = i === sec.features.length - 1;
+        html += '<div class="pf-cap-row" style="padding:24px 0;' + (isLast ? '' : 'border-bottom:1px solid #E3DDD2;') + 'display:grid;grid-template-columns:1fr 1.6fr;gap:32px;align-items:start">' +
+          '<h3 style="font-size:17px;font-weight:600;color:#2F2F2F;letter-spacing:-0.005em;line-height:1.35;margin:0">' + f.t + '</h3>' +
+          '<p style="font-size:15px;color:#6E6E6E;line-height:1.6;margin:0">' + f.d + '</p>' +
+        '</div>';
+      });
+      html += '</div></div></div></section>';
+    });
+
+    // ── CTA SECTION ─────────────────────────
+    html += '<section class="pf-cap-cta" style="padding:96px 48px;background:#F4F1EA;text-align:center"><div style="max-width:720px;margin:0 auto">' +
+      '<h2 style="font-size:clamp(28px,4vw,36px);font-weight:600;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15;margin-bottom:20px">See it on your data.</h2>' +
+      '<p style="font-size:17px;color:#6E6E6E;line-height:1.6;margin-bottom:32px">Every association we work with uses a different mix of these capabilities. We’ll show you the ones that fit yours.</p>' +
+      '<div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center">' +
+        '<a href="/book-a-demo" style="display:inline-flex;align-items:center;gap:8px;padding:16px 36px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:linear-gradient(to right,#F47C2C,#FBC02D);color:#FFFFFF;border:none;box-shadow:0 4px 16px rgba(240,90,40,0.20);transition:box-shadow .3s ease">Book a Demo <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>' +
+        '<a href="/company/contact" style="display:inline-flex;align-items:center;gap:8px;padding:15px 35px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:transparent;color:#F47C2C;border:1.5px solid rgba(244,124,44,0.60);transition:border-color .2s ease,box-shadow .2s ease">Talk to Sales</a>' +
+      '</div>' +
+    '</div></section>';
+
+    main.innerHTML = html;
+
+    // Responsive: stack the grid on smaller viewports + tighten row layout
+    var styleId = 'pf-cap-responsive';
+    if (!document.getElementById(styleId)) {
+      var st = document.createElement('style');
+      st.id = styleId;
+      st.textContent = '@media (max-width:900px){.pf-cap-grid{grid-template-columns:1fr!important;gap:32px!important}.pf-cap-grid > div:first-child{position:static!important}.pf-cap-row{grid-template-columns:1fr!important;gap:8px!important}.pf-cap-hero{padding:96px 24px 64px!important}.pf-cap-section{padding:64px 24px!important}.pf-cap-cta{padding:80px 24px!important}}';
+      document.head.appendChild(st);
+    }
+  }
+
+  // ─────────────────────────────────────────
   // FIX ROI RESULTS PAGE
   // ─────────────────────────────────────────
   function fixRoiResults() {
@@ -7225,6 +7357,7 @@
     fixPrivacy();
     fixTerms();
     fixAISecurityPage();
+    fixCapabilitiesPage();
     // Clean up duplicates: hide original Webflow elements when injected ones exist
     var injectedBtns = document.querySelector('.pf-hero-btns-injected');
     if (injectedBtns) {
