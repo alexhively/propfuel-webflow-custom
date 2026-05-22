@@ -1941,7 +1941,9 @@
   // ─────────────────────────────────────────
   function applyMembershipAIPalette() {
     var path = window.location.pathname;
-    if (path.indexOf('membership-ai') === -1) return;
+    // Strict match: only /membership-ai (with optional trailing slash or subpath).
+    // Prevents triggering on /videos/membership-ai-* CMS detail pages.
+    if (!/^\/membership-ai(\/|$)/.test(path)) return;
 
     // AI gradient text fill helper
     var aiGradientText = 'background:linear-gradient(to top,#1F3A51,#4A7FA5 45%,#35607E);' +
@@ -4436,7 +4438,9 @@
 
   // ─────────────────────────────────────────
   function fixMembershipAIPage() {
-    if (window.location.pathname.indexOf('membership-ai') === -1) return;
+    // Strict match: only /membership-ai (with optional trailing slash or subpath).
+    // Prevents triggering on /videos/membership-ai-* CMS detail pages.
+    if (!/^\/membership-ai(\/|$)/.test(window.location.pathname)) return;
     // PROD + STAGING: render the new Membership AI design (formerly the staging-only path).
     // The legacy code below is now unreachable but is left in place as a safe rollback target —
     // restore the previous hostname gate to fall back if anything goes wrong on production.
