@@ -5800,6 +5800,59 @@
     });
     // 4) CMS templates ship a stripped-down footer — swap in the full main-site footer.
     swapStrippedFooter();
+
+    // 5) Defensive sweep: hide any orphan empty cards on /videos/* pages.
+    // Some CMS bindings (transcript, sponsor card, secondary CTA) render as styled
+    // containers even when their fields are empty, leaving a visible empty rectangle.
+    // We wait 1s for any async content/players to render, then hide elements that
+    // are unambiguously empty: no text, no media, no background image, and either
+    // marked by Webflow as bind-empty OR a known card-shaped container with no children.
+    function isEmptyCard(el) {
+      if (!el || el.style.display === 'none') return false;
+      // Has any meaningful text?
+      var text = (el.innerText || '').trim();
+      if (text.length > 4) return false;
+      // Has any media?
+      if (el.querySelector('img, video, iframe, svg, picture, embed, object, canvas')) return false;
+      // Has a background image set inline or computed?
+      var cs = window.getComputedStyle(el);
+      var bg = cs.backgroundImage || '';
+      if (bg && bg !== 'none' && bg.indexOf('url(') !== -1) return false;
+      // Has it got a populated child that itself has content/media?
+      if (el.querySelector('a[href]:not([href="#"]):not([href=""])')) return false;
+      // Must be large enough to actually be visible as a "card"
+      var rect = el.getBoundingClientRect();
+      if (rect.height < 60 || rect.width < 100) return false;
+      return true;
+    }
+    setTimeout(function(){
+      // Webflow's own empty-binding flag is the safest signal
+      document.querySelectorAll('.w-dyn-bind-empty').forEach(function(el){
+        // Walk up to the nearest card-shaped ancestor (max 4 hops) and hide it
+        var node = el;
+        for (var i = 0; i < 4 && node && node !== document.body; i++) {
+          var cs = window.getComputedStyle(node);
+          var hasCardShape = parseFloat(cs.borderRadius) > 4 ||
+                              cs.backgroundColor !== 'rgba(0, 0, 0, 0)' ||
+                              cs.boxShadow !== 'none';
+          if (hasCardShape && node.getBoundingClientRect().height > 60) {
+            node.style.display = 'none';
+            return;
+          }
+          node = node.parentElement;
+        }
+        el.style.display = 'none';
+      });
+      // Sweep visible top-level sections + common Webflow CMS card classes
+      var candidates = document.querySelectorAll(
+        'main section, main .w-container > div, ' +
+        '.blog-sidebar-card, .video-related-card, .cs-resource-card, ' +
+        '.video-transcript-card, .video-sponsor-card, [class*="card"][class*="empty"]'
+      );
+      candidates.forEach(function(el){
+        if (isEmptyCard(el)) el.style.display = 'none';
+      });
+    }, 1000);
   }
 
   // Shared: CMS template pages (videos, case-studies, team-members) render a minimal
