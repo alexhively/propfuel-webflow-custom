@@ -7377,24 +7377,32 @@
   // ─────────────────────────────────────────
   function renderMmctPage() {
     if (!/^\/mmct(\/|$)/.test(window.location.pathname)) return;
-    // Hide standard nav + footer for focused conversion
-    var nav = document.querySelector('.pf-nav-bar, .navbar, [class*="nav-bar"]');
-    if (nav) nav.style.display = 'none';
-    var footer = document.querySelector('.pf-footer, .footer, [class*="footer"]');
-    if (footer) footer.style.display = 'none';
-    // Replace main with full-viewport hero
-    var main = document.querySelector('main, .main-wrapper, .page-wrapper, body > div');
-    if (!main) main = document.body;
+    // Render inside the page's main content area; standard site nav + footer
+    // (rendered by the global Navigation/Footer symbols) stay visible.
+    var main = document.querySelector('main, .main-wrapper, .page-wrapper');
+    if (!main) {
+      // Fall back to creating a wrapper after the nav so footer stays at the bottom
+      var nav = document.querySelector('.pf-nav-bar, [class*="nav-bar"]');
+      var footer = document.querySelector('.pf-footer, [class*="footer"]');
+      main = document.createElement('main');
+      if (nav && nav.parentNode) {
+        nav.parentNode.insertBefore(main, nav.nextSibling);
+      } else if (footer && footer.parentNode) {
+        footer.parentNode.insertBefore(main, footer);
+      } else {
+        document.body.appendChild(main);
+      }
+    }
     var styleEl = document.createElement('style');
     styleEl.id = 'pf-mmct-styles';
     styleEl.textContent =
-      ".pf-mmct{font-family:'DM Sans',system-ui,-apple-system,sans-serif;background:#F4F1EA;color:#2F2F2F;min-height:100vh;display:flex;flex-direction:column;position:relative;overflow:hidden;-webkit-font-smoothing:antialiased}" +
+      ".pf-mmct{font-family:'DM Sans',system-ui,-apple-system,sans-serif;background:#F4F1EA;color:#2F2F2F;position:relative;overflow:hidden;-webkit-font-smoothing:antialiased}" +
       ".pf-mmct::before{content:'';position:absolute;inset:0;pointer-events:none;background-image:url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch' seed='3'/><feColorMatrix values='0 0 0 0 0.94  0 0 0 0 0.91  0 0 0 0 0.86  0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>\");background-size:320px 320px;mix-blend-mode:multiply;opacity:0.35;z-index:0}" +
       ".pf-mmct > *{position:relative;z-index:1}" +
       ".pf-mmct-header{padding:28px 40px;display:flex;align-items:center;justify-content:space-between}" +
       ".pf-mmct-wordmark{font-size:22px;font-weight:800;letter-spacing:-0.01em;background:linear-gradient(to right,#F47C2C,#FBC02D);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;text-decoration:none}" +
       ".pf-mmct-eyebrow{font-size:13px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#F47C2C}" +
-      ".pf-mmct-main{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 32px 80px}" +
+      ".pf-mmct-main{display:flex;align-items:center;justify-content:center;padding:80px 32px 100px;min-height:calc(100vh - 200px)}" +
       ".pf-mmct-card{max-width:680px;width:100%;text-align:center}" +
       ".pf-mmct-pill{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;background:rgba(244,124,44,0.10);border:1px solid rgba(244,124,44,0.30);border-radius:100px;font-size:13px;font-weight:700;letter-spacing:0.10em;text-transform:uppercase;color:#F47C2C;margin-bottom:28px}" +
       ".pf-mmct-pill::before{content:'';width:7px;height:7px;border-radius:50%;background:#F47C2C}" +
@@ -7439,10 +7447,6 @@
     document.head.appendChild(styleEl);
     main.innerHTML =
       '<div class="pf-mmct">' +
-        '<header class="pf-mmct-header">' +
-          '<a href="/" class="pf-mmct-wordmark">PropFuel</a>' +
-          '<span class="pf-mmct-eyebrow">MMCT 2026</span>' +
-        '</header>' +
         '<div class="pf-mmct-main">' +
           '<div class="pf-mmct-card">' +
             '<div class="pf-mmct-pill">Booth Follow-Up</div>' +
