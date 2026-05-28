@@ -7474,82 +7474,100 @@
       }
     };
     document.head.appendChild(hsScript);
-    // Inline button styling fallback — HubSpot's CSS often beats class-based overrides,
-    // so once the form renders we find the submit button and set styles inline (which
-    // wins against any external stylesheet). MutationObserver covers async re-renders.
+    // Hide HubSpot's native Submit button entirely and inject our own brand CTA.
+    // HubSpot's CSS loads after ours and reliably beats class-based overrides on the
+    // button. Instead of fighting that, we hide their button, drop a styled <button>
+    // sibling, and forward clicks to the real submit (which preserves all HubSpot
+    // validation and submission logic).
     function styleMmctSubmitBtn() {
       var wrap = document.getElementById('pf-mmct-hs-form');
       if (!wrap) return;
-      var btn = wrap.querySelector('input[type="submit"], button[type="submit"], .hs-button, .actions input, .actions button');
-      if (!btn) return;
-      // Some HubSpot themes wrap the submit in a container with width constraints
-      var parent = btn.parentElement;
-      while (parent && parent !== wrap) {
-        parent.style.width = '100%';
-        parent.style.maxWidth = 'none';
-        parent.style.padding = '0';
-        parent.style.margin = '8px 0 0';
-        parent = parent.parentElement;
-      }
-      // Remove any HTML width attribute HubSpot may have set
-      if (btn.hasAttribute('width')) btn.removeAttribute('width');
-      // Force-set every property inline so external CSS can't override
-      var styles = {
-        'display': 'block',
-        'gap': '8px',
-        'width': '100%',
-        'maxWidth': '100%',
-        'boxSizing': 'border-box',
-        'padding': '18px 32px',
-        'fontSize': '16px',
-        'fontWeight': '700',
-        'fontFamily': "'DM Sans', sans-serif",
-        'letterSpacing': '0.01em',
-        'lineHeight': '1',
-        'color': '#FFFFFF',
-        'background': 'linear-gradient(to right, #F47C2C, #FBC02D)',
-        'backgroundColor': '#F47C2C',
-        'backgroundImage': 'linear-gradient(to right, #F47C2C, #FBC02D)',
-        'border': 'none',
-        'borderRadius': '100px',
-        'cursor': 'pointer',
-        'boxShadow': '0 6px 20px rgba(240, 90, 40, 0.28)',
-        'transition': 'transform .2s ease, box-shadow .2s ease',
-        'textAlign': 'center',
-        'textDecoration': 'none',
-        'height': 'auto',
-        'minHeight': '0',
-        'webkitAppearance': 'none',
-        'appearance': 'none'
-      };
-      for (var k in styles) { btn.style[k] = styles[k]; }
-      // Mobile tweak
+      var hsBtn = wrap.querySelector('input[type="submit"], button[type="submit"], .hs-button');
+      if (!hsBtn) return;
+      // Hide native button — but keep it in the DOM so HubSpot's submission logic still works
+      hsBtn.style.position = 'absolute';
+      hsBtn.style.opacity = '0';
+      hsBtn.style.pointerEvents = 'none';
+      hsBtn.style.width = '1px';
+      hsBtn.style.height = '1px';
+      hsBtn.style.overflow = 'hidden';
+      hsBtn.setAttribute('tabindex', '-1');
+      hsBtn.setAttribute('aria-hidden', 'true');
+      // Avoid double-injection on re-render
+      if (wrap.querySelector('.pf-mmct-cta')) return;
+      var ctaWrap = document.createElement('div');
+      ctaWrap.style.marginTop = '12px';
+      var cta = document.createElement('button');
+      cta.type = 'button';
+      cta.className = 'pf-mmct-cta';
+      cta.innerHTML = 'Schedule My Demo <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left:6px"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+      cta.style.cssText =
+        'display:inline-flex;' +
+        'align-items:center;' +
+        'justify-content:center;' +
+        'gap:4px;' +
+        'width:100%;' +
+        'max-width:100%;' +
+        'box-sizing:border-box;' +
+        'padding:18px 32px;' +
+        'font-size:16px;' +
+        'font-weight:700;' +
+        'font-family:"DM Sans",sans-serif;' +
+        'letter-spacing:0.01em;' +
+        'line-height:1;' +
+        'color:#FFFFFF;' +
+        'background:linear-gradient(to right,#F47C2C,#FBC02D);' +
+        'border:none;' +
+        'border-radius:100px;' +
+        'cursor:pointer;' +
+        'box-shadow:0 6px 20px rgba(240,90,40,0.28);' +
+        'transition:transform .2s ease,box-shadow .2s ease;' +
+        'text-align:center;' +
+        '-webkit-appearance:none;' +
+        'appearance:none;';
       if (window.matchMedia('(max-width:480px)').matches) {
-        btn.style.padding = '16px 28px';
-        btn.style.fontSize = '15px';
+        cta.style.padding = '16px 28px';
+        cta.style.fontSize = '15px';
       }
-      // Watch for HubSpot re-renders that might wipe our inline styles
-      if (!btn.__pfStyled) {
-        btn.__pfStyled = true;
-        var obs = new MutationObserver(function() {
-          if (btn.style.background.indexOf('gradient') === -1) {
-            btn.__pfStyled = false;
-            styleMmctSubmitBtn();
-          }
-        });
-        obs.observe(btn, { attributes: true, attributeFilter: ['style', 'class'] });
+      cta.addEventListener('mouseenter', function() {
+        cta.style.transform = 'translateY(-1px)';
+        cta.style.boxShadow = '0 8px 24px rgba(240,90,40,0.36)';
+      });
+      cta.addEventListener('mouseleave', function() {
+        cta.style.transform = '';
+        cta.style.boxShadow = '0 6px 20px rgba(240,90,40,0.28)';
+      });
+      cta.addEventListener('click', function(e) {
+        e.preventDefault();
+        // Trigger the real HubSpot submit — this preserves validation + form events
+        if (typeof hsBtn.click === 'function') {
+          hsBtn.click();
+        } else {
+          var form = hsBtn.closest('form');
+          if (form && typeof form.requestSubmit === 'function') form.requestSubmit();
+          else if (form) form.submit();
+        }
+      });
+      ctaWrap.appendChild(cta);
+      // Place the CTA after HubSpot's submit wrapper (or at the end of the form)
+      var hsSubmitWrap = hsBtn.closest('.hs_submit, .actions, .hs-submit-wrapper, .hsForm-submit');
+      var form = hsBtn.closest('form');
+      if (hsSubmitWrap && hsSubmitWrap.parentNode) {
+        hsSubmitWrap.parentNode.insertBefore(ctaWrap, hsSubmitWrap.nextSibling);
+      } else if (form) {
+        form.appendChild(ctaWrap);
+      } else {
+        wrap.appendChild(ctaWrap);
       }
     }
-    // Polling fallback if onFormReady doesn't fire (some HubSpot configs)
+    // Polling fallback — HubSpot's onFormReady is unreliable across embed versions
     var pollTries = 0;
     var poll = setInterval(function() {
       var btn = document.querySelector('#pf-mmct-hs-form input[type="submit"], #pf-mmct-hs-form button[type="submit"], #pf-mmct-hs-form .hs-button');
-      if (btn) {
+      if (btn && !document.querySelector('.pf-mmct-cta')) {
         styleMmctSubmitBtn();
-        if (++pollTries >= 20) clearInterval(poll);
-      } else if (++pollTries >= 40) {
-        clearInterval(poll);
       }
+      if (++pollTries >= 40) clearInterval(poll);
     }, 250);
     // Load ChiliPiper for post-submit scheduling (same tenant/router as /book-a-demo)
     var cpScript = document.createElement('script');
