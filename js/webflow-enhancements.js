@@ -7406,8 +7406,9 @@
       ".pf-mmct-form-wrap label{font-size:14px !important;font-weight:600 !important;color:#2F2F2F !important;margin-bottom:6px !important;display:block !important}" +
       ".pf-mmct-form-wrap input[type='text'],.pf-mmct-form-wrap input[type='email'],.pf-mmct-form-wrap input[type='tel'],.pf-mmct-form-wrap select,.pf-mmct-form-wrap textarea{width:100% !important;padding:14px 18px !important;font-size:16px !important;font-family:'DM Sans',sans-serif !important;color:#2F2F2F !important;background:#FFFFFF !important;border:1.5px solid #E3DDD2 !important;border-radius:12px !important;margin-bottom:16px !important;transition:border-color .2s ease,box-shadow .2s ease !important;box-sizing:border-box !important}" +
       ".pf-mmct-form-wrap input:focus,.pf-mmct-form-wrap select:focus,.pf-mmct-form-wrap textarea:focus{outline:none !important;border-color:#F47C2C !important;box-shadow:0 0 0 3px rgba(244,124,44,0.15) !important}" +
-      ".pf-mmct-form-wrap .hs-button,.pf-mmct-form-wrap input[type='submit']{display:inline-flex !important;align-items:center !important;justify-content:center !important;gap:8px !important;width:100% !important;padding:18px 32px !important;font-size:16px !important;font-weight:700 !important;font-family:'DM Sans',sans-serif !important;letter-spacing:0.01em !important;color:#FFFFFF !important;background:linear-gradient(to right,#F47C2C,#FBC02D) !important;border:none !important;border-radius:100px !important;cursor:pointer !important;box-shadow:0 6px 20px rgba(240,90,40,0.28) !important;transition:transform .2s ease,box-shadow .2s ease !important;margin-top:8px !important}" +
-      ".pf-mmct-form-wrap .hs-button:hover,.pf-mmct-form-wrap input[type='submit']:hover{transform:translateY(-1px) !important;box-shadow:0 8px 24px rgba(240,90,40,0.36) !important}" +
+      ".pf-mmct-form-wrap .hs-button,.pf-mmct-form-wrap input[type='submit'],.pf-mmct-form-wrap button[type='submit'],.pf-mmct-form-wrap button,.pf-mmct-form-wrap .hs_submit input,.pf-mmct-form-wrap .actions input,.pf-mmct-form-wrap .actions button{-webkit-appearance:none !important;appearance:none !important;display:inline-flex !important;align-items:center !important;justify-content:center !important;gap:8px !important;width:100% !important;padding:18px 32px !important;font-size:16px !important;font-weight:700 !important;font-family:'DM Sans',sans-serif !important;letter-spacing:0.01em !important;line-height:1 !important;color:#FFFFFF !important;background:linear-gradient(to right,#F47C2C,#FBC02D) !important;background-color:#F47C2C !important;background-image:linear-gradient(to right,#F47C2C,#FBC02D) !important;border:none !important;border-radius:100px !important;cursor:pointer !important;box-shadow:0 6px 20px rgba(240,90,40,0.28) !important;transition:transform .2s ease,box-shadow .2s ease !important;margin-top:8px !important;text-align:center !important;text-decoration:none !important;height:auto !important;min-height:0 !important}" +
+      ".pf-mmct-form-wrap .hs-button:hover,.pf-mmct-form-wrap input[type='submit']:hover,.pf-mmct-form-wrap button[type='submit']:hover,.pf-mmct-form-wrap button:hover{transform:translateY(-1px) !important;box-shadow:0 8px 24px rgba(240,90,40,0.36) !important}" +
+      ".pf-mmct-form-wrap .hs_submit,.pf-mmct-form-wrap .actions{margin-top:8px !important;padding:0 !important}" +
       ".pf-mmct-form-wrap .hs-error-msgs,.pf-mmct-form-wrap .hs-error-msg{color:#C5392E !important;font-size:13px !important;margin-top:-12px !important;margin-bottom:12px !important;list-style:none !important;padding:0 !important}" +
       ".pf-mmct-form-wrap .hs-richtext,.pf-mmct-form-wrap .hs-richtext p{font-size:14px !important;color:#6E6E6E !important;line-height:1.5 !important}" +
       ".pf-mmct-form-wrap .submitted-message{font-size:18px !important;color:#2F2F2F !important;text-align:center !important;padding:24px 0 !important}" +
@@ -7462,11 +7463,87 @@
           portalId: '21158441',
           formId: '9db4f81b-6fb2-4b01-9dd4-bba9c2b3c323',
           region: 'na1',
-          target: '#pf-mmct-hs-form'
+          target: '#pf-mmct-hs-form',
+          onFormReady: function() { setTimeout(styleMmctSubmitBtn, 50); }
         });
       }
     };
     document.head.appendChild(hsScript);
+    // Inline button styling fallback — HubSpot's CSS often beats class-based overrides,
+    // so once the form renders we find the submit button and set styles inline (which
+    // wins against any external stylesheet). MutationObserver covers async re-renders.
+    function styleMmctSubmitBtn() {
+      var wrap = document.getElementById('pf-mmct-hs-form');
+      if (!wrap) return;
+      var btn = wrap.querySelector('input[type="submit"], button[type="submit"], .hs-button, .actions input, .actions button');
+      if (!btn) return;
+      // Some HubSpot themes wrap the submit in a container with width constraints
+      var parent = btn.parentElement;
+      while (parent && parent !== wrap) {
+        parent.style.width = '100%';
+        parent.style.maxWidth = 'none';
+        parent.style.padding = '0';
+        parent.style.margin = '8px 0 0';
+        parent = parent.parentElement;
+      }
+      // Force-set every property inline so external CSS can't override
+      var styles = {
+        'display': 'inline-flex',
+        'alignItems': 'center',
+        'justifyContent': 'center',
+        'gap': '8px',
+        'width': '100%',
+        'padding': '18px 32px',
+        'fontSize': '16px',
+        'fontWeight': '700',
+        'fontFamily': "'DM Sans', sans-serif",
+        'letterSpacing': '0.01em',
+        'lineHeight': '1',
+        'color': '#FFFFFF',
+        'background': 'linear-gradient(to right, #F47C2C, #FBC02D)',
+        'backgroundColor': '#F47C2C',
+        'backgroundImage': 'linear-gradient(to right, #F47C2C, #FBC02D)',
+        'border': 'none',
+        'borderRadius': '100px',
+        'cursor': 'pointer',
+        'boxShadow': '0 6px 20px rgba(240, 90, 40, 0.28)',
+        'transition': 'transform .2s ease, box-shadow .2s ease',
+        'textAlign': 'center',
+        'textDecoration': 'none',
+        'height': 'auto',
+        'minHeight': '0',
+        'webkitAppearance': 'none',
+        'appearance': 'none'
+      };
+      for (var k in styles) { btn.style[k] = styles[k]; }
+      // Mobile tweak
+      if (window.matchMedia('(max-width:480px)').matches) {
+        btn.style.padding = '16px 28px';
+        btn.style.fontSize = '15px';
+      }
+      // Watch for HubSpot re-renders that might wipe our inline styles
+      if (!btn.__pfStyled) {
+        btn.__pfStyled = true;
+        var obs = new MutationObserver(function() {
+          if (btn.style.background.indexOf('gradient') === -1) {
+            btn.__pfStyled = false;
+            styleMmctSubmitBtn();
+          }
+        });
+        obs.observe(btn, { attributes: true, attributeFilter: ['style', 'class'] });
+      }
+    }
+    // Polling fallback if onFormReady doesn't fire (some HubSpot configs)
+    var pollTries = 0;
+    var poll = setInterval(function() {
+      var btn = document.querySelector('#pf-mmct-hs-form input[type="submit"], #pf-mmct-hs-form button[type="submit"], #pf-mmct-hs-form .hs-button');
+      if (btn) {
+        styleMmctSubmitBtn();
+        if (++pollTries >= 20) clearInterval(poll);
+      } else if (++pollTries >= 40) {
+        clearInterval(poll);
+      }
+    }, 250);
     // Load ChiliPiper for post-submit scheduling (same tenant/router as /book-a-demo)
     var cpScript = document.createElement('script');
     cpScript.src = 'https://js.chilipiper.com/marketing.js';
