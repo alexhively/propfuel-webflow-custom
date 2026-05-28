@@ -7449,7 +7449,6 @@
             '<h1 class="pf-mmct-h1">We met at MMCT and you’re about to pull from the <span class="accent">bag of money!</span></h1>' +
             '<p class="pf-mmct-sub">Drop your email below and grab time on our calendar. We’ll show you exactly what we walked you through at the booth — personalized to your association.</p>' +
             '<div class="pf-mmct-form-wrap"><div id="pf-mmct-hs-form"></div></div>' +
-            '<div class="pf-mmct-trust"><span>Trusted by 330+ associations</span><span>Zero data retention</span><span>30-day implementation</span></div>' +
           '</div>' +
         '</div>' +
       '</div>';
