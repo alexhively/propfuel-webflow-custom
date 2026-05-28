@@ -7402,7 +7402,7 @@
       ".pf-mmct-header{padding:28px 40px;display:flex;align-items:center;justify-content:space-between}" +
       ".pf-mmct-wordmark{font-size:22px;font-weight:800;letter-spacing:-0.01em;background:linear-gradient(to right,#F47C2C,#FBC02D);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;text-decoration:none}" +
       ".pf-mmct-eyebrow{font-size:13px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#F47C2C}" +
-      ".pf-mmct-main{display:flex;align-items:center;justify-content:center;padding:80px 32px 100px;min-height:calc(100vh - 200px)}" +
+      ".pf-mmct-main{display:flex;align-items:center;justify-content:center;padding:160px 32px 120px;min-height:calc(100vh - 240px)}" +
       ".pf-mmct-card{max-width:680px;width:100%;text-align:center}" +
       ".pf-mmct-pill{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;background:rgba(244,124,44,0.10);border:1px solid rgba(244,124,44,0.30);border-radius:100px;font-size:13px;font-weight:700;letter-spacing:0.10em;text-transform:uppercase;color:#F47C2C;margin-bottom:28px}" +
       ".pf-mmct-pill::before{content:'';width:7px;height:7px;border-radius:50%;background:#F47C2C}" +
@@ -7427,7 +7427,7 @@
       ".pf-mmct-header{padding:20px 24px}" +
       ".pf-mmct-eyebrow{font-size:11px;letter-spacing:0.14em}" +
       ".pf-mmct-wordmark{font-size:20px}" +
-      ".pf-mmct-main{padding:24px 20px 56px}" +
+      ".pf-mmct-main{padding:120px 20px 72px;min-height:auto}" +
       ".pf-mmct-card{max-width:100%}" +
       ".pf-mmct-pill{margin-bottom:20px;padding:7px 16px;font-size:12px}" +
       ".pf-mmct-h1{font-size:clamp(28px,7.5vw,40px);margin-bottom:18px;line-height:1.1}" +
@@ -7439,7 +7439,7 @@
       "}" +
       "@media (max-width:480px){" +
       ".pf-mmct-header{padding:16px 20px}" +
-      ".pf-mmct-main{padding:16px 16px 48px}" +
+      ".pf-mmct-main{padding:104px 16px 56px}" +
       ".pf-mmct-h1{font-size:clamp(26px,8vw,34px)}" +
       ".pf-mmct-form-wrap{padding:20px 16px}" +
       ".pf-mmct-trust{flex-direction:column;gap:8px}" +
