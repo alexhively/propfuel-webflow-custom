@@ -7410,18 +7410,20 @@
       ".pf-mmct-h1 .accent{background:linear-gradient(to right,#F47C2C,#FBC02D);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}" +
       ".pf-mmct-sub{font-size:clamp(17px,1.6vw,20px);line-height:1.55;color:#6E6E6E;margin-bottom:40px;max-width:560px;margin-left:auto;margin-right:auto}" +
       ".pf-mmct-form-wrap{background:#F6F2E8;border:1px solid #E3DDD2;border-radius:22px;padding:32px;box-shadow:0 12px 48px rgba(120,110,95,0.10);text-align:left;max-width:460px;margin:0 auto}" +
-      ".pf-mmct-form-wrap form,.pf-mmct-form-wrap .hs-form{max-width:100%}" +
-      ".pf-mmct-form-wrap .hs_submit,.pf-mmct-form-wrap .actions,.pf-mmct-form-wrap .hs-submit-wrapper,.pf-mmct-form-wrap .hsForm-submit{width:100% !important;max-width:100% !important;display:block !important;text-align:center !important;padding:0 !important;margin:8px 0 0 !important}" +
-      ".pf-mmct-form-wrap .hs-form-frame,.pf-mmct-form-wrap form{font-family:'DM Sans',sans-serif !important}" +
-      ".pf-mmct-form-wrap label{font-size:14px !important;font-weight:600 !important;color:#2F2F2F !important;margin-bottom:6px !important;display:block !important}" +
-      ".pf-mmct-form-wrap input[type='text'],.pf-mmct-form-wrap input[type='email'],.pf-mmct-form-wrap input[type='tel'],.pf-mmct-form-wrap select,.pf-mmct-form-wrap textarea{width:100% !important;padding:14px 18px !important;font-size:16px !important;font-family:'DM Sans',sans-serif !important;color:#2F2F2F !important;background:#FFFFFF !important;border:1.5px solid #E3DDD2 !important;border-radius:12px !important;margin-bottom:16px !important;transition:border-color .2s ease,box-shadow .2s ease !important;box-sizing:border-box !important}" +
-      ".pf-mmct-form-wrap input:focus,.pf-mmct-form-wrap select:focus,.pf-mmct-form-wrap textarea:focus{outline:none !important;border-color:#F47C2C !important;box-shadow:0 0 0 3px rgba(244,124,44,0.15) !important}" +
-      ".pf-mmct-form-wrap .hs-button,.pf-mmct-form-wrap input[type='submit'],.pf-mmct-form-wrap button[type='submit'],.pf-mmct-form-wrap button,.pf-mmct-form-wrap .hs_submit input,.pf-mmct-form-wrap .actions input,.pf-mmct-form-wrap .actions button{-webkit-appearance:none !important;appearance:none !important;display:inline-flex !important;align-items:center !important;justify-content:center !important;gap:8px !important;width:100% !important;padding:18px 32px !important;font-size:16px !important;font-weight:700 !important;font-family:'DM Sans',sans-serif !important;letter-spacing:0.01em !important;line-height:1 !important;color:#FFFFFF !important;background:linear-gradient(to right,#F47C2C,#FBC02D) !important;background-color:#F47C2C !important;background-image:linear-gradient(to right,#F47C2C,#FBC02D) !important;border:none !important;border-radius:100px !important;cursor:pointer !important;box-shadow:0 6px 20px rgba(240,90,40,0.28) !important;transition:transform .2s ease,box-shadow .2s ease !important;margin-top:8px !important;text-align:center !important;text-decoration:none !important;height:auto !important;min-height:0 !important}" +
-      ".pf-mmct-form-wrap .hs-button:hover,.pf-mmct-form-wrap input[type='submit']:hover,.pf-mmct-form-wrap button[type='submit']:hover,.pf-mmct-form-wrap button:hover{transform:translateY(-1px) !important;box-shadow:0 8px 24px rgba(240,90,40,0.36) !important}" +
-      ".pf-mmct-form-wrap .hs_submit,.pf-mmct-form-wrap .actions{margin-top:8px !important;padding:0 !important}" +
-      ".pf-mmct-form-wrap .hs-error-msgs,.pf-mmct-form-wrap .hs-error-msg{color:#C5392E !important;font-size:13px !important;margin-top:-12px !important;margin-bottom:12px !important;list-style:none !important;padding:0 !important}" +
-      ".pf-mmct-form-wrap .hs-richtext,.pf-mmct-form-wrap .hs-richtext p{font-size:14px !important;color:#6E6E6E !important;line-height:1.5 !important}" +
-      ".pf-mmct-form-wrap .submitted-message{font-size:18px !important;color:#2F2F2F !important;text-align:center !important;padding:24px 0 !important}" +
+      ".pf-mmct-form-wrap form{font-family:'DM Sans',sans-serif;margin:0}" +
+      ".pf-mmct-label{display:block;font-size:14px;font-weight:600;color:#2F2F2F;margin:0 0 8px;font-family:'DM Sans',sans-serif}" +
+      ".pf-mmct-input{width:100%;box-sizing:border-box;padding:14px 18px;font-size:16px;font-family:'DM Sans',sans-serif;color:#2F2F2F;background:#FFFFFF;border:1.5px solid #E3DDD2;border-radius:12px;margin:0 0 16px;transition:border-color .2s ease,box-shadow .2s ease;-webkit-appearance:none;appearance:none}" +
+      ".pf-mmct-input:focus{outline:none;border-color:#F47C2C;box-shadow:0 0 0 3px rgba(244,124,44,0.15)}" +
+      ".pf-mmct-input::placeholder{color:#A99F8E}" +
+      ".pf-mmct-cta{display:inline-flex;align-items:center;justify-content:center;gap:4px;width:100%;max-width:100%;box-sizing:border-box;padding:18px 32px;font-size:16px;font-weight:700;font-family:'DM Sans',sans-serif;letter-spacing:0.01em;line-height:1;color:#FFFFFF;background:linear-gradient(to right,#F47C2C,#FBC02D);border:none;border-radius:100px;cursor:pointer;box-shadow:0 6px 20px rgba(240,90,40,0.28);transition:transform .2s ease,box-shadow .2s ease;text-align:center;text-decoration:none;-webkit-appearance:none;appearance:none}" +
+      ".pf-mmct-cta:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(240,90,40,0.36)}" +
+      ".pf-mmct-cta:active{transform:translateY(0)}" +
+      ".pf-mmct-cta:disabled{cursor:wait}" +
+      ".pf-mmct-msg{display:none;margin:14px 0 0;font-size:13px;line-height:1.45;font-family:'DM Sans',sans-serif}" +
+      ".pf-mmct-success{text-align:center;padding:12px 0}" +
+      ".pf-mmct-success-icon{display:inline-flex;align-items:center;justify-content:center;width:72px;height:72px;border-radius:50%;background:rgba(244,124,44,0.10);color:#F47C2C;margin-bottom:16px}" +
+      ".pf-mmct-success h3{font-size:24px;font-weight:700;color:#2F2F2F;margin:0 0 8px;font-family:'DM Sans',sans-serif;letter-spacing:-0.01em}" +
+      ".pf-mmct-success p{font-size:15px;line-height:1.55;color:#6E6E6E;margin:0;font-family:'DM Sans',sans-serif}" +
       ".pf-mmct-trust{margin-top:28px;font-size:13px;color:#6E6E6E;display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap}" +
       ".pf-mmct-trust span{display:inline-flex;align-items:center;gap:6px}" +
       ".pf-mmct-trust span::before{content:'';width:6px;height:6px;border-radius:50%;background:#F47C2C}" +
@@ -7435,8 +7437,8 @@
       ".pf-mmct-h1{font-size:clamp(28px,7.5vw,40px);margin-bottom:18px;line-height:1.1}" +
       ".pf-mmct-sub{font-size:16px;line-height:1.5;margin-bottom:28px}" +
       ".pf-mmct-form-wrap{padding:24px 20px;border-radius:18px}" +
-      ".pf-mmct-form-wrap input[type='text'],.pf-mmct-form-wrap input[type='email'],.pf-mmct-form-wrap input[type='tel'],.pf-mmct-form-wrap select,.pf-mmct-form-wrap textarea{padding:13px 16px !important;font-size:16px !important}" +
-      ".pf-mmct-form-wrap .hs-button,.pf-mmct-form-wrap input[type='submit']{padding:16px 28px !important;font-size:15px !important}" +
+      ".pf-mmct-input{padding:13px 16px;font-size:16px}" +
+      ".pf-mmct-cta{padding:16px 28px;font-size:15px}" +
       ".pf-mmct-trust{margin-top:20px;gap:12px;font-size:12px}" +
       "}" +
       "@media (max-width:480px){" +
@@ -7454,140 +7456,92 @@
             '<div class="pf-mmct-pill">Booth Follow-Up</div>' +
             '<h1 class="pf-mmct-h1">We met at MMCT and you’re about to pull from the <span class="accent">bag of money!</span></h1>' +
             '<p class="pf-mmct-sub">Drop your email below and grab time on our calendar. We’ll show you exactly what we walked you through at the booth — personalized to your association.</p>' +
-            '<div class="pf-mmct-form-wrap"><div id="pf-mmct-hs-form"></div></div>' +
+            '<div class="pf-mmct-form-wrap">' +
+              '<form id="pf-mmct-form" novalidate>' +
+                '<label for="pf-mmct-email" class="pf-mmct-label">Work Email</label>' +
+                '<input type="email" id="pf-mmct-email" name="email" required autocomplete="email" placeholder="you@yourassociation.org" class="pf-mmct-input">' +
+                '<button type="submit" id="pf-mmct-submit" class="pf-mmct-cta">Schedule My Demo' +
+                  '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left:6px"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>' +
+                '</button>' +
+                '<p id="pf-mmct-msg" class="pf-mmct-msg"></p>' +
+              '</form>' +
+            '</div>' +
           '</div>' +
         '</div>' +
       '</div>';
-    // Load HubSpot then create the form into our target div
-    var hsScript = document.createElement('script');
-    hsScript.src = '//js.hsforms.net/forms/embed/v2.js';
-    hsScript.charset = 'utf-8';
-    hsScript.onload = function() {
-      if (window.hbspt) {
-        hbspt.forms.create({
-          portalId: '21158441',
-          formId: '9db4f81b-6fb2-4b01-9dd4-bba9c2b3c323',
-          region: 'na1',
-          target: '#pf-mmct-hs-form',
-          onFormReady: function() { setTimeout(styleMmctSubmitBtn, 50); }
-        });
-      }
-    };
-    document.head.appendChild(hsScript);
-    // Hide HubSpot's native Submit button entirely and inject our own brand CTA.
-    // HubSpot's CSS loads after ours and reliably beats class-based overrides on the
-    // button. Instead of fighting that, we hide their button, drop a styled <button>
-    // sibling, and forward clicks to the real submit (which preserves all HubSpot
-    // validation and submission logic).
-    function styleMmctSubmitBtn() {
-      var wrap = document.getElementById('pf-mmct-hs-form');
-      if (!wrap) return;
-      var hsBtn = wrap.querySelector('input[type="submit"], button[type="submit"], .hs-button');
-      if (!hsBtn) return;
-      // Hide native button — but keep it in the DOM so HubSpot's submission logic still works
-      hsBtn.style.position = 'absolute';
-      hsBtn.style.opacity = '0';
-      hsBtn.style.pointerEvents = 'none';
-      hsBtn.style.width = '1px';
-      hsBtn.style.height = '1px';
-      hsBtn.style.overflow = 'hidden';
-      hsBtn.setAttribute('tabindex', '-1');
-      hsBtn.setAttribute('aria-hidden', 'true');
-      // Avoid double-injection on re-render
-      if (wrap.querySelector('.pf-mmct-cta')) return;
-      var ctaWrap = document.createElement('div');
-      ctaWrap.style.marginTop = '12px';
-      var cta = document.createElement('button');
-      cta.type = 'button';
-      cta.className = 'pf-mmct-cta';
-      cta.innerHTML = 'Schedule My Demo <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left:6px"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
-      cta.style.cssText =
-        'display:inline-flex;' +
-        'align-items:center;' +
-        'justify-content:center;' +
-        'gap:4px;' +
-        'width:100%;' +
-        'max-width:100%;' +
-        'box-sizing:border-box;' +
-        'padding:18px 32px;' +
-        'font-size:16px;' +
-        'font-weight:700;' +
-        'font-family:"DM Sans",sans-serif;' +
-        'letter-spacing:0.01em;' +
-        'line-height:1;' +
-        'color:#FFFFFF;' +
-        'background:linear-gradient(to right,#F47C2C,#FBC02D);' +
-        'border:none;' +
-        'border-radius:100px;' +
-        'cursor:pointer;' +
-        'box-shadow:0 6px 20px rgba(240,90,40,0.28);' +
-        'transition:transform .2s ease,box-shadow .2s ease;' +
-        'text-align:center;' +
-        '-webkit-appearance:none;' +
-        'appearance:none;';
-      if (window.matchMedia('(max-width:480px)').matches) {
-        cta.style.padding = '16px 28px';
-        cta.style.fontSize = '15px';
-      }
-      cta.addEventListener('mouseenter', function() {
-        cta.style.transform = 'translateY(-1px)';
-        cta.style.boxShadow = '0 8px 24px rgba(240,90,40,0.36)';
-      });
-      cta.addEventListener('mouseleave', function() {
-        cta.style.transform = '';
-        cta.style.boxShadow = '0 6px 20px rgba(240,90,40,0.28)';
-      });
-      cta.addEventListener('click', function(e) {
-        e.preventDefault();
-        // Trigger the real HubSpot submit — this preserves validation + form events
-        if (typeof hsBtn.click === 'function') {
-          hsBtn.click();
-        } else {
-          var form = hsBtn.closest('form');
-          if (form && typeof form.requestSubmit === 'function') form.requestSubmit();
-          else if (form) form.submit();
-        }
-      });
-      ctaWrap.appendChild(cta);
-      // Place the CTA after HubSpot's submit wrapper (or at the end of the form)
-      var hsSubmitWrap = hsBtn.closest('.hs_submit, .actions, .hs-submit-wrapper, .hsForm-submit');
-      var form = hsBtn.closest('form');
-      if (hsSubmitWrap && hsSubmitWrap.parentNode) {
-        hsSubmitWrap.parentNode.insertBefore(ctaWrap, hsSubmitWrap.nextSibling);
-      } else if (form) {
-        form.appendChild(ctaWrap);
-      } else {
-        wrap.appendChild(ctaWrap);
-      }
+    // Load ChiliPiper preemptively so the calendar widget is ready when form succeeds
+    if (!document.querySelector('script[src*="chilipiper.com/marketing"]')) {
+      var cpScript = document.createElement('script');
+      cpScript.src = 'https://js.chilipiper.com/marketing.js';
+      cpScript.type = 'text/javascript';
+      document.head.appendChild(cpScript);
     }
-    // Polling fallback — HubSpot's onFormReady is unreliable across embed versions
-    var pollTries = 0;
-    var poll = setInterval(function() {
-      var btn = document.querySelector('#pf-mmct-hs-form input[type="submit"], #pf-mmct-hs-form button[type="submit"], #pf-mmct-hs-form .hs-button');
-      if (btn && !document.querySelector('.pf-mmct-cta')) {
-        styleMmctSubmitBtn();
-      }
-      if (++pollTries >= 40) clearInterval(poll);
-    }, 250);
-    // Load ChiliPiper for post-submit scheduling (same tenant/router as /book-a-demo)
-    var cpScript = document.createElement('script');
-    cpScript.src = 'https://js.chilipiper.com/marketing.js';
-    cpScript.type = 'text/javascript';
-    document.head.appendChild(cpScript);
-    // Listen for the HubSpot form submission and hand off to ChiliPiper
-    var cpFormId = '9db4f81b-6fb2-4b01-9dd4-bba9c2b3c323';
-    window.addEventListener('message', function(event) {
-      if (!event || !event.data || event.data.id !== cpFormId) return;
-      if (event.data.type === 'hsFormCallback' && event.data.eventName === 'onFormSubmitted') {
-        var lead = event.data.data.submissionValues || {};
-        for (var key in lead) {
-          if (Array.isArray(lead[key])) { lead[key] = lead[key].toString().replaceAll(',', ';'); }
+    // Wire up the hand-rolled form: validate → POST to HubSpot Forms API → ChiliPiper hand-off.
+    // We render our own HTML instead of using the HubSpot embed because the embed's CSS reliably
+    // beats our overrides on the submit button. Direct API submission gives us full visual control
+    // while preserving HubSpot's lead capture + tracking.
+    var form = document.getElementById('pf-mmct-form');
+    var emailInput = document.getElementById('pf-mmct-email');
+    var submitBtn = document.getElementById('pf-mmct-submit');
+    var msgEl = document.getElementById('pf-mmct-msg');
+    if (form && emailInput && submitBtn) {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var email = (emailInput.value || '').trim();
+        msgEl.style.display = 'none';
+        if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+          msgEl.textContent = 'Please enter a valid work email.';
+          msgEl.style.color = '#C5392E';
+          msgEl.style.display = 'block';
+          return;
         }
-        if (window.ChiliPiper) {
-          ChiliPiper.submit('propfuel', 'Inbound_Router', { map: true, lead: lead });
-        }
-      }
-    });
+        submitBtn.disabled = true;
+        var originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = 'Submitting…';
+        submitBtn.style.opacity = '0.75';
+        // HubSpot tracking cookie if available — improves lead attribution
+        var hutk = (document.cookie.match(/(?:^|;\s*)hubspotutk=([^;]+)/) || [])[1];
+        var payload = {
+          submittedAt: Date.now(),
+          fields: [ { name: 'email', value: email } ],
+          context: {
+            pageUri: window.location.href,
+            pageName: document.title
+          }
+        };
+        if (hutk) payload.context.hutk = hutk;
+        fetch('https://api.hsforms.com/submissions/v3/integration/submit/21158441/9db4f81b-6fb2-4b01-9dd4-bba9c2b3c323', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        }).then(function(r){
+          if (r.ok) return r.json();
+          return r.json().then(function(err){
+            throw new Error((err && err.errors && err.errors[0] && err.errors[0].message) || 'Submission failed.');
+          });
+        }).then(function(){
+          // Show ChiliPiper calendar — same tenant/router as /book-a-demo
+          var lead = { email: email };
+          if (window.ChiliPiper) {
+            ChiliPiper.submit('propfuel', 'Inbound_Router', { map: true, lead: lead });
+            // Show success state behind the calendar modal
+            form.innerHTML = '<div class="pf-mmct-success"><div class="pf-mmct-success-icon">' +
+              '<svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>' +
+            '</div><h3>You\'re in.</h3><p>The calendar should be opening now. Pick a time that works and we\'ll see you there.</p></div>';
+          } else {
+            // Fallback: ChiliPiper didn't load — link to the regular demo page
+            form.innerHTML = '<div class="pf-mmct-success"><h3>You\'re in.</h3><p>Thanks! <a href="/book-a-demo" style="color:#F47C2C;font-weight:700;text-decoration:underline">Click here to book a time</a> on the calendar.</p></div>';
+          }
+        }).catch(function(err){
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalText;
+          submitBtn.style.opacity = '1';
+          msgEl.textContent = err.message || 'Something went wrong. Please try again.';
+          msgEl.style.color = '#C5392E';
+          msgEl.style.display = 'block';
+        });
+      });
+    }
   }
 
   // INIT
