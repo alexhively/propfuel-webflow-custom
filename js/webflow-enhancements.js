@@ -484,6 +484,7 @@
     '/membership-ai': { title: 'Membership AI \u2014 Smart Member Intelligence | PropFuel', desc: "PropFuel's Membership AI uses intelligent agents to surface insights, recommend actions, and build engagement initiatives for association staff automatically.", ogImage: 'https://alexhively.github.io/propfuel-webflow-custom/og-images/platform-membership-ai.png' },
     '/legal/ai-security': { title: 'AI Data Security at PropFuel \u2014 Zero Retention, No PII, Human in the Loop', desc: "How PropFuel protects your members' data when using AI. Zero data retention, no PII in AI calls, and a human approves every campaign. Read the full AI policy.", ogImage: 'https://alexhively.github.io/propfuel-webflow-custom/og-images/platform-membership-ai.png' },
     '/capabilities': { title: 'Capabilities \u2014 Everything PropFuel Does | PropFuel', desc: "Every feature in PropFuel: engagement check-ins, campaigns, lists & contacts, connectors, analytics, actions, and conversations. The honest list of what every subscription includes.", ogImage: '/og-images/platform-overview.png' },
+    '/mmct': { title: 'Pull from the Bag of Money \u2014 MMCT Demo Request | PropFuel', desc: 'Met us at MMCT? Drop your email to grab time on the calendar and see PropFuel in action for your association.', ogImage: '/og-images/demo.png' },
     '/use-cases/onboarding': { title: 'Automate New Member Onboarding Journeys | PropFuel', desc: "Turn new member silence into engagement. PropFuel's onboarding automation delivers personalized check-ins that drive 3x engagement in the first 60 days.", ogImage: '/og-images/use-cases-onboarding.png' },
     '/use-cases/renewals': { title: 'Membership Renewal Campaigns & Automation | PropFuel', desc: "Stop sending identical renewal reminders. PropFuel's renewal campaigns adapt to each member's response, recovering $320K+ in at-risk revenue.", ogImage: '/og-images/use-cases-renewals.png' },
     '/use-cases/win-back': { title: 'Win Back Lapsed Members with AI Campaigns | PropFuel', desc: "Re-engage lapsed members with conversations, not campaigns. PropFuel's win-back automation brings 80% back within 90 days.", ogImage: '/og-images/use-cases-win-back.png' },
@@ -7368,6 +7369,110 @@
     document.querySelectorAll('.pf-section').forEach(function(s){s.style.display='none';});
   }
 
+  // ─────────────────────────────────────────
+  // /MMCT — CONFERENCE LANDING PAGE
+  // Stripped-chrome single-purpose conversion page for booth follow-up at the
+  // Membership Marketing Communications + Technology (MMCT) conference. HubSpot
+  // form → ChiliPiper Inbound_Router → calendar widget on submit.
+  // ─────────────────────────────────────────
+  function renderMmctPage() {
+    if (!/^\/mmct(\/|$)/.test(window.location.pathname)) return;
+    // Hide standard nav + footer for focused conversion
+    var nav = document.querySelector('.pf-nav-bar, .navbar, [class*="nav-bar"]');
+    if (nav) nav.style.display = 'none';
+    var footer = document.querySelector('.pf-footer, .footer, [class*="footer"]');
+    if (footer) footer.style.display = 'none';
+    // Replace main with full-viewport hero
+    var main = document.querySelector('main, .main-wrapper, .page-wrapper, body > div');
+    if (!main) main = document.body;
+    var styleEl = document.createElement('style');
+    styleEl.id = 'pf-mmct-styles';
+    styleEl.textContent =
+      ".pf-mmct{font-family:'DM Sans',system-ui,-apple-system,sans-serif;background:#F4F1EA;color:#2F2F2F;min-height:100vh;display:flex;flex-direction:column;position:relative;overflow:hidden;-webkit-font-smoothing:antialiased}" +
+      ".pf-mmct::before{content:'';position:absolute;inset:0;pointer-events:none;background-image:url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch' seed='3'/><feColorMatrix values='0 0 0 0 0.94  0 0 0 0 0.91  0 0 0 0 0.86  0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>\");background-size:320px 320px;mix-blend-mode:multiply;opacity:0.35;z-index:0}" +
+      ".pf-mmct > *{position:relative;z-index:1}" +
+      ".pf-mmct-header{padding:28px 40px;display:flex;align-items:center;justify-content:space-between}" +
+      ".pf-mmct-wordmark{font-size:22px;font-weight:800;letter-spacing:-0.01em;background:linear-gradient(to right,#F47C2C,#FBC02D);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;text-decoration:none}" +
+      ".pf-mmct-eyebrow{font-size:13px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#F47C2C}" +
+      ".pf-mmct-main{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 32px 80px}" +
+      ".pf-mmct-card{max-width:680px;width:100%;text-align:center}" +
+      ".pf-mmct-pill{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;background:rgba(244,124,44,0.10);border:1px solid rgba(244,124,44,0.30);border-radius:100px;font-size:13px;font-weight:700;letter-spacing:0.10em;text-transform:uppercase;color:#F47C2C;margin-bottom:28px}" +
+      ".pf-mmct-pill::before{content:'';width:7px;height:7px;border-radius:50%;background:#F47C2C}" +
+      ".pf-mmct-h1{font-size:clamp(36px,5vw,60px);font-weight:700;line-height:1.08;letter-spacing:-0.02em;color:#2F2F2F;margin-bottom:24px}" +
+      ".pf-mmct-h1 .accent{background:linear-gradient(to right,#F47C2C,#FBC02D);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}" +
+      ".pf-mmct-sub{font-size:clamp(17px,1.6vw,20px);line-height:1.55;color:#6E6E6E;margin-bottom:40px;max-width:560px;margin-left:auto;margin-right:auto}" +
+      ".pf-mmct-form-wrap{background:#F6F2E8;border:1px solid #E3DDD2;border-radius:22px;padding:36px;box-shadow:0 12px 48px rgba(120,110,95,0.10);text-align:left}" +
+      ".pf-mmct-form-wrap .hs-form-frame,.pf-mmct-form-wrap form{font-family:'DM Sans',sans-serif !important}" +
+      ".pf-mmct-form-wrap label{font-size:14px !important;font-weight:600 !important;color:#2F2F2F !important;margin-bottom:6px !important;display:block !important}" +
+      ".pf-mmct-form-wrap input[type='text'],.pf-mmct-form-wrap input[type='email'],.pf-mmct-form-wrap input[type='tel'],.pf-mmct-form-wrap select,.pf-mmct-form-wrap textarea{width:100% !important;padding:14px 18px !important;font-size:16px !important;font-family:'DM Sans',sans-serif !important;color:#2F2F2F !important;background:#FFFFFF !important;border:1.5px solid #E3DDD2 !important;border-radius:12px !important;margin-bottom:16px !important;transition:border-color .2s ease,box-shadow .2s ease !important;box-sizing:border-box !important}" +
+      ".pf-mmct-form-wrap input:focus,.pf-mmct-form-wrap select:focus,.pf-mmct-form-wrap textarea:focus{outline:none !important;border-color:#F47C2C !important;box-shadow:0 0 0 3px rgba(244,124,44,0.15) !important}" +
+      ".pf-mmct-form-wrap .hs-button,.pf-mmct-form-wrap input[type='submit']{display:inline-flex !important;align-items:center !important;justify-content:center !important;gap:8px !important;width:100% !important;padding:18px 32px !important;font-size:16px !important;font-weight:700 !important;font-family:'DM Sans',sans-serif !important;letter-spacing:0.01em !important;color:#FFFFFF !important;background:linear-gradient(to right,#F47C2C,#FBC02D) !important;border:none !important;border-radius:100px !important;cursor:pointer !important;box-shadow:0 6px 20px rgba(240,90,40,0.28) !important;transition:transform .2s ease,box-shadow .2s ease !important;margin-top:8px !important}" +
+      ".pf-mmct-form-wrap .hs-button:hover,.pf-mmct-form-wrap input[type='submit']:hover{transform:translateY(-1px) !important;box-shadow:0 8px 24px rgba(240,90,40,0.36) !important}" +
+      ".pf-mmct-form-wrap .hs-error-msgs,.pf-mmct-form-wrap .hs-error-msg{color:#C5392E !important;font-size:13px !important;margin-top:-12px !important;margin-bottom:12px !important;list-style:none !important;padding:0 !important}" +
+      ".pf-mmct-form-wrap .hs-richtext,.pf-mmct-form-wrap .hs-richtext p{font-size:14px !important;color:#6E6E6E !important;line-height:1.5 !important}" +
+      ".pf-mmct-form-wrap .submitted-message{font-size:18px !important;color:#2F2F2F !important;text-align:center !important;padding:24px 0 !important}" +
+      ".pf-mmct-trust{margin-top:28px;font-size:13px;color:#6E6E6E;display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap}" +
+      ".pf-mmct-trust span{display:inline-flex;align-items:center;gap:6px}" +
+      ".pf-mmct-trust span::before{content:'';width:6px;height:6px;border-radius:50%;background:#F47C2C}" +
+      "@media (max-width:600px){" +
+      ".pf-mmct-header{padding:20px 24px}" +
+      ".pf-mmct-main{padding:24px 20px 56px}" +
+      ".pf-mmct-form-wrap{padding:24px;border-radius:18px}" +
+      ".pf-mmct-trust{gap:14px}" +
+      "}";
+    document.head.appendChild(styleEl);
+    main.innerHTML =
+      '<div class="pf-mmct">' +
+        '<header class="pf-mmct-header">' +
+          '<a href="/" class="pf-mmct-wordmark">PropFuel</a>' +
+          '<span class="pf-mmct-eyebrow">MMCT 2026</span>' +
+        '</header>' +
+        '<div class="pf-mmct-main">' +
+          '<div class="pf-mmct-card">' +
+            '<div class="pf-mmct-pill">Booth Follow-Up</div>' +
+            '<h1 class="pf-mmct-h1">We met at MMCT and you’re about to pull from the <span class="accent">bag of money!</span></h1>' +
+            '<p class="pf-mmct-sub">Drop your email below and grab time on our calendar. We’ll show you exactly what we walked you through at the booth — personalized to your association.</p>' +
+            '<div class="pf-mmct-form-wrap"><div id="pf-mmct-hs-form"></div></div>' +
+            '<div class="pf-mmct-trust"><span>Trusted by 330+ associations</span><span>Zero data retention</span><span>30-day implementation</span></div>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    // Load HubSpot then create the form into our target div
+    var hsScript = document.createElement('script');
+    hsScript.src = '//js.hsforms.net/forms/embed/v2.js';
+    hsScript.charset = 'utf-8';
+    hsScript.onload = function() {
+      if (window.hbspt) {
+        hbspt.forms.create({
+          portalId: '21158441',
+          formId: '9db4f81b-6fb2-4b01-9dd4-bba9c2b3c323',
+          region: 'na1',
+          target: '#pf-mmct-hs-form'
+        });
+      }
+    };
+    document.head.appendChild(hsScript);
+    // Load ChiliPiper for post-submit scheduling (same tenant/router as /book-a-demo)
+    var cpScript = document.createElement('script');
+    cpScript.src = 'https://js.chilipiper.com/marketing.js';
+    cpScript.type = 'text/javascript';
+    document.head.appendChild(cpScript);
+    // Listen for the HubSpot form submission and hand off to ChiliPiper
+    var cpFormId = '9db4f81b-6fb2-4b01-9dd4-bba9c2b3c323';
+    window.addEventListener('message', function(event) {
+      if (!event || !event.data || event.data.id !== cpFormId) return;
+      if (event.data.type === 'hsFormCallback' && event.data.eventName === 'onFormSubmitted') {
+        var lead = event.data.data.submissionValues || {};
+        for (var key in lead) {
+          if (Array.isArray(lead[key])) { lead[key] = lead[key].toString().replaceAll(',', ';'); }
+        }
+        if (window.ChiliPiper) {
+          ChiliPiper.submit('propfuel', 'Inbound_Router', { map: true, lead: lead });
+        }
+      }
+    });
+  }
+
   // INIT
   // ─────────────────────────────────────────
   function init() {
@@ -7415,6 +7520,7 @@
     fixTerms();
     fixAISecurityPage();
     fixCapabilitiesPage();
+    renderMmctPage();
     // Clean up duplicates: hide original Webflow elements when injected ones exist
     var injectedBtns = document.querySelector('.pf-hero-btns-injected');
     if (injectedBtns) {
