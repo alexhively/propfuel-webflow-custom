@@ -7409,7 +7409,9 @@
       ".pf-mmct-h1{font-size:clamp(36px,5vw,60px);font-weight:700;line-height:1.08;letter-spacing:-0.02em;color:#2F2F2F;margin-bottom:24px}" +
       ".pf-mmct-h1 .accent{background:linear-gradient(to right,#F47C2C,#FBC02D);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}" +
       ".pf-mmct-sub{font-size:clamp(17px,1.6vw,20px);line-height:1.55;color:#6E6E6E;margin-bottom:40px;max-width:560px;margin-left:auto;margin-right:auto}" +
-      ".pf-mmct-form-wrap{background:#F6F2E8;border:1px solid #E3DDD2;border-radius:22px;padding:36px;box-shadow:0 12px 48px rgba(120,110,95,0.10);text-align:left}" +
+      ".pf-mmct-form-wrap{background:#F6F2E8;border:1px solid #E3DDD2;border-radius:22px;padding:32px;box-shadow:0 12px 48px rgba(120,110,95,0.10);text-align:left;max-width:460px;margin:0 auto}" +
+      ".pf-mmct-form-wrap form,.pf-mmct-form-wrap .hs-form{max-width:100%}" +
+      ".pf-mmct-form-wrap .hs_submit,.pf-mmct-form-wrap .actions,.pf-mmct-form-wrap .hs-submit-wrapper,.pf-mmct-form-wrap .hsForm-submit{width:100% !important;max-width:100% !important;display:block !important;text-align:center !important;padding:0 !important;margin:8px 0 0 !important}" +
       ".pf-mmct-form-wrap .hs-form-frame,.pf-mmct-form-wrap form{font-family:'DM Sans',sans-serif !important}" +
       ".pf-mmct-form-wrap label{font-size:14px !important;font-weight:600 !important;color:#2F2F2F !important;margin-bottom:6px !important;display:block !important}" +
       ".pf-mmct-form-wrap input[type='text'],.pf-mmct-form-wrap input[type='email'],.pf-mmct-form-wrap input[type='tel'],.pf-mmct-form-wrap select,.pf-mmct-form-wrap textarea{width:100% !important;padding:14px 18px !important;font-size:16px !important;font-family:'DM Sans',sans-serif !important;color:#2F2F2F !important;background:#FFFFFF !important;border:1.5px solid #E3DDD2 !important;border-radius:12px !important;margin-bottom:16px !important;transition:border-color .2s ease,box-shadow .2s ease !important;box-sizing:border-box !important}" +
@@ -7489,13 +7491,15 @@
         parent.style.margin = '8px 0 0';
         parent = parent.parentElement;
       }
+      // Remove any HTML width attribute HubSpot may have set
+      if (btn.hasAttribute('width')) btn.removeAttribute('width');
       // Force-set every property inline so external CSS can't override
       var styles = {
-        'display': 'inline-flex',
-        'alignItems': 'center',
-        'justifyContent': 'center',
+        'display': 'block',
         'gap': '8px',
         'width': '100%',
+        'maxWidth': '100%',
+        'boxSizing': 'border-box',
         'padding': '18px 32px',
         'fontSize': '16px',
         'fontWeight': '700',
