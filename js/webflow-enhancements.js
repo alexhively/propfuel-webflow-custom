@@ -7414,11 +7414,26 @@
       ".pf-mmct-trust{margin-top:28px;font-size:13px;color:#6E6E6E;display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap}" +
       ".pf-mmct-trust span{display:inline-flex;align-items:center;gap:6px}" +
       ".pf-mmct-trust span::before{content:'';width:6px;height:6px;border-radius:50%;background:#F47C2C}" +
-      "@media (max-width:600px){" +
+      "@media (max-width:768px){" +
       ".pf-mmct-header{padding:20px 24px}" +
+      ".pf-mmct-eyebrow{font-size:11px;letter-spacing:0.14em}" +
+      ".pf-mmct-wordmark{font-size:20px}" +
       ".pf-mmct-main{padding:24px 20px 56px}" +
-      ".pf-mmct-form-wrap{padding:24px;border-radius:18px}" +
-      ".pf-mmct-trust{gap:14px}" +
+      ".pf-mmct-card{max-width:100%}" +
+      ".pf-mmct-pill{margin-bottom:20px;padding:7px 16px;font-size:12px}" +
+      ".pf-mmct-h1{font-size:clamp(28px,7.5vw,40px);margin-bottom:18px;line-height:1.1}" +
+      ".pf-mmct-sub{font-size:16px;line-height:1.5;margin-bottom:28px}" +
+      ".pf-mmct-form-wrap{padding:24px 20px;border-radius:18px}" +
+      ".pf-mmct-form-wrap input[type='text'],.pf-mmct-form-wrap input[type='email'],.pf-mmct-form-wrap input[type='tel'],.pf-mmct-form-wrap select,.pf-mmct-form-wrap textarea{padding:13px 16px !important;font-size:16px !important}" +
+      ".pf-mmct-form-wrap .hs-button,.pf-mmct-form-wrap input[type='submit']{padding:16px 28px !important;font-size:15px !important}" +
+      ".pf-mmct-trust{margin-top:20px;gap:12px;font-size:12px}" +
+      "}" +
+      "@media (max-width:480px){" +
+      ".pf-mmct-header{padding:16px 20px}" +
+      ".pf-mmct-main{padding:16px 16px 48px}" +
+      ".pf-mmct-h1{font-size:clamp(26px,8vw,34px)}" +
+      ".pf-mmct-form-wrap{padding:20px 16px}" +
+      ".pf-mmct-trust{flex-direction:column;gap:8px}" +
       "}";
     document.head.appendChild(styleEl);
     main.innerHTML =
