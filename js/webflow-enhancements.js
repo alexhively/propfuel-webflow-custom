@@ -7145,10 +7145,22 @@
       '</div>' +
     '</section>';
 
-    // ── 7 CAPABILITY SECTIONS ────────────────
+    // ── QUICK NAV — JUMP-TO-SECTION PILLS ───
+    var jumpPillsHTML = '';
+    sections.forEach(function(sec, idx) {
+      var num = '0' + (idx + 1);
+      jumpPillsHTML +=
+        '<a href="#cap-' + (idx + 1) + '" class="pf-cap-jump" data-target="cap-' + (idx + 1) + '">' +
+          '<span class="pf-cap-jump-num">' + num + '</span>' +
+          '<span class="pf-cap-jump-label">' + sec.eyebrow + '</span>' +
+        '</a>';
+    });
+    html += '<nav class="pf-cap-jumpnav" aria-label="Jump to section"><div class="pf-cap-jumpnav-inner">' + jumpPillsHTML + '</div></nav>';
+
+    // ── 5 CAPABILITY SECTIONS ────────────────
     sections.forEach(function(sec, idx) {
       var bg = (idx % 2 === 0) ? '#F4F1EA' : '#EAE4D8';
-      html += '<section class="pf-cap-section" style="padding:80px 48px;background:' + bg + '"><div style="max-width:1100px;margin:0 auto">' +
+      html += '<section id="cap-' + (idx + 1) + '" class="pf-cap-section" style="padding:80px 48px;background:' + bg + ';scroll-margin-top:100px"><div style="max-width:1100px;margin:0 auto">' +
         '<div style="display:grid;grid-template-columns:280px 1fr;gap:56px;align-items:start" class="pf-cap-grid">' +
           '<div style="position:sticky;top:120px">' +
             '<p style="font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#F47C2C;margin-bottom:14px">0' + (idx + 1) + '</p>' +
@@ -7181,7 +7193,34 @@
     if (!document.getElementById(styleId)) {
       var st = document.createElement('style');
       st.id = styleId;
+      // Smooth scroll for the jump-nav anchors
+      document.documentElement.style.scrollBehavior = 'smooth';
+      // Active-pill highlighter — IntersectionObserver flips the matching pill into the active state
+      try {
+        var pills = document.querySelectorAll('.pf-cap-jump');
+        var byTarget = {};
+        pills.forEach(function(a){ byTarget[a.getAttribute('data-target')] = a; });
+        var io = new IntersectionObserver(function(entries) {
+          entries.forEach(function(e) {
+            if (e.isIntersecting) {
+              pills.forEach(function(p){ p.classList.remove('is-active'); });
+              var pill = byTarget[e.target.id];
+              if (pill) pill.classList.add('is-active');
+            }
+          });
+        }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+        document.querySelectorAll('.pf-cap-section').forEach(function(s){ io.observe(s); });
+      } catch (e) {}
       st.textContent =
+        // Jump-nav (sticky pill bar under the hero, scrollable on mobile)
+        ".pf-cap-jumpnav{position:sticky;top:88px;z-index:20;background:rgba(244,241,234,0.85);backdrop-filter:saturate(180%) blur(12px);-webkit-backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid rgba(227,221,210,0.6)}" +
+        ".pf-cap-jumpnav-inner{max-width:1100px;margin:0 auto;padding:16px 24px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center}" +
+        ".pf-cap-jump{display:inline-flex;align-items:center;gap:10px;padding:10px 18px;border-radius:100px;background:#F6F2E8;border:1px solid #E3DDD2;color:#2F2F2F;text-decoration:none;font:600 13px/1 'DM Sans',sans-serif;letter-spacing:0.01em;transition:background-color .2s ease,border-color .2s ease,color .2s ease,box-shadow .2s ease;white-space:nowrap}" +
+        ".pf-cap-jump:hover{background:#FFFFFF;border-color:#F47C2C;color:#1A1714;box-shadow:0 2px 10px rgba(244,124,44,0.10)}" +
+        ".pf-cap-jump.is-active{background:linear-gradient(to right,#F47C2C,#FBC02D);border-color:transparent;color:#FFFFFF;box-shadow:0 4px 14px rgba(240,90,40,0.20)}" +
+        ".pf-cap-jump.is-active .pf-cap-jump-num{color:rgba(255,255,255,0.85);border-color:rgba(255,255,255,0.40)}" +
+        ".pf-cap-jump-num{display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:22px;padding:0 6px;border-radius:100px;border:1px solid rgba(244,124,44,0.30);font-size:11px;font-weight:700;letter-spacing:0.04em;color:#F47C2C;transition:color .2s ease,border-color .2s ease}" +
+        ".pf-cap-jump-label{font-weight:600}" +
         // Brand-spec buttons (Brand Style Guide §6A / §6B). Primary uses a layered
         // approach: solid yellow base #FBC02D underneath, the orange→gold gradient
         // overlay via ::after, which fades to opacity 0 on hover to reveal the
@@ -7203,6 +7242,13 @@
           '.pf-cap-hero{padding:96px 24px 64px!important}' +
           '.pf-cap-section{padding:64px 24px!important}' +
           '.pf-cap-cta{padding:80px 24px!important}' +
+          // Mobile jump-nav: horizontal scroll, hide scrollbar, snap behavior
+          '.pf-cap-jumpnav{top:72px}' +
+          '.pf-cap-jumpnav-inner{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;padding:12px 20px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}' +
+          '.pf-cap-jumpnav-inner::-webkit-scrollbar{display:none}' +
+          '.pf-cap-jumpnav-inner{scrollbar-width:none}' +
+          '.pf-cap-jump{scroll-snap-align:start;flex-shrink:0;padding:9px 14px}' +
+          '.pf-cap-jump-label{font-size:12px}' +
         '}';
       document.head.appendChild(st);
     }
