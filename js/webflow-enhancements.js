@@ -7193,14 +7193,39 @@
     if (!document.getElementById(styleId)) {
       var st = document.createElement('style');
       st.id = styleId;
-      // Smooth scroll for the jump-nav anchors
-      document.documentElement.style.scrollBehavior = 'smooth';
-      // Active-pill highlighter — IntersectionObserver flips the matching pill into the active state
+      // Click → programmatic smooth scroll. Suppresses the IntersectionObserver during
+      // the animation so the active pill doesn't flicker through intermediate sections,
+      // which is what was causing the noticeable "hang" before — the browser was repainting
+      // the active pill on each section the scroll passed through.
+      var pills = document.querySelectorAll('.pf-cap-jump');
+      var byTarget = {};
+      pills.forEach(function(a){ byTarget[a.getAttribute('data-target')] = a; });
+      var suppressObserver = false;
+      var suppressTimer = null;
+      pills.forEach(function(a) {
+        a.addEventListener('click', function(e) {
+          e.preventDefault();
+          var targetId = a.getAttribute('data-target');
+          var target = document.getElementById(targetId);
+          if (!target) return;
+          // Set active immediately so it feels responsive
+          pills.forEach(function(p){ p.classList.remove('is-active'); });
+          a.classList.add('is-active');
+          // Suppress the observer for the duration of the scroll (~800ms is safe)
+          suppressObserver = true;
+          if (suppressTimer) clearTimeout(suppressTimer);
+          // Compute scroll position respecting our scroll-margin-top offset
+          var top = target.getBoundingClientRect().top + window.pageYOffset - 100;
+          window.scrollTo({ top: top, behavior: 'smooth' });
+          suppressTimer = setTimeout(function(){ suppressObserver = false; }, 900);
+          // Update URL hash without triggering another scroll
+          if (history.replaceState) history.replaceState(null, '', '#' + targetId);
+        });
+      });
+      // Active-pill highlighter for natural scrolling
       try {
-        var pills = document.querySelectorAll('.pf-cap-jump');
-        var byTarget = {};
-        pills.forEach(function(a){ byTarget[a.getAttribute('data-target')] = a; });
         var io = new IntersectionObserver(function(entries) {
+          if (suppressObserver) return;
           entries.forEach(function(e) {
             if (e.isIntersecting) {
               pills.forEach(function(p){ p.classList.remove('is-active'); });
