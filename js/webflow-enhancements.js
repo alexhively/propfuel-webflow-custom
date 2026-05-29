@@ -7136,12 +7136,10 @@
           '<span style="width:6px;height:6px;border-radius:50%;background:#F47C2C"></span>' +
           'Capabilities' +
         '</p>' +
-        '<h1 style="font-size:clamp(40px,5.6vw,56px);font-weight:700;letter-spacing:-0.02em;line-height:1.1;color:#2F2F2F;margin-bottom:24px">Everything you get with PropFuel.</h1>' +
-        '<p style="font-size:18px;color:#6E6E6E;line-height:1.6;max-width:720px;margin:0 auto 24px">Know your members → reach and engage them → understand what they’re telling you → automate the follow-up → all connected to your stack.</p>' +
-        '<p style="font-size:15px;color:#8B8475;line-height:1.6;max-width:640px;margin:0 auto 40px">We’re constantly shipping new features. This is an incomplete — but honest — list of what every PropFuel subscription includes.</p>' +
+        '<h1 style="font-size:clamp(40px,5.6vw,56px);font-weight:700;letter-spacing:-0.02em;line-height:1.1;color:#2F2F2F;margin-bottom:40px">Everything you get with PropFuel.</h1>' +
         '<div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center">' +
-          '<a href="/book-a-demo" style="display:inline-flex;align-items:center;gap:8px;padding:16px 36px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:linear-gradient(to right,#F47C2C,#FBC02D);color:#FFFFFF;border:none;box-shadow:0 4px 16px rgba(240,90,40,0.20);transition:box-shadow .3s ease">Get a Demo <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>' +
-          '<a href="/platform/overview" style="display:inline-flex;align-items:center;gap:8px;padding:15px 35px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:transparent;color:#F47C2C;border:1.5px solid rgba(244,124,44,0.60);transition:border-color .2s ease,box-shadow .2s ease">See the Platform</a>' +
+          '<a href="/book-a-demo" class="pf-cap-btn pf-cap-btn-primary">Get a Demo <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>' +
+          '<a href="/platform/overview" class="pf-cap-btn pf-cap-btn-secondary">See the Platform</a>' +
         '</div>' +
         '<p style="font-size:13px;font-weight:600;letter-spacing:0.05em;color:#6E6E6E;margin-top:48px"><span style="font-size:22px;font-weight:800;color:#2F2F2F">' + totalFeatures + '+</span> &nbsp;features across ' + sections.length + ' product areas</p>' +
       '</div>' +
@@ -7155,7 +7153,6 @@
           '<div style="position:sticky;top:120px">' +
             '<p style="font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#F47C2C;margin-bottom:14px">0' + (idx + 1) + '</p>' +
             '<h2 style="font-size:clamp(28px,3.4vw,34px);font-weight:600;color:#2F2F2F;letter-spacing:-0.01em;line-height:1.15;margin:0 0 16px">' + sec.eyebrow + '</h2>' +
-            (sec.desc ? '<p style="font-size:15px;color:#6E6E6E;line-height:1.55;margin:0 0 18px">' + sec.desc + '</p>' : '') +
             '<p style="font-size:13px;font-weight:600;color:#8B8475;letter-spacing:0.02em;margin:0">' + sec.features.length + ' capabilities</p>' +
           '</div>' +
           '<div class="pf-cap-list">';
@@ -7171,11 +7168,9 @@
 
     // ── CTA SECTION ─────────────────────────
     html += '<section class="pf-cap-cta" style="padding:96px 48px;background:#F4F1EA;text-align:center"><div style="max-width:720px;margin:0 auto">' +
-      '<h2 style="font-size:clamp(28px,4vw,36px);font-weight:600;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15;margin-bottom:20px">See it on your data.</h2>' +
-      '<p style="font-size:17px;color:#6E6E6E;line-height:1.6;margin-bottom:32px">Every association we work with uses a different mix of these capabilities. We’ll show you the ones that fit yours.</p>' +
       '<div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center">' +
-        '<a href="/book-a-demo" style="display:inline-flex;align-items:center;gap:8px;padding:16px 36px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:linear-gradient(to right,#F47C2C,#FBC02D);color:#FFFFFF;border:none;box-shadow:0 4px 16px rgba(240,90,40,0.20);transition:box-shadow .3s ease">Book a Demo <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>' +
-        '<a href="/company/contact" style="display:inline-flex;align-items:center;gap:8px;padding:15px 35px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:transparent;color:#F47C2C;border:1.5px solid rgba(244,124,44,0.60);transition:border-color .2s ease,box-shadow .2s ease">Talk to Sales</a>' +
+        '<a href="/book-a-demo" class="pf-cap-btn pf-cap-btn-primary">Book a Demo <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>' +
+        '<a href="/company/contact" class="pf-cap-btn pf-cap-btn-secondary">Talk to Sales</a>' +
       '</div>' +
     '</div></section>';
 
@@ -7186,7 +7181,26 @@
     if (!document.getElementById(styleId)) {
       var st = document.createElement('style');
       st.id = styleId;
-      st.textContent = '@media (max-width:900px){.pf-cap-grid{grid-template-columns:1fr!important;gap:32px!important}.pf-cap-grid > div:first-child{position:static!important}.pf-cap-row{grid-template-columns:1fr!important;gap:8px!important}.pf-cap-hero{padding:96px 24px 64px!important}.pf-cap-section{padding:64px 24px!important}.pf-cap-cta{padding:80px 24px!important}}';
+      st.textContent =
+        // Buttons — brand-matching hover states for both variants
+        ".pf-cap-btn{display:inline-flex;align-items:center;gap:8px;font:600 15px/1 'DM Sans',sans-serif;border-radius:100px;text-decoration:none;cursor:pointer;-webkit-appearance:none;appearance:none}" +
+        ".pf-cap-btn-primary{padding:16px 36px;color:#FFFFFF;background:linear-gradient(to right,#F47C2C,#FBC02D);border:none;box-shadow:0 6px 20px rgba(240,90,40,0.22);transition:color .35s ease,box-shadow .35s ease}" +
+        ".pf-cap-btn-primary:hover{color:#1A1714;box-shadow:0 8px 28px rgba(251,192,45,0.36)}" +
+        ".pf-cap-btn-primary:active{transform:translateY(1px);box-shadow:0 4px 14px rgba(240,90,40,0.20)}" +
+        ".pf-cap-btn-primary svg{transition:transform .25s ease}" +
+        ".pf-cap-btn-primary:hover svg{transform:translateX(3px)}" +
+        ".pf-cap-btn-secondary{padding:15px 35px;color:#F47C2C;background:transparent;border:1.5px solid rgba(244,124,44,0.60);transition:color .25s ease,background-color .25s ease,border-color .25s ease,box-shadow .25s ease}" +
+        ".pf-cap-btn-secondary:hover{color:#1A1714;background-color:rgba(251,192,45,0.12);border-color:#F47C2C;box-shadow:0 4px 14px rgba(244,124,44,0.15)}" +
+        ".pf-cap-btn-secondary:active{background-color:rgba(251,192,45,0.20)}" +
+        // Responsive layout
+        '@media (max-width:900px){' +
+          '.pf-cap-grid{grid-template-columns:1fr!important;gap:32px!important}' +
+          '.pf-cap-grid > div:first-child{position:static!important}' +
+          '.pf-cap-row{grid-template-columns:1fr!important;gap:8px!important}' +
+          '.pf-cap-hero{padding:96px 24px 64px!important}' +
+          '.pf-cap-section{padding:64px 24px!important}' +
+          '.pf-cap-cta{padding:80px 24px!important}' +
+        '}';
       document.head.appendChild(st);
     }
   }
