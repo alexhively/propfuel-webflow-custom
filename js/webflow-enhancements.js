@@ -7182,16 +7182,19 @@
       var st = document.createElement('style');
       st.id = styleId;
       st.textContent =
-        // Buttons — brand-matching hover states for both variants
+        // Brand-spec buttons (Brand Style Guide §6A / §6B). Primary uses a layered
+        // approach: solid yellow base #FBC02D underneath, the orange→gold gradient
+        // overlay via ::after, which fades to opacity 0 on hover to reveal the
+        // solid yellow. Text and border darken to #1A1714, box-shadow grows.
         ".pf-cap-btn{display:inline-flex;align-items:center;gap:8px;font:600 15px/1 'DM Sans',sans-serif;border-radius:100px;text-decoration:none;cursor:pointer;-webkit-appearance:none;appearance:none}" +
-        ".pf-cap-btn-primary{padding:16px 36px;color:#FFFFFF;background:linear-gradient(to right,#F47C2C,#FBC02D);border:none;box-shadow:0 6px 20px rgba(240,90,40,0.22);transition:color .35s ease,box-shadow .35s ease}" +
-        ".pf-cap-btn-primary:hover{color:#1A1714;box-shadow:0 8px 28px rgba(251,192,45,0.36)}" +
-        ".pf-cap-btn-primary:active{transform:translateY(1px);box-shadow:0 4px 14px rgba(240,90,40,0.20)}" +
-        ".pf-cap-btn-primary svg{transition:transform .25s ease}" +
-        ".pf-cap-btn-primary:hover svg{transform:translateX(3px)}" +
-        ".pf-cap-btn-secondary{padding:15px 35px;color:#F47C2C;background:transparent;border:1.5px solid rgba(244,124,44,0.60);transition:color .25s ease,background-color .25s ease,border-color .25s ease,box-shadow .25s ease}" +
-        ".pf-cap-btn-secondary:hover{color:#1A1714;background-color:rgba(251,192,45,0.12);border-color:#F47C2C;box-shadow:0 4px 14px rgba(244,124,44,0.15)}" +
-        ".pf-cap-btn-secondary:active{background-color:rgba(251,192,45,0.20)}" +
+        ".pf-cap-btn-primary{position:relative;overflow:hidden;isolation:isolate;padding:14px 36px;background:#FBC02D;color:#FFFFFF;border:1.5px solid transparent;box-shadow:0 4px 16px rgba(240,90,40,0.20);transition:color .3s ease,border-color .3s ease,box-shadow .3s ease;letter-spacing:0.01em}" +
+        ".pf-cap-btn-primary::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,#F47C2C,#FBC02D);transition:opacity .35s ease;z-index:-1}" +
+        ".pf-cap-btn-primary:hover{color:#1A1714;border-color:#1A1714;box-shadow:0 4px 20px rgba(251,192,45,0.30)}" +
+        ".pf-cap-btn-primary:hover::after{opacity:0}" +
+        ".pf-cap-btn-primary:active{box-shadow:0 2px 10px rgba(251,192,45,0.20)}" +
+        // Secondary — transparent base, border darkens to solid orange, gold shadow appears.
+        ".pf-cap-btn-secondary{padding:13px 35px;color:#F47C2C;background:transparent;border:1.5px solid rgba(244,124,44,0.35);transition:border-color .25s ease,box-shadow .25s ease}" +
+        ".pf-cap-btn-secondary:hover{border-color:#F47C2C;box-shadow:0 4px 16px rgba(244,124,44,0.15)}" +
         // Responsive layout
         '@media (max-width:900px){' +
           '.pf-cap-grid{grid-template-columns:1fr!important;gap:32px!important}' +
