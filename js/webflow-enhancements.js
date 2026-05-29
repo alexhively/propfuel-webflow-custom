@@ -7072,59 +7072,55 @@
     var main = getPageMain();
 
     var sections = [
-      { eyebrow: 'Engagement Check-ins', features: [
-        { t: 'Automated Email Delivery', d: 'Enterprise email delivery, with unlimited emails sent per subscription period.' },
-        { t: 'Mobile Responsive Emails', d: 'Mobile-responsive emails — no additional configuration required to ensure mobile optimization.' },
-        { t: 'Custom Domains', d: 'Send PropFuel emails from an email address associated with any domain.' },
-        { t: 'Smart Check-in Reminders', d: 'Configurable reminders, with custom text and adjustable reminder scheduling.' },
-        { t: 'Customizable Email Templates', d: 'Custom email subject, along with email body and footer with rich text editor.' }
+      { eyebrow: 'Members & Segments', desc: 'Know your members and group them in ways that make every conversation relevant.', features: [
+        { t: 'Contact Directory', d: 'The home base for every contact in your account. View, search, sort, filter, and bulk import or export contacts, or create individual records.' },
+        { t: 'Contact Records', d: "View and manage any individual contact's full PropFuel history: which campaigns they're in, how they've responded, and unsubscribe them from PropFuel emails." },
+        { t: 'Segments', d: 'Group contacts in ways that make every conversation more relevant. Combine response data, Signals, PropFuel data, and AMS data to define precise audiences. Layer multiple fields, values, and relative dates to make Segments as precise as you need — then enroll a Segment in any campaign to put it to work.' },
+        { t: 'Segment Actions', d: 'Take action on a whole segment at once — add them to a campaign, remove them, or apply and remove tags in bulk.' },
+        { t: 'Contact Tags', d: 'Apply your own custom tags to contacts manually or automatically based on how they respond, then use those tags to build segments.' }
       ]},
-      { eyebrow: 'Campaigns', features: [
-        { t: 'Scheduled Campaigns', d: 'Set up campaigns to deliver emails on specific dates.' },
-        { t: 'Campaign Management', d: 'Pin campaigns to the top of the campaign list, add notes and custom tags, and organize campaigns with sort/filter/search tools.' },
-        { t: 'Campaign Time Windows', d: 'Choose from four designated time windows to schedule campaign check-ins to send within specific time slots.' },
-        { t: 'Drip Sequence Campaigns', d: 'Deliver drip emails relative to contact enrollment in the campaign (hours, days, weeks, or months).' },
-        { t: 'External Embed with URL Builder', d: 'Embed campaigns in external emails, websites, and apps.' },
-        { t: 'Campaign Blueprints', d: 'Curated bank of questions, grouped by specific themes and goals (retention, student engagement, etc.).' },
-        { t: 'Campaign Cloning', d: 'Copy existing campaigns, including all campaign settings, emails, and actions.' },
-        { t: 'Contact Import and Field Mapping', d: 'Import a .csv file of contacts to a campaign, including advanced tools to import contacts into steps within an in-progress campaign.' },
-        { t: 'Saved Workflows and Workflows Library', d: 'Save PropFuel workflows as a collection of actions to a library within your account and use them across all of your campaigns.' }
+      { eyebrow: 'Engagement', desc: 'Reach members where they are — email, web, and SMS — in conversations, not broadcasts. Includes in-platform replies for when a response deserves a real one back.', features: [
+        { t: 'Three Ways to Reach Members', d: 'Reach members wherever they already are — email, SMS, and your website — all from one platform. Send enterprise-grade email with unlimited sends and mobile-responsive templates, run check-ins on your website with visitor-level targeting, and reach members by text for moments that need to land fast.' },
+        { t: 'Branded Sender Identity', d: 'Send check-ins from your own domain so every email looks like it came from your association, not a third-party tool. Control which email address contacts see in their inbox, while routing their replies to a different address when you need to.' },
+        { t: 'Customizable Email Templates', d: 'Custom email subject, along with email body and footer with rich text editor.' },
+        { t: 'Smart Check-in Reminders', d: "Automatically nudge contacts who haven't responded yet, with configurable timing and custom reminder text." },
+        { t: 'Campaign Scheduling & Cadence', d: 'Control exactly when and how often your campaigns reach contacts. Send on specific dates, deliver drip sequences relative to campaign enrollment, confine sends to designated time windows, and set blackout dates for weekends or holidays.' },
+        { t: 'Sequence Re-enrollment', d: 'Let contacts go through a sequence campaign again after a set period so the same onboarding flow, renewal nudge, or check-in can reach the same person more than once when it makes sense.' },
+        { t: 'Campaign Organization', d: 'Keep your campaign workspace under control. Pin important campaigns to the top, add notes and custom tags, view who created each campaign, and sort, filter, search, or group your list by tag to find what you need fast.' },
+        { t: 'Campaign Blueprints', d: "A curated library of campaigns grouped by goal — retention, student engagement, feedback, and more — built from what's worked across PropFuel customers." },
+        { t: 'AI-Assisted Content Creation', d: 'Membership AI helps you build campaigns faster — drafting content with you and proofreading before you send.' },
+        { t: 'Campaign Cloning', d: 'Copy any existing campaign, along with its settings, design, and automations, to spin up similar campaigns without rebuilding from scratch.' },
+        { t: 'Contact Enrollment & Import', d: "Add contacts to a campaign individually, by segment, or by uploading a CSV, including the ability to add contacts into specific steps of a campaign that's already in progress." },
+        { t: 'External Embed', d: 'Embed PropFuel check-ins directly into your external emails, websites, and apps using the URL builder.' },
+        { t: 'In-Platform Conversations', d: "When a response deserves a real reply, send one directly from PropFuel. Compose with a rich text editor, automatically include your personal signature, and keep the conversation moving without ever leaving the platform. As you reply to each contact, a record of the email reply is saved as a conversation within that contact's PropFuel record." },
+        { t: 'Reply Templates', d: "Don't rewrite the same reply twice. Save any message you send through In-Platform Conversations as a reusable template, and build a library of go-to responses your whole team can use." }
       ]},
-      { eyebrow: 'Lists and Contacts', features: [
-        { t: 'Contact Directory', d: 'View a list of every contact in your PropFuel account, sort/filter/search across all contacts, import/export contacts in bulk, and create individual contact records.' },
-        { t: 'View and Manage Contacts', d: 'View individual contacts — manage contacts to add to campaigns, view campaign status, and unsubscribe from PropFuel emails.' },
-        { t: 'Contact Lists', d: 'Segment and create custom lists of contacts based on any combination of demographic data (from your AMS, marketing system, etc.) and PropFuel question response data and/or custom PropFuel tags.' },
-        { t: 'Contact List Actions', d: 'Trigger actions for contacts within your segmented lists — add to a campaign, remove from a campaign, add tags, or remove tags.' }
+      { eyebrow: 'Signals & Insights', desc: "See what's working, hear what members are telling you, and spot patterns before they become problems.", features: [
+        { t: 'AI-Powered Org Profile', d: 'The Org Profile captures key details about your association and its goals while also providing Membership AI the context it needs to deliver smarter, more personalized recommendations across the platform. Enter the information on your own or use Membership AI to populate the fields.' },
+        { t: 'Signals', d: 'Membership AI watches your data for meaningful patterns and surfaces them as Signals you can act on. Use Signals as criteria to build smarter segments.' },
+        { t: 'Membership AI Recommendations', d: "Once Membership AI sees what's happening with your members, it tells you what to do next — which segments deserve a check-in, which signals are worth acting on, and which campaigns to launch, expand, or rethink." },
+        { t: 'Insights Dashboard', d: 'A single dashboard for every channel — email, web, and SMS. Compare performance over flexible date ranges, see automatic trend comparisons, get snapshot views of campaign activity and individual responses, track delivery health like bounces and unsubscribes across channels, and filter by campaign or segment to zoom in on what matters.' },
+        { t: 'AI Campaign Summaries', d: 'Membership AI writes a summary of the responses in a campaign. You can choose a quick overview or a detailed version for the full picture. Great for prepping board updates, team check-ins, or staying on top of what members are saying without scrolling through every reply.' },
+        { t: 'AI Sentiment Analysis', d: 'Membership AI reads open-ended responses and categorizes them by sentiment — positive, negative, neutral, or mixed — so you can see the emotional tone of your members at a glance.' },
+        { t: 'AI Keyword Extraction', d: 'Membership AI surfaces the words and phrases members are using most in their open-ended responses, so common themes rise to the top automatically.' },
+        { t: 'Response Charts & Exports', d: 'Every multiple choice, rating, yes/no, and NPS question gets a chart automatically. View results campaign by campaign — or view a single question across every check-in and campaign it’s been used in. Export any view as a PDF or CSV.' },
+        { t: 'Activity Reports & Exports', d: "Dig into the details behind what's happening across your campaigns. See which automations fired and which contacts they hit (and when), or pull the full list of who bounced or unsubscribed (and when, and why). Choose the columns you want, and export it all." },
+        { t: 'Cross-Channel Journey Visibility', d: 'See how members engage across every channel, not just email but their website activity too. Turn on automatic link tagging to identify previously anonymous visitors and tie their behavior back to specific contacts, and let PropFuel append UTM codes so the full member journey shows up in your other analytics tools.' }
       ]},
-      { eyebrow: 'Connectors', features: [
-        { t: 'Plug-In Integration Connectors', d: 'Set up and configure native integrations PropFuel has built directly to AMS platforms, marketing automation systems, and other external applications.' },
-        { t: 'Zapier Connector', d: "Access PropFuel's private Zapier integration to connect any other external app with PropFuel." },
-        { t: 'Contact, Event, and Report Triggers', d: 'Automatically enroll contacts in PropFuel campaigns using contact, membership, profile, or event data — or existing reports and queries from your external data platform.' },
-        { t: 'Multi-Tiered Conditional Logic', d: 'Layer multiple fields, field values, and relative dates from your external data platform to automatically enroll contacts in PropFuel campaigns.' },
-        { t: 'External Write-Backs', d: 'Automatically write data collected within PropFuel back to specifically mapped fields within your external data platform.' }
+      { eyebrow: 'Automation', desc: 'Turn responses into next steps without anyone lifting a finger.', features: [
+        { t: 'Conditional Response Logic', d: 'Build "if this, then that" rules that fire based on how each contact responds. Layer multiple response values and operators to trigger exactly the right next step for every individual.' },
+        { t: 'Branching Logic', d: 'Route contacts based on how they answer to a different follow-up question within the same campaign or to another campaign entirely. Pull them out of current campaigns too, when their answer means a different path makes more sense.' },
+        { t: 'Triggered Custom Emails', d: "Send a custom-built email from PropFuel based on a contact's response." },
+        { t: 'URL Redirects', d: 'Direct contacts to a specific external URL — an event page, a registration form, a resource library — based on their response.' },
+        { t: 'Custom Landing Pages', d: 'Direct contacts to custom-built landing pages within PropFuel, tailored to how they answered.' },
+        { t: 'Internal Staff Alerts', d: 'Send custom alert emails to your team when a contact responds in a way that needs attention.' },
+        { t: 'Automatic Tagging', d: 'Add or remove contact tags automatically based on how a contact responds.' }
       ]},
-      { eyebrow: 'Analytics', features: [
-        { t: 'AI-Based Sentiment Analysis', d: 'AI analysis of open-ended question responses, categorizing response data by sentiment (negative, positive, neutral, mixed).' },
-        { t: 'AI-Based Keyword Extraction', d: 'AI analysis of open-ended question responses, categorizing responses with the same phrases or terms.' },
-        { t: 'Visualization and Report Download', d: 'Visualization of data pertaining to structured questions (multiple choice, yes/no, rating scale, NPS), including PDF download of visualizations and table format.' },
-        { t: 'Custom Filters', d: 'Filter analytics views by standard fields or custom fields mapped to PropFuel from your external data platform.' },
-        { t: 'Action Reporting', d: 'Detailed action analytics: total number of actions triggered by campaign and question, total email opens for action emails, and total landing page clicks organized by URL.' }
-      ]},
-      { eyebrow: 'Actions', features: [
-        { t: 'Conditional Logic', d: "Create 'if, then' logic that guides your engagement actions by individual question responses. Layer multiple response values and relative operators to trigger specific actions." },
-        { t: 'Relational Campaign Branching', d: 'Add individuals to other campaigns or remove them from existing ones, based on their question response.' },
-        { t: 'Internal Email Alerts', d: 'Send custom alert emails to staff based on a contact’s question response.' },
-        { t: 'Custom Check-In Landing Pages', d: 'Direct individuals to custom-built landing pages within PropFuel, based on their question response.' },
-        { t: 'Redirect to URL', d: 'Direct individuals to specific URLs, based on their question response.' },
-        { t: 'Custom Email', d: 'Send individuals a custom-built email within PropFuel, based on their question response.' },
-        { t: 'Question Logic', d: 'Direct individuals to a specific follow-up question, based on their question response.' },
-        { t: 'Contact Tag(s)', d: 'Automatically tag and untag contacts based on their response.' }
-      ]},
-      { eyebrow: 'Conversations', features: [
-        { t: 'In-Platform Email Replies', d: 'Draft and send email replies directly to PropFuel respondents within PropFuel — customize subject, body, and footer with a rich text editor.' },
-        { t: 'Email Reply Templates', d: 'Save sent emails as templates to use for future direct email replies.' },
-        { t: 'Account Admin Signatures', d: "Create custom email signatures for each account admin and automatically populate each reply with that user's signature." },
-        { t: 'Conversation Record', d: "As you reply to each contact, PropFuel saves a record of the email reply as a conversation within that contact's PropFuel record." }
+      { eyebrow: 'Integrations & Data Sync', desc: 'Keep PropFuel in step with your AMS and the rest of your stack — automatically.', features: [
+        { t: 'Native AMS Integrations', d: 'Out-of-the-box integrations with leading association management systems and marketing platforms, built and maintained by PropFuel.' },
+        { t: 'Integration Contact Search', d: "Build Segments using data straight from your connected platform, searching contact records directly or pulling from reports and queries you've already built in your other system." },
+        { t: 'External Write-Backs', d: 'Automatically push PropFuel response data back to your external system, keeping member records current across systems.' },
+        { t: 'Zapier Integration', d: 'Connect PropFuel to thousands of other apps through our private Zapier integration.' }
       ]}
     ];
 
@@ -7141,7 +7137,8 @@
           'Capabilities' +
         '</p>' +
         '<h1 style="font-size:clamp(40px,5.6vw,56px);font-weight:700;letter-spacing:-0.02em;line-height:1.1;color:#2F2F2F;margin-bottom:24px">Everything you get with PropFuel.</h1>' +
-        '<p style="font-size:18px;color:#6E6E6E;line-height:1.6;max-width:680px;margin:0 auto 40px">We’re constantly shipping new features and functionality. This is an incomplete — but honest — list of what every PropFuel subscription includes.</p>' +
+        '<p style="font-size:18px;color:#6E6E6E;line-height:1.6;max-width:720px;margin:0 auto 24px">Know your members → reach and engage them → understand what they’re telling you → automate the follow-up → all connected to your stack.</p>' +
+        '<p style="font-size:15px;color:#8B8475;line-height:1.6;max-width:640px;margin:0 auto 40px">We’re constantly shipping new features. This is an incomplete — but honest — list of what every PropFuel subscription includes.</p>' +
         '<div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center">' +
           '<a href="/book-a-demo" style="display:inline-flex;align-items:center;gap:8px;padding:16px 36px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:linear-gradient(to right,#F47C2C,#FBC02D);color:#FFFFFF;border:none;box-shadow:0 4px 16px rgba(240,90,40,0.20);transition:box-shadow .3s ease">Get a Demo <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>' +
           '<a href="/platform/overview" style="display:inline-flex;align-items:center;gap:8px;padding:15px 35px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:transparent;color:#F47C2C;border:1.5px solid rgba(244,124,44,0.60);transition:border-color .2s ease,box-shadow .2s ease">See the Platform</a>' +
@@ -7157,8 +7154,9 @@
         '<div style="display:grid;grid-template-columns:280px 1fr;gap:56px;align-items:start" class="pf-cap-grid">' +
           '<div style="position:sticky;top:120px">' +
             '<p style="font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#F47C2C;margin-bottom:14px">0' + (idx + 1) + '</p>' +
-            '<h2 style="font-size:clamp(28px,3.4vw,34px);font-weight:600;color:#2F2F2F;letter-spacing:-0.01em;line-height:1.15;margin:0">' + sec.eyebrow + '</h2>' +
-            '<p style="font-size:13px;font-weight:600;color:#6E6E6E;margin-top:16px;letter-spacing:0.02em">' + sec.features.length + ' capabilities</p>' +
+            '<h2 style="font-size:clamp(28px,3.4vw,34px);font-weight:600;color:#2F2F2F;letter-spacing:-0.01em;line-height:1.15;margin:0 0 16px">' + sec.eyebrow + '</h2>' +
+            (sec.desc ? '<p style="font-size:15px;color:#6E6E6E;line-height:1.55;margin:0 0 18px">' + sec.desc + '</p>' : '') +
+            '<p style="font-size:13px;font-weight:600;color:#8B8475;letter-spacing:0.02em;margin:0">' + sec.features.length + ' capabilities</p>' +
           '</div>' +
           '<div class="pf-cap-list">';
       sec.features.forEach(function(f, i) {
