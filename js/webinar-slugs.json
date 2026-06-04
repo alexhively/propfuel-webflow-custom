@@ -1,11 +1,15 @@
 {
   "_comment": "Snapshot of Webflow CMS Videos (Webinars) collection. Re-run to refresh.",
-  "generatedAt": "2026-05-22",
+  "generatedAt": "2026-06-04",
   "urlPrefix": "/videos/",
   "items": [
     {
       "name": "5 'Scary' Good Membership Campaigns with 'Killer' ROI",
       "slug": "5-scary-good-membership-campaigns-with-killer-roi"
+    },
+    {
+      "name": "A Recruitment Campaign, an Onboarding Campaign, and a Renewal Campaign Walk Into an Association…",
+      "slug": "recruitment-onboarding-renewal-campaigns-walk-into-association"
     },
     {
       "name": "Membership AI: Meet Signals, Your New Data Analyst",
