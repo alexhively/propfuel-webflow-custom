@@ -486,6 +486,7 @@
     '/capabilities': { title: 'Capabilities \u2014 Everything PropFuel Does | PropFuel', desc: "Every feature in PropFuel: engagement check-ins, campaigns, lists & contacts, connectors, analytics, actions, and conversations. The honest list of what every subscription includes.", ogImage: '/og-images/platform-overview.png' },
     '/mmct': { title: 'Pull from the Bag of Money \u2014 MMCT Demo Request | PropFuel', desc: 'Met us at MMCT? Drop your email to grab time on the calendar and see PropFuel in action for your association.', ogImage: '/og-images/demo.png' },
     '/mmct-session': { title: 'What\'s Working in Membership \u2014 Session Slides | PropFuel', desc: "Thanks for joining our MMCT session. Drop your email and grab the slides \u2014 every chart, framework, and takeaway from the talk.", ogImage: 'https://alexhively.github.io/propfuel-webflow-custom/og-images/mmct-session.jpg' },
+    '/event-demo': { title: 'Great Meeting You \u2014 Book Your PropFuel Demo | PropFuel', desc: "Met us at an event? Drop your email and grab time on our calendar. We'll show you exactly what PropFuel can do for your association.", ogImage: '/og-images/demo.png' },
     '/use-cases/onboarding': { title: 'Automate New Member Onboarding Journeys | PropFuel', desc: "Turn new member silence into engagement. PropFuel's onboarding automation delivers personalized check-ins that drive 3x engagement in the first 60 days.", ogImage: '/og-images/use-cases-onboarding.png' },
     '/use-cases/renewals': { title: 'Membership Renewal Campaigns & Automation | PropFuel', desc: "Stop sending identical renewal reminders. PropFuel's renewal campaigns adapt to each member's response, recovering $320K+ in at-risk revenue.", ogImage: '/og-images/use-cases-renewals.png' },
     '/use-cases/win-back': { title: 'Win Back Lapsed Members with AI Campaigns | PropFuel', desc: "Re-engage lapsed members with conversations, not campaigns. PropFuel's win-back automation brings 80% back within 90 days.", ogImage: '/og-images/use-cases-win-back.png' },
@@ -7631,6 +7632,172 @@
   }
 
   // ─────────────────────────────────────────
+  // /EVENT-DEMO — GENERIC EVENT FOLLOW-UP LANDING PAGE
+  // Mirrors /mmct exactly (same form, same ChiliPiper handoff, same visual
+  // pattern) but with generic event copy so it can be used for any conference
+  // booth, speaking engagement, or in-person meet. Reuses .pf-mmct-* styles.
+  // ─────────────────────────────────────────
+  function renderEventDemoPage() {
+    if (!/^\/event-demo(\/|$)/.test(window.location.pathname)) return;
+    var main = document.querySelector('main, .main-wrapper, .page-wrapper');
+    if (!main) {
+      var nav = document.querySelector('.pf-nav-bar, [class*="nav-bar"]');
+      var footer = document.querySelector('.pf-footer, [class*="footer"]');
+      main = document.createElement('main');
+      if (nav && nav.parentNode) {
+        nav.parentNode.insertBefore(main, nav.nextSibling);
+      } else if (footer && footer.parentNode) {
+        footer.parentNode.insertBefore(main, footer);
+      } else {
+        document.body.appendChild(main);
+      }
+    }
+    // Inject the shared .pf-mmct-* style block (guarded — won't duplicate if /mmct
+    // is also rendered, but that's not possible since paths are mutually exclusive).
+    if (!document.getElementById('pf-mmct-styles')) {
+      var styleEl = document.createElement('style');
+      styleEl.id = 'pf-mmct-styles';
+      styleEl.textContent =
+        ".pf-mmct{font-family:'DM Sans',system-ui,-apple-system,sans-serif;background:#F4F1EA;color:#2F2F2F;position:relative;overflow:hidden;-webkit-font-smoothing:antialiased}" +
+        ".pf-mmct::before{content:'';position:absolute;inset:0;pointer-events:none;background-image:url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch' seed='3'/><feColorMatrix values='0 0 0 0 0.94  0 0 0 0 0.91  0 0 0 0 0.86  0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>\");background-size:320px 320px;mix-blend-mode:multiply;opacity:0.35;z-index:0}" +
+        ".pf-mmct > *{position:relative;z-index:1}" +
+        ".pf-mmct-header{padding:28px 40px;display:flex;align-items:center;justify-content:space-between}" +
+        ".pf-mmct-wordmark{font-size:22px;font-weight:800;letter-spacing:-0.01em;background:linear-gradient(to right,#F47C2C,#FBC02D);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;text-decoration:none}" +
+        ".pf-mmct-eyebrow{font-size:13px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:#F47C2C}" +
+        ".pf-mmct-main{display:flex;align-items:center;justify-content:center;padding:160px 32px 120px;min-height:calc(100vh - 240px)}" +
+        ".pf-mmct-card{max-width:680px;width:100%;text-align:center}" +
+        ".pf-mmct-pill{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;background:rgba(244,124,44,0.10);border:1px solid rgba(244,124,44,0.30);border-radius:100px;font-size:13px;font-weight:700;letter-spacing:0.10em;text-transform:uppercase;color:#F47C2C;margin-bottom:28px}" +
+        ".pf-mmct-pill::before{content:'';width:7px;height:7px;border-radius:50%;background:#F47C2C}" +
+        ".pf-mmct-h1{font-size:clamp(36px,5vw,60px);font-weight:700;line-height:1.08;letter-spacing:-0.02em;color:#2F2F2F;margin-bottom:24px}" +
+        ".pf-mmct-h1 .accent{background:linear-gradient(to right,#F47C2C,#FBC02D);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}" +
+        ".pf-mmct-sub{font-size:clamp(17px,1.6vw,20px);line-height:1.55;color:#6E6E6E;margin-bottom:40px;max-width:560px;margin-left:auto;margin-right:auto}" +
+        ".pf-mmct-form-wrap{background:#F6F2E8;border:1px solid #E3DDD2;border-radius:22px;padding:32px;box-shadow:0 12px 48px rgba(120,110,95,0.10);text-align:left;max-width:460px;margin:0 auto}" +
+        ".pf-mmct-form-wrap form{font-family:'DM Sans',sans-serif;margin:0}" +
+        ".pf-mmct-label{display:block;font-size:14px;font-weight:600;color:#2F2F2F;margin:0 0 8px;font-family:'DM Sans',sans-serif}" +
+        ".pf-mmct-input{width:100%;box-sizing:border-box;padding:14px 18px;font-size:16px;font-family:'DM Sans',sans-serif;color:#2F2F2F;background:#FFFFFF;border:1.5px solid #E3DDD2;border-radius:12px;margin:0 0 16px;transition:border-color .2s ease,box-shadow .2s ease;-webkit-appearance:none;appearance:none}" +
+        ".pf-mmct-input:focus{outline:none;border-color:#F47C2C;box-shadow:0 0 0 3px rgba(244,124,44,0.15)}" +
+        ".pf-mmct-input::placeholder{color:#A99F8E}" +
+        ".pf-mmct-cta{display:inline-flex;align-items:center;justify-content:center;gap:4px;width:100%;max-width:100%;box-sizing:border-box;padding:18px 32px;font-size:16px;font-weight:700;font-family:'DM Sans',sans-serif;letter-spacing:0.01em;line-height:1;color:#FFFFFF;background:linear-gradient(to right,#F47C2C,#FBC02D);border:none;border-radius:100px;cursor:pointer;box-shadow:0 6px 20px rgba(240,90,40,0.22);transition:color .35s ease,box-shadow .35s ease;text-align:center;text-decoration:none;-webkit-appearance:none;appearance:none}" +
+        ".pf-mmct-cta:hover{color:#1A1714;box-shadow:0 8px 28px rgba(251,192,45,0.36)}" +
+        ".pf-mmct-cta:disabled{cursor:wait;opacity:0.75}" +
+        ".pf-mmct-msg{display:none;margin:14px 0 0;font-size:13px;line-height:1.45;font-family:'DM Sans',sans-serif}" +
+        ".pf-mmct-success{text-align:center;padding:12px 0}" +
+        ".pf-mmct-success-icon{display:inline-flex;align-items:center;justify-content:center;width:72px;height:72px;border-radius:50%;background:rgba(244,124,44,0.10);color:#F47C2C;margin-bottom:16px}" +
+        ".pf-mmct-success h3{font-size:24px;font-weight:700;color:#2F2F2F;margin:0 0 8px;font-family:'DM Sans',sans-serif;letter-spacing:-0.01em}" +
+        ".pf-mmct-success p{font-size:15px;line-height:1.55;color:#6E6E6E;margin:0;font-family:'DM Sans',sans-serif}" +
+        ".pf-mmct-trust{margin-top:28px;font-size:13px;color:#6E6E6E;display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap}" +
+        ".pf-mmct-trust span{display:inline-flex;align-items:center;gap:6px}" +
+        ".pf-mmct-trust span::before{content:'';width:6px;height:6px;border-radius:50%;background:#F47C2C}" +
+        "@media (max-width:768px){" +
+        ".pf-mmct-header{padding:20px 24px}" +
+        ".pf-mmct-eyebrow{font-size:11px;letter-spacing:0.14em}" +
+        ".pf-mmct-wordmark{font-size:20px}" +
+        ".pf-mmct-main{padding:120px 20px 72px;min-height:auto}" +
+        ".pf-mmct-card{max-width:100%}" +
+        ".pf-mmct-pill{margin-bottom:20px;padding:7px 16px;font-size:12px}" +
+        ".pf-mmct-h1{font-size:clamp(28px,7.5vw,40px);margin-bottom:18px;line-height:1.1}" +
+        ".pf-mmct-sub{font-size:16px;line-height:1.5;margin-bottom:28px}" +
+        ".pf-mmct-form-wrap{padding:24px 20px;border-radius:18px}" +
+        ".pf-mmct-input{padding:13px 16px;font-size:16px}" +
+        ".pf-mmct-cta{padding:16px 28px;font-size:15px}" +
+        ".pf-mmct-trust{margin-top:20px;gap:12px;font-size:12px}" +
+        "}" +
+        "@media (max-width:480px){" +
+        ".pf-mmct-header{padding:16px 20px}" +
+        ".pf-mmct-main{padding:104px 16px 56px}" +
+        ".pf-mmct-h1{font-size:clamp(26px,8vw,34px)}" +
+        ".pf-mmct-form-wrap{padding:20px 16px}" +
+        ".pf-mmct-trust{flex-direction:column;gap:8px}" +
+        "}";
+      document.head.appendChild(styleEl);
+    }
+    main.innerHTML =
+      '<div class="pf-mmct">' +
+        '<div class="pf-mmct-main">' +
+          '<div class="pf-mmct-card">' +
+            '<div class="pf-mmct-pill">Event Follow-Up</div>' +
+            '<h1 class="pf-mmct-h1">Great meeting you — let’s <span class="accent">put PropFuel to work.</span></h1>' +
+            '<p class="pf-mmct-sub">Drop your email below and grab time on our calendar. We’ll show you exactly what PropFuel can do — personalized to your association.</p>' +
+            '<div class="pf-mmct-form-wrap">' +
+              '<form id="pf-event-demo-form" novalidate>' +
+                '<label for="pf-event-demo-email" class="pf-mmct-label">Work Email</label>' +
+                '<input type="email" id="pf-event-demo-email" name="email" required autocomplete="email" placeholder="you@yourassociation.org" class="pf-mmct-input">' +
+                '<button type="submit" id="pf-event-demo-submit" class="pf-mmct-cta">Schedule My Demo' +
+                  '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left:6px"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>' +
+                '</button>' +
+                '<p id="pf-event-demo-msg" class="pf-mmct-msg"></p>' +
+              '</form>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    if (!document.querySelector('script[src*="chilipiper.com/marketing"]')) {
+      var cpScript = document.createElement('script');
+      cpScript.src = 'https://js.chilipiper.com/marketing.js';
+      cpScript.type = 'text/javascript';
+      document.head.appendChild(cpScript);
+    }
+    var form = document.getElementById('pf-event-demo-form');
+    var emailInput = document.getElementById('pf-event-demo-email');
+    var submitBtn = document.getElementById('pf-event-demo-submit');
+    var msgEl = document.getElementById('pf-event-demo-msg');
+    if (form && emailInput && submitBtn) {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var email = (emailInput.value || '').trim();
+        msgEl.style.display = 'none';
+        if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+          msgEl.textContent = 'Please enter a valid work email.';
+          msgEl.style.color = '#C5392E';
+          msgEl.style.display = 'block';
+          return;
+        }
+        submitBtn.disabled = true;
+        var originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = 'Submitting…';
+        submitBtn.style.opacity = '0.75';
+        var hutk = (document.cookie.match(/(?:^|;\s*)hubspotutk=([^;]+)/) || [])[1];
+        var payload = {
+          submittedAt: Date.now(),
+          fields: [ { name: 'email', value: email } ],
+          context: {
+            pageUri: window.location.href,
+            pageName: document.title
+          }
+        };
+        if (hutk) payload.context.hutk = hutk;
+        fetch('https://api.hsforms.com/submissions/v3/integration/submit/21158441/9db4f81b-6fb2-4b01-9dd4-bba9c2b3c323', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        }).then(function(r){
+          if (r.ok) return r.json();
+          return r.json().then(function(err){
+            throw new Error((err && err.errors && err.errors[0] && err.errors[0].message) || 'Submission failed.');
+          });
+        }).then(function(){
+          var lead = { email: email };
+          if (window.ChiliPiper) {
+            ChiliPiper.submit('propfuel', 'Inbound_Router', { map: true, lead: lead });
+            form.innerHTML = '<div class="pf-mmct-success"><div class="pf-mmct-success-icon">' +
+              '<svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>' +
+            '</div><h3>You\'re in.</h3><p>The calendar should be opening now. Pick a time that works and we\'ll see you there.</p></div>';
+          } else {
+            form.innerHTML = '<div class="pf-mmct-success"><h3>You\'re in.</h3><p>Thanks! <a href="/book-a-demo" style="color:#F47C2C;font-weight:700;text-decoration:underline">Click here to book a time</a> on the calendar.</p></div>';
+          }
+        }).catch(function(err){
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalText;
+          submitBtn.style.opacity = '1';
+          msgEl.textContent = err.message || 'Something went wrong. Please try again.';
+          msgEl.style.color = '#C5392E';
+          msgEl.style.display = 'block';
+        });
+      });
+    }
+  }
+
+  // ─────────────────────────────────────────
   // /MMCT-SESSION — POST-SESSION SLIDES DOWNLOAD
   // QR-code landing page. People scan after the session ends → email gate →
   // slides PDF unlock. Mirrors /mmct visual pattern but hand-off is a download
@@ -7835,6 +8002,7 @@
     fixCapabilitiesPage();
     renderMmctPage();
     renderMmctSessionPage();
+    renderEventDemoPage();
     // Clean up duplicates: hide original Webflow elements when injected ones exist
     var injectedBtns = document.querySelector('.pf-hero-btns-injected');
     if (injectedBtns) {
