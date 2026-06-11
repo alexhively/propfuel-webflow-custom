@@ -7633,10 +7633,9 @@
 
   // ─────────────────────────────────────────
   // /EVENT-DEMO — GENERIC EVENT FOLLOW-UP LANDING PAGE
-  // Mirrors /mmct's form and visual pattern, but routes to its own ChiliPiper
-  // round-robin queue ("unknown-account") instead of the shared Inbound_Router.
-  // Generic event copy so it can be used for any conference booth, speaking
-  // engagement, or in-person meet. Reuses .pf-mmct-* styles.
+  // Mirrors /mmct exactly (same form, same ChiliPiper handoff, same visual
+  // pattern) but with generic event copy so it can be used for any conference
+  // booth, speaking engagement, or in-person meet. Reuses .pf-mmct-* styles.
   // ─────────────────────────────────────────
   function renderEventDemoPage() {
     if (!/^\/event-demo(\/|$)/.test(window.location.pathname)) return;
@@ -7779,10 +7778,7 @@
         }).then(function(){
           var lead = { email: email };
           if (window.ChiliPiper) {
-            // /event-demo routes to the "unknown-account" round-robin queue
-            // (https://propfuel.chilipiper.com/round-robin/unknown-account), NOT
-            // the shared Inbound_Router used by /book-a-demo and /mmct.
-            ChiliPiper.submit('propfuel', 'unknown-account', { map: true, lead: lead });
+            ChiliPiper.submit('propfuel', 'Inbound_Router', { map: true, lead: lead });
             form.innerHTML = '<div class="pf-mmct-success"><div class="pf-mmct-success-icon">' +
               '<svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>' +
             '</div><h3>You\'re in.</h3><p>The calendar should be opening now. Pick a time that works and we\'ll see you there.</p></div>';
