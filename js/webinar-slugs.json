@@ -1,6 +1,6 @@
 {
   "_comment": "Snapshot of Webflow CMS Videos (Webinars) collection. Re-run to refresh.",
-  "generatedAt": "2026-06-04",
+  "generatedAt": "2026-06-11",
   "urlPrefix": "/videos/",
   "items": [
     {
@@ -318,6 +318,10 @@
     {
       "name": "Web Personalization: Why It Matters and How PropFuel Makes It Easy",
       "slug": "web-personalization-why-it-matters-and-how-propfuel-makes-it-easy"
+    },
+    {
+      "name": "What Makes a Recruitment Campaign Work",
+      "slug": "what-makes-a-recruitment-campaign-work"
     },
     {
       "name": "Win-Back Workshop: Strategies to Reconnect with Lapsed Members",
