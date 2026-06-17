@@ -5721,7 +5721,13 @@
     if (!anchors.length) return;
     var needsFixing = anchors.some(function(a){
       var h = a.getAttribute('href') || '';
-      return !h || h === '#' || /^\/videos\/?$/.test(h);
+      // A correctly-wired card points at /videos/<slug>. ANYTHING else means
+      // Webflow didn't emit a real collection-item URL and we must rewrite:
+      // '' , '#', '/videos', '/videos/', or the 'detail_videos' literal that
+      // Webflow emits when the card link is set to a collection page in the
+      // Designer/API but can't resolve the current item. (This site is driven
+      // by this JS, not Webflow's native binding — so we own these hrefs.)
+      return !/^\/videos\/.+/.test(h);
     });
     if (!needsFixing) return;
     fetch('https://alexhively.github.io/propfuel-webflow-custom/js/webinar-slugs.json?v=1')
