@@ -1,6 +1,6 @@
 {
-  "_comment": "Snapshot of Webflow CMS Videos (Webinars) collection. Re-run to refresh.",
-  "generatedAt": "2026-06-11",
+  "_comment": "Snapshot of Webflow CMS Videos (Webinars) collection. Regenerated from live CMS via Data API (includes all non-archived items, draft flag ignored since it reflects API staging state, not live status).",
+  "generatedAt": "2026-06-18",
   "urlPrefix": "/videos/",
   "items": [
     {
@@ -8,16 +8,16 @@
       "slug": "5-scary-good-membership-campaigns-with-killer-roi"
     },
     {
-      "name": "A Recruitment Campaign, an Onboarding Campaign, and a Renewal Campaign Walk Into an Association…",
-      "slug": "recruitment-onboarding-renewal-campaigns-walk-into-association"
-    },
-    {
-      "name": "Membership AI: Meet Signals, Your New Data Analyst",
-      "slug": "membership-ai-signals-data-analyst"
-    },
-    {
       "name": "5 Ways to Win-Back Lapsed Members",
       "slug": "5-ways-to-win-back-lapsed-members"
+    },
+    {
+      "name": "[Fireside Chat] Flip the script: Move from talking at members to communicating with members AT SCALE",
+      "slug": "fireside-chat-flip-the-script-move-from-talking-at-members-to-communicating-with-members-at-scale"
+    },
+    {
+      "name": "A Recruitment Campaign, an Onboarding Campaign, and a Renewal Campaign Walk Into an Association…",
+      "slug": "recruitment-onboarding-renewal-campaigns-walk-into-association"
     },
     {
       "name": "AI's Most Awesome, Outrageous and Astounding Tools: 2024 Edition",
@@ -56,7 +56,7 @@
       "slug": "client-build-along-workshop-renewal-campaign-for-organizations"
     },
     {
-      "name": "Crafting Personalized Journeys for First-Year Members ",
+      "name": "Crafting Personalized Journeys for First-Year Members",
       "slug": "crafting-personalized-journeys-for-first-year-members"
     },
     {
@@ -96,10 +96,6 @@
       "slug": "ai-insight-future-of-membership-fireside-chat"
     },
     {
-      "name": "[Fireside Chat] Flip the script: Move from talking at members to communicating with members AT SCALE",
-      "slug": "fireside-chat-flip-the-script-move-from-talking-at-members-to-communicating-with-members-at-scale"
-    },
-    {
       "name": "From Assumptions to Insights: Rethinking Renewals with Data-Driven Engagement",
       "slug": "data-driven-renewal-strategies-member-engagement"
     },
@@ -128,14 +124,6 @@
       "slug": "how-to-learn-more-about-your-members-turn-it-into-engagement"
     },
     {
-      "name": "“How to” webinar series: blueprints",
-      "slug": "how-to-webinar-series-blueprints"
-    },
-    {
-      "name": "“How to” webinar series: How to Incorporate SMS Into Your Engagement Strategy",
-      "slug": "how-to-webinar-series-how-to-incorporate-sms-into-your-engagement-strategy"
-    },
-    {
       "name": "January 2022 Roundtable on Best Practices in Conversational Engagement",
       "slug": "january-2022-roundtable-on-best-practices-in-conversational-engagement"
     },
@@ -144,7 +132,7 @@
       "slug": "january-2023-roundtable-on-member-profile-building"
     },
     {
-      "name": "January 2024 Product Update ",
+      "name": "January 2024 Product Update",
       "slug": "january-2024-product-update"
     },
     {
@@ -168,7 +156,7 @@
       "slug": "july-2024-roundtable-on-ongoing-and-automated-campaigns"
     },
     {
-      "name": "July 2025 PropFuel Client-Only Workshop: AI Best Practices ",
+      "name": "July 2025 PropFuel Client-Only Workshop: AI Best Practices",
       "slug": "july-2025-propfuel-client-only-workshop-ai-best-practices"
     },
     {
@@ -220,8 +208,12 @@
       "slug": "may-2024-roundtable-on-nurturing-and-nudging-using-propfuel"
     },
     {
-      "name": "May 2025 PropFuel Client-Only workshop: Spring Cleaning - Organize & Optimize your Account ",
+      "name": "May 2025 PropFuel Client-Only workshop: Spring Cleaning - Organize & Optimize your Account",
       "slug": "may-2025-propfuel-client-only-workshop-spring-cleaning---organize-optimize-your-account"
+    },
+    {
+      "name": "Membership AI: Meet Signals, Your New Data Analyst",
+      "slug": "membership-ai-signals-data-analyst"
     },
     {
       "name": "Next-Generation Member Engagement: AI-Powered Personalization at Scale",
@@ -240,16 +232,20 @@
       "slug": "november-2024-product-update"
     },
     {
+      "name": "Onboarding Campaigns That Keep Members Engaged",
+      "slug": "onboarding-campaigns-that-keep-members-engaged"
+    },
+    {
+      "name": "PropFuel Client Roundtable 1/23/25",
+      "slug": "propfuel-client-roundtable-1-23-25"
+    },
+    {
       "name": "PropFuel Client-Only Workshop Measuring Success in PropFuel",
       "slug": "propfuel-client-only-workshop-measuring-success-in-propfuel"
     },
     {
       "name": "PropFuel Client-Only Workshop: Reconnect & Reengage - Winning Back Members",
       "slug": "propfuel-client-only-workshop-reconnect-reengage---winning-back-members"
-    },
-    {
-      "name": "PropFuel Client Roundtable 1/23/25",
-      "slug": "propfuel-client-roundtable-1-23-25"
     },
     {
       "name": "PropFuels Build Along Renewals Workshop #2",
@@ -326,6 +322,14 @@
     {
       "name": "Win-Back Workshop: Strategies to Reconnect with Lapsed Members",
       "slug": "win-back-workshop-strategies-to-reconnect-with-lapsed-members"
+    },
+    {
+      "name": "“How to” webinar series: blueprints",
+      "slug": "how-to-webinar-series-blueprints"
+    },
+    {
+      "name": "“How to” webinar series: How to Incorporate SMS Into Your Engagement Strategy",
+      "slug": "how-to-webinar-series-how-to-incorporate-sms-into-your-engagement-strategy"
     }
   ]
 }
