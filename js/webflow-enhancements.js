@@ -7804,6 +7804,126 @@
   }
 
   // ─────────────────────────────────────────
+  // WEBINAR PROMO POPUP — homepage only
+  // Time-boxed modal promoting an upcoming live webinar. Shows once per
+  // browser session (sessionStorage), after a short delay, and auto-stops
+  // once the webinar date has passed. To promote a different webinar later,
+  // edit WEBINAR_PROMO below (or set enabled:false to turn it off).
+  // ─────────────────────────────────────────
+  var WEBINAR_PROMO = {
+    enabled: true,
+    eyebrow: 'Live Webinar',
+    title: 'Renewal Campaigns That Keep Members Coming Back',
+    dateLabel: 'Jun 25, 2026',
+    timeLabel: '1:00 PM ET',
+    duration: '30 min',
+    description: 'The final session of our three-part series. Brittany Lancor walks you through building a renewal campaign that re-engages members before they lapse — in just 30 minutes.',
+    speaker: 'Brittany Lancor',
+    ctaLabel: 'Register Free →',
+    ctaUrl: 'https://us02web.zoom.us/webinar/register/8817817080872/WN_YTOkrOoLRQORIX9uuQP0sA',
+    // Stop showing after this moment (webinar end). ISO with ET offset.
+    expiresAt: '2026-06-25T14:00:00-04:00',
+    delayMs: 6000,
+    sessionKey: 'pfWebinarPromo_2026-06-25_renewals'
+  };
+
+  function renderWebinarPromoPopup() {
+    var cfg = WEBINAR_PROMO;
+    if (!cfg.enabled) return;
+    // Homepage only
+    var path = window.location.pathname.replace(/\/$/, '') || '/';
+    if (path !== '/') return;
+    // Expired?
+    if (cfg.expiresAt && new Date() > new Date(cfg.expiresAt)) return;
+    // Once per session
+    try { if (sessionStorage.getItem(cfg.sessionKey)) return; } catch (e) {}
+
+    // Inject styles once
+    if (!document.getElementById('pf-wpop-styles')) {
+      var st = document.createElement('style');
+      st.id = 'pf-wpop-styles';
+      st.textContent = [
+        '.pf-wpop-overlay{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(26,23,20,.55);backdrop-filter:blur(2px);opacity:0;transition:opacity .25s ease}',
+        '.pf-wpop-overlay.pf-wpop-in{opacity:1}',
+        '.pf-wpop{position:relative;width:100%;max-width:560px;background:#F6F2E8;border:1px solid #E3DDD2;border-radius:20px;box-shadow:0 30px 80px rgba(26,23,20,.28),0 8px 24px rgba(26,23,20,.14);padding:48px 48px 44px;overflow:hidden;transform:translateY(14px) scale(.98);transition:transform .28s cubic-bezier(.2,.7,.3,1);font-family:"DM Sans",system-ui,sans-serif}',
+        '.pf-wpop-overlay.pf-wpop-in .pf-wpop{transform:none}',
+        '.pf-wpop::before{content:"";position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(to right,#F47C2C,#FBC02D)}',
+        '.pf-wpop-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:30px}',
+        '.pf-wpop-eyebrow{font-size:13px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#F47C2C}',
+        '.pf-wpop-logo{height:46px;width:auto;display:block}',
+        '.pf-wpop h2{font-size:40px;line-height:1.08;font-weight:800;color:#2F2F2F;letter-spacing:-.01em;margin:0 0 28px}',
+        '.pf-wpop-meta{display:flex;align-items:center;flex-wrap:wrap;gap:12px;padding-top:22px;border-top:1px solid #E3DDD2;margin-bottom:14px}',
+        '.pf-wpop-meta .d{font-size:16px;color:#2F2F2F;font-weight:700}',
+        '.pf-wpop-meta .sep{color:#E3DDD2;font-weight:700}',
+        '.pf-wpop-meta .dur{font-size:15px;color:#6E6E6E;font-weight:500}',
+        '.pf-wpop-desc{font-size:15.5px;line-height:1.55;color:#6E6E6E;margin:18px 0 30px}',
+        '.pf-wpop-foot{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}',
+        '.pf-wpop-speaker{font-size:15px;color:#6E6E6E}',
+        '.pf-wpop-speaker b{color:#2F2F2F;font-weight:700}',
+        '.pf-wpop-btn{position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;padding:15px 32px;border-radius:12px;font-size:16px;font-weight:800;text-decoration:none;color:#fff !important;background:#FBC02D;border:1.5px solid transparent;box-shadow:0 2px 14px rgba(244,124,44,.28);transition:.22s ease;white-space:nowrap;cursor:pointer}',
+        '.pf-wpop-btn::after{content:"";position:absolute;inset:0;z-index:-1;border-radius:11px;background:linear-gradient(to right,#F47C2C,#FBC02D);transition:opacity .22s ease;opacity:1}',
+        '.pf-wpop-btn:hover{color:#1A1714 !important;border-color:#1A1714;box-shadow:0 4px 20px rgba(251,192,45,.30)}',
+        '.pf-wpop-btn:hover::after{opacity:0}',
+        '.pf-wpop-close{position:absolute;top:16px;right:16px;width:34px;height:34px;border-radius:50%;border:1px solid #E3DDD2;background:rgba(255,255,255,.6);color:#6E6E6E;font-size:18px;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.18s ease;z-index:5}',
+        '.pf-wpop-close:hover{background:#fff;color:#2F2F2F;border-color:#6E6E6E}',
+        '@media (max-width:560px){.pf-wpop{padding:40px 26px 32px;border-radius:16px}.pf-wpop h2{font-size:30px}.pf-wpop-foot{flex-direction:column;align-items:stretch}.pf-wpop-btn{width:100%}.pf-wpop-logo{height:38px}}'
+      ].join('');
+      document.head.appendChild(st);
+    }
+
+    function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+    var overlay = document.createElement('div');
+    overlay.className = 'pf-wpop-overlay';
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-label', cfg.eyebrow + ': ' + cfg.title);
+    overlay.innerHTML =
+      '<div class="pf-wpop">' +
+        '<button class="pf-wpop-close" aria-label="Close">&times;</button>' +
+        '<div class="pf-wpop-top">' +
+          '<span class="pf-wpop-eyebrow">' + esc(cfg.eyebrow) + '</span>' +
+          '<img class="pf-wpop-logo" src="https://cdn.prod.website-files.com/69ca88e6c52b04fb85f74a02/69cc30a4a0dc86d4b55ee8a1_logo.png" alt="PropFuel">' +
+        '</div>' +
+        '<h2>' + esc(cfg.title) + '</h2>' +
+        '<div class="pf-wpop-meta">' +
+          '<span class="d">' + esc(cfg.dateLabel) + '</span>' +
+          '<span class="sep">·</span>' +
+          '<span class="d">' + esc(cfg.timeLabel) + '</span>' +
+          '<span class="sep">·</span>' +
+          '<span class="dur">' + esc(cfg.duration) + '</span>' +
+        '</div>' +
+        (cfg.description ? '<p class="pf-wpop-desc">' + esc(cfg.description) + '</p>' : '') +
+        '<div class="pf-wpop-foot">' +
+          '<span class="pf-wpop-speaker">Speaker: <b>' + esc(cfg.speaker) + '</b></span>' +
+          '<a class="pf-wpop-btn" href="' + esc(cfg.ctaUrl) + '" target="_blank" rel="noopener">' + esc(cfg.ctaLabel) + '</a>' +
+        '</div>' +
+      '</div>';
+
+    function close() {
+      overlay.classList.remove('pf-wpop-in');
+      setTimeout(function(){ if (overlay.parentNode) overlay.parentNode.removeChild(overlay); }, 280);
+      document.removeEventListener('keydown', onKey);
+    }
+    function onKey(e){ if (e.key === 'Escape') close(); }
+
+    var timer = setTimeout(function () {
+      try { sessionStorage.setItem(cfg.sessionKey, '1'); } catch (e) {}
+      document.body.appendChild(overlay);
+      // force reflow then animate in
+      void overlay.offsetWidth;
+      overlay.classList.add('pf-wpop-in');
+      overlay.querySelector('.pf-wpop-close').addEventListener('click', close);
+      overlay.addEventListener('click', function (e) { if (e.target === overlay) close(); });
+      // dismiss when they click through to register
+      overlay.querySelector('.pf-wpop-btn').addEventListener('click', close);
+      document.addEventListener('keydown', onKey);
+    }, cfg.delayMs);
+    // Safety: if the page is unloaded before it fires, clear the timer
+    window.addEventListener('beforeunload', function(){ clearTimeout(timer); });
+  }
+
+  // ─────────────────────────────────────────
   // /MMCT-SESSION — POST-SESSION SLIDES DOWNLOAD
   // QR-code landing page. People scan after the session ends → email gate →
   // slides PDF unlock. Mirrors /mmct visual pattern but hand-off is a download
@@ -8009,6 +8129,7 @@
     renderMmctPage();
     renderMmctSessionPage();
     renderEventDemoPage();
+    renderWebinarPromoPopup();
     // Clean up duplicates: hide original Webflow elements when injected ones exist
     var injectedBtns = document.querySelector('.pf-hero-btns-injected');
     if (injectedBtns) {

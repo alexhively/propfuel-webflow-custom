@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Webinar Popup — Mock</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..800;1,9..40,400..700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pf-yellow:#FBC02D; --pf-amber:#F9A825; --pf-orange:#F47C2C; --pf-deep:#F05A28;
+    --pf-page:#F4F1EA; --pf-card:#F6F2E8; --pf-cream:#EAE4D8; --pf-divider:#E3DDD2;
+    --pf-charcoal:#2F2F2F; --pf-grey:#6E6E6E; --pf-ink:#1A1714;
+    --pf-grad:linear-gradient(to right,#F47C2C,#FBC02D);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"DM Sans",system-ui,sans-serif;background:var(--pf-page);min-height:100vh}
+
+  /* Fake site backdrop so the popup is shown in context */
+  .pf-fake-site{filter:blur(3px);opacity:.55;pointer-events:none;user-select:none;padding:0}
+  .pf-fake-nav{height:64px;background:var(--pf-card);border-bottom:1px solid var(--pf-divider);display:flex;align-items:center;padding:0 48px;gap:32px}
+  .pf-fake-nav .dot{width:120px;height:22px;background:var(--pf-cream);border-radius:6px}
+  .pf-fake-nav .link{width:70px;height:12px;background:var(--pf-cream);border-radius:4px}
+  .pf-fake-hero{padding:90px 48px;max-width:1100px}
+  .pf-fake-hero .l{height:46px;background:var(--pf-cream);border-radius:8px;margin-bottom:18px}
+  .pf-fake-hero .l.w1{width:70%}.pf-fake-hero .l.w2{width:55%}.pf-fake-hero .l.s{height:16px;width:40%;margin-top:26px}
+
+  /* Overlay */
+  .pf-modal-overlay{
+    position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;
+    padding:24px;background:rgba(26,23,20,.55);backdrop-filter:blur(2px);
+  }
+
+  /* Card */
+  .pf-modal{
+    position:relative;width:100%;max-width:560px;background:var(--pf-card);
+    border:1px solid var(--pf-divider);border-radius:20px;
+    box-shadow:0 30px 80px rgba(26,23,20,.28),0 8px 24px rgba(26,23,20,.14);
+    padding:48px 48px 44px;overflow:hidden;
+  }
+  /* top brand accent bar */
+  .pf-modal::before{content:"";position:absolute;top:0;left:0;right:0;height:5px;background:var(--pf-grad)}
+
+  .pf-modal-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:30px}
+  .pf-eyebrow{font-size:13px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--pf-orange)}
+  .pf-logo{height:46px;width:auto;display:block}
+
+  .pf-modal h2{
+    font-size:40px;line-height:1.08;font-weight:800;color:var(--pf-charcoal);
+    letter-spacing:-.01em;margin-bottom:28px;
+  }
+
+  .pf-meta{display:flex;align-items:center;flex-wrap:wrap;gap:12px;
+    padding-top:22px;border-top:1px solid var(--pf-divider);margin-bottom:14px}
+  .pf-meta .d{font-size:16px;color:var(--pf-charcoal);font-weight:700}
+  .pf-meta .sep{color:var(--pf-divider);font-weight:700}
+  .pf-meta .dur{font-size:15px;color:var(--pf-grey);font-weight:500}
+
+  .pf-desc{font-size:15.5px;line-height:1.55;color:var(--pf-grey);margin:18px 0 30px}
+
+  .pf-modal-foot{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .pf-speaker{font-size:15px;color:var(--pf-grey)}
+  .pf-speaker b{color:var(--pf-charcoal);font-weight:700}
+
+  /* Brand primary button (layered, per style guide §6A) */
+  .pf-btn{position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;
+    padding:15px 32px;border-radius:12px;font-size:16px;font-weight:800;text-decoration:none;
+    color:#fff !important;background:var(--pf-yellow);border:1.5px solid transparent;
+    box-shadow:0 2px 14px rgba(244,124,44,.28);transition:.22s ease;white-space:nowrap;cursor:pointer}
+  .pf-btn::after{content:"";position:absolute;inset:0;z-index:-1;border-radius:11px;
+    background:var(--pf-grad);transition:opacity .22s ease;opacity:1}
+  .pf-btn:hover{color:var(--pf-ink) !important;border-color:var(--pf-ink);box-shadow:0 4px 20px rgba(251,192,45,.30)}
+  .pf-btn:hover::after{opacity:0}
+
+  /* Close */
+  .pf-close{position:absolute;top:16px;right:16px;width:34px;height:34px;border-radius:50%;
+    border:1px solid var(--pf-divider);background:rgba(255,255,255,.6);color:var(--pf-grey);
+    font-size:18px;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;
+    transition:.18s ease;z-index:5}
+  .pf-close:hover{background:#fff;color:var(--pf-charcoal);border-color:var(--pf-grey)}
+
+  @media (max-width:560px){
+    .pf-modal{padding:40px 26px 32px;border-radius:16px}
+    .pf-modal h2{font-size:30px}
+    .pf-modal-foot{flex-direction:column;align-items:stretch}
+    .pf-btn{width:100%}
+    .pf-logo{height:38px}
+  }
+
+  /* mock controls */
+  .mock-note{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:10001;
+    font-size:12px;color:var(--pf-grey);background:#fff;border:1px solid var(--pf-divider);
+    padding:7px 14px;border-radius:999px;box-shadow:0 4px 14px rgba(0,0,0,.08)}
+</style>
+</head>
+<body>
+
+  <!-- Faux site behind the popup (for context only) -->
+  <div class="pf-fake-site">
+    <div class="pf-fake-nav"><div class="dot"></div><div class="link"></div><div class="link"></div><div class="link"></div><div class="link"></div></div>
+    <div class="pf-fake-hero"><div class="l w1"></div><div class="l w2"></div><div class="l s"></div></div>
+  </div>
+
+  <!-- POPUP -->
+  <div class="pf-modal-overlay">
+    <div class="pf-modal" role="dialog" aria-modal="true" aria-labelledby="pf-modal-title">
+      <button class="pf-close" aria-label="Close">&times;</button>
+
+      <div class="pf-modal-top">
+        <span class="pf-eyebrow">Live Webinar</span>
+        <img class="pf-logo" src="https://cdn.prod.website-files.com/69ca88e6c52b04fb85f74a02/69cc30a4a0dc86d4b55ee8a1_logo.png" alt="PropFuel">
+      </div>
+
+      <h2 id="pf-modal-title">Renewal Campaigns That Keep Members Coming Back</h2>
+
+      <div class="pf-meta">
+        <span class="d">Jun 25, 2026</span>
+        <span class="sep">·</span>
+        <span class="d">1:00 PM ET</span>
+        <span class="sep">·</span>
+        <span class="dur">30 min</span>
+      </div>
+
+      <p class="pf-desc">The final session of our three-part series. Brittany Lancor walks you through building a renewal campaign that re-engages members <em>before</em> they lapse — in just 30 minutes.</p>
+
+      <div class="pf-modal-foot">
+        <span class="pf-speaker">Speaker: <b>Brittany Lancor</b></span>
+        <a class="pf-btn" href="https://us02web.zoom.us/webinar/register/8817817080872/WN_YTOkrOoLRQORIX9uuQP0sA" target="_blank" rel="noopener">Register Free →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="mock-note">Static mock — not wired to the live site yet</div>
+
+  <script>
+    // mock-only: let close/backdrop dismiss so you can see the page behind
+    var ov=document.querySelector('.pf-modal-overlay');
+    document.querySelector('.pf-close').addEventListener('click',function(){ov.style.display='none';});
+    ov.addEventListener('click',function(e){if(e.target===ov)ov.style.display='none';});
+  </script>
+</body>
+</html>
