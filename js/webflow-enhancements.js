@@ -7811,7 +7811,7 @@
   // edit WEBINAR_PROMO below (or set enabled:false to turn it off).
   // ─────────────────────────────────────────
   var WEBINAR_PROMO = {
-    enabled: true,
+    enabled: false,
     eyebrow: 'Live Webinar',
     title: 'Renewal Campaigns That Keep Members Coming Back',
     dateLabel: 'Jun 25, 2026',
