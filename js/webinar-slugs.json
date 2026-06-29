@@ -1,6 +1,6 @@
 {
   "_comment": "Snapshot of Webflow CMS Videos (Webinars) collection. Regenerated from live CMS via Data API (includes all non-archived items, draft flag ignored since it reflects API staging state, not live status).",
-  "generatedAt": "2026-06-18",
+  "generatedAt": "2026-06-29",
   "urlPrefix": "/videos/",
   "items": [
     {
@@ -258,6 +258,10 @@
     {
       "name": "PropFuels Build Along Renewals Workshop - Organizational",
       "slug": "propfuels-build-along-renewals-workshop---organizational"
+    },
+    {
+      "name": "Renewal Campaigns That Keep Members Coming Back",
+      "slug": "renewal-campaigns-that-keep-members-coming-back"
     },
     {
       "name": "Renewals Reinvented: Leveraging Member Insights for Greater Retention",
