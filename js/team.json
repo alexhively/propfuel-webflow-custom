@@ -152,6 +152,16 @@
       "photo": "https://cdn.prod.website-files.com/69cd3b6113342ddaaa180799/69cffdc928d4f5162f292d83_69623aaf6b1463513975a428_T3305RJBA-U09CLJ7CF3N-1cb237893a6c-512.jpeg",
       "linkedin": "https://www.linkedin.com/in/allisonbramlettlee/",
       "sort": 10
+    },
+    {
+      "name": "Kay Williams",
+      "slug": "kay-williams",
+      "title": "Client Success Manager",
+      "department": "Client Success",
+      "initials": "KW",
+      "photo": "https://cdn.prod.website-files.com/69cd3b6113342ddaaa180799/6a4281e4c983d292c62dbf2a_Kay_Headshot.png",
+      "linkedin": null,
+      "sort": 18
     }
   ],
   "departmentOrder": [
