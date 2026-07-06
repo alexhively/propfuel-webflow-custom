@@ -7811,20 +7811,20 @@
   // edit WEBINAR_PROMO below (or set enabled:false to turn it off).
   // ─────────────────────────────────────────
   var WEBINAR_PROMO = {
-    enabled: false,
+    enabled: true,
     eyebrow: 'Live Webinar',
-    title: 'Renewal Campaigns That Keep Members Coming Back',
-    dateLabel: 'Jun 25, 2026',
+    title: 'Bonus Episode: How to Win Back Lapsed Members',
+    dateLabel: 'Jul 9, 2026',
     timeLabel: '1:00 PM ET',
-    duration: '30 min',
-    description: 'The final session of our three-part series. Brittany Lancor walks you through building a renewal campaign that re-engages members before they lapse — in just 30 minutes.',
+    duration: '1 hr',
+    description: "Your lapsed members haven't forgotten you — they just need the right reason to come back. Learn what messaging resonates, how to sequence a win-back campaign, and walk away with quick wins ready to implement.",
     speaker: 'Brittany Lancor',
     ctaLabel: 'Register Free →',
-    ctaUrl: 'https://us02web.zoom.us/webinar/register/8817817080872/WN_YTOkrOoLRQORIX9uuQP0sA',
+    ctaUrl: 'https://us02web.zoom.us/webinar/register/7017828573487/WN_zr1wl-kFQcKneDztNXUd7Q',
     // Stop showing after this moment (webinar end). ISO with ET offset.
-    expiresAt: '2026-06-25T14:00:00-04:00',
+    expiresAt: '2026-07-09T14:00:00-04:00',
     delayMs: 6000,
-    sessionKey: 'pfWebinarPromo_2026-06-25_renewals'
+    sessionKey: 'pfWebinarPromo_2026-07-09_winback'
   };
 
   function renderWebinarPromoPopup() {
