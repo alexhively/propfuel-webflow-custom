@@ -1,6 +1,6 @@
 {
   "_comment": "Snapshot of Webflow CMS Videos (Webinars) collection. Regenerated from live CMS via Data API (includes all non-archived items, draft flag ignored since it reflects API staging state, not live status).",
-  "generatedAt": "2026-06-29",
+  "generatedAt": "2026-07-10",
   "urlPrefix": "/videos/",
   "items": [
     {
@@ -122,6 +122,10 @@
     {
       "name": "How to Learn More about Your Members & Turn it Into Engagement",
       "slug": "how-to-learn-more-about-your-members-turn-it-into-engagement"
+    },
+    {
+      "name": "How to Win Back Lapsed Members",
+      "slug": "how-to-win-back-lapsed-members"
     },
     {
       "name": "January 2022 Roundtable on Best Practices in Conversational Engagement",
