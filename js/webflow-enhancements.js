@@ -1439,18 +1439,18 @@
 
     // Fix empty stat numbers
     var statNums = document.querySelectorAll('.pf-stat-number');
-    var statValues = ['8.68%', '$100M+', '72%'];
+    var statValues = ['12%', '$100M+', '72%'];
     statNums.forEach(function(el, i) {
       if (statValues[i] && (!el.textContent.trim() || el.textContent.includes('This is some text'))) {
         el.textContent = statValues[i];
       }
     });
-    // Benchmark the 8.68% first-year growth stat against the industry average (audit)
-    statNums.forEach(function(el) {
-      if ((el.textContent || '').trim() === '8.68%' && !el.querySelector('.pf-stat-bench')) {
-        el.insertAdjacentHTML('beforeend', '<span class="pf-stat-bench" style="display:block;font-size:0.32em;font-weight:600;color:#8C8479;margin-top:6px;letter-spacing:0;line-height:1.2">vs 0.98% industry avg</span>');
-      }
-    });
+    // Feature the more compelling average annual growth figure (12%) over the
+    // first-year number (8.68%); relabel stat 1 to match.
+    var statLabelEls = document.querySelectorAll('.pf-stat-label');
+    if (statLabelEls[0] && /first-year|revenue growth/i.test(statLabelEls[0].textContent)) {
+      statLabelEls[0].textContent = 'Average annual revenue growth';
+    }
 
     // Remove duplicate testimonial slides (keep first 6)
     var slides = document.querySelectorAll('.pf-testimonial-slide');
@@ -8107,6 +8107,34 @@
     }
   }
 
+  // Audit fix: many hero sections inject TWO CTAs that both point at
+  // /book-a-demo (redundant). Keep the first (primary) as the demo CTA and
+  // repoint any additional demo link in the same hero group to smooth-scroll
+  // to the page's content instead. Pages whose secondary CTA is already a
+  // distinct link/anchor (e.g. use-case pages -> #ucCenterpiece) have only one
+  // demo link in the group and are left untouched.
+  function fixDuplicateHeroCtas() {
+    document.querySelectorAll('.pf-hero-btns-injected').forEach(function (group) {
+      var demoLinks = [].slice.call(group.querySelectorAll('a')).filter(function (a) {
+        return /\/book-a-demo\/?($|[?#])/.test(a.getAttribute('href') || '');
+      });
+      if (demoLinks.length < 2) return;
+      demoLinks.slice(1).forEach(function (a) {
+        a.setAttribute('href', '#');
+        a.addEventListener('click', function (e) {
+          e.preventDefault();
+          var sec = group.closest('section');
+          var target = sec ? sec.nextElementSibling : null;
+          while (target && (target.offsetParent === null || target.getBoundingClientRect().height < 40)) {
+            target = target.nextElementSibling;
+          }
+          if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          else window.scrollTo({ top: (window.scrollY || 0) + window.innerHeight * 0.85, behavior: 'smooth' });
+        });
+      });
+    });
+  }
+
   // INIT
   // ─────────────────────────────────────────
   function init() {
@@ -8159,6 +8187,7 @@
     renderMmctSessionPage();
     renderEventDemoPage();
     renderWebinarPromoPopup();
+    fixDuplicateHeroCtas();
     // Clean up duplicates: hide original Webflow elements when injected ones exist
     var injectedBtns = document.querySelector('.pf-hero-btns-injected');
     if (injectedBtns) {
