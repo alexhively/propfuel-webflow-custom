@@ -1087,8 +1087,7 @@
           { title: 'Webinars', desc: 'On-demand sessions & recordings', href: '/resources/webinars' },
           { title: 'Guides & Playbooks', desc: 'Deep-dive strategy content', href: '/resources/guides' },
           { title: 'Help Center', desc: 'Documentation & support', href: 'https://help.propfuel.com/' },
-          { title: 'Newsletter', desc: 'Stay in the loop', href: '/resources/newsletter' },
-          { title: 'API Docs', desc: 'For technical teams', href: '/resources/api-docs' }
+          { title: 'Newsletter', desc: 'Stay in the loop', href: '/resources/newsletter' }
         ]}]
       }
     };
@@ -6330,6 +6329,11 @@
 
   function fixApi() {
     if (window.location.pathname.indexOf('/resources/api-docs') === -1) return;
+    // API docs removed for now (described capabilities that don't exist yet).
+    // Redirect visitors to the Help Center instead of rendering the page.
+    window.location.replace('/resources/help-center');
+    return;
+    // eslint-disable-next-line no-unreachable
     var main = getPageMain();
 
     var capabilities = [
