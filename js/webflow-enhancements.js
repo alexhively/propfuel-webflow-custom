@@ -3228,10 +3228,6 @@
               '</svg>' +
               '<div style="color:#F47C2C;font-weight:700;font-size:14px;">Email Inbox</div>' +
               '<div style="color:rgba(255,255,255,.4);font-size:11px;margin-top:6px;">Avg. open time: 6+ hours</div>' +
-              '<div style="background:rgba(244,124,44,.15);border-radius:8px;padding:8px;margin-top:12px;">' +
-                '<div style="font-size:20px;font-weight:700;color:#F47C2C;">22%</div>' +
-                '<div style="font-size:10px;color:rgba(255,255,255,.4);">open rate</div>' +
-              '</div>' +
             '</div>' +
             '<div style="display:flex;align-items:center;color:rgba(255,255,255,.25);font-size:22px;font-weight:700;">vs</div>' +
             '<div style="flex:1;min-width:160px;background:rgba(251,192,45,.08);border-radius:16px;padding:24px;border:2px solid rgba(251,192,45,.3);text-align:center;">' +
@@ -3244,10 +3240,6 @@
               '</svg>' +
               '<div style="color:#FBC02D;font-weight:700;font-size:14px;">SMS</div>' +
               '<div style="color:rgba(255,255,255,.4);font-size:11px;margin-top:6px;">Avg. read time: 3 minutes</div>' +
-              '<div style="background:rgba(251,192,45,.15);border-radius:8px;padding:8px;margin-top:12px;">' +
-                '<div style="font-size:20px;font-weight:700;color:#FBC02D;">98%</div>' +
-                '<div style="font-size:10px;color:rgba(255,255,255,.4);">open rate</div>' +
-              '</div>' +
             '</div>' +
           '</div>' +
         '</div>' +
