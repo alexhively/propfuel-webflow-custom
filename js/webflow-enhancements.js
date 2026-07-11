@@ -8079,10 +8079,33 @@
     });
   }
 
+  // CMS detail pages ship no per-item <title>, so Webflow falls back to the
+  // site name ("PropFuel V2") in the browser tab. Set the tab title from the
+  // item's H1 client-side. (Full fix for social link previews still requires
+  // binding the template SEO Title -> collection Name natively in Webflow —
+  // unfurlers don't run JS. See known-issues doc.)
+  function fixCmsDetailTitle() {
+    var path = window.location.pathname;
+    var map = [
+      { re: /^\/videos\/[^/]+/, sel: '.webinar-title' },
+      { re: /^\/blog-posts\/[^/]+/, sel: '.blog-article-title' },
+      { re: /^\/case-studies\/[^/]+/, sel: '.cs-hero-title' },
+      { re: /^\/team-members\/[^/]+/, sel: 'main h1, h1' }
+    ];
+    for (var i = 0; i < map.length; i++) {
+      if (!map[i].re.test(path)) continue;
+      var el = document.querySelector(map[i].sel) || document.querySelector('h1');
+      var name = el ? (el.textContent || '').trim().replace(/\s+/g, ' ') : '';
+      if (name) document.title = name + ' | PropFuel';
+      return;
+    }
+  }
+
   // INIT
   // ─────────────────────────────────────────
   function init() {
     injectDynamicCSS();
+    fixCmsDetailTitle();
     applyTextures();
     fixNav();
     fixHomepage();
