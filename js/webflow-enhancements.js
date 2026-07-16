@@ -1451,12 +1451,36 @@
       statLabelEls[0].textContent = 'Average annual revenue growth';
     }
 
-    // Remove duplicate testimonial slides (keep first 6)
-    var slides = document.querySelectorAll('.pf-testimonial-slide');
-    if (slides.length > 6) {
-      for (var i = 6; i < slides.length; i++) {
-        slides[i].remove();
+    // Replace the placeholder testimonial slides with REAL, attributed client
+    // testimonials (the native Webflow slides were fabricated placeholders).
+    var realTestimonials = [
+      { q: '“You just gave us another staff member.”', a: 'Bryan Soady', r: 'Executive Director & CEO, SUAA' },
+      { q: '“Over 400 responses! This is a HUGE step toward cleaning up our data. As far as I’m concerned, PropFuel has already been worth every penny.”', a: 'Jeremy Henderson', r: 'VP of Marketing, Chattanooga Chamber' },
+      { q: '“We were at a 10% response rate within 24 hours, and we’ve picked up multiple members — plus four firms who realized they had lapsed, renewed, and even brought in their new employees.”', a: 'Kristen L. Miller', r: 'Executive Director, Louisville Bar Association' },
+      { q: '“We paid for our whole year of PropFuel with our first email campaign. We went with PropFuel over MailChimp because it enables a two-way conversation with the member, and the data is automatically populated in the member’s record.”', a: 'Molly Martin', r: 'Women in Aviation International' },
+      { q: '“Our onboarding campaign was recognized by ASAE as a Gold Circle Award Winner for Member/Volunteer Engagement. PropFuel has been such a wonderful partner in making this project the best it could be.”', a: 'Cortney Bougher', r: 'Director of Membership, American Physical Society' },
+      { q: '“I cannot say enough how nice it is having a partner that doesn’t over-promise and under-deliver, and who has integrity — hard to come by these days, especially in software.”', a: 'Lauren San Martin', r: 'Director of Marketing & Membership, Veterinary Emergency & Critical Care Society' },
+      { q: '“I have one member who has struggled with cancer for over five years. I would never have known had she not responded to a PropFuel campaign. I check in on her once in a while.”', a: 'Diane Webb', r: 'Nebraska Pharmacists Association' },
+      { q: '“In case you don’t hear it enough — you guys are doing great. We are very pleased with PropFuel, and the webinars are very helpful!”', a: 'Christina Baerga', r: 'Director, Member Engagement' }
+    ];
+    var tSection = document.querySelector('.pf-testimonials-section');
+    var tmplSlide = document.querySelector('.pf-testimonial-slide');
+    if (tSection && tmplSlide) {
+      var slideParent = tmplSlide.parentElement;
+      // Ensure there are at least as many slides as real testimonials
+      while (slideParent.querySelectorAll('.pf-testimonial-slide').length < realTestimonials.length) {
+        slideParent.appendChild(tmplSlide.cloneNode(true));
       }
+      tSection.querySelectorAll('.pf-testimonial-slide').forEach(function (slide, idx) {
+        if (idx >= realTestimonials.length) { slide.remove(); return; }
+        var t = realTestimonials[idx];
+        var qEl = slide.querySelector('.pf-testimonial-quote');
+        var aEl = slide.querySelector('.pf-testimonial-author');
+        var rEl = slide.querySelector('.pf-testimonial-role');
+        if (qEl) qEl.textContent = t.q;
+        if (aEl) aEl.textContent = t.a;
+        if (rEl) rEl.textContent = t.r;
+      });
     }
 
     // Testimonial carousel — show one at a time, rotate every 5s
@@ -7396,7 +7420,7 @@
     if(heroHeading){var heroParent=heroHeading.parentElement;if(!heroParent.querySelector('.pf-hero-btns-injected')){var btnWrap=document.createElement('div');btnWrap.className='pf-hero-btns-injected fade-up';btnWrap.style.cssText='display:flex;align-items:center;justify-content:center;gap:20px;margin-top:40px';btnWrap.innerHTML='<a href="/book-a-demo" class="pf-btn-primary" style="display:inline-flex;align-items:center;gap:8px;padding:16px 36px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:linear-gradient(to right,#F47C2C,#FBC02D);color:#fff;border:none;box-shadow:0 4px 16px rgba(240,90,40,0.2);transition:box-shadow .3s ease">Get a Demo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a><a href="/client-success/case-studies" style="display:inline-flex;align-items:center;gap:8px;padding:15px 35px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:transparent;color:#F47C2C;border:1.5px solid rgba(244,124,44,0.35);transition:border-color .25s ease,box-shadow .25s ease">See Case Studies</a>';var sub=heroParent.querySelector('.pf-page-hero-sub');if(sub){sub.parentNode.insertBefore(btnWrap,sub.nextSibling);}else{heroParent.appendChild(btnWrap);}}}
     var ctaSection=document.querySelector('.pf-cta-section, [class*="cta-section"]');if(!ctaSection)return;
     document.querySelectorAll('.tm-stats-band').forEach(function(n){n.remove();});
-    if(!document.querySelector('.tm-featured-quote')){var s='<section class="tm-featured-quote pf-section-dark" style="background:#1A1713;padding:112px 48px;width:100vw;position:relative;left:50%;right:50%;margin-left:-50vw;margin-right:-50vw"><div style="max-width:860px;margin:0 auto;text-align:center"><p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:20px">Client Story</p><p style="font-size:72px;font-weight:900;line-height:0.8;margin-bottom:20px;background:linear-gradient(to top,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">\u201C</p><p style="font-size:clamp(22px,3vw,30px);font-weight:600;color:#F6F2E8;line-height:1.5;font-style:italic;margin-bottom:28px">PropFuel has completely changed the way we think about member engagement. We\u2019re not just sending emails anymore \u2014 we\u2019re having real conversations with our members, and the data we\u2019re getting back is invaluable.</p><p style="font-size:15px;font-weight:700;color:#F6F2E8">\u2014 Margret Atkinson</p><p style="font-size:13px;color:#8C8479;margin-top:4px">ISTE</p></div></section>';ctaSection.insertAdjacentHTML('beforebegin',s);}
+    if(!document.querySelector('.tm-featured-quote')){var s='<section class="tm-featured-quote pf-section-dark" style="background:#1A1713;padding:112px 48px;width:100vw;position:relative;left:50%;right:50%;margin-left:-50vw;margin-right:-50vw"><div style="max-width:860px;margin:0 auto;text-align:center"><p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:20px">Client Story</p><p style="font-size:72px;font-weight:900;line-height:0.8;margin-bottom:20px;background:linear-gradient(to top,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">\u201C</p><p style="font-size:clamp(22px,3vw,30px);font-weight:600;color:#F6F2E8;line-height:1.5;font-style:italic;margin-bottom:28px">We paid for our whole year of PropFuel with our first email campaign. We went with PropFuel over MailChimp because it enables a two-way conversation with the member \u2014 and it\u2019s been amazing so far.</p><p style="font-size:15px;font-weight:700;color:#F6F2E8">\u2014 Molly Martin</p><p style="font-size:13px;color:#8C8479;margin-top:4px">Women in Aviation International</p></div></section>';ctaSection.insertAdjacentHTML('beforebegin',s);}
     if(!document.querySelector('.tm-famewall')){var prev2=document.querySelector('.tm-featured-quote');var s2='<section class="tm-famewall" style="padding:96px 48px;background:#EBE6DA"><div style="max-width:1200px;margin:0 auto"><div style="text-align:center;margin-bottom:56px"><p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">Wall of Love</p><h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15">What our clients are saying.</h2></div><div class="famewall-embed" data-src="propfuel-nzjj" data-format="grid" style="width:100%;min-height:300px"></div></div></div></section>';if(prev2){prev2.insertAdjacentHTML('afterend',s2);}else{ctaSection.insertAdjacentHTML('beforebegin',s2);}if(!document.querySelector('script[src*="embed.famewall.io"]')){var fw=document.createElement('script');fw.src='https://embed.famewall.io/frame.js';fw.async=true;document.body.appendChild(fw);}}
     document.querySelectorAll('.tm-quotes-grid').forEach(function(n){n.remove();});
     var ctaHeading=document.querySelector('.pf-cta-heading');if(ctaHeading){ctaHeading.innerHTML='Ready to<br>Join <span style="background:linear-gradient(135deg,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Them?</span>';}var ctaSub2=document.querySelector('.pf-cta-sub');if(ctaSub2){ctaSub2.textContent='See why 100+ associations trust PropFuel to drive member engagement and revenue.';}
