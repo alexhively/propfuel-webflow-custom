@@ -1780,13 +1780,13 @@
     // ═══════════════════════════════════════
     if (!document.querySelector('.hp-use-cases')) {
       var ucCards = [
-        { type: 'Win-Back', num: '80%', label: 'of lapsed members re-engaged within 90 days', org: 'AAP \u2014 American Academy of Pediatrics', featured: true },
-        { type: 'Renewals', num: '$320K', label: 'recovered revenue from at-risk members', org: 'ASAE' },
-        { type: 'Data Intelligence', num: '42K', label: 'member insights captured in one quarter', org: 'ISTE', dark: true },
-        { type: 'Onboarding', num: '3x', label: 'new member engagement in the first 60 days', org: 'NACUBO' },
-        { type: 'Events', num: '45%', label: 'attendee engagement rate at annual conference', org: 'NAPNAP' },
-        { type: 'Acquisition', num: '2.4x', label: 'conversion rate on non-member prospects', org: 'INCOSE' },
-        { type: 'Data Enrichment', num: '4,500+', label: 'member profiles updated instantly', org: 'INS', dark: true, wide: true }
+        { type: 'Win-Back', num: '50', label: 'lapsed members re-engaged in a single win-back campaign', org: 'MSTA', featured: true },
+        { type: 'Renewals', num: '95%', label: 'on-time renewal rate — up from 80.5%', org: 'AAMFT' },
+        { type: 'Data Intelligence', num: '44%', label: 'response rate within 24 hours of launch', org: 'NACUBO', dark: true },
+        { type: 'Onboarding', num: '2x', label: 'new member engagement, doubled with structured onboarding', org: 'AMA' },
+        { type: 'Events', num: '$315K', label: 'conference revenue driven by website engagement', org: 'VECCS' },
+        { type: 'Acquisition', num: '32%', label: 'increase in certification engagement', org: 'ARN' },
+        { type: 'Data Enrichment', num: '400+', label: 'member profiles enriched in a single campaign', org: 'Chattanooga Chamber', dark: true, wide: true }
       ];
       var ucGridHTML = '';
       ucCards.forEach(function(c) {
@@ -1868,13 +1868,13 @@
 
       if (ucGrid) {
         var ucData = [
-          { type: 'Win-Back', num: '80%', label: 'of lapsed members re-engaged within 90 days', org: 'AAP \u2014 American Academy of Pediatrics', style: 'featured', href: '/use-cases/win-back' },
-          { type: 'Renewals', num: '$320K', label: 'recovered revenue from at-risk members', org: 'ASAE', href: '/use-cases/renewals' },
-          { type: 'Data Intelligence', num: '42K', label: 'member insights captured in one quarter', org: 'ISTE', style: 'dark', href: '/use-cases/data-intelligence' },
-          { type: 'Onboarding', num: '3x', label: 'new member engagement in the first 60 days', org: 'NACUBO', href: '/use-cases/onboarding' },
-          { type: 'Events', num: '45%', label: 'attendee engagement rate at annual conference', org: 'NAPNAP', href: '/use-cases/events' },
-          { type: 'Acquisition', num: '2.4x', label: 'conversion rate on non-member prospects', org: 'INCOSE', href: '/use-cases/acquisition' },
-          { type: 'Data Enrichment', num: '4,500+', label: 'member profiles updated instantly', org: 'INS', style: 'dark-wide', href: '/use-cases/data-intelligence' }
+          { type: 'Win-Back', num: '50', label: 'lapsed members re-engaged in a single win-back campaign', org: 'MSTA', style: 'featured', href: '/use-cases/win-back' },
+          { type: 'Renewals', num: '95%', label: 'on-time renewal rate — up from 80.5%', org: 'AAMFT', href: '/use-cases/renewals' },
+          { type: 'Data Intelligence', num: '44%', label: 'response rate within 24 hours of launch', org: 'NACUBO', style: 'dark', href: '/use-cases/data-intelligence' },
+          { type: 'Onboarding', num: '2x', label: 'new member engagement, doubled with structured onboarding', org: 'AMA', href: '/use-cases/onboarding' },
+          { type: 'Events', num: '$315K', label: 'conference revenue driven by website engagement', org: 'VECCS', href: '/use-cases/events' },
+          { type: 'Acquisition', num: '32%', label: 'increase in certification engagement', org: 'ARN', href: '/use-cases/acquisition' },
+          { type: 'Data Enrichment', num: '400+', label: 'member profiles enriched in a single campaign', org: 'Chattanooga Chamber', style: 'dark-wide', href: '/use-cases/data-intelligence' }
         ];
 
         // Build the grid HTML
@@ -5681,12 +5681,12 @@
     var main = getPageMain();
 
     var blogArticles = [
-      { cat: 'Engagement', title: 'How One Association Increased Renewals by 34%', excerpt: 'Learn how a mid-size professional association used PropFuel to transform their renewal process from transactional reminders into meaningful conversations.', author: 'Sarah Mitchell', date: 'Mar 15, 2026' },
-      { cat: 'Strategy', title: 'The Death of the Annual Survey', excerpt: 'Why leading associations are replacing yearly surveys with continuous micro-conversations that deliver real-time insights.', author: 'Jake Thompson', date: 'Mar 8, 2026' },
+      { cat: 'Engagement', title: 'How One Association Increased Renewals by 34%', excerpt: 'Learn how a mid-size professional association used PropFuel to transform their renewal process from transactional reminders into meaningful conversations.', author: 'PropFuel Team', date: 'Mar 15, 2026' },
+      { cat: 'Strategy', title: 'The Death of the Annual Survey', excerpt: 'Why leading associations are replacing yearly surveys with continuous micro-conversations that deliver real-time insights.', author: 'PropFuel Team', date: 'Mar 8, 2026' },
       { cat: 'Product', title: 'Introducing Membership AI: Your Always-On Engagement Partner', excerpt: 'Meet the AI that knows your members, builds campaigns, and surfaces insights \u2014 without adding headcount.', author: 'PropFuel Team', date: 'Feb 28, 2026' },
-      { cat: 'Data', title: '5 Metrics That Actually Predict Member Retention', excerpt: 'Forget open rates. These are the engagement signals that tell you who is about to leave \u2014 and who is ready to upgrade.', author: 'Emily Nguyen', date: 'Feb 20, 2026' },
-      { cat: 'Best Practices', title: 'Your Onboarding Emails Are Failing. Here\'s Why.', excerpt: 'Most associations lose new members in the first 90 days. The fix is simpler than you think: ask them what they need.', author: 'Sarah Mitchell', date: 'Feb 12, 2026' },
-      { cat: 'Case Study', title: 'How AMA Captured 7,400+ Contacts From Their Website', excerpt: 'The Academy of Model Aeronautics turned anonymous website visitors into known, engaged contacts using PropFuel\'s website widget.', author: 'Jake Thompson', date: 'Feb 5, 2026' }
+      { cat: 'Data', title: '5 Metrics That Actually Predict Member Retention', excerpt: 'Forget open rates. These are the engagement signals that tell you who is about to leave \u2014 and who is ready to upgrade.', author: 'PropFuel Team', date: 'Feb 20, 2026' },
+      { cat: 'Best Practices', title: 'Your Onboarding Emails Are Failing. Here\'s Why.', excerpt: 'Most associations lose new members in the first 90 days. The fix is simpler than you think: ask them what they need.', author: 'PropFuel Team', date: 'Feb 12, 2026' },
+      { cat: 'Case Study', title: 'How AMA Captured 7,400+ Contacts From Their Website', excerpt: 'The Academy of Model Aeronautics turned anonymous website visitors into known, engaged contacts using PropFuel\'s website widget.', author: 'PropFuel Team', date: 'Feb 5, 2026' }
     ];
 
     var html = '' +
@@ -6442,7 +6442,7 @@
       ]},
       { name: 'Client Success', members: [
         { name: 'Ashley Wucher', title: 'Director of Client Success' },
-        { name: 'Nick Kiesseg', title: 'Client Success Manager' },
+        { name: 'Nick Kiessig', title: 'Client Success Manager' },
         { name: 'Brett Voeltz', title: 'Client Success Manager' },
         { name: 'Clara Meek', title: 'Client Success Manager' },
         { name: 'Bruna Letti', title: 'Managed Services Coordinator' }
