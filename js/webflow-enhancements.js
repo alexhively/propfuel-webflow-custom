@@ -1780,13 +1780,13 @@
     // ═══════════════════════════════════════
     if (!document.querySelector('.hp-use-cases')) {
       var ucCards = [
-        { type: 'Win-Back', num: '50', label: 'lapsed members re-engaged in a single win-back campaign', org: 'MSTA', featured: true },
+        { type: 'Win-Back', num: '80%', label: 'win-back rate on lapsed members', org: 'AAP', featured: true },
         { type: 'Renewals', num: '95%', label: 'on-time renewal rate — up from 80.5%', org: 'AAMFT' },
         { type: 'Data Intelligence', num: '44%', label: 'response rate within 24 hours of launch', org: 'NACUBO', dark: true },
         { type: 'Onboarding', num: '2x', label: 'new member engagement, doubled with structured onboarding', org: 'AMA' },
         { type: 'Events', num: '$315K', label: 'conference revenue driven by website engagement', org: 'VECCS' },
         { type: 'Acquisition', num: '32%', label: 'increase in certification engagement', org: 'ARN' },
-        { type: 'Data Enrichment', num: '400+', label: 'member profiles enriched in a single campaign', org: 'Chattanooga Chamber', dark: true, wide: true }
+        { type: 'Data Enrichment', num: '4,500+', label: 'member profile fields updated', org: 'INS', dark: true, wide: true }
       ];
       var ucGridHTML = '';
       ucCards.forEach(function(c) {
@@ -1868,13 +1868,13 @@
 
       if (ucGrid) {
         var ucData = [
-          { type: 'Win-Back', num: '50', label: 'lapsed members re-engaged in a single win-back campaign', org: 'MSTA', style: 'featured', href: '/use-cases/win-back' },
+          { type: 'Win-Back', num: '80%', label: 'win-back rate on lapsed members', org: 'AAP', style: 'featured', href: '/use-cases/win-back' },
           { type: 'Renewals', num: '95%', label: 'on-time renewal rate — up from 80.5%', org: 'AAMFT', href: '/use-cases/renewals' },
           { type: 'Data Intelligence', num: '44%', label: 'response rate within 24 hours of launch', org: 'NACUBO', style: 'dark', href: '/use-cases/data-intelligence' },
           { type: 'Onboarding', num: '2x', label: 'new member engagement, doubled with structured onboarding', org: 'AMA', href: '/use-cases/onboarding' },
           { type: 'Events', num: '$315K', label: 'conference revenue driven by website engagement', org: 'VECCS', href: '/use-cases/events' },
           { type: 'Acquisition', num: '32%', label: 'increase in certification engagement', org: 'ARN', href: '/use-cases/acquisition' },
-          { type: 'Data Enrichment', num: '400+', label: 'member profiles enriched in a single campaign', org: 'Chattanooga Chamber', style: 'dark-wide', href: '/use-cases/data-intelligence' }
+          { type: 'Data Enrichment', num: '4,500+', label: 'member profile fields updated', org: 'INS', style: 'dark-wide', href: '/use-cases/data-intelligence' }
         ];
 
         // Build the grid HTML
@@ -4728,7 +4728,7 @@
 
     // Add Testimonial section
     if (!document.querySelector('.ie-testimonials')) {
-      var testHTML = '<section class="ie-testimonials" style="padding:80px 48px;background:#EBE6DA"><div style="max-width:700px;margin:0 auto;text-align:center"><p style="font-size:48px;margin-bottom:16px">\u201C</p><p style="font-size:clamp(18px,2.5vw,24px);font-weight:600;color:#2F2F2F;line-height:1.5;font-style:italic;margin-bottom:24px">There was something about PropFuel that got our members talking to us. We\u2019ve never seen engagement like that.</p><p style="font-size:15px;font-weight:700;color:#2F2F2F">\u2014 Dena Pearlman</p><p style="font-size:13px;color:#6E6E6E;margin-top:4px">CCSA</p></div></section>';
+      var testHTML = '<section class="ie-testimonials" style="padding:80px 48px;background:#EBE6DA"><div style="max-width:700px;margin:0 auto;text-align:center"><p style="font-size:48px;margin-bottom:16px">\u201C</p><p style="font-size:clamp(18px,2.5vw,24px);font-weight:600;color:#2F2F2F;line-height:1.5;font-style:italic;margin-bottom:24px">There was something about PropFuel that got our members talking to us.</p><p style="font-size:15px;font-weight:700;color:#2F2F2F">\u2014 Dena Pearlman</p><p style="font-size:13px;color:#6E6E6E;margin-top:4px">CCSA</p></div></section>';
       var ucEl = document.querySelector('.ie-use-cases');
       if (ucEl) { ucEl.insertAdjacentHTML('afterend', testHTML); } else { var faqE = document.querySelector('.ie-faq'); if (faqE) faqE.insertAdjacentHTML('beforebegin', testHTML); }
     }
@@ -7420,7 +7420,7 @@
     if(heroHeading){var heroParent=heroHeading.parentElement;if(!heroParent.querySelector('.pf-hero-btns-injected')){var btnWrap=document.createElement('div');btnWrap.className='pf-hero-btns-injected fade-up';btnWrap.style.cssText='display:flex;align-items:center;justify-content:center;gap:20px;margin-top:40px';btnWrap.innerHTML='<a href="/book-a-demo" class="pf-btn-primary" style="display:inline-flex;align-items:center;gap:8px;padding:16px 36px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:linear-gradient(to right,#F47C2C,#FBC02D);color:#fff;border:none;box-shadow:0 4px 16px rgba(240,90,40,0.2);transition:box-shadow .3s ease">Get a Demo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a><a href="/client-success/case-studies" style="display:inline-flex;align-items:center;gap:8px;padding:15px 35px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:transparent;color:#F47C2C;border:1.5px solid rgba(244,124,44,0.35);transition:border-color .25s ease,box-shadow .25s ease">See Case Studies</a>';var sub=heroParent.querySelector('.pf-page-hero-sub');if(sub){sub.parentNode.insertBefore(btnWrap,sub.nextSibling);}else{heroParent.appendChild(btnWrap);}}}
     var ctaSection=document.querySelector('.pf-cta-section, [class*="cta-section"]');if(!ctaSection)return;
     document.querySelectorAll('.tm-stats-band').forEach(function(n){n.remove();});
-    if(!document.querySelector('.tm-featured-quote')){var s='<section class="tm-featured-quote pf-section-dark" style="background:#1A1713;padding:112px 48px;width:100vw;position:relative;left:50%;right:50%;margin-left:-50vw;margin-right:-50vw"><div style="max-width:860px;margin:0 auto;text-align:center"><p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:20px">Client Story</p><p style="font-size:72px;font-weight:900;line-height:0.8;margin-bottom:20px;background:linear-gradient(to top,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">\u201C</p><p style="font-size:clamp(22px,3vw,30px);font-weight:600;color:#F6F2E8;line-height:1.5;font-style:italic;margin-bottom:28px">We paid for our whole year of PropFuel with our first email campaign. We went with PropFuel over MailChimp because it enables a two-way conversation with the member \u2014 and it\u2019s been amazing so far.</p><p style="font-size:15px;font-weight:700;color:#F6F2E8">\u2014 Molly Martin</p><p style="font-size:13px;color:#8C8479;margin-top:4px">Women in Aviation International</p></div></section>';ctaSection.insertAdjacentHTML('beforebegin',s);}
+    if(!document.querySelector('.tm-featured-quote')){var s='<section class="tm-featured-quote pf-section-dark" style="background:#1A1713;padding:112px 48px;width:100vw;position:relative;left:50%;right:50%;margin-left:-50vw;margin-right:-50vw"><div style="max-width:860px;margin:0 auto;text-align:center"><p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:20px">Client Story</p><p style="font-size:72px;font-weight:900;line-height:0.8;margin-bottom:20px;background:linear-gradient(to top,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">\u201C</p><p style="font-size:clamp(22px,3vw,30px);font-weight:600;color:#F6F2E8;line-height:1.5;font-style:italic;margin-bottom:28px">PropFuel has given us a chance to celebrate the individual human within our larger membership.</p><p style="font-size:15px;font-weight:700;color:#F6F2E8">\u2014 Margret Atkinson</p><p style="font-size:13px;color:#8C8479;margin-top:4px">ISTE</p></div></section>';ctaSection.insertAdjacentHTML('beforebegin',s);}
     if(!document.querySelector('.tm-famewall')){var prev2=document.querySelector('.tm-featured-quote');var s2='<section class="tm-famewall" style="padding:96px 48px;background:#EBE6DA"><div style="max-width:1200px;margin:0 auto"><div style="text-align:center;margin-bottom:56px"><p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">Wall of Love</p><h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15">What our clients are saying.</h2></div><div class="famewall-embed" data-src="propfuel-nzjj" data-format="grid" style="width:100%;min-height:300px"></div></div></div></section>';if(prev2){prev2.insertAdjacentHTML('afterend',s2);}else{ctaSection.insertAdjacentHTML('beforebegin',s2);}if(!document.querySelector('script[src*="embed.famewall.io"]')){var fw=document.createElement('script');fw.src='https://embed.famewall.io/frame.js';fw.async=true;document.body.appendChild(fw);}}
     document.querySelectorAll('.tm-quotes-grid').forEach(function(n){n.remove();});
     var ctaHeading=document.querySelector('.pf-cta-heading');if(ctaHeading){ctaHeading.innerHTML='Ready to<br>Join <span style="background:linear-gradient(135deg,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Them?</span>';}var ctaSub2=document.querySelector('.pf-cta-sub');if(ctaSub2){ctaSub2.textContent='See why 100+ associations trust PropFuel to drive member engagement and revenue.';}
