@@ -1,6 +1,6 @@
 {
   "_comment": "Snapshot of Webflow CMS Videos (Webinars) collection. Regenerated from live CMS via Data API (includes all non-archived items, draft flag ignored since it reflects API staging state, not live status).",
-  "generatedAt": "2026-07-10",
+  "generatedAt": "2026-07-27",
   "urlPrefix": "/videos/",
   "items": [
     {
@@ -78,6 +78,10 @@
     {
       "name": "Developing Learner Personas with Member Insights",
       "slug": "developing-learner-personas-with-member-insights"
+    },
+    {
+      "name": "Do You Even Know Who's In the Room?",
+      "slug": "do-you-even-know-whos-in-the-room"
     },
     {
       "name": "Driving Renewals Through Targeted Engagement: The WQA Success Story",
