@@ -5788,6 +5788,23 @@
       .catch(function(){});
   }
 
+  // Global dead-link repair. Native Webflow templates/footers link to paths that
+  // don't exist as pages (/resources is a nav dropdown, not a page; videos and
+  // case-studies listings live elsewhere). Runs on every page — CMS templates
+  // (blog posts, videos) all carry at least one of these.
+  function fixDeadResourceLinks() {
+    var REMAP = {
+      '/resources': '/resources/guides',
+      '/resources/': '/resources/guides',
+      '/resources/videos': '/resources/webinars',
+      '/resources/case-studies': '/client-success/case-studies'
+    };
+    document.querySelectorAll('a[href]').forEach(function(a) {
+      var mapped = REMAP[a.getAttribute('href')];
+      if (mapped) a.setAttribute('href', mapped);
+    });
+  }
+
   // Webinar / video detail template (/videos/*). Webflow template renders static placeholders
   // for optional fields (slides PDF, related videos) that fall back to href="#" when CMS
   // fields are empty — creating orphan buttons and an empty "related videos" dark card.
@@ -8208,6 +8225,7 @@
     renderEventDemoPage();
     renderWebinarPromoPopup();
     fixDuplicateHeroCtas();
+    fixDeadResourceLinks();
     // Clean up duplicates: hide original Webflow elements when injected ones exist
     var injectedBtns = document.querySelector('.pf-hero-btns-injected');
     if (injectedBtns) {
