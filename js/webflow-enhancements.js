@@ -7856,18 +7856,19 @@
   var WEBINAR_PROMO = {
     enabled: true,
     eyebrow: 'Live Webinar',
-    title: 'Bonus Episode: How to Win Back Lapsed Members',
-    dateLabel: 'Jul 9, 2026',
+    title: 'Engaging Members in Year 2 and Beyond',
+    subtitle: 'Session 2 of The Year In Between — how to earn the renewal before renewal season ever starts',
+    dateLabel: 'Jul 31, 2026',
     timeLabel: '1:00 PM ET',
-    duration: '1 hr',
-    description: "Your lapsed members haven't forgotten you — they just need the right reason to come back. Learn what messaging resonates, how to sequence a win-back campaign, and walk away with quick wins ready to implement.",
+    duration: '30 min',
+    description: 'This session is about what happens between renewals — the touchpoints, signals, and everyday moments that build (or quietly lose) loyalty before renewal season ever comes back around.',
     speaker: 'Brittany Lancor',
     ctaLabel: 'Register Free →',
-    ctaUrl: 'https://us02web.zoom.us/webinar/register/7017828573487/WN_zr1wl-kFQcKneDztNXUd7Q',
+    ctaUrl: 'https://us02web.zoom.us/webinar/register/9417853532336/WN_u_Z3jwUlSVGd1bn-I-jxcw',
     // Stop showing after this moment (webinar end). ISO with ET offset.
-    expiresAt: '2026-07-09T14:00:00-04:00',
+    expiresAt: '2026-07-31T13:30:00-04:00',
     delayMs: 6000,
-    sessionKey: 'pfWebinarPromo_2026-07-09_winback'
+    sessionKey: 'pfWebinarPromo_2026-07-31_year2'
   };
 
   function renderWebinarPromoPopup() {
@@ -7895,6 +7896,7 @@
         '.pf-wpop-eyebrow{font-size:13px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#F47C2C}',
         '.pf-wpop-logo{height:46px;width:auto;display:block}',
         '.pf-wpop h2{font-size:40px;line-height:1.08;font-weight:800;color:#2F2F2F;letter-spacing:-.01em;margin:0 0 28px}',
+        '.pf-wpop-sub{font-size:16px;line-height:1.5;color:#6E6E6E;margin:-14px 0 28px}',
         '.pf-wpop-meta{display:flex;align-items:center;flex-wrap:wrap;gap:12px;padding-top:22px;border-top:1px solid #E3DDD2;margin-bottom:14px}',
         '.pf-wpop-meta .d{font-size:16px;color:#2F2F2F;font-weight:700}',
         '.pf-wpop-meta .sep{color:#E3DDD2;font-weight:700}',
@@ -7929,6 +7931,7 @@
           '<img class="pf-wpop-logo" src="https://cdn.prod.website-files.com/69ca88e6c52b04fb85f74a02/69cc30a4a0dc86d4b55ee8a1_logo.png" alt="PropFuel">' +
         '</div>' +
         '<h2>' + esc(cfg.title) + '</h2>' +
+        (cfg.subtitle ? '<p class="pf-wpop-sub">' + esc(cfg.subtitle) + '</p>' : '') +
         '<div class="pf-wpop-meta">' +
           '<span class="d">' + esc(cfg.dateLabel) + '</span>' +
           '<span class="sep">·</span>' +
