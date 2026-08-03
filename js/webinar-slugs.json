@@ -1,6 +1,6 @@
 {
   "_comment": "Snapshot of Webflow CMS Videos (Webinars) collection. Regenerated from live CMS via Data API (includes all non-archived items, draft flag ignored since it reflects API staging state, not live status).",
-  "generatedAt": "2026-07-27",
+  "generatedAt": "2026-08-03",
   "urlPrefix": "/videos/",
   "items": [
     {
@@ -94,6 +94,10 @@
     {
       "name": "February 2023 Roundtable on Events and Conference Engagement & Registration",
       "slug": "february-2023-roundtable-on-events-and-conference-engagement-registration"
+    },
+    {
+      "name": "Engaging Members in Year 2 and Beyond",
+      "slug": "engaging-members-in-year-2-and-beyond"
     },
     {
       "name": "Fireside Chat: AI, Insight, and the Future of Membership",
