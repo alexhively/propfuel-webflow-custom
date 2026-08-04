@@ -1915,6 +1915,20 @@
   // ─────────────────────────────────────────
   // 6. DEMO FORM INJECTION
   // ─────────────────────────────────────────
+  // GA4 conversion event for demo requests. The site's ga4 tag defines gtag
+  // globally; dataLayer push is the fallback if this runs before that script.
+  // Event name 'generate_lead' is the GA4 recommended lead event — the Google
+  // Ads conversion action is defined against it.
+  function pfTrackLead(source) {
+    try {
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', 'generate_lead', { lead_source: source });
+      } else if (window.dataLayer && window.dataLayer.push) {
+        window.dataLayer.push({ event: 'generate_lead', lead_source: source });
+      }
+    } catch (e) {}
+  }
+
   function initDemoForm() {
     var card = document.querySelector('.pf-demo-form-card');
     if (!card) return;
@@ -1957,6 +1971,7 @@
     window.addEventListener('message', function(event) {
       if (cpFormId && event.data.id !== cpFormId) return;
       if (event.data.type === 'hsFormCallback' && event.data.eventName === 'onFormSubmitted') {
+        pfTrackLead('book-a-demo');
         var lead = event.data.data.submissionValues;
         for (var key in lead) {
           if (Array.isArray(lead[key])) { lead[key] = lead[key].toString().replaceAll(',', ';'); }
@@ -5797,7 +5812,8 @@
       '/resources': '/resources/guides',
       '/resources/': '/resources/guides',
       '/resources/videos': '/resources/webinars',
-      '/resources/case-studies': '/client-success/case-studies'
+      '/resources/case-studies': '/client-success/case-studies',
+      '/request-demo': '/book-a-demo'
     };
     document.querySelectorAll('a[href]').forEach(function(a) {
       var mapped = REMAP[a.getAttribute('href')];
@@ -7656,6 +7672,7 @@
             throw new Error((err && err.errors && err.errors[0] && err.errors[0].message) || 'Submission failed.');
           });
         }).then(function(){
+          pfTrackLead('mmct');
           // Show ChiliPiper calendar — same tenant/router as /book-a-demo
           var lead = { email: email };
           if (window.ChiliPiper) {
