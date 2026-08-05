@@ -7884,7 +7884,7 @@
     ctaUrl: 'https://us02web.zoom.us/webinar/register/8917858641532/WN_trQu16rvTyKsjzukf3orYw',
     // Stop showing after this moment (webinar end). ISO with ET offset.
     expiresAt: '2026-08-07T13:30:00-04:00',
-    delayMs: 6000,
+    delayMs: 4000,
     sessionKey: 'pfWebinarPromo_2026-08-07_events'
   };
 
