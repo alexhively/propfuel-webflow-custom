@@ -7873,19 +7873,19 @@
   var WEBINAR_PROMO = {
     enabled: true,
     eyebrow: 'Live Webinar',
-    title: 'Engaging Members in Year 2 and Beyond',
-    subtitle: 'Session 2 of The Year In Between — how to earn the renewal before renewal season ever starts',
-    dateLabel: 'Jul 31, 2026',
+    title: 'Engaging Members Through Events',
+    subtitle: 'Session 3 of The Year In Between — how to earn the renewal before renewal season ever starts',
+    dateLabel: 'Aug 7, 2026',
     timeLabel: '1:00 PM ET',
     duration: '30 min',
-    description: 'This session is about what happens between renewals — the touchpoints, signals, and everyday moments that build (or quietly lose) loyalty before renewal season ever comes back around.',
+    description: "Your event is one of your best tools for engaging members in the year between renewals — not just to fill the room, but to learn who's coming, who isn't, and what would bring them back next time.",
     speaker: 'Brittany Lancor',
     ctaLabel: 'Register Free →',
-    ctaUrl: 'https://us02web.zoom.us/webinar/register/9417853532336/WN_u_Z3jwUlSVGd1bn-I-jxcw',
+    ctaUrl: 'https://us02web.zoom.us/webinar/register/8917858641532/WN_trQu16rvTyKsjzukf3orYw',
     // Stop showing after this moment (webinar end). ISO with ET offset.
-    expiresAt: '2026-07-31T13:30:00-04:00',
+    expiresAt: '2026-08-07T13:30:00-04:00',
     delayMs: 6000,
-    sessionKey: 'pfWebinarPromo_2026-07-31_year2'
+    sessionKey: 'pfWebinarPromo_2026-08-07_events'
   };
 
   function renderWebinarPromoPopup() {
