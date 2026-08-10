@@ -485,6 +485,7 @@
     '/legal/ai-security': { title: 'AI Data Security at PropFuel \u2014 Zero Retention, No PII, Human in the Loop', desc: "How PropFuel protects your members' data when using AI. Zero data retention, no PII in AI calls, and a human approves every campaign. Read the full AI policy.", ogImage: 'https://alexhively.github.io/propfuel-webflow-custom/og-images/platform-membership-ai.png' },
     '/capabilities': { title: 'Capabilities \u2014 Everything PropFuel Does | PropFuel', desc: "Every feature in PropFuel: engagement check-ins, campaigns, lists & contacts, connectors, analytics, actions, and conversations. The honest list of what every subscription includes.", ogImage: '/og-images/platform-overview.png' },
     '/mmct': { title: 'Pull from the Bag of Money \u2014 MMCT Demo Request | PropFuel', desc: 'Met us at MMCT? Drop your email to grab time on the calendar and see PropFuel in action for your association.', ogImage: '/og-images/demo.png' },
+    '/asae-annual': { title: 'Met Us at ASAE Annual? Book Your Demo | PropFuel', desc: 'Met us at ASAE Annual? Drop your email to grab time on the calendar and see PropFuel in action for your association.', ogImage: '/og-images/demo.png' },
     '/mmct-session': { title: 'What\'s Working in Membership \u2014 Session Slides | PropFuel', desc: "Thanks for joining our MMCT session. Drop your email and grab the slides \u2014 every chart, framework, and takeaway from the talk.", ogImage: 'https://alexhively.github.io/propfuel-webflow-custom/og-images/mmct-session.jpg' },
     '/event-demo': { title: 'Great Meeting You \u2014 Book Your PropFuel Demo | PropFuel', desc: "Met us at an event? Drop your email and grab time on our calendar. We'll show you exactly what PropFuel can do for your association.", ogImage: '/og-images/demo.png' },
     '/use-cases/onboarding': { title: 'Automate New Member Onboarding Journeys | PropFuel', desc: "Turn new member silence into engagement. PropFuel's onboarding automation delivers personalized check-ins that drive 3x engagement in the first 60 days.", ogImage: '/og-images/use-cases-onboarding.png' },
@@ -7529,7 +7530,15 @@
   // form → ChiliPiper Inbound_Router → calendar widget on submit.
   // ─────────────────────────────────────────
   function renderMmctPage() {
-    if (!/^\/mmct(\/|$)/.test(window.location.pathname)) return;
+    // Also serves cloned conference pages — identical layout/form/ChiliPiper
+    // flow, only the conference name and lead_source differ. To add one:
+    // duplicate the /mmct shell page in Webflow (keeps nav/footer symbols),
+    // then add the slug here and to SEO_DATA.
+    var CONFERENCES = { 'mmct': 'MMCT', 'asae-annual': 'ASAE Annual' };
+    var confMatch = window.location.pathname.match(/^\/(mmct|asae-annual)(\/|$)/);
+    if (!confMatch) return;
+    var confSlug = confMatch[1];
+    var confName = CONFERENCES[confSlug];
     // Render inside the page's main content area; standard site nav + footer
     // (rendered by the global Navigation/Footer symbols) stay visible.
     var main = document.querySelector('main, .main-wrapper, .page-wrapper');
@@ -7606,7 +7615,7 @@
         '<div class="pf-mmct-main">' +
           '<div class="pf-mmct-card">' +
             '<div class="pf-mmct-pill">Booth Follow-Up</div>' +
-            '<h1 class="pf-mmct-h1">We met at MMCT and you’re about to pull from the <span class="accent">bag of money!</span></h1>' +
+            '<h1 class="pf-mmct-h1">We met at ' + confName + ' and you’re about to pull from the <span class="accent">bag of money!</span></h1>' +
             '<p class="pf-mmct-sub">Drop your email below and grab time on our calendar. We’ll show you exactly what we walked you through at the booth — personalized to your association.</p>' +
             '<div class="pf-mmct-form-wrap">' +
               '<form id="pf-mmct-form" novalidate>' +
@@ -7672,7 +7681,7 @@
             throw new Error((err && err.errors && err.errors[0] && err.errors[0].message) || 'Submission failed.');
           });
         }).then(function(){
-          pfTrackLead('mmct');
+          pfTrackLead(confSlug);
           // Show ChiliPiper calendar — same tenant/router as /book-a-demo
           var lead = { email: email };
           if (window.ChiliPiper) {
