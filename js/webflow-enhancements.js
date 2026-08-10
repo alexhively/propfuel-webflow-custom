@@ -7534,11 +7534,14 @@
     // flow, only the conference name and lead_source differ. To add one:
     // duplicate the /mmct shell page in Webflow (keeps nav/footer symbols),
     // then add the slug here and to SEO_DATA.
-    var CONFERENCES = { 'mmct': 'MMCT', 'asae-annual': 'ASAE Annual' };
+    var CONFERENCES = {
+      'mmct': { h1: 'We met at MMCT and you’re about to pull from the <span class="accent">bag of money!</span>' },
+      'asae-annual': { h1: 'We met at <span class="accent">ASAE Annual</span>' }
+    };
     var confMatch = window.location.pathname.match(/^\/(mmct|asae-annual)(\/|$)/);
     if (!confMatch) return;
     var confSlug = confMatch[1];
-    var confName = CONFERENCES[confSlug];
+    var conf = CONFERENCES[confSlug];
     // Render inside the page's main content area; standard site nav + footer
     // (rendered by the global Navigation/Footer symbols) stay visible.
     var main = document.querySelector('main, .main-wrapper, .page-wrapper');
@@ -7615,7 +7618,7 @@
         '<div class="pf-mmct-main">' +
           '<div class="pf-mmct-card">' +
             '<div class="pf-mmct-pill">Booth Follow-Up</div>' +
-            '<h1 class="pf-mmct-h1">We met at ' + confName + ' and you’re about to pull from the <span class="accent">bag of money!</span></h1>' +
+            '<h1 class="pf-mmct-h1">' + conf.h1 + '</h1>' +
             '<p class="pf-mmct-sub">Drop your email below and grab time on our calendar. We’ll show you exactly what we walked you through at the booth — personalized to your association.</p>' +
             '<div class="pf-mmct-form-wrap">' +
               '<form id="pf-mmct-form" novalidate>' +
