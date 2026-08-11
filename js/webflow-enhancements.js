@@ -7563,7 +7563,7 @@
       ".pf-wb-plat{font-size:12px;font-weight:700;letter-spacing:0.1em;color:#6E6E6E;margin-top:12px}" +
       ".pf-wb-banner{background:#1A1713;border-radius:16px;padding:26px 32px;margin-top:24px;font-size:17px;line-height:1.5;color:#EBE6DA}" +
       ".pf-wb-banner b{color:#FBC02D}" +
-      ".pf-wb-quote{font-size:18px;font-weight:700;color:#F47C2C;line-height:1.45}" +
+      ".pf-wb-quote,.pf-wb p.pf-wb-quote{font-size:18px;font-weight:700;color:#F47C2C;line-height:1.45}" +
       ".pf-wb-objs{display:flex;flex-direction:column;gap:0;border-top:1px solid #D8D1C2}" +
       ".pf-wb-obj{display:grid;grid-template-columns:200px 1fr;gap:20px;padding:18px 0;border-bottom:1px solid #D8D1C2}" +
       ".pf-wb-obj .o{font-family:ui-monospace,Menlo,monospace;font-size:13px;color:#6E6E6E}" +
