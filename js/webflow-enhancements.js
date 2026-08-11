@@ -486,6 +486,7 @@
     '/capabilities': { title: 'Capabilities \u2014 Everything PropFuel Does | PropFuel', desc: "Every feature in PropFuel: engagement check-ins, campaigns, lists & contacts, connectors, analytics, actions, and conversations. The honest list of what every subscription includes.", ogImage: '/og-images/platform-overview.png' },
     '/mmct': { title: 'Pull from the Bag of Money \u2014 MMCT Demo Request | PropFuel', desc: 'Met us at MMCT? Drop your email to grab time on the calendar and see PropFuel in action for your association.', ogImage: '/og-images/demo.png' },
     '/asae-annual': { title: 'Met Us at ASAE Annual? Book Your Demo | PropFuel', desc: 'Met us at ASAE Annual? Drop your email to grab time on the calendar and see PropFuel in action for your association.', ogImage: '/og-images/demo.png' },
+    '/where-broadcast-ends': { title: 'Where Broadcast Ends and PropFuel Begins | PropFuel', desc: 'For associations buying a broadcast platform for the first time, replacing one, or consolidating several — where HubSpot, Marketo, and Higher Logic Thrive stop, and conversational engagement begins.', ogImage: '/og-images/demo.png' },
     '/mmct-session': { title: 'What\'s Working in Membership \u2014 Session Slides | PropFuel', desc: "Thanks for joining our MMCT session. Drop your email and grab the slides \u2014 every chart, framework, and takeaway from the talk.", ogImage: 'https://alexhively.github.io/propfuel-webflow-custom/og-images/mmct-session.jpg' },
     '/event-demo': { title: 'Great Meeting You \u2014 Book Your PropFuel Demo | PropFuel', desc: "Met us at an event? Drop your email and grab time on our calendar. We'll show you exactly what PropFuel can do for your association.", ogImage: '/og-images/demo.png' },
     '/use-cases/onboarding': { title: 'Automate New Member Onboarding Journeys | PropFuel', desc: "Turn new member silence into engagement. PropFuel's onboarding automation delivers personalized check-ins that drive 3x engagement in the first 60 days.", ogImage: '/og-images/use-cases-onboarding.png' },
@@ -7524,6 +7525,263 @@
   }
 
   // ─────────────────────────────────────────
+  // /WHERE-BROADCAST-ENDS — POSITIONING PAGE
+  // Web version of the "Where Broadcast Ends and PropFuel Begins" PDF.
+  // Standard site chrome (nav/footer symbols on the Webflow shell page);
+  // this renders the article content into main.
+  // ─────────────────────────────────────────
+  function renderBroadcastPage() {
+    if (!/^\/where-broadcast-ends(\/|$)/.test(window.location.pathname)) return;
+    var main = document.querySelector('main, .main-wrapper, .page-wrapper');
+    if (!main) {
+      var nav = document.querySelector('.pf-nav-bar, [class*="nav-bar"]');
+      var footer = document.querySelector('.pf-footer, [class*="footer"]');
+      main = document.createElement('main');
+      if (nav && nav.parentNode) { nav.parentNode.insertBefore(main, nav.nextSibling); }
+      else if (footer && footer.parentNode) { footer.parentNode.insertBefore(main, footer); }
+      else { document.body.appendChild(main); }
+    }
+    var st = document.createElement('style');
+    st.id = 'pf-wb-styles';
+    st.textContent =
+      ".pf-wb{font-family:'DM Sans',system-ui,sans-serif;color:#2F2F2F;-webkit-font-smoothing:antialiased}" +
+      ".pf-wb-container{max-width:1000px;margin:0 auto;padding:0 32px}" +
+      ".pf-wb-eyebrow{font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#F47C2C;margin-bottom:16px}" +
+      ".pf-wb h1{font-size:clamp(38px,5.5vw,62px);font-weight:800;letter-spacing:-0.02em;line-height:1.06;margin:0 0 20px}" +
+      ".pf-wb h2{font-size:clamp(26px,3.6vw,36px);font-weight:700;letter-spacing:-0.02em;line-height:1.15;margin:0 0 20px}" +
+      ".pf-wb .accent{background:linear-gradient(to right,#F47C2C,#FBC02D);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}" +
+      ".pf-wb p{font-size:16.5px;line-height:1.65;color:#6E6E6E;margin:0 0 18px}" +
+      ".pf-wb p b{color:#2F2F2F}" +
+      ".pf-wb-sub{font-size:clamp(17px,1.6vw,20px);color:#6E6E6E;max-width:640px}" +
+      ".pf-wb-sec{padding:88px 0}" +
+      ".pf-wb-sec-alt{background:#EBE6DA}" +
+      ".pf-wb-card{background:#F6F2E8;border:1px solid #E3DDD2;border-radius:20px;padding:36px 32px}" +
+      ".pf-wb-2col{display:grid;grid-template-columns:1fr 1fr;gap:24px}" +
+      ".pf-wb-tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#F47C2C;margin-bottom:14px}" +
+      ".pf-wb-card h3{font-size:22px;font-weight:700;margin:0 0 12px;letter-spacing:-0.01em}" +
+      ".pf-wb-ex{font-size:14px;font-style:italic;color:#A99F8E;border-top:1px solid #E3DDD2;padding-top:14px;margin-top:6px}" +
+      ".pf-wb-plat{font-size:12px;font-weight:700;letter-spacing:0.1em;color:#6E6E6E;margin-top:12px}" +
+      ".pf-wb-banner{background:#1A1713;border-radius:16px;padding:26px 32px;margin-top:24px;font-size:17px;line-height:1.5;color:#EBE6DA}" +
+      ".pf-wb-banner b{color:#FBC02D}" +
+      ".pf-wb-quote{font-size:18px;font-weight:700;color:#F47C2C;line-height:1.45}" +
+      ".pf-wb-objs{display:flex;flex-direction:column;gap:0;border-top:1px solid #D8D1C2}" +
+      ".pf-wb-obj{display:grid;grid-template-columns:200px 1fr;gap:20px;padding:18px 0;border-bottom:1px solid #D8D1C2}" +
+      ".pf-wb-obj .o{font-family:ui-monospace,Menlo,monospace;font-size:13px;color:#6E6E6E}" +
+      ".pf-wb-obj .r{font-size:15px;line-height:1.55;color:#2F2F2F;font-weight:600}" +
+      ".pf-wb-callout{border-left:4px solid #FBC02D;background:#F6F2E8;border-radius:0 14px 14px 0;padding:22px 26px;margin:26px 0 0}" +
+      ".pf-wb-callout p{margin:0;color:#2F2F2F}" +
+      ".pf-wb-tbl{border-top:2px solid #2F2F2F}" +
+      ".pf-wb-row{display:grid;grid-template-columns:250px 190px 1fr;gap:18px;padding:16px 0;border-bottom:1px solid #D8D1C2;align-items:start}" +
+      ".pf-wb-row .u{font-size:15px;font-weight:700;color:#2F2F2F;line-height:1.4}" +
+      ".pf-wb-row .w{font-size:14.5px;line-height:1.55;color:#6E6E6E}" +
+      ".pf-wb-pill{display:inline-block;font-size:11px;font-weight:700;letter-spacing:0.08em;padding:5px 12px;border-radius:100px;white-space:nowrap}" +
+      ".pf-wb-pill-b{background:#2F2F2F;color:#F6F2E8}" +
+      ".pf-wb-pill-p{background:linear-gradient(to right,#F47C2C,#FBC02D);color:#fff}" +
+      ".pf-wb-pill-x{background:transparent;border:1.5px solid #F47C2C;color:#F47C2C}" +
+      ".pf-wb-pill-n{background:transparent;border:1.5px solid #A99F8E;color:#6E6E6E}" +
+      ".pf-wb-int-cards{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:48px}" +
+      ".pf-wb-int-cards h4{font-size:17px;font-weight:700;margin:0 0 10px}" +
+      ".pf-wb-int-cards p{font-size:14.5px;margin:0}" +
+      ".pf-wb-clients h5{font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#F47C2C;border-bottom:2px solid #2F2F2F;padding-bottom:10px;margin:0 0 18px}" +
+      ".pf-wb-clients p{font-size:14.5px;line-height:1.6;margin-bottom:14px}" +
+      ".pf-wb-dark{background:#1A1713;padding:88px 0}" +
+      ".pf-wb-dark h2{color:#F6F2E8}" +
+      ".pf-wb-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}" +
+      ".pf-wb-stat{background:rgba(246,242,232,0.05);border:1px solid rgba(246,242,232,0.12);border-radius:16px;padding:28px 24px}" +
+      ".pf-wb-stat .n{font-size:clamp(32px,3.6vw,44px);font-weight:900;letter-spacing:-0.03em;line-height:1;background:linear-gradient(to top,#F47C2C,#FBC02D);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}" +
+      ".pf-wb-stat .d{font-size:14px;color:#B8AFA1;line-height:1.5;margin-top:10px}" +
+      ".pf-wb-stat .s{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#8C8479;margin-top:12px}" +
+      ".pf-wb-q{display:grid;grid-template-columns:56px 1fr;gap:18px;padding:22px 0;border-bottom:1px solid #D8D1C2}" +
+      ".pf-wb-q .num{font-family:ui-monospace,Menlo,monospace;font-size:15px;font-weight:700;color:#F47C2C}" +
+      ".pf-wb-q h4{font-size:18px;font-weight:700;margin:0 0 8px;letter-spacing:-0.01em}" +
+      ".pf-wb-q p{font-size:15px;margin:0}" +
+      ".pf-wb-story{background:#F6F2E8;border:1px solid #E3DDD2;border-radius:22px;padding:44px 40px;box-shadow:0 12px 48px rgba(120,110,95,0.10)}" +
+      ".pf-wb-cta{text-align:center;padding:96px 0}" +
+      ".pf-wb-btn{display:inline-flex;align-items:center;gap:8px;padding:18px 40px;font-size:16px;font-weight:700;color:#fff;background:linear-gradient(to right,#F47C2C,#FBC02D);border-radius:100px;text-decoration:none;box-shadow:0 6px 20px rgba(240,90,40,0.22);transition:color .3s ease,box-shadow .3s ease}" +
+      ".pf-wb-btn:hover{color:#1A1714;box-shadow:0 8px 28px rgba(251,192,45,0.36)}" +
+      "@media (max-width:820px){" +
+      ".pf-wb-sec{padding:64px 0}.pf-wb-container{padding:0 20px}" +
+      ".pf-wb-2col,.pf-wb-int-cards,.pf-wb-clients2{grid-template-columns:1fr}" +
+      ".pf-wb-stats{grid-template-columns:1fr 1fr}" +
+      ".pf-wb-row{grid-template-columns:1fr;gap:8px}" +
+      ".pf-wb-obj{grid-template-columns:1fr;gap:6px}" +
+      ".pf-wb-story{padding:30px 24px}" +
+      "}" +
+      "@media (max-width:520px){.pf-wb-stats{grid-template-columns:1fr}}" +
+      ".pf-wb-clients2{display:grid;grid-template-columns:1fr 1fr;gap:40px}";
+    document.head.appendChild(st);
+
+    function pill(kind, label) {
+      var cls = kind === 'b' ? 'pf-wb-pill-b' : kind === 'p' ? 'pf-wb-pill-p' : kind === 'x' ? 'pf-wb-pill-x' : 'pf-wb-pill-n';
+      return '<span class="pf-wb-pill ' + cls + '">' + label + '</span>';
+    }
+    var TBL = [
+      ['Newsletters, general marketing email', 'b', 'BROADCAST', ''],
+      ['Stand-alone landing pages, microsites, ad-driven lead capture', 'b', 'BROADCAST', ''],
+      ['Long-form surveys', 'n', 'BROADCAST OR SURVEY TOOL', 'Multi-select, branching question types, the full toolkit. If your survey tool is a separate line item, this is a real consolidation win'],
+      ['System of record', 'n', 'THE AMS', 'Stays the single source of truth. PropFuel writes signal data back into it'],
+      ['Event promotion', 'x', 'BOTH', 'Broadcast fills the room. PropFuel asks who’s planning to attend and what they want out of it, then follows up on what they said'],
+      ['Renewal campaigns', 'x', 'BOTH', 'Two phases. Ask who’s renewing and why not, act on each answer in the moment, then broadcast to the segments those answers produce'],
+      ['Anonymous website visitor engagement and conversion', 'p', 'PROPFUEL', 'Contextual questions based on page and behavior turn unknown visitors into known leads'],
+      ['Lapsed-member win-back', 'p', 'PROPFUEL', '“Are you coming back? If not, what changed?” The reason is the asset'],
+      ['New member onboarding', 'p', 'PROPFUEL', 'Multi-step check-ins based on why they joined and what they need, not a fixed drip'],
+      ['Abandoned cart, incomplete transaction recovery', 'p', 'PROPFUEL', 'Triggered, segment-driven, and buildable without IT involvement'],
+      ['Profile enrichment', 'p', 'PROPFUEL', 'Members supply data the AMS isn’t capturing, in exchange for relevance'],
+      ['Pulse check-ins', 'p', 'PROPFUEL', 'Single-question, low-friction format drives materially higher response than long-form'],
+      ['Suppression, opt-out management', 'x', 'BOTH, WHERE SUPPORTED', 'Opt-out status can be shared in both directions so members aren’t double-messaged']
+    ];
+    var tblHtml = TBL.map(function(r){
+      return '<div class="pf-wb-row"><div class="u">' + r[0] + '</div><div>' + pill(r[1], r[2]) + '</div><div class="w">' + r[3] + '</div></div>';
+    }).join('');
+    var OBJS = [
+      ['"Too expensive right now"', 'You ask what price would make it worthwhile, or offer a payment plan or a coupon code'],
+      ['"Didn’t get much value this year"', 'The benefits they never used, referencing the reason they told you they joined in the onboarding campaign'],
+      ['"I changed jobs"', 'The right tier for the new role'],
+      ['"Not sure it’s for me anymore"', 'An automated alert for a human call, with the reason already attached']
+    ];
+    var objHtml = OBJS.map(function(o){
+      return '<div class="pf-wb-obj"><div class="o">' + o[0] + '</div><div class="r">' + o[1] + '</div></div>';
+    }).join('');
+    var STATS = [
+      ['$100M+', 'In incremental client revenue generated', 'All clients'],
+      ['8.68%', 'Average first-year revenue growth after adoption', 'All clients'],
+      ['72%', 'Of organizations experiencing membership decline reversed it within their first year', 'All clients'],
+      ['80%', 'Win-back rate on lapsed members within 90 days', 'Am. Academy of Pediatrics'],
+      ['$320K', 'In at-risk member revenue recovered before members lapsed', 'ASAE'],
+      ['82%', 'Response rates on campaigns that simultaneously filled AMS profile gaps', 'ASNT']
+    ];
+    var statsHtml = STATS.map(function(s){
+      return '<div class="pf-wb-stat"><div class="n">' + s[0] + '</div><div class="d">' + s[1] + '</div><div class="s">' + s[2] + '</div></div>';
+    }).join('');
+
+    main.innerHTML =
+      '<div class="pf-wb" style="background:#F4F1EA">' +
+
+      '<section class="pf-wb-sec" style="padding-top:120px"><div class="pf-wb-container">' +
+        '<div class="pf-wb-eyebrow">Broadcast &amp; Conversational Engagement</div>' +
+        '<h1>Where Broadcast Ends<br>and <span class="accent">PropFuel Begins</span></h1>' +
+        '<p class="pf-wb-sub">For associations buying a broadcast platform for the first time, replacing one, or consolidating several.</p>' +
+      '</div></section>' +
+
+      '<section class="pf-wb-sec" style="padding-top:0"><div class="pf-wb-container">' +
+        '<h2>Two jobs, two tools</h2>' +
+        '<p>Every association needs a platform to reach members at scale. HubSpot, Higher Logic Thrive, Marketo, Mailchimp. They’re different systems with the same core job: get one message to a lot of members, efficiently and well. They’re good at it, and your organization will need one no matter what.</p>' +
+        '<p>What none of them are built to do is hold a two-way conversation. A broadcast platform can ask a question by putting three links in an email and pointing each one somewhere different. What it can’t easily do is <b>keep going</b>: take that answer, ask the next question, capture what the member types in their own words, and act on it without anyone reading the response first. That’s a separate job, and it’s the one PropFuel does.</p>' +
+        '<div class="pf-wb-2col" style="margin-top:32px">' +
+          '<div class="pf-wb-card"><div class="pf-wb-tag">→ Telling</div><h3>Doesn’t need a reply.</h3>' +
+            '<p style="font-size:15px">Goes to everyone and says the same thing. Nothing waits on an answer, and nothing changes if no one sends one. Plenty of what you send is exactly this, and should be.</p>' +
+            '<div class="pf-wb-ex">The conference keynote announcement. The newsletter. The dues invoice.</div>' +
+            '<div class="pf-wb-plat">HUBSPOT · THRIVE · MARKETO · MAILCHIMP</div></div>' +
+          '<div class="pf-wb-card"><div class="pf-wb-tag">← Asking</div><h3>Doesn’t stop at the reply.</h3>' +
+            '<p style="font-size:15px">The same question goes out to the whole segment, at broadcast scale. Any platform can collect a first answer. The difference is what comes after: each answer is captured, triggers its own action, and sets up the next question for that person.</p>' +
+            '<div class="pf-wb-ex">Are you renewing? If not, why not?</div>' +
+            '<div class="pf-wb-plat">PROPFUEL</div></div>' +
+        '</div>' +
+        '<div class="pf-wb-banner">Neither tool replaces the other, in either direction. <b>Broadcast is what runs between the conversations.</b></div>' +
+      '</div></section>' +
+
+      '<section class="pf-wb-sec pf-wb-sec-alt"><div class="pf-wb-container">' +
+        '<h2>One click isn’t a conversation</h2>' +
+        '<div class="pf-wb-2col" style="gap:40px">' +
+          '<div>' +
+            '<p>A marketer can build a question in any broadcast platform. Three links, three answers, three landing pages.</p>' +
+            '<p>Then it stops. The member picked “not renewing.” Now what? The follow-up question, the one that matters, is <b>why not</b>, and the link-and-redirect pattern has no way to ask it. Mimicking that with landing pages, alerts, automated writebacks, and a second branch of questions takes significant programming effort in a traditional marketing automation system, and that’s for one campaign.</p>' +
+          '</div>' +
+          '<div>' +
+            '<p>Most broadcast email isn’t built that way anyway. It tells you what someone did, such as opened, clicked, or registered. But a click isn’t an answer, it’s a guess. Someone clicks to find out more and decides it isn’t for them. Someone reads the whole thing and passes. Someone is genuinely interested but needs more time, or simply forgot. Broadcast has no way to tell which one, so a no and a yes that needs nurturing arrive looking exactly the same, and both get the same follow-up.</p>' +
+            '<p>Often the no never arrives at all, because a broadcast email rarely gives a member a way to say it. There’s no button for “not this year because of budget.” So a no looks like nothing. Silence reads as “hasn’t gotten to it yet,” so you send again, and again. That leaves the member one way to tell you no, and eventually some of them take it.</p>' +
+            '<p class="pf-wb-quote">An unsubscribe is often a no that had nowhere else to go.</p>' +
+          '</div>' +
+        '</div>' +
+      '</div></section>' +
+
+      '<section class="pf-wb-sec"><div class="pf-wb-container">' +
+        '<h2>The value in the no</h2>' +
+        '<div class="pf-wb-2col" style="gap:40px;align-items:start">' +
+          '<div>' +
+            '<p>PropFuel asks an actual question, so a member can actually tell you no. Then you ask “why not.”</p>' +
+            '<p>A yes tells you who to bill. A no tells you what would make it a yes. Silence tells you who to keep reaching out to, and means something now: they had a way to say no and didn’t take it. That’s a real maybe rather than a no.</p>' +
+            '<p>That’s first-party intelligence, stated by the member, attributed to them, and specific enough to act on automatically.</p>' +
+            '<p class="pf-wb-quote">A no isn’t the end of the campaign.<br>It’s the start of the save.</p>' +
+          '</div>' +
+          '<div class="pf-wb-objs">' + objHtml + '</div>' +
+        '</div>' +
+        '<div class="pf-wb-callout"><p>The objection surfaces and gets answered in the same exchange, not in a report someone reads next quarter, by which point they’re gone. The no’s that can’t be converted still earn their keep: who needs a call, and what to stop sending to whom.</p></div>' +
+        '<p style="margin-top:26px">The two are complementary, not competing. Gather the answer in PropFuel, trigger an immediate response, then use their answer to target and personalize the broadcast campaign. <b>Rule of thumb: if the goal is to tell members something, use the broadcast tool. If the goal is to find out something and act on the answer, use PropFuel.</b></p>' +
+      '</div></section>' +
+
+      '<section class="pf-wb-sec pf-wb-sec-alt"><div class="pf-wb-container">' +
+        '<h2>Which tool for which job</h2>' +
+        '<div class="pf-wb-tbl" style="margin-top:32px">' + tblHtml + '</div>' +
+        '<div class="pf-wb-callout"><p>What your marketing platform doesn’t absorb is renewals, onboarding, and win-back, where the value isn’t collecting responses but automatically acting on each individual one.</p></div>' +
+      '</div></section>' +
+
+      '<section class="pf-wb-sec"><div class="pf-wb-container">' +
+        '<h2>The integration is already built</h2>' +
+        '<p style="margin-bottom:32px">PropFuel runs in production on both major association stacks, in both directions.</p>' +
+        '<div class="pf-wb-int-cards">' +
+          '<div class="pf-wb-card"><h4>Into PropFuel</h4><p>Contacts enroll into campaigns from your AMS or broadcast system based on fields or lists, so audiences are scoped against segments you already maintain rather than a separate list to manage.</p></div>' +
+          '<div class="pf-wb-card"><h4>Out of PropFuel</h4><p>Answers write back to the member record in the AMS or the broadcast system, updating a field, adding an interest, or creating a follow-up task. Those actions can then drive workflow enrollment on the broadcast side.</p></div>' +
+          '<div class="pf-wb-card"><h4>Opt-outs can sync both ways</h4><p>With HubSpot and Higher Logic Thrive, opt-out status can be shared in both directions, so an unsubscribe in one system is an unsubscribe in the other. What’s supported varies by platform.</p></div>' +
+          '<div class="pf-wb-card"><h4>The system of record doesn’t move</h4><p>The AMS stays primary. PropFuel writes back stated intent, reasons, and enriched profile fields, not everything it collects.</p></div>' +
+        '</div>' +
+        '<div class="pf-wb-clients2 pf-wb-clients">' +
+          '<div><h5>Running today with PropFuel and HubSpot</h5>' +
+            '<p><b>The International Society for Technology in Education</b> moved their renewal series from HubSpot into PropFuel and reported significantly higher engagement afterward, plus something the previous setup didn’t produce: data on why a member was hesitating to renew. HubSpot remained in use for other work.</p>' +
+            '<p><b>California Lawyers Association</b> sees the benefit of using both systems in tandem for their intended purpose. They keep opt-outs respected across both platforms, directly solving the compliance concern IT teams typically raise first.</p>' +
+            '<p><b>The International Society for Pharmaceutical Engineering</b> keeps HubSpot as the system of record for contact data while PropFuel owns renewal and retention automation, with results cross-checked against internal reporting.</p>' +
+            '<p><b>IABC</b> runs a deliberate cadence: a HubSpot broadcast email one week, a PropFuel conversational check-in the next. They are intentionally alternating “telling” and “listening” touchpoints rather than treating them as competing channels.</p>' +
+            '<p><b>The Association of Governing Boards</b> shifted budget and calendar space toward PropFuel after discovering that over-broadcasting was driving high unsubscribe rates. This is the pattern to expect: clients recalibrate the mix over time, they don’t pick a winner.</p>' +
+          '</div>' +
+          '<div><h5>Running today with PropFuel and Higher Logic Thrive</h5>' +
+            '<p><b>Canadian Nurses Association</b> uses Informz subscription status as suppression logic, so members who opted out in Informz stay out of renewal and lapsed-member campaigns. Those are the highest-stakes sends that an association makes, and the ones you least want reaching someone who asked you to stop.</p>' +
+            '<p><b>The International Association for Dental, Oral, and Craniofacial Research</b> runs it in both directions: audience exclusions built from Informz interests, plus PropFuel campaign response writeback that adds new interests back to Informz. Over a thousand writebacks in, the segments keep sharpening themselves.</p>' +
+            '<p><b>American Library Association</b> uses Informz interest segments to target annual conference follow-up, including and excluding members based on whether Informz already has them as registered, interested, or neither. Nobody gets asked about a session they already attended.</p>' +
+            '<p><b>National Wellness Institute</b> uses Informz for both audience suppression and writeback at volume, with several thousand Informz actions fired to date. That’s production infrastructure, not a pilot configuration.</p>' +
+          '</div>' +
+        '</div>' +
+      '</div></section>' +
+
+      '<section class="pf-wb-dark"><div class="pf-wb-container">' +
+        '<h2>What it returns</h2>' +
+        '<div class="pf-wb-stats" style="margin-top:36px">' + statsHtml + '</div>' +
+      '</div></section>' +
+
+      '<section class="pf-wb-sec"><div class="pf-wb-container">' +
+        '<h2>Four questions to ask</h2>' +
+        '<p>Most platforms can approximate most things with enough time and the right person. That’s true, and it isn’t the useful question. These are.</p>' +
+        '<div style="margin-top:16px">' +
+          '<div class="pf-wb-q"><div class="num">01</div><div><h4>Who on staff can build a multi-branch campaign with conditional follow-ups?</h4><p>Not who could learn it, but who can do it this quarter. If there is someone on staff, are they available to add this to their tasks? And if not, what will a consultant cost us?</p></div></div>' +
+          '<div class="pf-wb-q"><div class="num">02</div><div><h4>How long does one take them, start to finish?</h4><p>Compare it honestly to drafting a broadcast email, then multiply by a year of campaigns.</p></div></div>' +
+          '<div class="pf-wb-q"><div class="num">03</div><div><h4>What happens to the campaign calendar when that person is out?</h4><p>If one or two people hold the working knowledge, a leave or a resignation stalls member communication.</p></div></div>' +
+          '<div class="pf-wb-q"><div class="num">04</div><div><h4>How many people can ship a campaign without waiting on someone else?</h4><p>Including building the audience. If every segment routes through one gatekeeper, that queue is your real campaign velocity.</p></div></div>' +
+        '</div>' +
+      '</div></section>' +
+
+      '<section class="pf-wb-sec pf-wb-sec-alt"><div class="pf-wb-container">' +
+        '<div class="pf-wb-story">' +
+          '<h2 style="font-size:clamp(24px,3vw,30px)">They tried it. They came back.</h2>' +
+          '<p>A VP of Operations at an outdoor hospitality association consolidated member engagement into their marketing automation platform. Some months later, she wrote to us about how it had gone.</p>' +
+          '<p>Her read on the marketing platform was that it’s strong at general marketing, but the part they’d expected the tool to cover, asking members something and turning the answers into action, didn’t hold up. In her words, it was “not nearly as easy as we were led to believe.” Once the conversational campaigns stopped running, the absence was visible from the inside. She described seeing “the void.”</p>' +
+          '<p><b>She didn’t conclude the marketing platform was the wrong choice. She concluded they needed both. They re-signed with PropFuel and kept the marketing platform in place.</b></p>' +
+        '</div>' +
+        '<div style="margin-top:56px">' +
+          '<h2>What we’re not saying</h2>' +
+          '<p>Don’t skip buying a broadcast platform, and don’t rip out the one you have. You need it, it should be good, and folding redundant tools into it is usually the right call.</p>' +
+          '<p>The two systems do different work. PropFuel asks a question, responds to that member in the moment, and personalizes what happens next for them individually. A broadcast message goes to everyone, says the same thing, and doesn’t need a reply. Plenty of what you send is exactly that, and should be. The conference keynote speaker announcement, the newsletter, the dues invoice. <b>Broadcast is what runs between the conversations. Most of our clients run both deliberately, because the tools don’t overlap.</b></p>' +
+        '</div>' +
+      '</div></section>' +
+
+      '<section class="pf-wb-cta"><div class="pf-wb-container">' +
+        '<h2>See it in <span class="accent">your stack.</span></h2>' +
+        '<p style="max-width:520px;margin:0 auto 32px">We’ll show you how PropFuel runs alongside the broadcast platform you already have — personalized to your association.</p>' +
+        '<a class="pf-wb-btn" href="/book-a-demo">See PropFuel in Action <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>' +
+      '</div></section>' +
+
+      '</div>';
+  }
+
+  // ─────────────────────────────────────────
   // /MMCT — CONFERENCE LANDING PAGE
   // Stripped-chrome single-purpose conversion page for booth follow-up at the
   // Membership Marketing Communications + Technology (MMCT) conference. HubSpot
@@ -8253,6 +8511,7 @@
     fixAISecurityPage();
     fixCapabilitiesPage();
     renderMmctPage();
+    renderBroadcastPage();
     renderMmctSessionPage();
     renderEventDemoPage();
     renderWebinarPromoPopup();
