@@ -8143,19 +8143,19 @@
   var WEBINAR_PROMO = {
     enabled: true,
     eyebrow: 'Live Webinar',
-    title: 'Engaging Members Through Events',
-    subtitle: 'Session 3 of The Year In Between — how to earn the renewal before renewal season ever starts',
-    dateLabel: 'Aug 7, 2026',
+    title: 'Engaging Members Through Certifications',
+    subtitle: 'Session 4 of The Year In Between — how to earn the renewal before renewal season ever starts',
+    dateLabel: 'Aug 19, 2026',
     timeLabel: '1:00 PM ET',
     duration: '30 min',
-    description: "Your event is one of your best tools for engaging members in the year between renewals — not just to fill the room, but to learn who's coming, who isn't, and what would bring them back next time.",
+    description: 'Certifications are one of the clearest signs that a member is invested in staying. This session looks at how certification progress can become an ongoing conversation, not just a deadline reminder.',
     speaker: 'Brittany Lancor',
     ctaLabel: 'Register Free →',
-    ctaUrl: 'https://us02web.zoom.us/webinar/register/8917858641532/WN_trQu16rvTyKsjzukf3orYw',
+    ctaUrl: 'https://us02web.zoom.us/webinar/register/5917863814687/WN_14BjJDgUR4yxcewAD5J-kQ',
     // Stop showing after this moment (webinar end). ISO with ET offset.
-    expiresAt: '2026-08-07T13:30:00-04:00',
+    expiresAt: '2026-08-19T13:30:00-04:00',
     delayMs: 4000,
-    sessionKey: 'pfWebinarPromo_2026-08-07_events'
+    sessionKey: 'pfWebinarPromo_2026-08-19_certifications'
   };
 
   function renderWebinarPromoPopup() {
