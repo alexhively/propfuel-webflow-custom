@@ -2,12 +2,49 @@
   "quarter": "Q3 2026",
   "goal": 35,
   "goalLabel": "ASAE booth goal",
-  "updated": "Aug 15, 2026 — awaiting first Salesforce pull",
-  "dataSource": "Manual (Salesforce connection pending)",
+  "updated": "Aug 15, 2026, 12:05 PM ET",
+  "dataSource": "Salesforce (manual pull)",
   "sources": [
-    { "label": "Conference (ASAE)", "count": 0 },
-    { "label": "Inbound", "count": 0 },
-    { "label": "In-Person", "count": 0 }
+    {
+      "label": "Inbound: In-Person Conference",
+      "count": 7
+    }
   ],
-  "note": "Counts update when Salesforce numbers are pushed. Text Alex the latest bookings or ask Claude to refresh."
+  "booked": [
+    {
+      "org": "Nonprofit Marketing Nerds",
+      "rep": "Mike Arisco",
+      "status": "Upcoming"
+    },
+    {
+      "org": "Shriners International",
+      "rep": "Mike Arisco",
+      "status": "Upcoming"
+    },
+    {
+      "org": "Synergos AMC",
+      "rep": "Mike Arisco",
+      "status": "Upcoming"
+    },
+    {
+      "org": "Independent College Bookstore Association",
+      "rep": "Mike Arisco",
+      "status": "Upcoming"
+    },
+    {
+      "org": "Society for Industrial and Applied Mathematics",
+      "rep": "Ryan Graham",
+      "status": "Upcoming"
+    },
+    {
+      "org": "Mortgage Bankers Association",
+      "rep": "Ryan Graham",
+      "status": "Upcoming"
+    },
+    {
+      "org": "American Society of Civil Engineers",
+      "rep": "Mike Arisco",
+      "status": "Upcoming"
+    }
+  ]
 }

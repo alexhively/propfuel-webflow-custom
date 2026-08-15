@@ -72,6 +72,11 @@
       document.getElementById('srcs').innerHTML = d.sources.map(function (s) {
         return '<div class="src"><span class="n">' + s.label + '</span><span class="c">' + (s.count == null ? '–' : s.count) + '</span></div>';
       }).join('');
+      if (d.booked && d.booked.length) {
+        document.getElementById('srcs').innerHTML += '<div style="margin-top:14px"></div>' + d.booked.map(function (b) {
+          return '<div class="src" style="padding:11px 18px"><span style="font-size:13.5px;line-height:1.4"><b>' + b.org + '</b><br><span style="color:#A99F8E;font-size:12px">' + b.rep + ' · ' + b.status + '</span></span></div>';
+        }).join('');
+      }
       document.getElementById('updated').innerHTML = 'Last updated ' + d.updated + '<br>Source: ' + (d.dataSource || 'Salesforce');
       if (d.note) { var n = document.getElementById('note'); n.style.display = 'block'; n.textContent = d.note; }
     })
