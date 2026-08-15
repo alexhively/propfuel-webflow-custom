@@ -1,0 +1,13 @@
+{
+  "quarter": "Q3 2026",
+  "goal": 35,
+  "goalLabel": "ASAE booth goal",
+  "updated": "Aug 15, 2026 — awaiting first Salesforce pull",
+  "dataSource": "Manual (Salesforce connection pending)",
+  "sources": [
+    { "label": "Conference (ASAE)", "count": 0 },
+    { "label": "Inbound", "count": 0 },
+    { "label": "In-Person", "count": 0 }
+  ],
+  "note": "Counts update when Salesforce numbers are pushed. Text Alex the latest bookings or ask Claude to refresh."
+}

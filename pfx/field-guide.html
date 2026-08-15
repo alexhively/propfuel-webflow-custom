@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Field Guide — PF X ASAE</title>
+<link rel="icon" type="image/png" href="https://alexhively.github.io/propfuel-webflow-custom/pfx/favicon.png">
+<link rel="apple-touch-icon" href="https://alexhively.github.io/propfuel-webflow-custom/pfx/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'DM Sans', system-ui, sans-serif; background:#F4F1EA; color:#2F2F2F; padding:32px 16px 48px; -webkit-font-smoothing:antialiased; }
+  .wrap { max-width:520px; margin:0 auto; }
+  .back { display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:700; color:#F47C2C; text-decoration:none; margin-bottom:20px; }
+  .eyebrow { font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:#F47C2C; margin-bottom:8px; }
+  h1 { font-size:26px; font-weight:800; letter-spacing:-.02em; line-height:1.15; margin-bottom:6px; }
+  .sub { font-size:14px; color:#6E6E6E; margin-bottom:24px; }
+  .menu { display:flex; flex-direction:column; gap:12px; }
+  .mbtn { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:17px 18px; border-radius:14px; text-decoration:none;
+    background:#F6F2E8; border:1.5px solid #E3DDD2; color:#2F2F2F; box-shadow:0 3px 12px rgba(120,110,95,.07); }
+  .mbtn:active { transform:scale(.98); }
+  .mbtn .t { font-size:16px; font-weight:700; letter-spacing:-.01em; }
+  .mbtn .d { font-size:12px; color:#6E6E6E; margin-top:1px; }
+  .mbtn svg { flex-shrink:0; color:#F47C2C; }
+  .mbtn.hot { background:linear-gradient(to right,#F47C2C,#FBC02D); border-color:transparent; color:#fff; }
+  .mbtn.hot .d { color:rgba(255,255,255,.85); }
+  .mbtn.hot svg { color:#fff; }
+  .sec { display:none; }
+  .sec.active { display:block; }
+  #menu-view.hidden { display:none; }
+  h2 { font-size:22px; font-weight:800; letter-spacing:-.01em; margin:0 0 14px; }
+  h3 { font-size:15px; font-weight:800; margin:22px 0 8px; }
+  p, li { font-size:14.5px; line-height:1.6; color:#4a4a48; }
+  p { margin-bottom:10px; }
+  ul, ol { padding-left:20px; margin-bottom:12px; }
+  li { margin-bottom:6px; }
+  b, strong { color:#2F2F2F; }
+  .pill { display:inline-block; font-size:11px; font-weight:700; letter-spacing:.06em; color:#F47C2C; border:1.5px solid rgba(244,124,44,.4); padding:3px 10px; border-radius:100px; margin-bottom:12px; }
+  .callout { border-left:4px solid #FBC02D; background:#F6F2E8; border-radius:0 12px 12px 0; padding:12px 14px; margin:12px 0; font-size:14px; }
+  .callout b { color:#2F2F2F; }
+  table { width:100%; border-collapse:collapse; font-size:12.5px; margin:10px 0 16px; background:#F6F2E8; border-radius:10px; overflow:hidden; }
+  th { text-align:left; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:#F47C2C; padding:8px 8px 6px; border-bottom:2px solid #2F2F2F; }
+  td { padding:7px 8px; border-bottom:1px solid #E3DDD2; vertical-align:top; line-height:1.45; }
+  tr:last-child td { border-bottom:none; }
+  .tblwrap { overflow-x:auto; }
+  img.gimg { width:100%; border-radius:12px; border:1px solid #E3DDD2; margin:10px 0; }
+  a.ext { color:#F47C2C; font-weight:700; }
+  .foot { margin-top:32px; font-size:12px; color:#A99F8E; text-align:center; line-height:1.6; }
+  .foot a { color:#A99F8E; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" id="topback" href="https://pf-x-asae.vercel.app/">&larr; All links</a>
+
+  <div id="menu-view">
+    <div class="eyebrow">Booth 633 &middot; Halls F&ndash;K &middot; Aug 15&ndash;18</div>
+    <h1>Team Field Guide</h1>
+    <p class="sub">Everything for the floor. Tap a section.</p>
+    <nav class="menu" id="menu"></nav>
+    <p class="foot">Source: <a href="https://docs.google.com/document/d/1XEprLEql21a-7Odkc9wvc_cf8ubcgRgcGy1Fi5mb9ow/edit">team field guide doc</a></p>
+  </div>
+
+  <section class="sec" id="mission">
+    <h2>The Mission</h2>
+    <div class="callout"><b>35 demo requests.</b> That&rsquo;s the number &mdash; everything we do at the booth serves it.</div>
+    <p><b>Added bonus:</b> 4 client commitments for the September &ldquo;Client Stories&rdquo; webinar series.</p>
+    <h3>The essentials</h3>
+    <ul>
+      <li><b>Booth:</b> 633 (10&times;20), Halls F&ndash;K</li>
+      <li><b>Expo hours:</b> Sun Aug 16, 10:30 AM&ndash;4 PM &middot; Mon Aug 17, 12&ndash;4:30 PM</li>
+      <li><b>Wear:</b> Gas station shirts &amp; comfy shoes at booth; PropFuel or preferred attire for external events</li>
+      <li><b>Hotel:</b> Hyatt Regency Indianapolis (skywalk-connected to the convention center)</li>
+      <li><b>Coffee meetup:</b> Mon 7:30&ndash;8:30 AM @ Good Vibes Cafe</li>
+    </ul>
+  </section>
+
+  <section class="sec" id="travel">
+    <h2>Travel &amp; Hotel</h2>
+    <p>All times are Indianapolis (IND) local. Group airport rides where arrivals line up.</p>
+    <div class="tblwrap"><table>
+      <tr><th>Name</th><th>From</th><th>Arrives</th><th>Departs</th></tr>
+      <tr><td><b>Ashley</b></td><td>AUS</td><td>Fri 8/14 &middot; 2:45 PM</td><td>Mon 8/17 &middot; 6:50 PM</td></tr>
+      <tr><td><b>Clara</b></td><td>DEN</td><td>Fri 8/14 &middot; 4:33 PM</td><td>Tue 8/18 &middot; 8:00 AM</td></tr>
+      <tr><td><b>Brett</b></td><td>ILM</td><td>Sat 8/15 &middot; 9:54 AM</td><td>Tue 8/18 &middot; 7:38 AM</td></tr>
+      <tr><td><b>Alex</b></td><td>PVD</td><td>Sat 8/15 &middot; 11:38 AM</td><td>Mon 8/17 &middot; 6:51 PM</td></tr>
+      <tr><td><b>Mike</b></td><td>BOS</td><td>Sat 8/15 &middot; 2:59 PM</td><td>Tue 8/18 &middot; 8:56 AM</td></tr>
+      <tr><td><b>Ryan</b></td><td>TBD</td><td>TBD</td><td>TBD</td></tr>
+      <tr><td><b>Dave</b></td><td>BOS</td><td>Sun 8/16 &middot; 9:55 AM</td><td>Mon 8/17 &middot; 7:41 PM</td></tr>
+      <tr><td><b>Brittany</b></td><td>Driving</td><td>Sun 8/16 &middot; TBD</td><td>Mon 8/17</td></tr>
+    </table></div>
+    <p><b>Airport &rarr; hotel:</b> IND &rarr; downtown Hyatt is ~15&ndash;20 minutes.</p>
+    <div class="callout"><b>NEEDED:</b> Ryan&rsquo;s flight details, and Brittany&rsquo;s Sunday arrival time.</div>
+    <h3>Where we&rsquo;re staying</h3>
+    <p><b>Hyatt Regency Indianapolis</b><br>One South Capitol Ave, Indianapolis, IN 46204</p>
+    <p>The whole team is at the Hyatt. It&rsquo;s connected to the Indiana Convention Center by an enclosed skywalk, so you can get to the show floor without going outside.</p>
+    <img class="gimg" src="https://alexhively.github.io/propfuel-webflow-custom/pfx/guide-3.jpg" alt="Map: Hyatt, convention center, Good Vibes Cafe">
+  </section>
+
+  <section class="sec" id="booth">
+    <h2>Convention Center &amp; Booth</h2>
+    <p><b>Indiana Convention Center (ICC)</b><br>100 South Capitol Ave, Indianapolis, IN 46225. Our space is in <b>Halls F&ndash;K</b>.</p>
+    <h3>Booth 633</h3>
+    <ul><li><b>Size:</b> 10&times;20 (200 sq ft)</li></ul>
+    <img class="gimg" src="https://alexhively.github.io/propfuel-webflow-custom/pfx/guide-1.jpg" alt="Expo floor map with booth 633 marked">
+    <img class="gimg" src="https://alexhively.github.io/propfuel-webflow-custom/pfx/guide-2.jpg" alt="Booth 633 area detail">
+  </section>
+
+  <section class="sec" id="activities">
+    <h2>At the Booth</h2>
+    <h3>The activities</h3>
+    <ul>
+      <li><b>Money booth</b> &mdash; grab-and-keep the fake money (tune difficulty to how easy it is to catch). Optional twist: a few &ldquo;prize&rdquo; slips dropped in.</li>
+      <li><b>8-ft table</b> &mdash; coffee (machine + K-cups), table flyers, protein bars, electrolytes, misc grab-and-go.</li>
+      <li><b>TV screen</b> &mdash; the engagement question as the conversation starter (Day 1 / Day 2).</li>
+      <li><b>Lead retrieval:</b> a phone app (no device to check out or return). 4 activations &mdash; Mike, Ryan, Alex, Dave.</li>
+    </ul>
+    <h3>Getting people talking</h3>
+    <ol>
+      <li><b>Ask</b> &mdash; &ldquo;Got 10 seconds for one quick question?&rdquo; then motion to the TV.</li>
+      <li><b>Scan + note</b> &mdash; while they tap their answer, scan their badge and note what they picked.</li>
+      <li><b>Get curious</b> &mdash; &ldquo;What association are you with? What&rsquo;s your role?&rdquo;</li>
+      <li><b>Show</b> &mdash; the TV pulls a matched case study; talk to it, bridge to Membership AI.</li>
+      <li><b>Book</b> &mdash; set a 15-min onsite demo or a demo request. <b>This is the only step that moves the 35.</b></li>
+    </ol>
+  </section>
+
+  <section class="sec" id="outside">
+    <h2>Outside the Booth</h2>
+    <h3>Street performer (Cirque Indy)</h3>
+    <p>Stilt walker Sunday 7:30&ndash;10:30 AM near the entrance to pull people toward the booth. Point people: Brittany / Alex.</p>
+    <h3>Coffee meetup</h3>
+    <p>Mon 7:30&ndash;8:30 AM @ Good Vibes Cafe &mdash; see the Coffee Meetup section.</p>
+    <h3>Session mentions</h3>
+    <p>Several of our clients are speaking (see the Client Speaking Schedule). If you know one is presenting, flag it &mdash; a mention from the stage drove real bookings last year.</p>
+    <h3>Success Crew Happy Hour</h3>
+    <p>Sun 5:30&ndash;9 PM @ The Hangar (Indy 500 theme; free food/drinks; free gift for the first 100; HandleBar shuttles from the convention center). Whole team should go &mdash; it&rsquo;s association-leader networking.</p>
+    <h3>Opening Celebration &mdash; Sat Aug 15, ~6&ndash;9 PM @ White River State Park</h3>
+    <ul>
+      <li><b>Headliner:</b> Babyface (8&ndash;9 PM, Everwise Amphitheater) &mdash; 13&times; GRAMMY winner + Indy native. Jazz from Brandon Meeks 6&ndash;8 PM at Celebration Plaza.</li>
+      <li><b>Getting there:</b> our hotel (Hyatt Regency) is NOT on the shuttle list &mdash; shuttles run only from Hyatt Place/House, The Alexander, and Hilton. It&rsquo;s a short walk.</li>
+      <li><b>Bring your ID</b> &mdash; all-ages event; ID is checked at beverage stations.</li>
+      <li><b>Clear bag policy:</b> security screening. Clear bags up to 12&times;6&times;12 (free clear bags at Registration) or a small clutch up to 6&times;9. No large umbrellas.</li>
+      <li><b>What&rsquo;s there:</b> seasonal food + full bars, outdoor movie area w/ popcorn, giant bubbles, yard games, swan boats, DIY sunglasses.</li>
+    </ul>
+  </section>
+
+  <section class="sec" id="week">
+    <h2>The Week at a Glance</h2>
+    <h3>Saturday, Aug 15</h3>
+    <div class="tblwrap"><table>
+      <tr><th>Time</th><th>Event</th></tr>
+      <tr><td>8 AM&ndash;5 PM</td><td>Exhibitor move-in / booth build (Alex, Ashley, Clara, Brett, Mike, Ryan)</td></tr>
+      <tr><td>6&ndash;9 PM</td><td>Opening Celebration @ White River State Park (headliner: Babyface)</td></tr>
+    </table></div>
+    <h3>Sunday, Aug 16</h3>
+    <div class="tblwrap"><table>
+      <tr><th>Time</th><th>Event</th></tr>
+      <tr><td>8:30&ndash;10 AM</td><td>Opening Keynote</td></tr>
+      <tr><td>10:15 AM&ndash;4 PM</td><td>Exhibit hall open (lunch served in hall)</td></tr>
+      <tr><td>5:30&ndash;9 PM</td><td>Success Crew Happy Hour @ The Hangar</td></tr>
+    </table></div>
+    <h3>Monday, Aug 17</h3>
+    <div class="tblwrap"><table>
+      <tr><th>Time</th><th>Event</th></tr>
+      <tr><td>7:00 AM</td><td>Arrive at Good Vibes (Britt)</td></tr>
+      <tr><td>7:30&ndash;8:30 AM</td><td>Coffee meetup @ Good Vibes (whole team)</td></tr>
+      <tr><td>8:30&ndash;10 AM</td><td>Keynote</td></tr>
+      <tr><td>12&ndash;4:30 PM</td><td>Exhibit hall open (lunch served in hall)</td></tr>
+      <tr><td>4:45 PM</td><td>Exhibitor move-out begins</td></tr>
+    </table></div>
+  </section>
+
+  <section class="sec" id="coverage">
+    <h2>Booth Coverage</h2>
+    <p><b>Who&rsquo;s on the booth, when.</b> Everyone&rsquo;s on at open; then two groups swap lunch so the booth is never empty.</p>
+    <h3>Lunch groups</h3>
+    <ul>
+      <li><b>Group 1:</b> Dave, Clara, Alex, Ryan</li>
+      <li><b>Group 2:</b> Ashley, Brittany, Mike, Brett</li>
+      <li>Brittany arrives Sunday evening &mdash; on the booth (Group 2) starting Monday; Ryan joins Group 1 once his travel is confirmed.</li>
+    </ul>
+    <h3>Sunday, Aug 16 &mdash; Expo Day 1 (hall 10:15&ndash;4; Alex leads)</h3>
+    <div class="tblwrap"><table>
+      <tr><th>Time</th><th>On booth</th><th>Off / other</th></tr>
+      <tr><td>10:00&ndash;12:15</td><td>ALL HANDS &mdash; full group</td><td>Alex steps out 10:15&ndash;10:30 to see the stilt walkers off</td></tr>
+      <tr><td>12:15&ndash;1:00</td><td>Group 2 (Ashley &middot; Mike &middot; Brett)</td><td>Group 1 at lunch</td></tr>
+      <tr><td>1:00&ndash;1:45</td><td>Group 1</td><td>Group 2 at lunch</td></tr>
+      <tr><td>1:45&ndash;4:00</td><td>All on booth</td><td>Short breaks as needed</td></tr>
+    </table></div>
+    <h3>Monday, Aug 17 &mdash; Expo Day 2 (hall 12&ndash;4:30; Brittany on)</h3>
+    <div class="tblwrap"><table>
+      <tr><th>Time</th><th>On booth</th><th>Off / other</th></tr>
+      <tr><td>12:00&ndash;1:30</td><td>ALL HANDS &mdash; full group</td><td>Doors open 12</td></tr>
+      <tr><td>1:30&ndash;2:30</td><td>Group 2 (Ashley &middot; Brittany &middot; Mike &middot; Brett)</td><td>Group 1 on break</td></tr>
+      <tr><td>2:30&ndash;3:30</td><td>Group 1</td><td>Group 2 on break</td></tr>
+      <tr><td>3:30&ndash;4:30</td><td>All on booth / wrap</td><td>&mdash;</td></tr>
+      <tr><td>4:45&ndash;8:00</td><td colspan="2">Teardown: Brittany, Mike, Clara, Brett &mdash; booth ships out Monday night</td></tr>
+    </table></div>
+    <div class="callout"><b>Note:</b> Ryan is attending (flights TBD) &mdash; slot him into Group 1 once confirmed.</div>
+  </section>
+
+  <section class="sec" id="setup">
+    <h2>Setup &mdash; Saturday Morning</h2>
+    <p><b>Crew:</b> Clara + Ashley + Alex + Brett</p>
+    <div class="callout"><b>Timing:</b> Flooring must be down by 2 PM; full setup done by 5 PM.</div>
+    <h3>What&rsquo;s arriving &amp; where</h3>
+    <ul>
+      <li><b>Already at the booth (Dave shipped):</b> the TV, the booth structure, flooring, and a box of misc. items (backdrop, stickers, plastic sign holders, microfibers).</li>
+      <li><b>Delivered to the hotel &mdash; to Ashley:</b> backdrop fabric (display overstock), tablecloth (from Dave), additional blower + fake money (Amazon), money booth + blower + totes, additional microfibers, assorted protein bars + electrolyte packets, coffee machine + K-cups.</li>
+      <li><b>Restock:</b> Brittany arrives Sunday evening and can grab more protein bars / electrolytes if they&rsquo;re popular.</li>
+    </ul>
+    <h3>Order of operations</h3>
+    <ol>
+      <li>Locate our advance-warehouse shipment delivered to the booth (Hargrove drops it at the space).</li>
+      <li><b>Lay the flooring FIRST</b> &mdash; then file the Exhibitor Provided Flooring Affidavit (deadline 2 PM).</li>
+      <li>Assemble the 10&times;20 backdrop.</li>
+      <li><b>Set up the TV:</b> stand/mount, cables, power. Boot the touchscreen app and TEST the question &rarr; case-study flow. Test it early and fix issues while there&rsquo;s time.</li>
+      <li>Confirm electrical is live (ordered through the ICC).</li>
+      <li>Arrange furniture + the cafe/experience area.</li>
+      <li>Set up the money booth; stock the 8-ft table (coffee, flyers, protein bars, electrolytes).</li>
+      <li>Put out flyers (PropFuel + Membership AI), the Book-a-Demo QR sheet, dad-joke cards, and coffee-invite postcards.</li>
+      <li>Set up the lead-retrieval app on the 4 activation phones (Mike, Ryan, Alex, Dave); test scanning + the one-word note. Brittany sends setup info in Slack.</li>
+      <li>Run a full dry-run of the talk track before you leave.</li>
+    </ol>
+    <h3>Suggestions</h3>
+    <ul>
+      <li>Bring the toolkit: extension cord, power strip, duct tape, screwdrivers, allen wrenches, tape.</li>
+      <li>One person owns the TV app test &mdash; don&rsquo;t assume it works, prove it.</li>
+      <li>Charge every device overnight; keep all packaging for teardown.</li>
+      <li>Take a &ldquo;done&rdquo; photo of the finished booth.</li>
+    </ul>
+  </section>
+
+  <section class="sec" id="teardown">
+    <h2>Teardown &mdash; Monday from 4:45 PM</h2>
+    <p><b>Crew:</b> Brittany, Mike, Clara, Brett. (Dave, Alex, and Ashley fly out Monday evening &mdash; they&rsquo;re not on teardown.)</p>
+    <h3>Order of operations</h3>
+    <ol>
+      <li><b>Lead data.</b> Make sure the day&rsquo;s scans + notes are synced in the lead-retrieval app before you pack up &mdash; no device to return, it&rsquo;s on the phones.</li>
+      <li>Power down and pack the TV, mount, and cables.</li>
+      <li>Disassemble the backdrop; roll and pack the flooring.</li>
+      <li>Pack the toolkit, leftover collateral, and kit supplies.</li>
+      <li>Label everything for outbound shipping (&ldquo;PropFuel &mdash; Booth 633&rdquo;); stage it for the carrier.</li>
+      <li>Carrier check-in by 7 PM Monday &mdash; the booth ships out Monday night (no Tuesday work).</li>
+    </ol>
+    <h3>Suggestions</h3>
+    <ul>
+      <li>Sync the lead data first &mdash; it&rsquo;s the only hard deadline that costs you.</li>
+      <li>One person owns the shipping labels + paperwork.</li>
+      <li>Sweep the booth for chargers, scanners, and personal items before you leave.</li>
+      <li>Brittany can help tear down, then drive out. Mike, Clara &amp; Brett are in town Monday night and fly out Tuesday AM &mdash; no Tuesday teardown work.</li>
+    </ul>
+  </section>
+
+  <section class="sec" id="coffee">
+    <h2>The Coffee Meetup</h2>
+    <p><b>Monday, Aug 17 &middot; 7:30&ndash;8:30 AM &middot; Good Vibes Cafe &amp; Bar</b> (.3 mi from hotel)</p>
+    <p>Private 2nd-floor space, max 40, goal ~25. Hosts: Brittany + Alex. Free coffee + breakfast; the cafe is opening early for us and providing a speaker + mic.</p>
+    <h3>Why we&rsquo;re doing it</h3>
+    <p>A relaxed, &ldquo;something new this year&rdquo; gathering to connect with clients and prospects before the floor opens &mdash; pipeline first, good vibes second.</p>
+    <h3>Invites</h3>
+    <p>Two campaigns &mdash; clients and membership prospects. First email Aug 6, reminder Aug 13. RSVP via Luma. (See the Communications tab of the tracker for copy + links.)</p>
+    <h3>At the event</h3>
+    <ul>
+      <li>Keep it easy &mdash; no pitch. Optional 60-second &ldquo;come see what&rsquo;s new at Booth 633 at noon.&rdquo;</li>
+      <li><b>Make the Client Stories webinar ask in person</b> &mdash; this is the best room to land those 4 commitments.</li>
+      <li>Capture who attends for follow-up.</li>
+      <li>Dave to say a few words.</li>
+    </ul>
+    <img class="gimg" src="https://alexhively.github.io/propfuel-webflow-custom/pfx/guide-3.jpg" alt="Map: hotel to Good Vibes Cafe">
+  </section>
+
+  <section class="sec" id="talk">
+    <h2>The Talk Track</h2>
+    <p><a class="ext" href="https://docs.google.com/presentation/d/18hS2RJgVHhkdj_Duykm9OqhJjTdPFIpWaPGFUcwQfmY/edit">Open the deck (Google Slides) &rarr;</a></p>
+    <ol>
+      <li><b>Open &mdash; 10 seconds.</b> &ldquo;Hey, do you have 10 seconds to answer one quick question for us?&rdquo; Motion to the TV. Don&rsquo;t pitch &mdash; just the question.</li>
+      <li><b>Capture as they answer.</b> While they tap, scan their badge and note the one word they picked. In the moment, not from memory.</li>
+      <li><b>Get curious.</b> &ldquo;What association are you with? What&rsquo;s your role?&rdquo; Now it&rsquo;s a conversation, not a survey.</li>
+      <li><b>Show value.</b> Their answer pulls a matched case study on the TV &mdash; &ldquo;here&rsquo;s how an org like yours handled exactly that.&rdquo;</li>
+      <li><b>Pivot to Membership AI.</b> &ldquo;That&rsquo;s what we just launched Membership AI for &mdash; grab 15 minutes with us onsite and we&rsquo;ll show you on your world.&rdquo;</li>
+      <li><b>Book + confirm.</b> Set the onsite meeting or log the demo request. Send them to the money booth on their way out.</li>
+    </ol>
+    <div class="callout"><b>Day 2 variant.</b> Monday&rsquo;s TV question flips to &ldquo;What advice do you have for solving it?&rdquo; &mdash; good for repeat traffic + the post-event report.</div>
+  </section>
+
+</div>
+<script>
+  var SECTIONS = [
+    { id: 'mission',   t: 'The Mission',            d: '35 demos + the essentials', hot: true },
+    { id: 'talk',      t: 'The Talk Track',          d: 'The 6 steps, word for word' },
+    { id: 'coverage',  t: 'Booth Coverage',          d: 'Who’s on, when — lunch groups' },
+    { id: 'week',      t: 'Week at a Glance',        d: 'Sat / Sun / Mon key times' },
+    { id: 'activities',t: 'At the Booth',            d: 'Money booth, TV flow, lead app' },
+    { id: 'outside',   t: 'Outside the Booth',       d: 'Happy hour, Babyface, stilt walker' },
+    { id: 'coffee',    t: 'Coffee Meetup',           d: 'Mon 7:30 AM @ Good Vibes' },
+    { id: 'setup',     t: 'Setup — Saturday',    d: 'Crew, shipments, order of ops' },
+    { id: 'teardown',  t: 'Teardown — Monday',   d: 'Crew + shipping deadlines' },
+    { id: 'travel',    t: 'Travel & Hotel',          d: 'Flights, Hyatt, area map' },
+    { id: 'booth',     t: 'Convention Center & Booth', d: 'Address, floor maps, Booth 633' }
+  ];
+  var arrow = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+  document.getElementById('menu').innerHTML = SECTIONS.map(function (s) {
+    return '<a class="mbtn' + (s.hot ? ' hot' : '') + '" href="#' + s.id + '"><span><span class="t">' + s.t + '</span><br><span class="d">' + s.d + '</span></span>' + arrow + '</a>';
+  }).join('');
+
+  function route() {
+    var id = location.hash.replace('#', '');
+    var menu = document.getElementById('menu-view');
+    var back = document.getElementById('topback');
+    var found = false;
+    document.querySelectorAll('.sec').forEach(function (s) {
+      var on = s.id === id;
+      s.classList.toggle('active', on);
+      if (on) found = true;
+    });
+    menu.classList.toggle('hidden', found);
+    if (found) {
+      back.textContent = '← Field guide';
+      back.href = '#';
+      window.scrollTo(0, 0);
+    } else {
+      back.textContent = '← All links';
+      back.href = 'https://pf-x-asae.vercel.app/';
+    }
+  }
+  window.addEventListener('hashchange', route);
+  route();
+</script>
+</body>
+</html>
