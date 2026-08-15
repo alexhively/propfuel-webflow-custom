@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Master Schedule — PF X ASAE</title>
+<link rel="icon" type="image/png" href="https://alexhively.github.io/propfuel-webflow-custom/pfx/favicon.png">
+<link rel="apple-touch-icon" href="https://alexhively.github.io/propfuel-webflow-custom/pfx/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'DM Sans', system-ui, sans-serif; background:#F4F1EA; color:#2F2F2F; padding:32px 16px 48px; -webkit-font-smoothing:antialiased; }
+  .wrap { max-width:520px; margin:0 auto; }
+  .back { display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:700; color:#F47C2C; text-decoration:none; margin-bottom:20px; }
+  .eyebrow { font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:#F47C2C; margin-bottom:8px; }
+  h1 { font-size:26px; font-weight:800; letter-spacing:-.02em; line-height:1.15; margin-bottom:6px; }
+  .sub { font-size:14px; color:#6E6E6E; margin-bottom:20px; }
+  .legend { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px; }
+  .day { margin-bottom:8px; }
+  .day-head { position:sticky; top:0; z-index:5; background:#F4F1EA; padding:12px 0 10px;
+    font-size:15px; font-weight:800; letter-spacing:.02em; border-bottom:2px solid #2F2F2F; margin-bottom:14px; }
+  .day-head .today-tag { display:none; margin-left:8px; font-size:11px; font-weight:700; letter-spacing:.08em;
+    color:#fff; background:linear-gradient(to right,#F47C2C,#FBC02D); padding:3px 10px; border-radius:100px; vertical-align:2px; }
+  .day.is-today .day-head .today-tag { display:inline-block; }
+  .card { background:#F6F2E8; border:1px solid #E3DDD2; border-radius:14px; padding:13px 16px; margin-bottom:10px;
+    box-shadow:0 3px 12px rgba(120,110,95,.06); }
+  .card .meta { display:flex; align-items:center; gap:8px; margin-bottom:5px; flex-wrap:wrap; }
+  .card .time { font-size:13px; font-weight:800; color:#2F2F2F; }
+  .tag { font-size:10px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; padding:2px 9px; border-radius:100px; }
+  .t-coverage { background:linear-gradient(to right,#F47C2C,#FBC02D); color:#fff; }
+  .t-conference { background:#2F2F2F; color:#F6F2E8; }
+  .t-team { border:1.5px solid #F47C2C; color:#F47C2C; }
+  .t-event { border:1.5px solid #8C8479; color:#6E6E6E; }
+  .t-booth { border:1.5px solid #FBC02D; color:#c98f10; }
+  .t-travel { border:1.5px dashed #A99F8E; color:#A99F8E; }
+  .card .title { font-size:14.5px; font-weight:700; line-height:1.35; }
+  .card .d { font-size:12.5px; color:#6E6E6E; line-height:1.5; margin-top:3px; }
+  .foot { margin-top:32px; font-size:12px; color:#A99F8E; text-align:center; line-height:1.6; }
+  .foot a { color:#F47C2C; font-weight:700; text-decoration:none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="https://pf-x-asae.vercel.app/">&larr; All links</a>
+  <div class="eyebrow">ASAE Annual 2026 &middot; All times ET</div>
+  <h1>Master Schedule</h1>
+  <p class="sub">Everything in one place — coverage, events, travel. Client speaking sessions live in <a href="https://pf-x-asae.vercel.app/schedule.html" style="color:#F47C2C;font-weight:700">their own tab</a>.</p>
+  <div class="legend" id="legend"></div>
+  <div id="schedule"></div>
+  <p class="foot">Built from the team field guide &middot; ping Alex with changes</p>
+</div>
+<script>
+  // cat: coverage | conference | team | event | booth | travel
+  var EVENTS = [
+    { date: '2026-08-15', start: '8:00 AM', end: '5:00 PM', cat: 'booth', title: 'Exhibitor move-in / booth build',
+      d: 'Crew: Alex, Ashley, Clara, Brett, Mike, Ryan. Flooring DOWN by 2 PM (affidavit due); full setup done by 5.' },
+    { date: '2026-08-15', start: '9:54 AM', cat: 'travel', title: 'Brett arrives (ILM)' },
+    { date: '2026-08-15', start: '11:38 AM', cat: 'travel', title: 'Alex arrives (PVD)' },
+    { date: '2026-08-15', start: '2:59 PM', cat: 'travel', title: 'Mike arrives (BOS)' },
+    { date: '2026-08-15', start: '6:00 PM', end: '9:00 PM', cat: 'event', title: 'Opening Celebration @ White River State Park',
+      d: 'Babyface 8–9 PM (Everwise Amphitheater); jazz 6–8. Short walk — our Hyatt is NOT on the shuttle list. Bring ID; clear bag policy.' },
+
+    { date: '2026-08-16', start: '7:30 AM', end: '10:30 AM', cat: 'event', title: 'Stilt walker (Cirque Indy) at the entrance',
+      d: 'Pulling people toward Booth 633. Point people: Brittany / Alex.' },
+    { date: '2026-08-16', start: '8:30 AM', end: '10:00 AM', cat: 'conference', title: 'Opening Keynote' },
+    { date: '2026-08-16', start: '9:55 AM', cat: 'travel', title: 'Dave arrives (BOS)' },
+    { date: '2026-08-16', start: '10:00 AM', end: '12:15 PM', cat: 'coverage', title: 'ALL HANDS on booth',
+      d: 'Alex steps out 10:15–10:30 to see the stilt walkers off.' },
+    { date: '2026-08-16', start: '10:15 AM', end: '4:00 PM', cat: 'conference', title: 'Exhibit hall open (lunch served in hall)' },
+    { date: '2026-08-16', start: '12:15 PM', end: '1:00 PM', cat: 'coverage', title: 'Group 2 covers booth',
+      d: 'Ashley · Mike · Brett on. Group 1 (Dave · Clara · Alex · Ryan) at lunch.' },
+    { date: '2026-08-16', start: '1:00 PM', end: '1:45 PM', cat: 'coverage', title: 'Group 1 covers booth',
+      d: 'Dave · Clara · Alex · Ryan on. Group 2 at lunch.' },
+    { date: '2026-08-16', start: '1:45 PM', end: '4:00 PM', cat: 'coverage', title: 'All on booth', d: 'Short breaks as needed.' },
+    { date: '2026-08-16', start: '5:30 PM', end: '9:00 PM', cat: 'event', title: 'Success Crew Happy Hour @ The Hangar',
+      d: 'Indy 500 theme; free food/drinks; gift for first 100; HandleBar shuttles from the convention center. Whole team goes.' },
+    { date: '2026-08-16', start: 'Evening', cat: 'travel', title: 'Brittany arrives (driving — time TBD)' },
+
+    { date: '2026-08-17', start: '7:00 AM', cat: 'team', title: 'Britt arrives at Good Vibes to set up' },
+    { date: '2026-08-17', start: '7:30 AM', end: '8:30 AM', cat: 'team', title: 'Coffee meetup @ Good Vibes Cafe (whole team)',
+      d: '.3 mi from hotel, private 2nd floor. No pitch — make the Client Stories webinar ask in person. Dave says a few words.' },
+    { date: '2026-08-17', start: '8:30 AM', end: '10:00 AM', cat: 'conference', title: 'Keynote' },
+    { date: '2026-08-17', start: '12:00 PM', end: '4:30 PM', cat: 'conference', title: 'Exhibit hall open (lunch served in hall)' },
+    { date: '2026-08-17', start: '12:00 PM', end: '1:30 PM', cat: 'coverage', title: 'ALL HANDS on booth', d: 'Doors open at 12.' },
+    { date: '2026-08-17', start: '1:30 PM', end: '2:30 PM', cat: 'coverage', title: 'Group 2 covers booth',
+      d: 'Ashley · Brittany · Mike · Brett on. Group 1 on break.' },
+    { date: '2026-08-17', start: '2:30 PM', end: '3:30 PM', cat: 'coverage', title: 'Group 1 covers booth',
+      d: 'Dave · Clara · Alex · Ryan on. Group 2 on break.' },
+    { date: '2026-08-17', start: '3:30 PM', end: '4:30 PM', cat: 'coverage', title: 'All on booth / wrap' },
+    { date: '2026-08-17', start: '4:45 PM', end: '8:00 PM', cat: 'booth', title: 'Teardown',
+      d: 'Crew: Brittany, Mike, Clara, Brett. Sync lead data FIRST. Carrier check-in by 7 PM — booth ships tonight.' },
+    { date: '2026-08-17', start: '6:50 PM', cat: 'travel', title: 'Ashley departs (AUS)' },
+    { date: '2026-08-17', start: '6:51 PM', cat: 'travel', title: 'Alex departs (PVD)' },
+    { date: '2026-08-17', start: '7:41 PM', cat: 'travel', title: 'Dave departs (BOS)' },
+    { date: '2026-08-17', start: 'Evening', cat: 'travel', title: 'Brittany drives out after teardown' },
+
+    { date: '2026-08-18', start: '7:38 AM', cat: 'travel', title: 'Brett departs (ILM)' },
+    { date: '2026-08-18', start: '8:00 AM', cat: 'travel', title: 'Clara departs (DEN)' },
+    { date: '2026-08-18', start: '8:56 AM', cat: 'travel', title: 'Mike departs (BOS)' }
+  ];
+
+  var CATS = { coverage: 'Booth coverage', conference: 'Conference', team: 'Team', event: 'Events', booth: 'Setup / teardown', travel: 'Travel' };
+  var DAY_LABELS = { '2026-08-15': 'Saturday, Aug 15', '2026-08-16': 'Sunday, Aug 16', '2026-08-17': 'Monday, Aug 17', '2026-08-18': 'Tuesday, Aug 18' };
+
+  document.getElementById('legend').innerHTML = Object.keys(CATS).map(function (c) {
+    return '<span class="tag t-' + c + '">' + CATS[c] + '</span>';
+  }).join('');
+
+  var days = {};
+  EVENTS.forEach(function (e) { (days[e.date] = days[e.date] || []).push(e); });
+  var todayET = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Indiana/Indianapolis' }).format(new Date());
+  document.getElementById('schedule').innerHTML = Object.keys(days).sort().map(function (d) {
+    var cards = days[d].map(function (e) {
+      return '<div class="card">' +
+        '<div class="meta"><span class="time">' + e.start + (e.end ? ' – ' + e.end : '') + '</span>' +
+        '<span class="tag t-' + e.cat + '">' + CATS[e.cat] + '</span></div>' +
+        '<div class="title">' + e.title + '</div>' +
+        (e.d ? '<div class="d">' + e.d + '</div>' : '') +
+      '</div>';
+    }).join('');
+    return '<section class="day' + (d === todayET ? ' is-today' : '') + '"><div class="day-head">' + DAY_LABELS[d] + '<span class="today-tag">Today</span></div>' + cards + '</section>';
+  }).join('');
+  var todaySec = document.querySelector('.day.is-today');
+  if (todaySec) { setTimeout(function(){ todaySec.scrollIntoView({behavior: 'auto', block: 'start'}); }, 60); }
+</script>
+</body>
+</html>
