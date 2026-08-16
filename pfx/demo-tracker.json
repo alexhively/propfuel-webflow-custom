@@ -2,20 +2,15 @@
   "quarter": "Q3 2026",
   "goal": 35,
   "goalLabel": "ASAE booth goal",
-  "updated": "Aug 15, 2026, 12:05 PM ET",
+  "updated": "Aug 16, 2026, 12:15 AM ET",
   "dataSource": "Salesforce (manual pull)",
   "sources": [
     {
       "label": "Inbound: In-Person Conference",
-      "count": 7
+      "count": 6
     }
   ],
   "booked": [
-    {
-      "org": "Nonprofit Marketing Nerds",
-      "rep": "Mike Arisco",
-      "status": "Upcoming"
-    },
     {
       "org": "Shriners International",
       "rep": "Mike Arisco",
