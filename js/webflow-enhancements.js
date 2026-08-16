@@ -7796,13 +7796,11 @@
       'mmct': { h1: 'We met at MMCT and you’re about to pull from the <span class="accent">bag of money!</span>' },
       'asae-annual': { h1: 'We met at <span class="accent">ASAE Annual</span>' }
     };
-    var confMatch = window.location.pathname.match(/^\/(mmct|asae-annual)(\/|$)/);
-    if (!confMatch) return;
-    var confSlug = confMatch[1];
-    var conf = CONFERENCES[confSlug];
-    // Per-rep booking links: /asae-annual?rep=clara etc. Each rep gets their own
-    // HubSpot form (fill in GUIDs as forms are cloned in HubSpot — empty string
-    // falls back to the shared conference form so links work either way).
+    // Per-rep booking links: /asae-annual-clara etc. (each is its own Webflow
+    // shell page; ?rep=clara on /asae-annual also still works). Each rep gets
+    // their own HubSpot form — fill in GUIDs as forms are cloned in HubSpot;
+    // empty string falls back to the shared conference form so links work
+    // either way.
     var DEFAULT_FORM = '9db4f81b-6fb2-4b01-9dd4-bba9c2b3c323';
     var REPS = {
       'clara':    { name: 'Clara',    form: '' },
@@ -7813,9 +7811,19 @@
       'dave':     { name: 'Dave',     form: '' },
       'brittany': { name: 'Brittany', form: '' }
     };
-    var repSlug = '';
-    try { repSlug = (new URLSearchParams(window.location.search).get('rep') || '').toLowerCase(); } catch (e) {}
+    var confMatch = window.location.pathname.match(/^\/(mmct|asae-annual)(?:-([a-z]+))?(\/|$)/);
+    if (!confMatch) return;
+    var confSlug = confMatch[1];
+    var conf = CONFERENCES[confSlug];
+    var repSlug = (confMatch[2] || '').toLowerCase();
+    // A suffix that isn't a known rep is a different page entirely (e.g.
+    // /mmct-session) — bail and let its own renderer handle it.
+    if (confMatch[2] && !REPS[repSlug]) return;
+    if (!repSlug) {
+      try { repSlug = (new URLSearchParams(window.location.search).get('rep') || '').toLowerCase(); } catch (e) {}
+    }
     var rep = REPS[repSlug] || null;
+    if (!rep) repSlug = '';
     var FORM_ID = (rep && rep.form) || DEFAULT_FORM;
     // Render inside the page's main content area; standard site nav + footer
     // (rendered by the global Navigation/Footer symbols) stay visible.
