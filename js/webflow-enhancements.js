@@ -7800,6 +7800,23 @@
     if (!confMatch) return;
     var confSlug = confMatch[1];
     var conf = CONFERENCES[confSlug];
+    // Per-rep booking links: /asae-annual?rep=clara etc. Each rep gets their own
+    // HubSpot form (fill in GUIDs as forms are cloned in HubSpot — empty string
+    // falls back to the shared conference form so links work either way).
+    var DEFAULT_FORM = '9db4f81b-6fb2-4b01-9dd4-bba9c2b3c323';
+    var REPS = {
+      'clara':    { name: 'Clara',    form: '' },
+      'mike':     { name: 'Mike',     form: '' },
+      'ashley':   { name: 'Ashley',   form: '' },
+      'ryan':     { name: 'Ryan',     form: '' },
+      'brett':    { name: 'Brett',    form: '' },
+      'dave':     { name: 'Dave',     form: '' },
+      'brittany': { name: 'Brittany', form: '' }
+    };
+    var repSlug = '';
+    try { repSlug = (new URLSearchParams(window.location.search).get('rep') || '').toLowerCase(); } catch (e) {}
+    var rep = REPS[repSlug] || null;
+    var FORM_ID = (rep && rep.form) || DEFAULT_FORM;
     // Render inside the page's main content area; standard site nav + footer
     // (rendered by the global Navigation/Footer symbols) stay visible.
     var main = document.querySelector('main, .main-wrapper, .page-wrapper');
@@ -7875,7 +7892,7 @@
       '<div class="pf-mmct">' +
         '<div class="pf-mmct-main">' +
           '<div class="pf-mmct-card">' +
-            '<div class="pf-mmct-pill">Booth Follow-Up</div>' +
+            '<div class="pf-mmct-pill">' + (rep ? 'Booking with ' + rep.name : 'Booth Follow-Up') + '</div>' +
             '<h1 class="pf-mmct-h1">' + conf.h1 + '</h1>' +
             '<p class="pf-mmct-sub">Drop your email below and grab time on our calendar. We’ll show you exactly what we walked you through at the booth — personalized to your association.</p>' +
             '<div class="pf-mmct-form-wrap">' +
@@ -7932,7 +7949,7 @@
           }
         };
         if (hutk) payload.context.hutk = hutk;
-        fetch('https://api.hsforms.com/submissions/v3/integration/submit/21158441/9db4f81b-6fb2-4b01-9dd4-bba9c2b3c323', {
+        fetch('https://api.hsforms.com/submissions/v3/integration/submit/21158441/' + FORM_ID + '', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
@@ -7942,7 +7959,7 @@
             throw new Error((err && err.errors && err.errors[0] && err.errors[0].message) || 'Submission failed.');
           });
         }).then(function(){
-          pfTrackLead(confSlug);
+          pfTrackLead(confSlug + (repSlug ? '-' + repSlug : ''));
           // Show ChiliPiper calendar — same tenant/router as /book-a-demo
           var lead = { email: email };
           if (window.ChiliPiper) {
