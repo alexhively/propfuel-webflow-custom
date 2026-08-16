@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Conference Cup — PF X ASAE</title>
+<link rel="icon" type="image/png" href="https://alexhively.github.io/propfuel-webflow-custom/pfx/favicon.png">
+<link rel="apple-touch-icon" href="https://alexhively.github.io/propfuel-webflow-custom/pfx/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'DM Sans', system-ui, sans-serif; background:#F4F1EA; color:#2F2F2F; padding:32px 16px 48px; -webkit-font-smoothing:antialiased; }
+  .wrap { max-width:520px; margin:0 auto; }
+  .back { display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:700; color:#F47C2C; text-decoration:none; margin-bottom:20px; }
+  .eyebrow { font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:#F47C2C; margin-bottom:8px; }
+  h1 { font-size:28px; font-weight:800; letter-spacing:-.02em; line-height:1.15; margin-bottom:6px; }
+  h1 .accent { background:linear-gradient(to right,#F47C2C,#FBC02D); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+  .sub { font-size:14px; color:#6E6E6E; margin-bottom:6px; }
+  .credit { font-size:12px; color:#A99F8E; margin-bottom:24px; }
+  h2 { font-size:17px; font-weight:800; letter-spacing:-.01em; margin:26px 0 12px; }
+  .score { display:flex; align-items:center; justify-content:space-between; gap:12px;
+    background:#F6F2E8; border:1px solid #E3DDD2; border-radius:14px; padding:14px 16px; margin-bottom:9px; }
+  .score .n { font-size:14.5px; font-weight:700; line-height:1.35; }
+  .score .n small { display:block; font-weight:500; font-size:12px; color:#6E6E6E; margin-top:2px; }
+  .pts { flex-shrink:0; font-size:15px; font-weight:900; letter-spacing:-.02em; padding:6px 13px; border-radius:100px;
+    background:linear-gradient(to right,#F47C2C,#FBC02D); color:#fff; white-space:nowrap; }
+  .pts.big { font-size:16px; }
+  .callout { border-left:4px solid #FBC02D; background:#F6F2E8; border-radius:0 12px 12px 0; padding:13px 15px; margin:12px 0; font-size:13.5px; line-height:1.55; color:#4a4a48; }
+  .callout b { color:#2F2F2F; }
+  .prize { display:flex; align-items:center; gap:12px; background:#F6F2E8; border:1px solid #E3DDD2; border-radius:14px; padding:13px 16px; margin-bottom:9px; }
+  .prize .medal { font-size:22px; }
+  .prize .t { font-size:14.5px; font-weight:700; }
+  .prize .t small { display:block; font-weight:500; font-size:12px; color:#6E6E6E; margin-top:1px; }
+  .board { margin-top:8px; }
+  .row { display:flex; align-items:center; gap:12px; background:#F6F2E8; border:1px solid #E3DDD2; border-radius:14px; padding:13px 16px; margin-bottom:8px; }
+  .row .rank { font-size:15px; font-weight:900; width:24px; text-align:center;
+    background:linear-gradient(to top,#F47C2C,#FBC02D); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+  .row .who { flex:1; font-size:15px; font-weight:700; }
+  .row .pt { font-size:16px; font-weight:900; letter-spacing:-.02em;
+    background:linear-gradient(to top,#F47C2C,#FBC02D); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+  .empty { text-align:center; color:#A99F8E; font-size:13.5px; padding:18px 12px; background:#F6F2E8; border:1px dashed #E3DDD2; border-radius:14px; }
+  .meta { font-size:11.5px; color:#A99F8E; text-align:center; margin-top:10px; }
+  .foot { margin-top:30px; font-size:12px; color:#A99F8E; text-align:center; line-height:1.6; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="https://pf-x-asae.vercel.app/">&larr; All links</a>
+  <div class="eyebrow">Game on &middot; starts Sunday</div>
+  <h1>&#127942; The <span class="accent">Conference Cup</span></h1>
+  <p class="sub">Make the conference more fun, get everyone hunting, and reward both activity and quality.</p>
+  <p class="credit">&#128161; Huge shoutout to Dave for the idea.</p>
+
+  <h2>&#127942; Leaderboard</h2>
+  <div class="board" id="board"><div class="empty">First leaderboard drops end of day Sunday. Go earn your spot.</div></div>
+  <p class="meta" id="boardmeta"></p>
+
+  <h2>Scoring</h2>
+  <div class="score"><span class="n">&#127903;&#65039; ICP badge scan <small>or picture of the badge</small></span><span class="pts">1 pt</span></div>
+  <div class="score"><span class="n">&#128197; Demo booked</span><span class="pts big">5 pts</span></div>
+  <div class="score"><span class="n">&#127919; Target / Ocean 7 demo booked <small>association with $7M+ annual revenue</small></span><span class="pts big">10 pts</span></div>
+  <div class="score"><span class="n">&#9989; Demo actually happens</span><span class="pts big">5 pts</span></div>
+  <div class="score"><span class="n">&#128293; Opportunity created</span><span class="pts big">15 pts</span></div>
+
+  <div class="callout"><b>What counts as ICP:</b> an association with more than $1M in annual revenue, and NOT a current client. Random badge scans and client badges don&rsquo;t count.</div>
+
+  <h2>&#128248; How to submit scans</h2>
+  <div class="callout">Post all badge pictures in the <b>ASAE Annual Slack chat</b> (we have the scans). Send them live as you go or dump them at the end of each day. <b>If it&rsquo;s not in the Slack chat, it doesn&rsquo;t count.</b></div>
+
+  <h2>&#127942; Prizes</h2>
+  <div class="prize"><span class="medal">&#129351;</span><span class="t">1st Place<small>$500</small></span></div>
+  <div class="prize"><span class="medal">&#129352;</span><span class="t">2nd Place<small>$250</small></span></div>
+  <div class="prize"><span class="medal">&#129353;</span><span class="t">3rd Place<small>Dinner for you + a plus one</small></span></div>
+  <div class="prize"><span class="medal">&#127873;</span><span class="t">Daily Mystery Box &times; 2<small>Most demos booked each day wins one. It&rsquo;s good — and no, it&rsquo;s not fishing related (unless you want it to be?!)</small></span></div>
+
+  <div class="callout"><b>The Cup doesn&rsquo;t end when ASAE ends.</b> Points keep accruing as demos actually happen, turn into opportunities, and ultimately close.</div>
+
+  <p class="foot">Book demos from the <a href="https://alexhively.github.io/propfuel-webflow-custom/pfx/book-demo.html" style="color:#F47C2C;font-weight:700">Book a Demo</a> tab — tap your name, use your page.<br>LETS GOOOOOOOOOO &#127942;</p>
+</div>
+<script>
+  fetch('https://alexhively.github.io/propfuel-webflow-custom/pfx/cup.json?t=' + Date.now())
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      if (!d.standings || !d.standings.length) return;
+      document.getElementById('board').innerHTML = d.standings.map(function (s, i) {
+        return '<div class="row"><span class="rank">' + (i + 1) + '</span><span class="who">' + s.who +
+          (s.note ? ' <span style="font-weight:500;font-size:12px;color:#A99F8E">· ' + s.note + '</span>' : '') +
+          '</span><span class="pt">' + s.points + '</span></div>';
+      }).join('');
+      if (d.updated) document.getElementById('boardmeta').textContent = 'Updated ' + d.updated;
+    })
+    .catch(function () {});
+</script>
+</body>
+</html>
