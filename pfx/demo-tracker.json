@@ -2,12 +2,16 @@
   "quarter": "Q3 2026",
   "goal": 35,
   "goalLabel": "ASAE booth goal",
-  "updated": "Aug 16, 2026, 12:15 AM ET",
+  "updated": "Aug 16, 2026 \u2014 evening",
   "dataSource": "Salesforce (manual pull)",
   "sources": [
     {
-      "label": "Inbound: In-Person Conference",
+      "label": "Pre-conference",
       "count": 6
+    },
+    {
+      "label": "On-site (ASAE)",
+      "count": 8
     }
   ],
   "booked": [
@@ -41,5 +45,6 @@
       "rep": "Mike Arisco",
       "status": "Upcoming"
     }
-  ]
+  ],
+  "note": "14 total: 6 booked pre-conference, 8 booked on-site. Named list below is the pre-conference set \u2014 on-site names coming from lead scans."
 }
