@@ -11,7 +11,7 @@
     },
     {
       "label": "On-site (ASAE)",
-      "count": 8
+      "count": 7
     }
   ],
   "booked": [
@@ -46,5 +46,5 @@
       "status": "Upcoming"
     }
   ],
-  "note": "14 total: 6 booked pre-conference, 8 booked on-site. Named list below is the pre-conference set \u2014 on-site names coming from lead scans."
+  "note": "13 total: 6 booked pre-conference, 7 booked on-site. Named list below is the pre-conference set \u2014 on-site names coming from lead scans."
 }
