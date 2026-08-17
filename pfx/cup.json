@@ -1,15 +1,15 @@
 {
-  "updated": "Standings so far — demos + Sunday badge scans. Day 2 demos rolling in; Monday scans not yet tallied.",
+  "updated": "Standings from the Cup spreadsheet — demos + Sunday scans (Monday scans not yet tallied). 🎁 Day 1 box: Mike (3 demos) · Day 2 box: Clara (4 demos)",
   "standings": [
     {
       "who": "Brett",
-      "points": 32,
-      "note": "3 demos, all Ocean 7 + 2 scans"
+      "points": 42,
+      "note": "4 demos, ALL Ocean 7 + 2 scans"
     },
     {
       "who": "Clara",
-      "points": 25,
-      "note": "4 demos (1 Ocean 7) — leads Day 2 count so far"
+      "points": 30,
+      "note": "5 demos (1 Ocean 7) — Day 2 Mystery Box 🎁"
     },
     {
       "who": "Ashley",
@@ -29,7 +29,7 @@
     {
       "who": "Dave",
       "points": 11,
-      "note": "1 Ocean 7 demo (MGMA) + 1 scan"
+      "note": "1 Ocean 7 demo + 1 scan"
     }
   ]
 }
