@@ -81,18 +81,23 @@
   <p class="foot">Book demos from the <a href="https://alexhively.github.io/propfuel-webflow-custom/pfx/book-demo.html" style="color:#F47C2C;font-weight:700">Book a Demo</a> tab — tap your name, use your page.<br>LETS GOOOOOOOOOO &#127942;</p>
 </div>
 <script>
-  fetch('https://alexhively.github.io/propfuel-webflow-custom/pfx/cup.json?t=' + Date.now())
-    .then(function (r) { return r.json(); })
-    .then(function (d) {
-      if (!d.standings || !d.standings.length) return;
-      document.getElementById('board').innerHTML = d.standings.map(function (s, i) {
-        return '<div class="row"><span class="rank">' + (i + 1) + '</span><span class="who">' + s.who +
-          (s.note ? ' <span style="font-weight:500;font-size:12px;color:#A99F8E">· ' + s.note + '</span>' : '') +
-          '</span><span class="pt">' + s.points + '</span></div>';
-      }).join('');
-      if (d.updated) document.getElementById('boardmeta').textContent = 'Updated ' + d.updated;
-    })
-    .catch(function () {});
+  function loadBoard() {
+    fetch('https://alexhively.github.io/propfuel-webflow-custom/pfx/cup.json?t=' + Date.now())
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        if (!d.standings || !d.standings.length) return;
+        document.getElementById('board').innerHTML = d.standings.map(function (s, i) {
+          return '<div class="row"><span class="rank">' + (i + 1) + '</span><span class="who">' + s.who +
+            (s.note ? ' <span style="font-weight:500;font-size:12px;color:#A99F8E">· ' + s.note + '</span>' : '') +
+            '</span><span class="pt">' + s.points + '</span></div>';
+        }).join('');
+        if (d.updated) document.getElementById('boardmeta').textContent = 'Updated ' + d.updated;
+      })
+      .catch(function () {});
+  }
+  loadBoard();
+  setInterval(loadBoard, 60000);
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) loadBoard(); });
 </script>
 </body>
 </html>
