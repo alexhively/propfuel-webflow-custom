@@ -1,30 +1,30 @@
 {
-  "updated": "Standings so far — demos + Sunday badge scans (prospects only, clients excluded). Day 2 underway.",
+  "updated": "Standings so far — demos + Sunday badge scans. Day 2 demos rolling in; Monday scans not yet tallied.",
   "standings": [
     {
       "who": "Brett",
-      "points": 22,
-      "note": "2 demos (both Ocean 7) + 2 scans"
+      "points": 32,
+      "note": "3 demos, all Ocean 7 + 2 scans"
+    },
+    {
+      "who": "Ashley",
+      "points": 31,
+      "note": "4 demos (2 Ocean 7) + 1 scan"
+    },
+    {
+      "who": "Clara",
+      "points": 25,
+      "note": "4 demos (1 Ocean 7) — leads Day 2 count so far"
     },
     {
       "who": "Mike",
       "points": 15,
-      "note": "3 demos — most Day 1: Mystery Box 🎁"
-    },
-    {
-      "who": "Ashley",
-      "points": 11,
-      "note": "2 demos + 1 scan"
-    },
-    {
-      "who": "Clara",
-      "points": 5,
-      "note": "1 demo"
+      "note": "3 demos — Day 1 Mystery Box 🎁"
     },
     {
       "who": "Ryan",
-      "points": 4,
-      "note": "4 scans"
+      "points": 14,
+      "note": "1 Ocean 7 demo + 4 scans"
     },
     {
       "who": "Dave",
