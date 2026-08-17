@@ -1,25 +1,35 @@
 {
-  "updated": "Standings so far — as of Sun Aug 16. Demo points only; badge-scan points from the Slack tally still to come. Day 1 isn’t over.",
+  "updated": "Standings so far — demos + Sunday badge scans (prospects only, clients excluded). Day 2 underway.",
   "standings": [
     {
       "who": "Brett",
-      "points": 20,
-      "note": "2 demos, both Ocean 7"
+      "points": 22,
+      "note": "2 demos (both Ocean 7) + 2 scans"
     },
     {
       "who": "Mike",
       "points": 15,
-      "note": "3 demos — most today: Day 1 Mystery Box 🎁"
+      "note": "3 demos — most Day 1: Mystery Box 🎁"
     },
     {
       "who": "Ashley",
-      "points": 10,
-      "note": "2 demos"
+      "points": 11,
+      "note": "2 demos + 1 scan"
     },
     {
       "who": "Clara",
       "points": 5,
       "note": "1 demo"
+    },
+    {
+      "who": "Ryan",
+      "points": 4,
+      "note": "4 scans"
+    },
+    {
+      "who": "Dave",
+      "points": 1,
+      "note": "1 scan"
     }
   ]
 }
