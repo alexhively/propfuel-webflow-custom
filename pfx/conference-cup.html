@@ -82,7 +82,7 @@
 </div>
 <script>
   function loadBoard() {
-    fetch('https://alexhively.github.io/propfuel-webflow-custom/pfx/cup.json?t=' + Date.now())
+    fetch('https://textdb.online/pfx-asae-cup-d85a78e9?t=' + Date.now()).catch(function(){ return fetch('https://alexhively.github.io/propfuel-webflow-custom/pfx/cup.json?t=' + Date.now()); })
       .then(function (r) { return r.json(); })
       .then(function (d) {
         if (!d.standings || !d.standings.length) return;
