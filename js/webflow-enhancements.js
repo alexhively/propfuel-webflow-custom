@@ -7817,14 +7817,14 @@
       ".pf-rf h1{font-size:clamp(36px,5vw,56px);font-weight:800;letter-spacing:-0.02em;line-height:1.08;margin:0 0 18px}" +
       ".pf-rf .accent{background:linear-gradient(to right,#F47C2C,#FBC02D);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}" +
       ".pf-rf-sub{font-size:clamp(17px,1.6vw,19px);line-height:1.6;color:#6E6E6E;max-width:620px;margin:0 0 0}" +
-      ".pf-rf-hero{padding:110px 0 44px;text-align:center}" +
+      ".pf-rf-hero{padding:110px 0 12px;text-align:center}" +
       ".pf-rf-hero .pf-rf-sub{margin:0 auto}" +
       ".pf-rf-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:40px 0 0}" +
       ".pf-rf-step{background:#F6F2E8;border:1px solid #E3DDD2;border-radius:16px;padding:18px 18px;text-align:left}" +
       ".pf-rf-step .k{font-family:ui-monospace,Menlo,monospace;font-size:12px;font-weight:700;color:#F47C2C;margin-bottom:6px}" +
       ".pf-rf-step .t{font-size:14.5px;font-weight:700;line-height:1.35}" +
       ".pf-rf-step .d{font-size:12.5px;color:#6E6E6E;line-height:1.45;margin-top:4px}" +
-      ".pf-rf-card{background:#F6F2E8;border:1px solid #E3DDD2;border-radius:22px;padding:36px 32px;box-shadow:0 12px 48px rgba(120,110,95,0.10);margin:44px 0 0;text-align:left}" +
+      ".pf-rf-card{background:#F6F2E8;border:1px solid #E3DDD2;border-radius:22px;padding:36px 32px;box-shadow:0 12px 48px rgba(120,110,95,0.10);margin:0;text-align:left}" +
       ".pf-rf-h2{display:flex;align-items:baseline;gap:10px;font-size:20px;font-weight:800;letter-spacing:-0.01em;margin:0 0 6px}" +
       ".pf-rf-h2 .num{font-family:ui-monospace,Menlo,monospace;font-size:14px;font-weight:700;color:#F47C2C}" +
       ".pf-rf-hint{font-size:14px;color:#6E6E6E;line-height:1.5;margin:0 0 18px}" +
@@ -7859,18 +7859,24 @@
       ".pf-rf-prev-body{white-space:pre-wrap;font-size:13px;line-height:1.55;color:#2F2F2F;background:#FFFFFF;border:1px solid #E3DDD2;border-radius:10px;padding:12px;margin:10px 0;max-height:240px;overflow:auto}" +
       ".pf-rf-copybtn{display:block;width:100%;box-sizing:border-box;padding:10px 12px;font-size:13px;font-weight:700;font-family:'DM Sans',sans-serif;color:#2F2F2F;background:#FFFFFF;border:1.5px solid #E3DDD2;border-radius:100px;cursor:pointer;transition:border-color .15s ease,color .15s ease;-webkit-appearance:none;appearance:none}" +
       ".pf-rf-copybtn:hover{border-color:#F47C2C;color:#F47C2C}" +
-      ".pf-rf-mailbtns{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:8px}" +
-      ".pf-rf-mailbtn{display:flex;align-items:center;justify-content:center;padding:10px 6px;font-size:12.5px;font-weight:700;color:#2F2F2F;background:#FFFFFF;border:1.5px solid #E3DDD2;border-radius:100px;text-decoration:none;cursor:pointer;text-align:center;transition:border-color .15s ease,color .15s ease}" +
-      ".pf-rf-mailbtn:hover{border-color:#F47C2C;color:#F47C2C}" +
-      ".pf-rf-prev-note{font-size:12px;color:#6E6E6E;margin-top:10px;line-height:1.5}" +
+      ".pf-rf-openin{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#6E6E6E;text-align:center;margin:14px 0 8px}" +
+      ".pf-rf-mailbtns{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}" +
+      ".pf-rf-mailbtn{display:flex;align-items:center;justify-content:center;padding:12px 6px;background:#FFFFFF;border:1.5px solid #E3DDD2;border-radius:100px;text-decoration:none;cursor:pointer;transition:border-color .15s ease,box-shadow .15s ease}" +
+      ".pf-rf-mailbtn:hover{border-color:#F47C2C;box-shadow:0 2px 10px rgba(244,124,44,0.18)}" +
+      ".pf-rf-mailbtn img{height:24px;width:auto;display:block}" +
+      ".pf-rf-prev-note{font-size:12px;color:#6E6E6E;margin-top:12px;line-height:1.5}" +
+      ".pf-rf-lookup{margin:2px 0 14px;padding:14px;background:#F6F2E8;border:1px solid #E3DDD2;border-radius:12px}" +
+      ".pf-rf-lookup .lk-t{font-size:13.5px;font-weight:800}" +
+      ".pf-rf-lookup .lk-d{font-size:12.5px;color:#6E6E6E;line-height:1.45;margin:3px 0 10px}" +
       ".pf-rf-err{display:none;font-size:13px;font-weight:600;color:#C0392B;margin-top:16px}" +
-      ".pf-rf-fine{border-left:4px solid #FBC02D;background:#F6F2E8;border-radius:0 14px 14px 0;padding:20px 24px;margin:36px 0 0;font-size:14px;line-height:1.6;color:#4a4a48}" +
+      ".pf-rf-fine{border-left:4px solid #FBC02D;background:#F6F2E8;border-radius:0 14px 14px 0;padding:24px 28px;margin:36px 0 0;font-size:16.5px;line-height:1.65;color:#4a4a48}" +
       ".pf-rf-fine b{color:#2F2F2F}" +
-      ".pf-rf-bottom{padding:64px 0 96px}" +
+      ".pf-rf-bottom{padding:16px 0 96px}" +
       "@media (max-width:720px){" +
       ".pf-rf-hero{padding:90px 0 32px}" +
       ".pf-rf-steps{grid-template-columns:1fr;gap:10px}" +
-      ".pf-rf-2col,.pf-rf-opts,.pf-rf-paths,.pf-rf-mailbtns{grid-template-columns:1fr}" +
+      ".pf-rf-2col,.pf-rf-opts,.pf-rf-paths{grid-template-columns:1fr}" +
+      ".pf-rf-lookup .pf-rf-2col{grid-template-columns:1fr 1fr}" +
       ".pf-rf-card{padding:26px 20px;border-radius:18px}" +
       "}";
     document.head.appendChild(st);
@@ -7882,19 +7888,20 @@
         '<h1>Know an association that<br>should know <span class="accent">PropFuel?</span></h1>' +
         '<p class="pf-rf-sub">Introduce us. When your referral takes the demo and becomes a qualified opportunity, you pick the thank-you &mdash; lunch for your team, a gift card, a discount on PropFuel, a donation to your association, or something you dream up.</p>' +
         '<div class="pf-rf-steps">' +
-          '<div class="pf-rf-step"><div class="k">01</div><div class="t">Tell us who you are</div><div class="d">Name and work email, so we know who to thank.</div></div>' +
-          '<div class="pf-rf-step"><div class="k">02</div><div class="t">Pick your reward</div><div class="d">Five options. All worth $250. All earned the same way.</div></div>' +
-          '<div class="pf-rf-step"><div class="k">03</div><div class="t">Make the intro</div><div class="d">Two ways to do it &mdash; both take under a minute.</div></div>' +
+          '<div class="pf-rf-step"><div class="k">01</div><div class="t">Tell us who you are</div></div>' +
+          '<div class="pf-rf-step"><div class="k">02</div><div class="t">Pick your reward</div></div>' +
+          '<div class="pf-rf-step"><div class="k">03</div><div class="t">Make the intro</div></div>' +
         '</div>' +
       '</div></section>' +
       '<section class="pf-rf-bottom"><div class="pf-rf-container">' +
         '<div class="pf-rf-card">' +
           '<div class="pf-rf-h2"><span class="num">1</span>Who&rsquo;s referring?</div>' +
-          '<p class="pf-rf-hint">So we know who the reward goes to.</p>' +
+          '<p class="pf-rf-hint">So we know who the reward goes to &mdash; and who we&rsquo;re meeting.</p>' +
           '<div class="pf-rf-2col">' +
             '<div><label class="pf-rf-label" for="pf-rf-name">Your name</label><input class="pf-rf-input" id="pf-rf-name" type="text" placeholder="Jane Smith" autocomplete="name"></div>' +
             '<div><label class="pf-rf-label" for="pf-rf-email">Your work email</label><input class="pf-rf-input" id="pf-rf-email" type="email" placeholder="you@association.org" autocomplete="email"></div>' +
           '</div>' +
+          '<div style="margin-top:14px"><label class="pf-rf-label" for="pf-rf-ref-email">Your referral&rsquo;s work email</label><input class="pf-rf-input" id="pf-rf-ref-email" type="email" placeholder="them@association.org"></div>' +
           '<div class="pf-rf-div"></div>' +
           '<div class="pf-rf-h2"><span class="num">2</span>Pick your reward</div>' +
           '<p class="pf-rf-hint">Sent to you once your referral&rsquo;s demo happens and qualifies.</p>' +
@@ -7913,27 +7920,35 @@
             '<div class="pf-rf-path">' +
               '<span class="pf-rf-tag">Fastest</span>' +
               '<h3>Send the intro yourself</h3>' +
-              '<p>Tap below and we&rsquo;ll write the intro for you &mdash; <b>' + REFERRAL_INBOX + '</b> and the booking link included. Open it in Gmail, Outlook, or your mail app, add your referral to the &ldquo;To&rdquo; line, and hit send.</p>' +
+              '<p>Tap below and we&rsquo;ll write the intro for you &mdash; addressed to your referral, <b>' + REFERRAL_INBOX + '</b> cc&rsquo;d, booking link included. Open it, give it a read, hit send.</p>' +
               '<button class="pf-rf-btn" id="pf-rf-btn-a" type="button">Write the intro for me</button>' +
               '<div class="pf-rf-preview" id="pf-rf-preview">' +
-                '<div class="pf-rf-prev-meta"><b>To:</b> ' + REFERRAL_INBOX + ' <span class="add">+ your referral</span></div>' +
+                '<div class="pf-rf-prev-meta" id="pf-rf-prev-to"></div>' +
                 '<div class="pf-rf-prev-meta"><b>Subject:</b> <span id="pf-rf-prev-subj"></span></div>' +
                 '<div class="pf-rf-prev-body" id="pf-rf-prev-body"></div>' +
                 '<button class="pf-rf-copybtn" id="pf-rf-copy" type="button">&#128203; Copy the email text</button>' +
+                '<div class="pf-rf-openin">Open in</div>' +
                 '<div class="pf-rf-mailbtns">' +
-                  '<a class="pf-rf-mailbtn" id="pf-rf-gmail" target="_blank" rel="noopener">Open in Gmail</a>' +
-                  '<a class="pf-rf-mailbtn" id="pf-rf-outlook" target="_blank" rel="noopener">Open in Outlook</a>' +
-                  '<a class="pf-rf-mailbtn" id="pf-rf-mailapp">Open in Mail app</a>' +
+                  '<a class="pf-rf-mailbtn" id="pf-rf-gmail" target="_blank" rel="noopener" aria-label="Open in Gmail"><img src="https://alexhively.github.io/propfuel-webflow-custom/referrals/gmail.png" alt="Gmail"></a>' +
+                  '<a class="pf-rf-mailbtn" id="pf-rf-outlook" target="_blank" rel="noopener" aria-label="Open in Outlook"><img src="https://alexhively.github.io/propfuel-webflow-custom/referrals/outlook.png" alt="Outlook"></a>' +
+                  '<a class="pf-rf-mailbtn" id="pf-rf-mailapp" aria-label="Open in your mail app"><img src="https://alexhively.github.io/propfuel-webflow-custom/referrals/mail.png" alt="Mail app"></a>' +
                 '</div>' +
-                '<div class="pf-rf-prev-note">&#9993;&#65039; Almost done &mdash; add your referral&rsquo;s address to the <b>To</b> line and hit send. That&rsquo;s it.</div>' +
+                '<div class="pf-rf-prev-note" id="pf-rf-prev-note"></div>' +
               '</div>' +
             '</div>' +
             '<div class="pf-rf-path">' +
               '<span class="pf-rf-tag pf-rf-tag-alt">Hands-off</span>' +
               '<h3>We&rsquo;ll make the first move</h3>' +
-              '<p>Drop their work email. We&rsquo;ll send them a friendly note letting them know you referred them, with a link to book time with our team.</p>' +
-              '<label class="pf-rf-label" for="pf-rf-ref-email" style="margin-top:2px">Their work email</label>' +
-              '<input class="pf-rf-input" id="pf-rf-ref-email" type="email" placeholder="them@association.org" style="margin-bottom:14px">' +
+              '<p>We&rsquo;ll send your referral a friendly note letting them know you sent them, with a link to book time with our team &mdash; using the email from step 1.</p>' +
+              '<div class="pf-rf-lookup">' +
+                '<div class="lk-t">Don&rsquo;t know their email?</div>' +
+                '<div class="lk-d">Give us their association and their first and last name &mdash; we&rsquo;ll find it.</div>' +
+                '<div class="pf-rf-2col" style="margin-bottom:10px">' +
+                  '<input class="pf-rf-input" id="pf-rf-lk-first" type="text" placeholder="First name">' +
+                  '<input class="pf-rf-input" id="pf-rf-lk-last" type="text" placeholder="Last name">' +
+                '</div>' +
+                '<input class="pf-rf-input" id="pf-rf-lk-assoc" type="text" placeholder="Their association">' +
+              '</div>' +
               '<button class="pf-rf-btn" id="pf-rf-btn-b" type="button">Send the referral</button>' +
               '<div class="pf-rf-note" id="pf-rf-note-b"></div>' +
             '</div>' +
@@ -8006,17 +8021,35 @@
         'PropFuel team: this referral comes from ' + r.name + ' (' + r.email + '). Reward choice: ' + r.incentive + '.';
       return { subject: subject, body: body };
     }
+    function getRefEmail() {
+      var v = (document.getElementById('pf-rf-ref-email').value || '').trim();
+      return /^.+@.+\..+$/.test(v) ? v : '';
+    }
+    function escHtml(s) {
+      return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
     function fillPreview() {
       var m = buildIntro();
       if (!m) return null;
+      var refEmail = getRefEmail();
+      var to = refEmail || REFERRAL_INBOX;
+      var cc = refEmail ? REFERRAL_INBOX : '';
       var es = encodeURIComponent(m.subject);
       var eb = encodeURIComponent(m.body);
-      var et = encodeURIComponent(REFERRAL_INBOX);
+      var et = encodeURIComponent(to);
+      var ec = encodeURIComponent(cc);
+      m.to = to; m.cc = cc;
+      document.getElementById('pf-rf-prev-to').innerHTML = refEmail
+        ? '<b>To:</b> ' + escHtml(refEmail) + ' &nbsp;&middot;&nbsp; <b>Cc:</b> ' + REFERRAL_INBOX
+        : '<b>To:</b> ' + REFERRAL_INBOX + ' <span class="add">+ your referral</span>';
+      document.getElementById('pf-rf-prev-note').innerHTML = refEmail
+        ? '&#9993;&#65039; Everything&rsquo;s addressed &mdash; just give it a read and hit send.'
+        : '&#9993;&#65039; Almost done &mdash; add your referral&rsquo;s address to the <b>To</b> line and hit send. That&rsquo;s it. (Or drop their email in step 1 and we&rsquo;ll address it for you.)';
       document.getElementById('pf-rf-prev-subj').textContent = m.subject;
       document.getElementById('pf-rf-prev-body').textContent = m.body;
-      document.getElementById('pf-rf-gmail').href = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + et + '&su=' + es + '&body=' + eb;
-      document.getElementById('pf-rf-outlook').href = 'https://outlook.office.com/mail/deeplink/compose?to=' + et + '&subject=' + es + '&body=' + eb;
-      document.getElementById('pf-rf-mailapp').href = 'mailto:' + REFERRAL_INBOX + '?subject=' + es + '&body=' + eb;
+      document.getElementById('pf-rf-gmail').href = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + et + (cc ? '&cc=' + ec : '') + '&su=' + es + '&body=' + eb;
+      document.getElementById('pf-rf-outlook').href = 'https://outlook.office.com/mail/deeplink/compose?to=' + et + (cc ? '&cc=' + ec : '') + '&subject=' + es + '&body=' + eb;
+      document.getElementById('pf-rf-mailapp').href = 'mailto:' + to + '?' + (cc ? 'cc=' + ec + '&' : '') + 'subject=' + es + '&body=' + eb;
       return m;
     }
     document.getElementById('pf-rf-btn-a').addEventListener('click', function () {
@@ -8036,7 +8069,7 @@
       var m = fillPreview();
       if (!m) return;
       var btn = this;
-      var text = 'To: ' + REFERRAL_INBOX + '\nSubject: ' + m.subject + '\n\n' + m.body;
+      var text = 'To: ' + m.to + (m.cc ? '\nCc: ' + m.cc : '') + '\nSubject: ' + m.subject + '\n\n' + m.body;
       function done() {
         btn.textContent = '✓ Copied — paste it into a new email';
         setTimeout(function () { btn.innerHTML = '&#128203; Copy the email text'; }, 2500);
@@ -8056,8 +8089,16 @@
     document.getElementById('pf-rf-btn-b').addEventListener('click', function () {
       var r = getReferrer();
       if (!r) return;
-      var refEmail = (document.getElementById('pf-rf-ref-email').value || '').trim();
-      if (!/^.+@.+\..+$/.test(refEmail)) { showErr('Add your referral’s work email so we know who to reach out to.'); return; }
+      var refEmail = getRefEmail();
+      var lkFirst = (document.getElementById('pf-rf-lk-first').value || '').trim();
+      var lkLast = (document.getElementById('pf-rf-lk-last').value || '').trim();
+      var lkAssoc = (document.getElementById('pf-rf-lk-assoc').value || '').trim();
+      var hasLookup = lkFirst && lkLast && lkAssoc;
+      if (!refEmail && !hasLookup) {
+        showErr('Add your referral’s work email in step 1 — or give us their first name, last name, and association and we’ll find it.');
+        return;
+      }
+      var refDesc = refEmail || (lkFirst + ' ' + lkLast + ' at ' + lkAssoc + ' (no email — please find it)');
       var noteB = document.getElementById('pf-rf-note-b');
       var btn = this;
       if (REFERRAL_FORM) {
@@ -8068,6 +8109,8 @@
             { name: 'email', value: r.email },
             { name: 'firstname', value: r.name },
             { name: 'referral_email', value: refEmail },
+            { name: 'referral_name', value: lkFirst || lkLast ? (lkFirst + ' ' + lkLast) : '' },
+            { name: 'referral_association', value: lkAssoc },
             { name: 'referral_incentive', value: r.incentive }
           ],
           context: { pageUri: window.location.href, pageName: document.title }
@@ -8089,7 +8132,7 @@
         // No HubSpot form wired up yet — route through the referrals inbox.
         var subject = 'New referral from ' + r.name;
         var body = 'Hi PropFuel team — please reach out to my referral.\n\n' +
-          'Referral’s work email: ' + refEmail + '\n' +
+          'Referral: ' + refDesc + '\n' +
           'Referred by: ' + r.name + ' (' + r.email + ')\n' +
           'Reward choice: ' + r.incentive + '\n\n' +
           'Sent from propfuel.com/referrals';
