@@ -488,6 +488,7 @@
     '/asae-annual': { title: 'Met Us at ASAE Annual? Book Your Demo | PropFuel', desc: 'Met us at ASAE Annual? Drop your email to grab time on the calendar and see PropFuel in action for your association.', ogImage: '/og-images/demo.png' },
     '/where-broadcast-ends': { title: 'Where Broadcast Ends and PropFuel Begins | PropFuel', desc: 'For associations buying a broadcast platform for the first time, replacing one, or consolidating several — where HubSpot, Marketo, and Higher Logic Thrive stop, and conversational engagement begins.', ogImage: '/og-images/demo.png' },
     '/referrals': { title: 'Refer an Association — PropFuel Referral Program | PropFuel', desc: 'Know an association that should be using PropFuel? Make a referral in under a minute and pick your reward: lunch for your team, a $250 gift card, $250 off PropFuel, a $250 donation to your association, or a special request.', ogImage: '/og-images/demo.png' },
+    '/i-was-referred': { title: 'You’ve Been Referred — Book Your PropFuel Demo | PropFuel', desc: 'Someone thinks your association should see PropFuel. Tell us who sent you and grab time with our team for a personalized walkthrough.', ogImage: '/og-images/demo.png' },
     '/mmct-session': { title: 'What\'s Working in Membership \u2014 Session Slides | PropFuel', desc: "Thanks for joining our MMCT session. Drop your email and grab the slides \u2014 every chart, framework, and takeaway from the talk.", ogImage: 'https://alexhively.github.io/propfuel-webflow-custom/og-images/mmct-session.jpg' },
     '/event-demo': { title: 'Great Meeting You \u2014 Book Your PropFuel Demo | PropFuel', desc: "Met us at an event? Drop your email and grab time on our calendar. We'll show you exactly what PropFuel can do for your association.", ogImage: '/og-images/demo.png' },
     '/use-cases/onboarding': { title: 'Automate New Member Onboarding Journeys | PropFuel', desc: "Turn new member silence into engagement. PropFuel's onboarding automation delivers personalized check-ins that drive 3x engagement in the first 60 days.", ogImage: '/og-images/use-cases-onboarding.png' },
@@ -7868,6 +7869,13 @@
       ".pf-rf-lookup{margin:2px 0 14px;padding:14px;background:#F6F2E8;border:1px solid #E3DDD2;border-radius:12px}" +
       ".pf-rf-lookup .lk-t{font-size:13.5px;font-weight:800}" +
       ".pf-rf-lookup .lk-d{font-size:12.5px;color:#6E6E6E;line-height:1.45;margin:3px 0 10px}" +
+      ".pf-rf-featured{background:#FFFFFF;border:2px solid #F47C2C;border-radius:16px;padding:22px 20px;margin-bottom:14px;box-shadow:0 6px 24px rgba(244,124,44,0.14)}" +
+      ".pf-rf-featured h3{font-size:17px;font-weight:800;margin:0 0 8px;letter-spacing:-0.01em}" +
+      ".pf-rf-featured p{font-size:13.5px;line-height:1.55;color:#6E6E6E;margin:0 0 14px}" +
+      ".pf-rf-featured p b{color:#2F2F2F}" +
+      ".pf-rf-featured .pf-rf-tag{margin-bottom:10px;display:inline-block}" +
+      ".pf-rf-linkrow{display:flex;gap:10px;align-items:stretch}" +
+      ".pf-rf-linkbox{flex:1;display:flex;align-items:center;padding:12px 16px;background:#F6F2E8;border:1.5px dashed #D8D1C2;border-radius:12px;font-family:ui-monospace,Menlo,monospace;font-size:14px;font-weight:600;color:#2F2F2F;overflow-x:auto;white-space:nowrap}" +
       ".pf-rf-err{display:none;font-size:13px;font-weight:600;color:#C0392B;margin-top:16px}" +
       ".pf-rf-fine{border-left:4px solid #FBC02D;background:#F6F2E8;border-radius:0 14px 14px 0;padding:24px 28px;margin:36px 0 0;font-size:16.5px;line-height:1.65;color:#4a4a48}" +
       ".pf-rf-fine b{color:#2F2F2F}" +
@@ -7877,6 +7885,7 @@
       ".pf-rf-steps{grid-template-columns:1fr;gap:10px}" +
       ".pf-rf-2col,.pf-rf-opts,.pf-rf-paths{grid-template-columns:1fr}" +
       ".pf-rf-lookup .pf-rf-2col{grid-template-columns:1fr 1fr}" +
+      ".pf-rf-linkrow{flex-direction:column}" +
       ".pf-rf-card{padding:26px 20px;border-radius:18px}" +
       "}";
     document.head.appendChild(st);
@@ -7915,7 +7924,17 @@
           '<div class="pf-rf-other" id="pf-rf-other-wrap"><input class="pf-rf-input" id="pf-rf-other" type="text" placeholder="What would you love? (~$250 value)"></div>' +
           '<div class="pf-rf-div"></div>' +
           '<div class="pf-rf-h2"><span class="num">3</span>Make the referral</div>' +
-          '<p class="pf-rf-hint">Pick whichever feels more natural &mdash; a warm intro from you, or a friendly note from us.</p>' +
+          '<p class="pf-rf-hint">Easiest: just send them the link. Prefer a warmer touch? Write the intro yourself, or have us reach out.</p>' +
+          '<div class="pf-rf-featured">' +
+            '<span class="pf-rf-tag">Easiest &mdash; start here</span>' +
+            '<h3>Just send them this link</h3>' +
+            '<p>Text it, Slack it, email it. It opens a short form and we take it from there. <b>One thing: make sure they write you in under &ldquo;Who referred you?&rdquo;</b> &mdash; that&rsquo;s how your reward finds you. Fill in your name in step 1 first and the link will carry it for them automatically.</p>' +
+            '<div class="pf-rf-linkrow">' +
+              '<div class="pf-rf-linkbox">propfuel.com/i-was-referred</div>' +
+              '<button class="pf-rf-btn" id="pf-rf-copylink" type="button" style="width:auto;margin:0;flex-shrink:0">Copy link</button>' +
+            '</div>' +
+            '<div class="pf-rf-note" id="pf-rf-note-link"></div>' +
+          '</div>' +
           '<div class="pf-rf-paths">' +
             '<div class="pf-rf-path">' +
               '<span class="pf-rf-tag">Fastest</span>' +
@@ -8008,6 +8027,29 @@
         }
       } catch (e) {}
     }
+
+    document.getElementById('pf-rf-copylink').addEventListener('click', function () {
+      var name = (document.getElementById('pf-rf-name').value || '').trim();
+      var url = 'https://www.propfuel.com/i-was-referred' + (name ? '?ref=' + encodeURIComponent(name) : '');
+      var noteL = document.getElementById('pf-rf-note-link');
+      function done() {
+        track('link_share');
+        noteL.innerHTML = name
+          ? '&#9989; Copied &mdash; your name rides along in the link, so &ldquo;Who referred you?&rdquo; fills itself in for them.'
+          : '&#9989; Copied. Tip: add your name in step 1 and copy again &mdash; the link will pre-fill you as the referrer.';
+        noteL.style.display = 'block';
+      }
+      function fb() {
+        var ta = document.createElement('textarea');
+        ta.value = url; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); } catch (e) {}
+        document.body.removeChild(ta); done();
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(done).catch(fb);
+      } else { fb(); }
+    });
 
     function buildIntro() {
       var r = getReferrer();
@@ -8141,6 +8183,167 @@
         noteB.style.display = 'block';
         window.location.href = 'mailto:' + REFERRAL_INBOX + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
       }
+    });
+  }
+
+  // ─────────────────────────────────────────
+  // /I-WAS-REFERRED — REFERRAL DEMO REQUEST FORM
+  // Standalone form for people who were referred by a PropFuel client. Same
+  // fields and HubSpot form (f8009d2f, the /book-a-demo form) + ChiliPiper
+  // handoff as the demo page, but "Who referred you?" replaces "How did you
+  // hear about PropFuel?" (submitted into that same property, prefixed
+  // "Referred by:"). ?ref=Name in the URL pre-fills the referrer — the
+  // /referrals copy-link button embeds it automatically.
+  // ─────────────────────────────────────────
+  function renderReferredPage() {
+    if (!/^\/i-was-referred(\/|$)/.test(window.location.pathname)) return;
+    var FORM_ID = 'f8009d2f-d93b-40b1-a669-d6c112abe6a5';
+    var AMS_OPTS = ['AAP Api', 'Aawin', ['ACGI Software Association Anywhere', 'ACGI Association Anywhere'], 'Altai Systems', 'AM.NET', 'Aptify', 'Blue Ocean Ideas AMS', 'Custom System', 'Euclid ClearVantage', 'FileMaker Pro', 'Fonteva', 'GrowthZone', 'HubSpot', 'i4A', 'iMIS', 'Impexium', 'IntelLinx', 'MatrixMaxx', 'MemberClicks', 'MemberMax', 'MemberNova', 'MemberSuite', 'MS Dynamics', 'Naylor AMS', 'Neon CRM', ['netFORUM', 'netFORUM Enterprise'], 'netFORUM Pro', 'Nimble AMS', 'NOAH AMS', 'Novi', 'Personify', 'Protech AMS', 'Rhythm', 'Salesforce', 'SilkStart', 'Wicket', 'Wild Apricot', 'YourMembership'];
+    var main = document.querySelector('main, .main-wrapper, .page-wrapper');
+    if (!main) {
+      var nav = document.querySelector('.pf-nav-bar, [class*="nav-bar"]');
+      var footer = document.querySelector('.pf-footer, [class*="footer"]');
+      main = document.createElement('main');
+      if (nav && nav.parentNode) { nav.parentNode.insertBefore(main, nav.nextSibling); }
+      else if (footer && footer.parentNode) { footer.parentNode.insertBefore(main, footer); }
+      else { document.body.appendChild(main); }
+    }
+    var st = document.createElement('style');
+    st.id = 'pf-iwr-styles';
+    st.textContent =
+      ".pf-iwr{font-family:'DM Sans',system-ui,sans-serif;color:#2F2F2F;-webkit-font-smoothing:antialiased}" +
+      ".pf-iwr-container{max-width:640px;margin:0 auto;padding:0 24px}" +
+      ".pf-iwr-hero{padding:110px 0 8px;text-align:center}" +
+      ".pf-iwr-eyebrow{font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#F47C2C;margin-bottom:16px}" +
+      ".pf-iwr h1{font-size:clamp(32px,4.6vw,48px);font-weight:800;letter-spacing:-0.02em;line-height:1.1;margin:0 0 14px}" +
+      ".pf-iwr .accent{background:linear-gradient(to right,#F47C2C,#FBC02D);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}" +
+      ".pf-iwr-sub{font-size:clamp(16px,1.5vw,18px);line-height:1.6;color:#6E6E6E;max-width:520px;margin:0 auto}" +
+      ".pf-iwr-card{background:#F6F2E8;border:1px solid #E3DDD2;border-radius:22px;padding:34px 30px;box-shadow:0 12px 48px rgba(120,110,95,0.10);margin:28px 0 0;text-align:left}" +
+      ".pf-iwr-label{display:block;font-size:13.5px;font-weight:700;margin:0 0 7px}" +
+      ".pf-iwr-label .req{color:#F47C2C}" +
+      ".pf-iwr-field{margin-bottom:16px}" +
+      ".pf-iwr-input,.pf-iwr-select,.pf-iwr-ta{width:100%;box-sizing:border-box;padding:13px 16px;font-size:16px;font-family:'DM Sans',sans-serif;color:#2F2F2F;background:#FFFFFF;border:1.5px solid #E3DDD2;border-radius:12px;transition:border-color .2s ease,box-shadow .2s ease;-webkit-appearance:none;appearance:none}" +
+      ".pf-iwr-select{background-image:url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' stroke='%236E6E6E' stroke-width='2' fill='none' stroke-linecap='round'/></svg>\");background-repeat:no-repeat;background-position:right 16px center;padding-right:40px}" +
+      ".pf-iwr-ta{min-height:88px;resize:vertical}" +
+      ".pf-iwr-input:focus,.pf-iwr-select:focus,.pf-iwr-ta:focus{outline:none;border-color:#F47C2C;box-shadow:0 0 0 3px rgba(244,124,44,0.15)}" +
+      ".pf-iwr-input::placeholder,.pf-iwr-ta::placeholder{color:#A99F8E}" +
+      ".pf-iwr-2col{display:grid;grid-template-columns:1fr 1fr;gap:14px}" +
+      ".pf-iwr-ref{background:rgba(244,124,44,0.07);border:1.5px solid rgba(244,124,44,0.35);border-radius:14px;padding:14px 14px 2px;margin-bottom:16px}" +
+      ".pf-iwr-ref .rh{font-size:12px;color:#6E6E6E;line-height:1.45;margin:-4px 0 10px}" +
+      ".pf-iwr-cta{display:inline-flex;align-items:center;justify-content:center;width:100%;box-sizing:border-box;padding:17px 32px;font-size:16px;font-weight:700;font-family:'DM Sans',sans-serif;line-height:1;color:#FFFFFF;background:linear-gradient(to right,#F47C2C,#FBC02D);border:none;border-radius:100px;cursor:pointer;box-shadow:0 6px 20px rgba(240,90,40,0.22);transition:color .3s ease,box-shadow .3s ease;-webkit-appearance:none;appearance:none;margin-top:6px}" +
+      ".pf-iwr-cta:hover{color:#1A1714;box-shadow:0 8px 28px rgba(251,192,45,0.36)}" +
+      ".pf-iwr-cta:disabled{cursor:wait;opacity:0.75}" +
+      ".pf-iwr-msg{display:none;margin:12px 0 0;font-size:13px;line-height:1.45;font-weight:600}" +
+      ".pf-iwr-success{text-align:center;padding:14px 0}" +
+      ".pf-iwr-success-icon{display:inline-flex;align-items:center;justify-content:center;width:72px;height:72px;border-radius:50%;background:rgba(244,124,44,0.10);color:#F47C2C;margin-bottom:16px}" +
+      ".pf-iwr-success h3{font-size:24px;font-weight:700;margin:0 0 8px;letter-spacing:-0.01em}" +
+      ".pf-iwr-success p{font-size:15px;line-height:1.55;color:#6E6E6E;margin:0}" +
+      ".pf-iwr-bottom{padding:12px 0 96px}" +
+      "@media (max-width:640px){.pf-iwr-2col{grid-template-columns:1fr}.pf-iwr-card{padding:26px 20px;border-radius:18px}.pf-iwr-hero{padding:90px 0 4px}}";
+    document.head.appendChild(st);
+
+    var amsOptions = '<option value="">Please select</option>' + AMS_OPTS.map(function (o) {
+      var v = typeof o === 'string' ? o : o[0];
+      var l = typeof o === 'string' ? o : o[1];
+      return '<option value="' + v + '">' + l + '</option>';
+    }).join('');
+
+    main.innerHTML =
+      '<div class="pf-iwr" style="background:#F4F1EA">' +
+      '<section class="pf-iwr-hero"><div class="pf-iwr-container">' +
+        '<div class="pf-iwr-eyebrow">You&rsquo;ve been referred</div>' +
+        '<h1>Someone thinks you should <span class="accent">meet PropFuel.</span></h1>' +
+        '<p class="pf-iwr-sub">Good friend to have. Fill this out and we&rsquo;ll set up a personalized walkthrough for your association &mdash; and make sure they get credit for the intro.</p>' +
+      '</div></section>' +
+      '<section class="pf-iwr-bottom"><div class="pf-iwr-container">' +
+        '<div class="pf-iwr-card"><form id="pf-iwr-form" novalidate>' +
+          '<div class="pf-iwr-ref">' +
+            '<div class="pf-iwr-field"><label class="pf-iwr-label" for="pf-iwr-ref">Who referred you? <span class="req">*</span></label>' +
+            '<div class="rh">Their name goes here &mdash; it&rsquo;s how they get thanked for the intro.</div>' +
+            '<input class="pf-iwr-input" id="pf-iwr-ref" type="text" placeholder="Jane Smith, American Widget Association"></div>' +
+          '</div>' +
+          '<div class="pf-iwr-2col">' +
+            '<div class="pf-iwr-field"><label class="pf-iwr-label" for="pf-iwr-first">First name</label><input class="pf-iwr-input" id="pf-iwr-first" type="text" autocomplete="given-name"></div>' +
+            '<div class="pf-iwr-field"><label class="pf-iwr-label" for="pf-iwr-last">Last name</label><input class="pf-iwr-input" id="pf-iwr-last" type="text" autocomplete="family-name"></div>' +
+          '</div>' +
+          '<div class="pf-iwr-field"><label class="pf-iwr-label" for="pf-iwr-email">Work email <span class="req">*</span></label><input class="pf-iwr-input" id="pf-iwr-email" type="email" placeholder="you@association.org" autocomplete="email"></div>' +
+          '<div class="pf-iwr-2col">' +
+            '<div class="pf-iwr-field"><label class="pf-iwr-label" for="pf-iwr-title">Job title</label><input class="pf-iwr-input" id="pf-iwr-title" type="text" autocomplete="organization-title"></div>' +
+            '<div class="pf-iwr-field"><label class="pf-iwr-label" for="pf-iwr-company">Company</label><input class="pf-iwr-input" id="pf-iwr-company" type="text" autocomplete="organization"></div>' +
+          '</div>' +
+          '<div class="pf-iwr-field"><label class="pf-iwr-label" for="pf-iwr-ams">AMS platform</label><select class="pf-iwr-select" id="pf-iwr-ams">' + amsOptions + '</select></div>' +
+          '<div class="pf-iwr-field"><label class="pf-iwr-label" for="pf-iwr-else">Anything else we should know?</label><textarea class="pf-iwr-ta" id="pf-iwr-else"></textarea></div>' +
+          '<button class="pf-iwr-cta" id="pf-iwr-submit" type="submit">Book My Demo</button>' +
+          '<p class="pf-iwr-msg" id="pf-iwr-msg"></p>' +
+        '</form></div>' +
+      '</div></section>' +
+      '</div>';
+
+    // ?ref=Name pre-fills the referrer (the /referrals copy-link embeds it)
+    try {
+      var refParam = new URLSearchParams(window.location.search).get('ref');
+      if (refParam) document.getElementById('pf-iwr-ref').value = refParam;
+    } catch (e) {}
+
+    if (!document.querySelector('script[src*="chilipiper.com/marketing"]')) {
+      var cpScript = document.createElement('script');
+      cpScript.src = 'https://js.chilipiper.com/marketing.js';
+      cpScript.type = 'text/javascript';
+      document.head.appendChild(cpScript);
+    }
+
+    var form = document.getElementById('pf-iwr-form');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var msgEl = document.getElementById('pf-iwr-msg');
+      var btn = document.getElementById('pf-iwr-submit');
+      function fail(t) { msgEl.textContent = t; msgEl.style.color = '#C5392E'; msgEl.style.display = 'block'; }
+      msgEl.style.display = 'none';
+      var val = function (id) { return (document.getElementById(id).value || '').trim(); };
+      var ref = val('pf-iwr-ref');
+      var email = val('pf-iwr-email');
+      if (!ref) { fail('Tell us who referred you — they’ve got a reward riding on it.'); return; }
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { fail('Please enter a valid work email.'); return; }
+      btn.disabled = true;
+      var originalText = btn.innerHTML;
+      btn.innerHTML = 'Submitting…';
+      var fields = [
+        { name: 'email', value: email },
+        { name: 'how_did_you_hear_about_propfuel_', value: 'Referred by: ' + ref }
+      ];
+      var opt = function (name, id) { var v = val(id); if (v) fields.push({ name: name, value: v }); };
+      opt('firstname', 'pf-iwr-first');
+      opt('lastname', 'pf-iwr-last');
+      opt('jobtitle', 'pf-iwr-title');
+      opt('company', 'pf-iwr-company');
+      opt('ams_platform__c', 'pf-iwr-ams');
+      opt('anything_else_we_should_know_', 'pf-iwr-else');
+      var hutk = (document.cookie.match(/(?:^|;\s*)hubspotutk=([^;]+)/) || [])[1];
+      var payload = { submittedAt: Date.now(), fields: fields, context: { pageUri: window.location.href, pageName: document.title } };
+      if (hutk) payload.context.hutk = hutk;
+      fetch('https://api.hsforms.com/submissions/v3/integration/submit/21158441/' + FORM_ID, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
+      }).then(function (r) {
+        if (r.ok) return r.json();
+        return r.json().then(function (err) {
+          throw new Error((err && err.errors && err.errors[0] && err.errors[0].message) || 'Submission failed.');
+        });
+      }).then(function () {
+        pfTrackLead('i-was-referred');
+        var lead = { email: email, firstname: val('pf-iwr-first'), lastname: val('pf-iwr-last') };
+        if (window.ChiliPiper) {
+          ChiliPiper.submit('propfuel', 'Inbound_Router', { map: true, lead: lead });
+          form.innerHTML = '<div class="pf-iwr-success"><div class="pf-iwr-success-icon">' +
+            '<svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>' +
+            '</div><h3>You&rsquo;re in.</h3><p>The calendar should be opening now — pick a time that works. We&rsquo;ll make sure your referrer gets the credit.</p></div>';
+        } else {
+          form.innerHTML = '<div class="pf-iwr-success"><h3>You&rsquo;re in.</h3><p>Thanks! <a href="/book-a-demo" style="color:#F47C2C;font-weight:700;text-decoration:underline">Click here to book a time</a> on the calendar.</p></div>';
+        }
+      }).catch(function (err) {
+        btn.disabled = false;
+        btn.innerHTML = originalText;
+        fail(err.message || 'Something went wrong. Please try again.');
+      });
     });
   }
 
@@ -8901,6 +9104,7 @@
     renderMmctPage();
     renderBroadcastPage();
     renderReferralsPage();
+    renderReferredPage();
     renderMmctSessionPage();
     renderEventDemoPage();
     renderWebinarPromoPopup();
