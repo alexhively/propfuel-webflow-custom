@@ -8359,7 +8359,14 @@
         });
       }).then(function () {
         pfTrackLead('i-was-referred');
-        var lead = { email: email, firstname: val('pf-iwr-first'), lastname: val('pf-iwr-last') };
+        // Standard HubSpot internal names only — ChiliPiper's map:true silently
+        // fails on custom field names and would open the booker blank.
+        var lead = { email: email };
+        var addLead = function (k, id) { var v = val(id); if (v) lead[k] = v; };
+        addLead('firstname', 'pf-iwr-first');
+        addLead('lastname', 'pf-iwr-last');
+        addLead('company', 'pf-iwr-company');
+        addLead('jobtitle', 'pf-iwr-title');
         if (window.ChiliPiper) {
           ChiliPiper.submit('propfuel', 'referral-program', {
             map: true,
