@@ -487,7 +487,7 @@
     '/mmct': { title: 'Pull from the Bag of Money \u2014 MMCT Demo Request | PropFuel', desc: 'Met us at MMCT? Drop your email to grab time on the calendar and see PropFuel in action for your association.', ogImage: '/og-images/demo.png' },
     '/asae-annual': { title: 'Met Us at ASAE Annual? Book Your Demo | PropFuel', desc: 'Met us at ASAE Annual? Drop your email to grab time on the calendar and see PropFuel in action for your association.', ogImage: '/og-images/demo.png' },
     '/where-broadcast-ends': { title: 'Where Broadcast Ends and PropFuel Begins | PropFuel', desc: 'For associations buying a broadcast platform for the first time, replacing one, or consolidating several — where HubSpot, Marketo, and Higher Logic Thrive stop, and conversational engagement begins.', ogImage: '/og-images/demo.png' },
-    '/referrals': { title: 'Refer an Association — PropFuel Referral Program | PropFuel', desc: 'Know an association that should be using PropFuel? Make a referral in under a minute and pick your reward: lunch for your team, a $250 gift card, a $250 donation to your association, or a special request.', ogImage: '/og-images/demo.png' },
+    '/referrals': { title: 'Refer an Association — PropFuel Referral Program | PropFuel', desc: 'Know an association that should be using PropFuel? Make a referral in under a minute and pick your reward: lunch for your team, a $250 gift card, $250 off PropFuel, a $250 donation to your association, or a special request.', ogImage: '/og-images/demo.png' },
     '/mmct-session': { title: 'What\'s Working in Membership \u2014 Session Slides | PropFuel', desc: "Thanks for joining our MMCT session. Drop your email and grab the slides \u2014 every chart, framework, and takeaway from the talk.", ogImage: 'https://alexhively.github.io/propfuel-webflow-custom/og-images/mmct-session.jpg' },
     '/event-demo': { title: 'Great Meeting You \u2014 Book Your PropFuel Demo | PropFuel', desc: "Met us at an event? Drop your email and grab time on our calendar. We'll show you exactly what PropFuel can do for your association.", ogImage: '/og-images/demo.png' },
     '/use-cases/onboarding': { title: 'Automate New Member Onboarding Journeys | PropFuel', desc: "Turn new member silence into engagement. PropFuel's onboarding automation delivers personalized check-ins that drive 3x engagement in the first 60 days.", ogImage: '/og-images/use-cases-onboarding.png' },
@@ -7869,10 +7869,10 @@
       '<section class="pf-rf-hero"><div class="pf-rf-container">' +
         '<div class="pf-rf-eyebrow">PropFuel Referral Program</div>' +
         '<h1>Know an association that<br>should know <span class="accent">PropFuel?</span></h1>' +
-        '<p class="pf-rf-sub">Introduce us. When your referral takes the demo and becomes a qualified opportunity, you pick the thank-you &mdash; lunch for your team, a gift card, a donation to your association, or something you dream up.</p>' +
+        '<p class="pf-rf-sub">Introduce us. When your referral takes the demo and becomes a qualified opportunity, you pick the thank-you &mdash; lunch for your team, a gift card, a discount on PropFuel, a donation to your association, or something you dream up.</p>' +
         '<div class="pf-rf-steps">' +
           '<div class="pf-rf-step"><div class="k">01</div><div class="t">Tell us who you are</div><div class="d">Name and work email, so we know who to thank.</div></div>' +
-          '<div class="pf-rf-step"><div class="k">02</div><div class="t">Pick your reward</div><div class="d">Four options. All worth $250. All earned the same way.</div></div>' +
+          '<div class="pf-rf-step"><div class="k">02</div><div class="t">Pick your reward</div><div class="d">Five options. All worth $250. All earned the same way.</div></div>' +
           '<div class="pf-rf-step"><div class="k">03</div><div class="t">Make the intro</div><div class="d">Two ways to do it &mdash; both take under a minute.</div></div>' +
         '</div>' +
       '</div></section>' +
@@ -7891,7 +7891,8 @@
             '<div class="pf-rf-opt" data-key="lunch"><div class="t">&#127829; Lunch for your team</div><div class="d">Up to $250, on us. Sushi in the office or DoorDash for the remote crew &mdash; dealer&rsquo;s choice.</div></div>' +
             '<div class="pf-rf-opt" data-key="giftcard"><div class="t">&#128179; A $250 gift card</div><div class="d">Just for you. Spend it on whatever you want.</div></div>' +
             '<div class="pf-rf-opt" data-key="donation"><div class="t">&#128155; A $250 donation</div><div class="d">Made to your association, in your name.</div></div>' +
-            '<div class="pf-rf-opt" data-key="other"><div class="t">&#127873; Something else</div><div class="d">Have a better idea? Request a special gift and we&rsquo;ll see what we can do.</div></div>' +
+            '<div class="pf-rf-opt" data-key="discount"><div class="t">&#127991;&#65039; $250 off PropFuel</div><div class="d">Credited to your association&rsquo;s PropFuel subscription. Our most-requested reward.</div></div>' +
+            '<div class="pf-rf-opt" data-key="other" style="grid-column:1/-1"><div class="t">&#127873; Something else</div><div class="d">Have a better idea? Request a special gift and we&rsquo;ll see what we can do.</div></div>' +
           '</div>' +
           '<div class="pf-rf-other" id="pf-rf-other-wrap"><input class="pf-rf-input" id="pf-rf-other" type="text" placeholder="What would you love? (~$250 value)"></div>' +
           '<div class="pf-rf-div"></div>' +
@@ -7944,6 +7945,7 @@
       if (selectedKey === 'lunch') return 'Lunch for my team (up to $250)';
       if (selectedKey === 'giftcard') return '$250 gift card';
       if (selectedKey === 'donation') return '$250 donation to my association';
+      if (selectedKey === 'discount') return '$250 discount on our PropFuel subscription';
       if (selectedKey === 'other') {
         var w = (document.getElementById('pf-rf-other').value || '').trim();
         return 'Special request: ' + (w || '(not specified)');
