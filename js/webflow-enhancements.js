@@ -7872,9 +7872,6 @@
       ".pf-rf-mailbtn:hover{border-color:#F47C2C;box-shadow:0 2px 10px rgba(244,124,44,0.18)}" +
       ".pf-rf-mailbtn img{height:24px;width:auto;display:block}" +
       ".pf-rf-prev-note{font-size:12px;color:#6E6E6E;margin-top:12px;line-height:1.5}" +
-      ".pf-rf-lookup{margin:2px 0 14px;padding:14px;background:#F6F2E8;border:1px solid #E3DDD2;border-radius:12px}" +
-      ".pf-rf-lookup .lk-t{font-size:13.5px;font-weight:800}" +
-      ".pf-rf-lookup .lk-d{font-size:12.5px;color:#6E6E6E;line-height:1.45;margin:3px 0 10px}" +
       ".pf-rf-featured{background:#FFFFFF;border:2px solid #F47C2C;border-radius:16px;padding:22px 20px;margin-bottom:14px;box-shadow:0 6px 24px rgba(244,124,44,0.14)}" +
       ".pf-rf-featured h3{font-size:17px;font-weight:800;margin:0 0 8px;letter-spacing:-0.01em}" +
       ".pf-rf-featured p{font-size:13.5px;line-height:1.55;color:#6E6E6E;margin:0 0 14px}" +
@@ -7890,7 +7887,6 @@
       ".pf-rf-hero{padding:90px 0 32px}" +
       ".pf-rf-steps{grid-template-columns:1fr;gap:10px}" +
       ".pf-rf-2col,.pf-rf-opts,.pf-rf-paths{grid-template-columns:1fr}" +
-      ".pf-rf-lookup .pf-rf-2col{grid-template-columns:1fr 1fr}" +
       ".pf-rf-linkrow{flex-direction:column}" +
       ".pf-rf-card{padding:26px 20px;border-radius:18px}" +
       "}";
@@ -7964,16 +7960,7 @@
             '<div class="pf-rf-path">' +
               '<span class="pf-rf-tag pf-rf-tag-alt">Hands-off</span>' +
               '<h3>We&rsquo;ll make the first move</h3>' +
-              '<p>We&rsquo;ll send your referral a friendly note letting them know you sent them, with a link to book time with our team &mdash; using the email from step 1.</p>' +
-              '<div class="pf-rf-lookup">' +
-                '<div class="lk-t">Don&rsquo;t know their email?</div>' +
-                '<div class="lk-d">Give us their association and their first and last name &mdash; we&rsquo;ll find it.</div>' +
-                '<div class="pf-rf-2col" style="margin-bottom:10px">' +
-                  '<input class="pf-rf-input" id="pf-rf-lk-first" type="text" placeholder="First name">' +
-                  '<input class="pf-rf-input" id="pf-rf-lk-last" type="text" placeholder="Last name">' +
-                '</div>' +
-                '<input class="pf-rf-input" id="pf-rf-lk-assoc" type="text" placeholder="Their association">' +
-              '</div>' +
+              '<p>We&rsquo;ll email your referral a friendly note letting them know you sent them, with a link to book time with our team. We&rsquo;ll mention you by name &mdash; and we use the email you entered in step 1.</p>' +
               '<button class="pf-rf-btn" id="pf-rf-btn-b" type="button">Send the referral</button>' +
               '<div class="pf-rf-note" id="pf-rf-note-b"></div>' +
             '</div>' +
@@ -8147,34 +8134,28 @@
       var r = getReferrer();
       if (!r) return;
       var refEmail = getRefEmail();
-      var lkFirst = (document.getElementById('pf-rf-lk-first').value || '').trim();
-      var lkLast = (document.getElementById('pf-rf-lk-last').value || '').trim();
-      var lkAssoc = (document.getElementById('pf-rf-lk-assoc').value || '').trim();
-      var hasLookup = lkFirst && lkLast && lkAssoc;
-      if (!refEmail && !hasLookup) {
-        showErr('Add your referral’s work email in step 1 — or give us their first name, last name, and association and we’ll find it.');
+      if (!refEmail) {
+        showErr('Add your referral’s work email in step 1 so we know who to reach out to.');
         return;
       }
-      var refDesc = refEmail || (lkFirst + ' ' + lkLast + ' at ' + lkAssoc + ' (no email — please find it)');
       var noteB = document.getElementById('pf-rf-note-b');
       var btn = this;
-      if (REFERRAL_FORM && refEmail) {
+      if (REFERRAL_FORM) {
         btn.disabled = true;
         var hutk = (document.cookie.match(/hubspotutk=([^;]+)/) || [])[1];
-        // email/firstname/lastname describe the REFERRED person — they're who
-        // the created contact and the follow-up email belong to.
+        // The form's `email` field is still labeled "Referral email", so it holds
+        // the REFERRED person. Once a `referral_email` field exists, flip this:
+        // email → r.email (the referrer, so the contact + reward land on them),
+        // referral_email → refEmail, firstname/lastname → the referrer's name.
         var fields = [
           { name: 'email', value: refEmail },
           { name: 'referral_incentive', value: INCENTIVE_VALUES[selectedKey] || 'Something else' }
         ];
-        if (lkFirst) fields.push({ name: 'firstname', value: lkFirst });
-        if (lkLast) fields.push({ name: 'lastname', value: lkLast });
         // Referrer attribution has no dedicated form field yet — preserve it on
         // the submission record via the page URI so payouts can be traced.
         var attrib = 'referred_by=' + encodeURIComponent(r.name) +
           '&referred_by_email=' + encodeURIComponent(r.email) +
-          '&reward=' + encodeURIComponent(r.incentive) +
-          (lkAssoc ? '&referral_association=' + encodeURIComponent(lkAssoc) : '');
+          '&reward=' + encodeURIComponent(r.incentive);
         var payload = {
           submittedAt: Date.now(),
           fields: fields,
@@ -8200,7 +8181,7 @@
         // No HubSpot form wired up yet — route through the referrals inbox.
         var subject = 'New referral from ' + r.name;
         var body = 'Hi PropFuel team — please reach out to my referral.\n\n' +
-          'Referral: ' + refDesc + '\n' +
+          'Referral: ' + refEmail + '\n' +
           'Referred by: ' + r.name + ' (' + r.email + ')\n' +
           'Reward choice: ' + r.incentive + '\n\n' +
           'Sent from propfuel.com/referrals';
