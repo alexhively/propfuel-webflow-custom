@@ -7852,6 +7852,17 @@
       ".pf-rf-btn:hover{color:#1A1714;box-shadow:0 8px 28px rgba(251,192,45,0.36)}" +
       ".pf-rf-btn:disabled{cursor:wait;opacity:0.75}" +
       ".pf-rf-note{display:none;font-size:12.5px;line-height:1.5;color:#2F2F2F;background:rgba(244,124,44,0.10);border:1px solid rgba(244,124,44,0.3);border-radius:10px;padding:10px 12px;margin-top:12px}" +
+      ".pf-rf-preview{display:none;margin-top:14px;background:#F6F2E8;border:1px solid #E3DDD2;border-radius:12px;padding:14px}" +
+      ".pf-rf-prev-meta{font-size:12.5px;color:#6E6E6E;margin-bottom:4px}" +
+      ".pf-rf-prev-meta b{color:#2F2F2F}" +
+      ".pf-rf-prev-meta .add{color:#F47C2C;font-weight:700}" +
+      ".pf-rf-prev-body{white-space:pre-wrap;font-size:13px;line-height:1.55;color:#2F2F2F;background:#FFFFFF;border:1px solid #E3DDD2;border-radius:10px;padding:12px;margin:10px 0;max-height:240px;overflow:auto}" +
+      ".pf-rf-copybtn{display:block;width:100%;box-sizing:border-box;padding:10px 12px;font-size:13px;font-weight:700;font-family:'DM Sans',sans-serif;color:#2F2F2F;background:#FFFFFF;border:1.5px solid #E3DDD2;border-radius:100px;cursor:pointer;transition:border-color .15s ease,color .15s ease;-webkit-appearance:none;appearance:none}" +
+      ".pf-rf-copybtn:hover{border-color:#F47C2C;color:#F47C2C}" +
+      ".pf-rf-mailbtns{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:8px}" +
+      ".pf-rf-mailbtn{display:flex;align-items:center;justify-content:center;padding:10px 6px;font-size:12.5px;font-weight:700;color:#2F2F2F;background:#FFFFFF;border:1.5px solid #E3DDD2;border-radius:100px;text-decoration:none;cursor:pointer;text-align:center;transition:border-color .15s ease,color .15s ease}" +
+      ".pf-rf-mailbtn:hover{border-color:#F47C2C;color:#F47C2C}" +
+      ".pf-rf-prev-note{font-size:12px;color:#6E6E6E;margin-top:10px;line-height:1.5}" +
       ".pf-rf-err{display:none;font-size:13px;font-weight:600;color:#C0392B;margin-top:16px}" +
       ".pf-rf-fine{border-left:4px solid #FBC02D;background:#F6F2E8;border-radius:0 14px 14px 0;padding:20px 24px;margin:36px 0 0;font-size:14px;line-height:1.6;color:#4a4a48}" +
       ".pf-rf-fine b{color:#2F2F2F}" +
@@ -7859,7 +7870,7 @@
       "@media (max-width:720px){" +
       ".pf-rf-hero{padding:90px 0 32px}" +
       ".pf-rf-steps{grid-template-columns:1fr;gap:10px}" +
-      ".pf-rf-2col,.pf-rf-opts,.pf-rf-paths{grid-template-columns:1fr}" +
+      ".pf-rf-2col,.pf-rf-opts,.pf-rf-paths,.pf-rf-mailbtns{grid-template-columns:1fr}" +
       ".pf-rf-card{padding:26px 20px;border-radius:18px}" +
       "}";
     document.head.appendChild(st);
@@ -7902,9 +7913,20 @@
             '<div class="pf-rf-path">' +
               '<span class="pf-rf-tag">Fastest</span>' +
               '<h3>Send the intro yourself</h3>' +
-              '<p>Tap below and a pre-written intro opens in your email app with <b>' + REFERRAL_INBOX + '</b> already on it &mdash; booking link included. Just add your referral to the &ldquo;To&rdquo; line and hit send.</p>' +
-              '<button class="pf-rf-btn" id="pf-rf-btn-a" type="button">Open the pre-written email</button>' +
-              '<div class="pf-rf-note" id="pf-rf-note-a">&#9993;&#65039; Almost done &mdash; in your email app, add your referral&rsquo;s address to the <b>To</b> line and hit send. That&rsquo;s it.</div>' +
+              '<p>Tap below and we&rsquo;ll write the intro for you &mdash; <b>' + REFERRAL_INBOX + '</b> and the booking link included. Open it in Gmail, Outlook, or your mail app, add your referral to the &ldquo;To&rdquo; line, and hit send.</p>' +
+              '<button class="pf-rf-btn" id="pf-rf-btn-a" type="button">Write the intro for me</button>' +
+              '<div class="pf-rf-preview" id="pf-rf-preview">' +
+                '<div class="pf-rf-prev-meta"><b>To:</b> ' + REFERRAL_INBOX + ' <span class="add">+ your referral</span></div>' +
+                '<div class="pf-rf-prev-meta"><b>Subject:</b> <span id="pf-rf-prev-subj"></span></div>' +
+                '<div class="pf-rf-prev-body" id="pf-rf-prev-body"></div>' +
+                '<button class="pf-rf-copybtn" id="pf-rf-copy" type="button">&#128203; Copy the email text</button>' +
+                '<div class="pf-rf-mailbtns">' +
+                  '<a class="pf-rf-mailbtn" id="pf-rf-gmail" target="_blank" rel="noopener">Open in Gmail</a>' +
+                  '<a class="pf-rf-mailbtn" id="pf-rf-outlook" target="_blank" rel="noopener">Open in Outlook</a>' +
+                  '<a class="pf-rf-mailbtn" id="pf-rf-mailapp">Open in Mail app</a>' +
+                '</div>' +
+                '<div class="pf-rf-prev-note">&#9993;&#65039; Almost done &mdash; add your referral&rsquo;s address to the <b>To</b> line and hit send. That&rsquo;s it.</div>' +
+              '</div>' +
             '</div>' +
             '<div class="pf-rf-path">' +
               '<span class="pf-rf-tag pf-rf-tag-alt">Hands-off</span>' +
@@ -7972,9 +7994,9 @@
       } catch (e) {}
     }
 
-    document.getElementById('pf-rf-btn-a').addEventListener('click', function () {
+    function buildIntro() {
       var r = getReferrer();
-      if (!r) return;
+      if (!r) return null;
       var subject = 'You should meet PropFuel';
       var body = 'Hi —\n\n' +
         'I want to put PropFuel on your radar. Associations use it to ask members one smart question at a time and act on every answer — it’s been a genuinely useful way to drive engagement, retention, and revenue.\n\n' +
@@ -7982,9 +8004,53 @@
         'Hope it’s useful!\n' + r.name + '\n\n' +
         '—\n' +
         'PropFuel team: this referral comes from ' + r.name + ' (' + r.email + '). Reward choice: ' + r.incentive + '.';
+      return { subject: subject, body: body };
+    }
+    function fillPreview() {
+      var m = buildIntro();
+      if (!m) return null;
+      var es = encodeURIComponent(m.subject);
+      var eb = encodeURIComponent(m.body);
+      var et = encodeURIComponent(REFERRAL_INBOX);
+      document.getElementById('pf-rf-prev-subj').textContent = m.subject;
+      document.getElementById('pf-rf-prev-body').textContent = m.body;
+      document.getElementById('pf-rf-gmail').href = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + et + '&su=' + es + '&body=' + eb;
+      document.getElementById('pf-rf-outlook').href = 'https://outlook.office.com/mail/deeplink/compose?to=' + et + '&subject=' + es + '&body=' + eb;
+      document.getElementById('pf-rf-mailapp').href = 'mailto:' + REFERRAL_INBOX + '?subject=' + es + '&body=' + eb;
+      return m;
+    }
+    document.getElementById('pf-rf-btn-a').addEventListener('click', function () {
+      if (!fillPreview()) return;
       track('self_intro');
-      document.getElementById('pf-rf-note-a').style.display = 'block';
-      window.location.href = 'mailto:' + REFERRAL_INBOX + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      document.getElementById('pf-rf-preview').style.display = 'block';
+      this.textContent = 'Update the intro';
+    });
+    // Rebuild from the current field values right before launch/copy, so edits
+    // made after the preview was opened are never lost.
+    ['pf-rf-gmail', 'pf-rf-outlook', 'pf-rf-mailapp'].forEach(function (id) {
+      document.getElementById(id).addEventListener('click', function (ev) {
+        if (!fillPreview()) { ev.preventDefault(); }
+      });
+    });
+    document.getElementById('pf-rf-copy').addEventListener('click', function () {
+      var m = fillPreview();
+      if (!m) return;
+      var btn = this;
+      var text = 'To: ' + REFERRAL_INBOX + '\nSubject: ' + m.subject + '\n\n' + m.body;
+      function done() {
+        btn.textContent = '✓ Copied — paste it into a new email';
+        setTimeout(function () { btn.innerHTML = '&#128203; Copy the email text'; }, 2500);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done).catch(function () { fallbackCopy(text, done); });
+      } else { fallbackCopy(text, done); }
+      function fallbackCopy(t, cb) {
+        var ta = document.createElement('textarea');
+        ta.value = t; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); } catch (e) {}
+        document.body.removeChild(ta); cb();
+      }
     });
 
     document.getElementById('pf-rf-btn-b').addEventListener('click', function () {
