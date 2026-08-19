@@ -7797,7 +7797,13 @@
     // HubSpot form GUID for automated "we reach out" referrals. Expected
     // fields: email (referrer), firstname (referrer full name),
     // referral_email, referral_incentive. Empty = mailto fallback.
-    var REFERRAL_FORM = '';
+    // HubSpot "Send Referral" form. Its fields: firstname, lastname,
+    // email (labeled "Referral email" — i.e. the REFERRED person, which is who
+    // the contact record + follow-up email belong to), referral_incentive.
+    // NOTE: the form has no field for the referrer, so their name/email/reward
+    // detail ride along in context.pageUri (visible on the submission) until
+    // referred_by_name + referred_by_email fields are added to the form.
+    var REFERRAL_FORM = '7d4a47ba-ed5d-4cd9-a631-bf01c05bcb77';
     var REFERRAL_INBOX = 'referrals@propfuel.com';
     var BOOKING_LINK = 'https://www.propfuel.com/book-a-demo';
     var main = document.querySelector('main, .main-wrapper, .page-wrapper');
@@ -8008,6 +8014,15 @@
       }
       return '';
     }
+    // Must match the referral_incentive dropdown values on the HubSpot form
+    // exactly — the Forms API rejects values outside the option list.
+    var INCENTIVE_VALUES = {
+      'discount': '$250 discount on PropFuel',
+      'lunch': 'Lunch for your team',
+      'giftcard': '$250 gift card for you',
+      'donation': '$250 donation to your association',
+      'other': 'Something else'
+    };
     function getReferrer() {
       var name = (document.getElementById('pf-rf-name').value || '').trim();
       var email = (document.getElementById('pf-rf-email').value || '').trim();
@@ -8143,19 +8158,30 @@
       var refDesc = refEmail || (lkFirst + ' ' + lkLast + ' at ' + lkAssoc + ' (no email — please find it)');
       var noteB = document.getElementById('pf-rf-note-b');
       var btn = this;
-      if (REFERRAL_FORM) {
+      if (REFERRAL_FORM && refEmail) {
         btn.disabled = true;
         var hutk = (document.cookie.match(/hubspotutk=([^;]+)/) || [])[1];
+        // email/firstname/lastname describe the REFERRED person — they're who
+        // the created contact and the follow-up email belong to.
+        var fields = [
+          { name: 'email', value: refEmail },
+          { name: 'referral_incentive', value: INCENTIVE_VALUES[selectedKey] || 'Something else' }
+        ];
+        if (lkFirst) fields.push({ name: 'firstname', value: lkFirst });
+        if (lkLast) fields.push({ name: 'lastname', value: lkLast });
+        // Referrer attribution has no dedicated form field yet — preserve it on
+        // the submission record via the page URI so payouts can be traced.
+        var attrib = 'referred_by=' + encodeURIComponent(r.name) +
+          '&referred_by_email=' + encodeURIComponent(r.email) +
+          '&reward=' + encodeURIComponent(r.incentive) +
+          (lkAssoc ? '&referral_association=' + encodeURIComponent(lkAssoc) : '');
         var payload = {
-          fields: [
-            { name: 'email', value: r.email },
-            { name: 'firstname', value: r.name },
-            { name: 'referral_email', value: refEmail },
-            { name: 'referral_name', value: lkFirst || lkLast ? (lkFirst + ' ' + lkLast) : '' },
-            { name: 'referral_association', value: lkAssoc },
-            { name: 'referral_incentive', value: r.incentive }
-          ],
-          context: { pageUri: window.location.href, pageName: document.title }
+          submittedAt: Date.now(),
+          fields: fields,
+          context: {
+            pageUri: 'https://www.propfuel.com/referrals?' + attrib,
+            pageName: 'Referral Program — referred by ' + r.name + ' (' + r.email + ')'
+          }
         };
         if (hutk) payload.context.hutk = hutk;
         fetch('https://api.hsforms.com/submissions/v3/integration/submit/21158441/' + REFERRAL_FORM, {
@@ -8197,7 +8223,10 @@
   // ─────────────────────────────────────────
   function renderReferredPage() {
     if (!/^\/i-was-referred(\/|$)/.test(window.location.pathname)) return;
-    var FORM_ID = 'f8009d2f-d93b-40b1-a669-d6c112abe6a5';
+    // Dedicated "I was referred" HubSpot form. Same fields as the /book-a-demo
+    // form, but its "How did you hear about PropFuel?" property is relabeled
+    // "Who referred you?" so the referrer's name lands there raw.
+    var FORM_ID = 'e01dda9b-fbec-4fb2-ab4b-df452862fce4';
     var AMS_OPTS = ['AAP Api', 'Aawin', ['ACGI Software Association Anywhere', 'ACGI Association Anywhere'], 'Altai Systems', 'AM.NET', 'Aptify', 'Blue Ocean Ideas AMS', 'Custom System', 'Euclid ClearVantage', 'FileMaker Pro', 'Fonteva', 'GrowthZone', 'HubSpot', 'i4A', 'iMIS', 'Impexium', 'IntelLinx', 'MatrixMaxx', 'MemberClicks', 'MemberMax', 'MemberNova', 'MemberSuite', 'MS Dynamics', 'Naylor AMS', 'Neon CRM', ['netFORUM', 'netFORUM Enterprise'], 'netFORUM Pro', 'Nimble AMS', 'NOAH AMS', 'Novi', 'Personify', 'Protech AMS', 'Rhythm', 'Salesforce', 'SilkStart', 'Wicket', 'Wild Apricot', 'YourMembership'];
     var main = document.querySelector('main, .main-wrapper, .page-wrapper');
     if (!main) {
@@ -8309,7 +8338,7 @@
       btn.innerHTML = 'Submitting…';
       var fields = [
         { name: 'email', value: email },
-        { name: 'how_did_you_hear_about_propfuel_', value: 'Referred by: ' + ref }
+        { name: 'how_did_you_hear_about_propfuel_', value: ref }
       ];
       var opt = function (name, id) { var v = val(id); if (v) fields.push({ name: name, value: v }); };
       opt('firstname', 'pf-iwr-first');
@@ -8332,7 +8361,11 @@
         pfTrackLead('i-was-referred');
         var lead = { email: email, firstname: val('pf-iwr-first'), lastname: val('pf-iwr-last') };
         if (window.ChiliPiper) {
-          ChiliPiper.submit('propfuel', 'Inbound_Router', { map: true, lead: lead });
+          ChiliPiper.submit('propfuel', 'referral-program', {
+            map: true,
+            lead: lead,
+            title: 'Book time with the PropFuel team'
+          });
           form.innerHTML = '<div class="pf-iwr-success"><div class="pf-iwr-success-icon">' +
             '<svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>' +
             '</div><h3>You&rsquo;re in.</h3><p>The calendar should be opening now — pick a time that works. We&rsquo;ll make sure your referrer gets the credit.</p></div>';
