@@ -5976,6 +5976,7 @@
               '<a href="/company/careers" class="pf-footer-link">Careers</a>' +
               '<a href="/company/contact" class="pf-footer-link">Contact</a>' +
               '<a href="/company/partners" class="pf-footer-link">Partners</a>' +
+              '<a href="/referrals" class="pf-footer-link">Referral Program</a>' +
             '</div>' +
           '</div>' +
           '<div class="pf-footer-bottom">' +
@@ -5989,6 +5990,26 @@
     } else {
       var logoText = footer.querySelector('.pf-nav-logo-text');
       if (logoText) logoText.style.color = '#EDE8DF';
+    }
+    addFooterReferralLink();
+  }
+
+  // Appends "Referral Program" to the footer's Company column. Lives here rather
+  // than in the Webflow footer symbol so it applies site-wide (and to the
+  // injected CMS-template footer) in one place. Idempotent.
+  function addFooterReferralLink() {
+    var footer = document.querySelector('.pf-footer');
+    if (!footer || footer.querySelector('a[href="/referrals"]')) return;
+    var colTitles = footer.querySelectorAll('.pf-footer-col-title, h4');
+    for (var t = 0; t < colTitles.length; t++) {
+      if (/^\s*company\s*$/i.test(colTitles[t].textContent || '')) {
+        var refLink = document.createElement('a');
+        refLink.href = '/referrals';
+        refLink.className = 'pf-footer-link';
+        refLink.textContent = 'Referral Program';
+        colTitles[t].parentNode.appendChild(refLink);
+        return;
+      }
     }
   }
 
@@ -9139,6 +9160,7 @@
     renderWebinarPromoPopup();
     fixDuplicateHeroCtas();
     fixDeadResourceLinks();
+    addFooterReferralLink();
     // Clean up duplicates: hide original Webflow elements when injected ones exist
     var injectedBtns = document.querySelector('.pf-hero-btns-injected');
     if (injectedBtns) {
