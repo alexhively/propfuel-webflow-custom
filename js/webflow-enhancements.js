@@ -8143,26 +8143,34 @@
       if (REFERRAL_FORM) {
         btn.disabled = true;
         var hutk = (document.cookie.match(/hubspotutk=([^;]+)/) || [])[1];
-        // The form's `email` field is still labeled "Referral email", so it holds
-        // the REFERRED person. Once a `referral_email` field exists, flip this:
-        // email → r.email (the referrer, so the contact + reward land on them),
-        // referral_email → refEmail, firstname/lastname → the referrer's name.
+        // The contact this creates/updates is the REFERRER (email = "Your email"),
+        // so their name, reward choice, and referral all land on one record —
+        // that's what the #referrals notification and reward payouts read from.
+        var nameParts = r.name.split(/\s+/);
+        var firstName = nameParts.shift();
+        var lastName = nameParts.join(' ');
         var fields = [
-          { name: 'email', value: refEmail },
+          { name: 'email', value: r.email },
+          { name: 'firstname', value: firstName },
+          { name: 'referral_email', value: refEmail },
           { name: 'referral_incentive', value: INCENTIVE_VALUES[selectedKey] || 'Something else' }
         ];
-        // Referrer attribution has no dedicated form field yet — preserve it on
-        // the submission record via the page URI so payouts can be traced.
-        var attrib = 'referred_by=' + encodeURIComponent(r.name) +
-          '&referred_by_email=' + encodeURIComponent(r.email) +
-          '&reward=' + encodeURIComponent(r.incentive);
+        if (lastName) fields.push({ name: 'lastname', value: lastName });
+        // The write-in for "Something else" has no field of its own — carry it
+        // on the submission so the request isn't lost.
+        var pageUri = 'https://www.propfuel.com/referrals';
+        var pageName = 'Referral Program';
+        if (selectedKey === 'other') {
+          var special = (document.getElementById('pf-rf-other').value || '').trim();
+          if (special) {
+            pageUri += '?special_request=' + encodeURIComponent(special);
+            pageName += ' — special request: ' + special;
+          }
+        }
         var payload = {
           submittedAt: Date.now(),
           fields: fields,
-          context: {
-            pageUri: 'https://www.propfuel.com/referrals?' + attrib,
-            pageName: 'Referral Program — referred by ' + r.name + ' (' + r.email + ')'
-          }
+          context: { pageUri: pageUri, pageName: pageName }
         };
         if (hutk) payload.context.hutk = hutk;
         fetch('https://api.hsforms.com/submissions/v3/integration/submit/21158441/' + REFERRAL_FORM, {
