@@ -7910,6 +7910,7 @@
       ".pf-rf-2col,.pf-rf-opts,.pf-rf-paths{grid-template-columns:1fr}" +
       ".pf-rf-linkrow{flex-direction:column}" +
       ".pf-rf-card{padding:26px 20px;border-radius:18px}" +
+      ".pf-rf-tag{font-size:11.5px}.pf-rf-openin{font-size:12px}" +
       "}";
     document.head.appendChild(st);
 
