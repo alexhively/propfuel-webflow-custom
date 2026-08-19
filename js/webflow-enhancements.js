@@ -487,6 +487,7 @@
     '/mmct': { title: 'Pull from the Bag of Money \u2014 MMCT Demo Request | PropFuel', desc: 'Met us at MMCT? Drop your email to grab time on the calendar and see PropFuel in action for your association.', ogImage: '/og-images/demo.png' },
     '/asae-annual': { title: 'Met Us at ASAE Annual? Book Your Demo | PropFuel', desc: 'Met us at ASAE Annual? Drop your email to grab time on the calendar and see PropFuel in action for your association.', ogImage: '/og-images/demo.png' },
     '/where-broadcast-ends': { title: 'Where Broadcast Ends and PropFuel Begins | PropFuel', desc: 'For associations buying a broadcast platform for the first time, replacing one, or consolidating several — where HubSpot, Marketo, and Higher Logic Thrive stop, and conversational engagement begins.', ogImage: '/og-images/demo.png' },
+    '/referrals': { title: 'Refer an Association — PropFuel Referral Program | PropFuel', desc: 'Know an association that should be using PropFuel? Make a referral in under a minute and pick your reward: lunch for your team, a $250 gift card, a $250 donation to your association, or a special request.', ogImage: '/og-images/demo.png' },
     '/mmct-session': { title: 'What\'s Working in Membership \u2014 Session Slides | PropFuel', desc: "Thanks for joining our MMCT session. Drop your email and grab the slides \u2014 every chart, framework, and takeaway from the talk.", ogImage: 'https://alexhively.github.io/propfuel-webflow-custom/og-images/mmct-session.jpg' },
     '/event-demo': { title: 'Great Meeting You \u2014 Book Your PropFuel Demo | PropFuel', desc: "Met us at an event? Drop your email and grab time on our calendar. We'll show you exactly what PropFuel can do for your association.", ogImage: '/og-images/demo.png' },
     '/use-cases/onboarding': { title: 'Automate New Member Onboarding Journeys | PropFuel', desc: "Turn new member silence into engagement. PropFuel's onboarding automation delivers personalized check-ins that drive 3x engagement in the first 60 days.", ogImage: '/og-images/use-cases-onboarding.png' },
@@ -7782,6 +7783,257 @@
   }
 
   // ─────────────────────────────────────────
+  // /REFERRALS — CLIENT REFERRAL PROGRAM
+  // Two referral paths: (A) a pre-written mailto intro the referrer sends
+  // themselves with referrals@propfuel.com copied, and (B) "we reach out" —
+  // POSTs to a HubSpot form when REFERRAL_FORM is set; until then it falls
+  // back to a structured mailto to referrals@propfuel.com so the page works
+  // end-to-end with zero backend. Rewards are only sent after the referred
+  // person attends the demo and qualifies as an opportunity.
+  // ─────────────────────────────────────────
+  function renderReferralsPage() {
+    if (!/^\/referrals(\/|$)/.test(window.location.pathname)) return;
+    // HubSpot form GUID for automated "we reach out" referrals. Expected
+    // fields: email (referrer), firstname (referrer full name),
+    // referral_email, referral_incentive. Empty = mailto fallback.
+    var REFERRAL_FORM = '';
+    var REFERRAL_INBOX = 'referrals@propfuel.com';
+    var BOOKING_LINK = 'https://www.propfuel.com/book-a-demo';
+    var main = document.querySelector('main, .main-wrapper, .page-wrapper');
+    if (!main) {
+      var nav = document.querySelector('.pf-nav-bar, [class*="nav-bar"]');
+      var footer = document.querySelector('.pf-footer, [class*="footer"]');
+      main = document.createElement('main');
+      if (nav && nav.parentNode) { nav.parentNode.insertBefore(main, nav.nextSibling); }
+      else if (footer && footer.parentNode) { footer.parentNode.insertBefore(main, footer); }
+      else { document.body.appendChild(main); }
+    }
+    var st = document.createElement('style');
+    st.id = 'pf-rf-styles';
+    st.textContent =
+      ".pf-rf{font-family:'DM Sans',system-ui,sans-serif;color:#2F2F2F;-webkit-font-smoothing:antialiased}" +
+      ".pf-rf-container{max-width:820px;margin:0 auto;padding:0 24px}" +
+      ".pf-rf-eyebrow{font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#F47C2C;margin-bottom:16px}" +
+      ".pf-rf h1{font-size:clamp(36px,5vw,56px);font-weight:800;letter-spacing:-0.02em;line-height:1.08;margin:0 0 18px}" +
+      ".pf-rf .accent{background:linear-gradient(to right,#F47C2C,#FBC02D);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}" +
+      ".pf-rf-sub{font-size:clamp(17px,1.6vw,19px);line-height:1.6;color:#6E6E6E;max-width:620px;margin:0 0 0}" +
+      ".pf-rf-hero{padding:110px 0 44px;text-align:center}" +
+      ".pf-rf-hero .pf-rf-sub{margin:0 auto}" +
+      ".pf-rf-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:40px 0 0}" +
+      ".pf-rf-step{background:#F6F2E8;border:1px solid #E3DDD2;border-radius:16px;padding:18px 18px;text-align:left}" +
+      ".pf-rf-step .k{font-family:ui-monospace,Menlo,monospace;font-size:12px;font-weight:700;color:#F47C2C;margin-bottom:6px}" +
+      ".pf-rf-step .t{font-size:14.5px;font-weight:700;line-height:1.35}" +
+      ".pf-rf-step .d{font-size:12.5px;color:#6E6E6E;line-height:1.45;margin-top:4px}" +
+      ".pf-rf-card{background:#F6F2E8;border:1px solid #E3DDD2;border-radius:22px;padding:36px 32px;box-shadow:0 12px 48px rgba(120,110,95,0.10);margin:44px 0 0;text-align:left}" +
+      ".pf-rf-h2{display:flex;align-items:baseline;gap:10px;font-size:20px;font-weight:800;letter-spacing:-0.01em;margin:0 0 6px}" +
+      ".pf-rf-h2 .num{font-family:ui-monospace,Menlo,monospace;font-size:14px;font-weight:700;color:#F47C2C}" +
+      ".pf-rf-hint{font-size:14px;color:#6E6E6E;line-height:1.5;margin:0 0 18px}" +
+      ".pf-rf-2col{display:grid;grid-template-columns:1fr 1fr;gap:14px}" +
+      ".pf-rf-label{display:block;font-size:13.5px;font-weight:700;margin:0 0 7px}" +
+      ".pf-rf-input{width:100%;box-sizing:border-box;padding:13px 16px;font-size:16px;font-family:'DM Sans',sans-serif;color:#2F2F2F;background:#FFFFFF;border:1.5px solid #E3DDD2;border-radius:12px;transition:border-color .2s ease,box-shadow .2s ease;-webkit-appearance:none;appearance:none}" +
+      ".pf-rf-input:focus{outline:none;border-color:#F47C2C;box-shadow:0 0 0 3px rgba(244,124,44,0.15)}" +
+      ".pf-rf-input::placeholder{color:#A99F8E}" +
+      ".pf-rf-div{border-top:1px solid #E3DDD2;margin:30px 0}" +
+      ".pf-rf-opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}" +
+      ".pf-rf-opt{position:relative;background:#FFFFFF;border:1.5px solid #E3DDD2;border-radius:14px;padding:16px 16px 16px 46px;cursor:pointer;transition:border-color .15s ease,box-shadow .15s ease}" +
+      ".pf-rf-opt::before{content:'';position:absolute;left:16px;top:19px;width:18px;height:18px;border-radius:50%;border:2px solid #D8D1C2;background:#fff;transition:border-color .15s ease}" +
+      ".pf-rf-opt.sel{border-color:#F47C2C;box-shadow:0 0 0 3px rgba(244,124,44,0.14)}" +
+      ".pf-rf-opt.sel::before{border-color:#F47C2C;border-width:6px}" +
+      ".pf-rf-opt .t{font-size:15px;font-weight:700;line-height:1.3}" +
+      ".pf-rf-opt .d{font-size:12.5px;color:#6E6E6E;line-height:1.45;margin-top:3px}" +
+      ".pf-rf-other{display:none;margin-top:12px}" +
+      ".pf-rf-paths{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:stretch}" +
+      ".pf-rf-path{display:flex;flex-direction:column;background:#FFFFFF;border:1.5px solid #E3DDD2;border-radius:16px;padding:22px 20px}" +
+      ".pf-rf-path h3{font-size:16.5px;font-weight:800;margin:0 0 8px;letter-spacing:-0.01em}" +
+      ".pf-rf-path p{font-size:13.5px;line-height:1.55;color:#6E6E6E;margin:0 0 16px}" +
+      ".pf-rf-tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:4px 10px;border-radius:100px;background:linear-gradient(to right,#F47C2C,#FBC02D);color:#fff;margin-bottom:10px;align-self:flex-start}" +
+      ".pf-rf-tag-alt{background:#2F2F2F}" +
+      ".pf-rf-btn{display:inline-flex;align-items:center;justify-content:center;width:100%;box-sizing:border-box;padding:15px 24px;font-size:15px;font-weight:700;font-family:'DM Sans',sans-serif;line-height:1;color:#FFFFFF;background:linear-gradient(to right,#F47C2C,#FBC02D);border:none;border-radius:100px;cursor:pointer;box-shadow:0 6px 20px rgba(240,90,40,0.22);transition:color .3s ease,box-shadow .3s ease;margin-top:auto;-webkit-appearance:none;appearance:none}" +
+      ".pf-rf-btn:hover{color:#1A1714;box-shadow:0 8px 28px rgba(251,192,45,0.36)}" +
+      ".pf-rf-btn:disabled{cursor:wait;opacity:0.75}" +
+      ".pf-rf-note{display:none;font-size:12.5px;line-height:1.5;color:#2F2F2F;background:rgba(244,124,44,0.10);border:1px solid rgba(244,124,44,0.3);border-radius:10px;padding:10px 12px;margin-top:12px}" +
+      ".pf-rf-err{display:none;font-size:13px;font-weight:600;color:#C0392B;margin-top:16px}" +
+      ".pf-rf-fine{border-left:4px solid #FBC02D;background:#F6F2E8;border-radius:0 14px 14px 0;padding:20px 24px;margin:36px 0 0;font-size:14px;line-height:1.6;color:#4a4a48}" +
+      ".pf-rf-fine b{color:#2F2F2F}" +
+      ".pf-rf-bottom{padding:64px 0 96px}" +
+      "@media (max-width:720px){" +
+      ".pf-rf-hero{padding:90px 0 32px}" +
+      ".pf-rf-steps{grid-template-columns:1fr;gap:10px}" +
+      ".pf-rf-2col,.pf-rf-opts,.pf-rf-paths{grid-template-columns:1fr}" +
+      ".pf-rf-card{padding:26px 20px;border-radius:18px}" +
+      "}";
+    document.head.appendChild(st);
+
+    main.innerHTML =
+      '<div class="pf-rf" style="background:#F4F1EA">' +
+      '<section class="pf-rf-hero"><div class="pf-rf-container">' +
+        '<div class="pf-rf-eyebrow">PropFuel Referral Program</div>' +
+        '<h1>Know an association that<br>should know <span class="accent">PropFuel?</span></h1>' +
+        '<p class="pf-rf-sub">Introduce us. When your referral takes the demo and becomes a qualified opportunity, you pick the thank-you &mdash; lunch for your team, a gift card, a donation to your association, or something you dream up.</p>' +
+        '<div class="pf-rf-steps">' +
+          '<div class="pf-rf-step"><div class="k">01</div><div class="t">Tell us who you are</div><div class="d">Name and work email, so we know who to thank.</div></div>' +
+          '<div class="pf-rf-step"><div class="k">02</div><div class="t">Pick your reward</div><div class="d">Four options. All worth $250. All earned the same way.</div></div>' +
+          '<div class="pf-rf-step"><div class="k">03</div><div class="t">Make the intro</div><div class="d">Two ways to do it &mdash; both take under a minute.</div></div>' +
+        '</div>' +
+      '</div></section>' +
+      '<section class="pf-rf-bottom"><div class="pf-rf-container">' +
+        '<div class="pf-rf-card">' +
+          '<div class="pf-rf-h2"><span class="num">1</span>Who&rsquo;s referring?</div>' +
+          '<p class="pf-rf-hint">So we know who the reward goes to.</p>' +
+          '<div class="pf-rf-2col">' +
+            '<div><label class="pf-rf-label" for="pf-rf-name">Your name</label><input class="pf-rf-input" id="pf-rf-name" type="text" placeholder="Jane Smith" autocomplete="name"></div>' +
+            '<div><label class="pf-rf-label" for="pf-rf-email">Your work email</label><input class="pf-rf-input" id="pf-rf-email" type="email" placeholder="you@association.org" autocomplete="email"></div>' +
+          '</div>' +
+          '<div class="pf-rf-div"></div>' +
+          '<div class="pf-rf-h2"><span class="num">2</span>Pick your reward</div>' +
+          '<p class="pf-rf-hint">Sent to you once your referral&rsquo;s demo happens and qualifies.</p>' +
+          '<div class="pf-rf-opts" id="pf-rf-opts">' +
+            '<div class="pf-rf-opt" data-key="lunch"><div class="t">&#127829; Lunch for your team</div><div class="d">Up to $250, on us. Sushi in the office or DoorDash for the remote crew &mdash; dealer&rsquo;s choice.</div></div>' +
+            '<div class="pf-rf-opt" data-key="giftcard"><div class="t">&#128179; A $250 gift card</div><div class="d">Just for you. Spend it on whatever you want.</div></div>' +
+            '<div class="pf-rf-opt" data-key="donation"><div class="t">&#128155; A $250 donation</div><div class="d">Made to your association, in your name.</div></div>' +
+            '<div class="pf-rf-opt" data-key="other"><div class="t">&#127873; Something else</div><div class="d">Have a better idea? Request a special gift and we&rsquo;ll see what we can do.</div></div>' +
+          '</div>' +
+          '<div class="pf-rf-other" id="pf-rf-other-wrap"><input class="pf-rf-input" id="pf-rf-other" type="text" placeholder="What would you love? (~$250 value)"></div>' +
+          '<div class="pf-rf-div"></div>' +
+          '<div class="pf-rf-h2"><span class="num">3</span>Make the referral</div>' +
+          '<p class="pf-rf-hint">Pick whichever feels more natural &mdash; a warm intro from you, or a friendly note from us.</p>' +
+          '<div class="pf-rf-paths">' +
+            '<div class="pf-rf-path">' +
+              '<span class="pf-rf-tag">Fastest</span>' +
+              '<h3>Send the intro yourself</h3>' +
+              '<p>Tap below and a pre-written intro opens in your email app with <b>' + REFERRAL_INBOX + '</b> already on it &mdash; booking link included. Just add your referral to the &ldquo;To&rdquo; line and hit send.</p>' +
+              '<button class="pf-rf-btn" id="pf-rf-btn-a" type="button">Open the pre-written email</button>' +
+              '<div class="pf-rf-note" id="pf-rf-note-a">&#9993;&#65039; Almost done &mdash; in your email app, add your referral&rsquo;s address to the <b>To</b> line and hit send. That&rsquo;s it.</div>' +
+            '</div>' +
+            '<div class="pf-rf-path">' +
+              '<span class="pf-rf-tag pf-rf-tag-alt">Hands-off</span>' +
+              '<h3>We&rsquo;ll make the first move</h3>' +
+              '<p>Drop their work email. We&rsquo;ll send them a friendly note letting them know you referred them, with a link to book time with our team.</p>' +
+              '<label class="pf-rf-label" for="pf-rf-ref-email" style="margin-top:2px">Their work email</label>' +
+              '<input class="pf-rf-input" id="pf-rf-ref-email" type="email" placeholder="them@association.org" style="margin-bottom:14px">' +
+              '<button class="pf-rf-btn" id="pf-rf-btn-b" type="button">Send the referral</button>' +
+              '<div class="pf-rf-note" id="pf-rf-note-b"></div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="pf-rf-err" id="pf-rf-err"></div>' +
+        '</div>' +
+        '<div class="pf-rf-fine"><b>How rewards work:</b> we send your reward after your referral attends their demo and is qualified as a sales opportunity &mdash; not when the meeting gets booked. That&rsquo;s the only fine print. There&rsquo;s no cap: every qualified referral earns a reward, so refer as many people as you like.</div>' +
+      '</div></section>' +
+      '</div>';
+
+    var selectedKey = '';
+    var opts = main.querySelectorAll('.pf-rf-opt');
+    var otherWrap = document.getElementById('pf-rf-other-wrap');
+    for (var i = 0; i < opts.length; i++) {
+      opts[i].addEventListener('click', function () {
+        for (var j = 0; j < opts.length; j++) opts[j].classList.remove('sel');
+        this.classList.add('sel');
+        selectedKey = this.getAttribute('data-key');
+        otherWrap.style.display = selectedKey === 'other' ? 'block' : 'none';
+        if (selectedKey === 'other') document.getElementById('pf-rf-other').focus();
+        showErr('');
+      });
+    }
+
+    function showErr(msg) {
+      var el = document.getElementById('pf-rf-err');
+      el.textContent = msg;
+      el.style.display = msg ? 'block' : 'none';
+    }
+    function incentiveLabel() {
+      if (selectedKey === 'lunch') return 'Lunch for my team (up to $250)';
+      if (selectedKey === 'giftcard') return '$250 gift card';
+      if (selectedKey === 'donation') return '$250 donation to my association';
+      if (selectedKey === 'other') {
+        var w = (document.getElementById('pf-rf-other').value || '').trim();
+        return 'Special request: ' + (w || '(not specified)');
+      }
+      return '';
+    }
+    function getReferrer() {
+      var name = (document.getElementById('pf-rf-name').value || '').trim();
+      var email = (document.getElementById('pf-rf-email').value || '').trim();
+      if (!name) { showErr('Add your name in step 1 first — we need to know who the reward goes to.'); return null; }
+      if (!/^.+@.+\..+$/.test(email)) { showErr('Add a valid work email in step 1 first.'); return null; }
+      if (!selectedKey) { showErr('Pick your reward in step 2 first.'); return null; }
+      if (selectedKey === 'other' && !(document.getElementById('pf-rf-other').value || '').trim()) {
+        showErr('Tell us what special gift you’d love in step 2.'); return null;
+      }
+      showErr('');
+      return { name: name, email: email, incentive: incentiveLabel() };
+    }
+    function track(method) {
+      try {
+        if (typeof window.gtag === 'function') {
+          window.gtag('event', 'referral_submitted', { referral_method: method, referral_incentive: selectedKey });
+        }
+      } catch (e) {}
+    }
+
+    document.getElementById('pf-rf-btn-a').addEventListener('click', function () {
+      var r = getReferrer();
+      if (!r) return;
+      var subject = 'You should meet PropFuel';
+      var body = 'Hi —\n\n' +
+        'I want to put PropFuel on your radar. Associations use it to ask members one smart question at a time and act on every answer — it’s been a genuinely useful way to drive engagement, retention, and revenue.\n\n' +
+        'I thought of you. If you’re open to it, grab time with their team here: ' + BOOKING_LINK + '\n\n' +
+        'Hope it’s useful!\n' + r.name + '\n\n' +
+        '—\n' +
+        'PropFuel team: this referral comes from ' + r.name + ' (' + r.email + '). Reward choice: ' + r.incentive + '.';
+      track('self_intro');
+      document.getElementById('pf-rf-note-a').style.display = 'block';
+      window.location.href = 'mailto:' + REFERRAL_INBOX + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    });
+
+    document.getElementById('pf-rf-btn-b').addEventListener('click', function () {
+      var r = getReferrer();
+      if (!r) return;
+      var refEmail = (document.getElementById('pf-rf-ref-email').value || '').trim();
+      if (!/^.+@.+\..+$/.test(refEmail)) { showErr('Add your referral’s work email so we know who to reach out to.'); return; }
+      var noteB = document.getElementById('pf-rf-note-b');
+      var btn = this;
+      if (REFERRAL_FORM) {
+        btn.disabled = true;
+        var hutk = (document.cookie.match(/hubspotutk=([^;]+)/) || [])[1];
+        var payload = {
+          fields: [
+            { name: 'email', value: r.email },
+            { name: 'firstname', value: r.name },
+            { name: 'referral_email', value: refEmail },
+            { name: 'referral_incentive', value: r.incentive }
+          ],
+          context: { pageUri: window.location.href, pageName: document.title }
+        };
+        if (hutk) payload.context.hutk = hutk;
+        fetch('https://api.hsforms.com/submissions/v3/integration/submit/21158441/' + REFERRAL_FORM, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
+        }).then(function (res) {
+          btn.disabled = false;
+          if (!res.ok) throw new Error('submit failed');
+          track('we_reach_out');
+          noteB.innerHTML = '&#127881; Done — we’ll reach out to your referral within one business day and let them know you sent them.';
+          noteB.style.display = 'block';
+        }).catch(function () {
+          btn.disabled = false;
+          showErr('Something hiccuped — try again, or use the email option on the left.');
+        });
+      } else {
+        // No HubSpot form wired up yet — route through the referrals inbox.
+        var subject = 'New referral from ' + r.name;
+        var body = 'Hi PropFuel team — please reach out to my referral.\n\n' +
+          'Referral’s work email: ' + refEmail + '\n' +
+          'Referred by: ' + r.name + ' (' + r.email + ')\n' +
+          'Reward choice: ' + r.incentive + '\n\n' +
+          'Sent from propfuel.com/referrals';
+        track('we_reach_out');
+        noteB.innerHTML = '&#9993;&#65039; One more tap — hit <b>Send</b> in your email app and we’ll take it from there. We’ll reach out to your referral within one business day.';
+        noteB.style.display = 'block';
+        window.location.href = 'mailto:' + REFERRAL_INBOX + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      }
+    });
+  }
+
+  // ─────────────────────────────────────────
   // /MMCT — CONFERENCE LANDING PAGE
   // Stripped-chrome single-purpose conversion page for booth follow-up at the
   // Membership Marketing Communications + Technology (MMCT) conference. HubSpot
@@ -8537,6 +8789,7 @@
     fixCapabilitiesPage();
     renderMmctPage();
     renderBroadcastPage();
+    renderReferralsPage();
     renderMmctSessionPage();
     renderEventDemoPage();
     renderWebinarPromoPopup();
