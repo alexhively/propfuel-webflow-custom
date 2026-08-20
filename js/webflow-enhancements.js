@@ -7893,6 +7893,10 @@
       ".pf-rf-mailbtn:hover{border-color:#F47C2C;box-shadow:0 2px 10px rgba(244,124,44,0.18)}" +
       ".pf-rf-mailbtn img{height:24px;width:auto;display:block}" +
       ".pf-rf-prev-note{font-size:12px;color:#6E6E6E;margin-top:12px;line-height:1.5}" +
+      ".pf-rf-emailnote{display:flex;align-items:flex-start;gap:11px;background:#F6F2E8;border:1px dashed #D8D1C2;border-radius:14px;padding:15px 18px;margin:0 0 16px;font-size:14.5px;line-height:1.55;color:#4a4a48}" +
+      ".pf-rf-emailnote .en-icon{flex-shrink:0;font-size:15px;line-height:1.5}" +
+      ".pf-rf-emailnote a{color:#F47C2C;font-weight:700;text-decoration:none;border-bottom:1.5px solid rgba(244,124,44,0.35)}" +
+      ".pf-rf-emailnote a:hover{border-bottom-color:#F47C2C}" +
       ".pf-rf-featured{background:#FFFFFF;border:2px solid #F47C2C;border-radius:16px;padding:22px 20px;margin-bottom:14px;box-shadow:0 6px 24px rgba(244,124,44,0.14)}" +
       ".pf-rf-featured h3{font-size:17px;font-weight:800;margin:0 0 8px;letter-spacing:-0.01em}" +
       ".pf-rf-featured p{font-size:13.5px;line-height:1.55;color:#6E6E6E;margin:0 0 14px}" +
@@ -7927,6 +7931,10 @@
         '</div>' +
       '</div></section>' +
       '<section class="pf-rf-bottom"><div class="pf-rf-container">' +
+        '<div class="pf-rf-emailnote">' +
+          '<span class="en-icon">&#9993;&#65039;</span>' +
+          '<span>Don&rsquo;t want to fill anything out? Just email <a href="mailto:' + REFERRAL_INBOX + '?subject=' + encodeURIComponent('PropFuel referral') + '">' + REFERRAL_INBOX + '</a> with the person you&rsquo;re referring on CC &mdash; we&rsquo;ll take it from there and make sure you get rewarded.</span>' +
+        '</div>' +
         '<div class="pf-rf-card">' +
           '<div class="pf-rf-h2"><span class="num">1</span>Who&rsquo;s referring?</div>' +
           '<p class="pf-rf-hint">So we know who the reward goes to &mdash; and who we&rsquo;re meeting.</p>' +
