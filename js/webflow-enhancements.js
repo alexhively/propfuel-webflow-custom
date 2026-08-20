@@ -8084,7 +8084,7 @@
         'I thought of you. If you’re open to it, grab time with their team here: ' + BOOKING_LINK + '\n\n' +
         'Hope it’s useful!\n' + r.name + '\n\n' +
         '—\n' +
-        'PropFuel team: this referral comes from ' + r.name + ' (' + r.email + '). Reward choice: ' + r.incentive + '.';
+        'PropFuel team: this referral comes from ' + r.name + ' (' + r.email + ').';
       return { subject: subject, body: body };
     }
     function getRefEmail() {
