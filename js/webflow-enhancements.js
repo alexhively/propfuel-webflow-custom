@@ -7952,7 +7952,7 @@
           '<div class="pf-rf-featured">' +
             '<span class="pf-rf-tag">Easiest &mdash; start here</span>' +
             '<h3>Just send them this link</h3>' +
-            '<p>Text it, Slack it, email it. It opens a short form and we take it from there. <b>One thing: make sure they write you in under &ldquo;Who referred you?&rdquo;</b> &mdash; that&rsquo;s how your reward finds you. Fill in your name in step 1 first and the link will carry it for them automatically.</p>' +
+            '<p>Text it, Slack it, email it. It opens a short form and we take it from there. <b>Your link carries your name</b>, so &ldquo;Who referred you?&rdquo; fills itself in for them &mdash; your reward always finds its way back to you.</p>' +
             '<div class="pf-rf-linkrow">' +
               '<div class="pf-rf-linkbox">propfuel.com/i-was-referred</div>' +
               '<button class="pf-rf-btn" id="pf-rf-copylink" type="button" style="width:auto;margin:0;flex-shrink:0">Copy link</button>' +
@@ -8052,15 +8052,70 @@
       } catch (e) {}
     }
 
+    // Written to the form's referral_method field. The HubSpot workflow always
+    // notifies the team, but should only send OUR outreach email when the value
+    // is 'PropFuel outreach' — otherwise the client's own intro gets doubled up.
+    var REFERRAL_METHODS = {
+      link: 'Link shared',
+      selfIntro: 'Client sent intro',
+      outreach: 'PropFuel outreach'
+    };
+    // Every path records to HubSpot so the team hears about a referral no matter
+    // which button was used. Deduped per method + referral so repeat clicks
+    // don't spam the notification.
+    var sentKeys = {};
+    function recordReferral(method, refEmail) {
+      var r = getReferrer();
+      if (!REFERRAL_FORM || !r) return Promise.reject(new Error('not ready'));
+      var key = method + '|' + (refEmail || '');
+      if (sentKeys[key]) return Promise.resolve('duplicate');
+      sentKeys[key] = true;
+      var nameParts = r.name.split(/\s+/);
+      var firstName = nameParts.shift();
+      var lastName = nameParts.join(' ');
+      var fields = [
+        { name: 'email', value: r.email },
+        { name: 'firstname', value: firstName },
+        { name: 'referral_incentive', value: INCENTIVE_VALUES[selectedKey] || 'Something else' },
+        { name: 'referral_method', value: method }
+      ];
+      if (lastName) fields.push({ name: 'lastname', value: lastName });
+      if (refEmail) fields.push({ name: 'referral_email', value: refEmail });
+      var pageUri = 'https://www.propfuel.com/referrals';
+      var pageName = 'Referral Program — ' + method;
+      if (selectedKey === 'other') {
+        var special = (document.getElementById('pf-rf-other').value || '').trim();
+        if (special) {
+          pageUri += '?special_request=' + encodeURIComponent(special);
+          pageName += ' — special request: ' + special;
+        }
+      }
+      var hutk = (document.cookie.match(/hubspotutk=([^;]+)/) || [])[1];
+      var payload = {
+        submittedAt: Date.now(),
+        fields: fields,
+        context: { pageUri: pageUri, pageName: pageName }
+      };
+      if (hutk) payload.context.hutk = hutk;
+      return fetch('https://api.hsforms.com/submissions/v3/integration/submit/21158441/' + REFERRAL_FORM, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
+      }).then(function (res) {
+        if (!res.ok) { delete sentKeys[key]; throw new Error('submit failed'); }
+        return 'ok';
+      }, function (err) { delete sentKeys[key]; throw err; });
+    }
+
     document.getElementById('pf-rf-copylink').addEventListener('click', function () {
-      var name = (document.getElementById('pf-rf-name').value || '').trim();
-      var url = 'https://www.propfuel.com/i-was-referred' + (name ? '?ref=' + encodeURIComponent(name) : '');
+      // Steps 1 and 2 are required here too — without them the link can't carry
+      // the referrer and we can't tell the team a referral is in flight.
+      var r = getReferrer();
+      if (!r) return;
+      var url = 'https://www.propfuel.com/i-was-referred?ref=' + encodeURIComponent(r.name);
       var noteL = document.getElementById('pf-rf-note-link');
       function done() {
         track('link_share');
-        noteL.innerHTML = name
-          ? '&#9989; Copied &mdash; your name rides along in the link, so &ldquo;Who referred you?&rdquo; fills itself in for them.'
-          : '&#9989; Copied. Tip: add your name in step 1 and copy again &mdash; the link will pre-fill you as the referrer.';
+        recordReferral(REFERRAL_METHODS.link, getRefEmail()).catch(function () {});
+        noteL.innerHTML = '&#9989; Copied &mdash; your name rides along in the link, so &ldquo;Who referred you?&rdquo; fills itself in for them.';
         noteL.style.display = 'block';
       }
       function fb() {
@@ -8126,14 +8181,18 @@
     });
     // Rebuild from the current field values right before launch/copy, so edits
     // made after the preview was opened are never lost.
+    // Record on launch/copy rather than on preview-open — that's the point where
+    // the client is actually taking the intro somewhere to send it.
     ['pf-rf-gmail', 'pf-rf-outlook', 'pf-rf-mailapp'].forEach(function (id) {
       document.getElementById(id).addEventListener('click', function (ev) {
-        if (!fillPreview()) { ev.preventDefault(); }
+        if (!fillPreview()) { ev.preventDefault(); return; }
+        recordReferral(REFERRAL_METHODS.selfIntro, getRefEmail()).catch(function () {});
       });
     });
     document.getElementById('pf-rf-copy').addEventListener('click', function () {
       var m = fillPreview();
       if (!m) return;
+      recordReferral(REFERRAL_METHODS.selfIntro, getRefEmail()).catch(function () {});
       var btn = this;
       var text = 'To: ' + m.to + (m.cc ? '\nCc: ' + m.cc : '') + '\nSubject: ' + m.subject + '\n\n' + m.body;
       function done() {
@@ -8164,42 +8223,8 @@
       var btn = this;
       if (REFERRAL_FORM) {
         btn.disabled = true;
-        var hutk = (document.cookie.match(/hubspotutk=([^;]+)/) || [])[1];
-        // The contact this creates/updates is the REFERRER (email = "Your email"),
-        // so their name, reward choice, and referral all land on one record —
-        // that's what the #referrals notification and reward payouts read from.
-        var nameParts = r.name.split(/\s+/);
-        var firstName = nameParts.shift();
-        var lastName = nameParts.join(' ');
-        var fields = [
-          { name: 'email', value: r.email },
-          { name: 'firstname', value: firstName },
-          { name: 'referral_email', value: refEmail },
-          { name: 'referral_incentive', value: INCENTIVE_VALUES[selectedKey] || 'Something else' }
-        ];
-        if (lastName) fields.push({ name: 'lastname', value: lastName });
-        // The write-in for "Something else" has no field of its own — carry it
-        // on the submission so the request isn't lost.
-        var pageUri = 'https://www.propfuel.com/referrals';
-        var pageName = 'Referral Program';
-        if (selectedKey === 'other') {
-          var special = (document.getElementById('pf-rf-other').value || '').trim();
-          if (special) {
-            pageUri += '?special_request=' + encodeURIComponent(special);
-            pageName += ' — special request: ' + special;
-          }
-        }
-        var payload = {
-          submittedAt: Date.now(),
-          fields: fields,
-          context: { pageUri: pageUri, pageName: pageName }
-        };
-        if (hutk) payload.context.hutk = hutk;
-        fetch('https://api.hsforms.com/submissions/v3/integration/submit/21158441/' + REFERRAL_FORM, {
-          method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
-        }).then(function (res) {
+        recordReferral(REFERRAL_METHODS.outreach, refEmail).then(function () {
           btn.disabled = false;
-          if (!res.ok) throw new Error('submit failed');
           track('we_reach_out');
           noteB.innerHTML = '&#127881; Done — we’ll reach out to your referral within one business day and let them know you sent them.';
           noteB.style.display = 'block';
