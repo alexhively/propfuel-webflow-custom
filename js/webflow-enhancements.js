@@ -7950,7 +7950,7 @@
             '<div class="pf-rf-opt" data-key="lunch"><div class="t">&#127829; Lunch for your team</div><div class="d">Up to $250, on us. Sushi in the office or DoorDash for the remote crew &mdash; dealer&rsquo;s choice.</div></div>' +
             '<div class="pf-rf-opt" data-key="giftcard"><div class="t">&#128179; A $250 gift card</div><div class="d">Just for you. Spend it on whatever you want.</div></div>' +
             '<div class="pf-rf-opt" data-key="donation"><div class="t">&#128155; A $250 donation</div><div class="d">Made to your association, in your name.</div></div>' +
-            '<div class="pf-rf-opt" data-key="discount"><div class="t">&#127991;&#65039; $250 off PropFuel</div><div class="d">Credited to your association&rsquo;s PropFuel subscription. Our most-requested reward.</div></div>' +
+            '<div class="pf-rf-opt" data-key="discount"><div class="t">&#127991;&#65039; $250 off PropFuel</div><div class="d">$250 back to your association &mdash; a discount on what you already spend with us.</div></div>' +
             '<div class="pf-rf-opt" data-key="other" style="grid-column:1/-1"><div class="t">&#127873; Something else</div><div class="d">Have a better idea? Request a special gift and we&rsquo;ll see what we can do.</div></div>' +
           '</div>' +
           '<div class="pf-rf-other" id="pf-rf-other-wrap"><input class="pf-rf-input" id="pf-rf-other" type="text" placeholder="What would you love? (~$250 value)"></div>' +
@@ -8024,7 +8024,7 @@
       if (selectedKey === 'lunch') return 'Lunch for my team (up to $250)';
       if (selectedKey === 'giftcard') return '$250 gift card';
       if (selectedKey === 'donation') return '$250 donation to my association';
-      if (selectedKey === 'discount') return '$250 discount on our PropFuel subscription';
+      if (selectedKey === 'discount') return '$250 off PropFuel for our association';
       if (selectedKey === 'other') {
         var w = (document.getElementById('pf-rf-other').value || '').trim();
         return 'Special request: ' + (w || '(not specified)');
