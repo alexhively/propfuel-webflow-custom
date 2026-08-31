@@ -8817,21 +8817,39 @@
   // ─────────────────────────────────────────
   var WEBINAR_PROMO = {
     enabled: true,
-    eyebrow: 'Live Webinar',
-    title: 'Engaging Members Through Certifications',
-    subtitle: 'Session 4 of The Year In Between — how to earn the renewal before renewal season ever starts',
-    dateLabel: 'Aug 19, 2026',
+    eyebrow: 'Live Deminar',
+    title: 'PropFuel Walkthrough',
+    subtitle: '',
+    dateLabel: 'Sep 2, 2026',
     timeLabel: '1:00 PM ET',
-    duration: '30 min',
-    description: 'Certifications are one of the clearest signs that a member is invested in staying. This session looks at how certification progress can become an ongoing conversation, not just a deadline reminder.',
-    speaker: 'Brittany Lancor',
+    duration: '1 hour',
+    description: 'What would you do if you actually had the time to reach every member who needs you? Membership AI builds the audience and drafts the campaign for you, in minutes. Join us for an inside look at the platform. No pressure, just a group walkthrough.',
+    speaker: '',
     ctaLabel: 'Register Free →',
-    ctaUrl: 'https://us02web.zoom.us/webinar/register/5917863814687/WN_14BjJDgUR4yxcewAD5J-kQ',
+    ctaUrl: 'https://us02web.zoom.us/webinar/register/7317878649523/WN_Wrr4kAoPSiOBIyROOmcrcg',
+    // Event start — drives the "happening tomorrow / today" badge. ISO with ET offset.
+    eventAt: '2026-09-02T13:00:00-04:00',
     // Stop showing after this moment (webinar end). ISO with ET offset.
-    expiresAt: '2026-08-19T13:30:00-04:00',
+    expiresAt: '2026-09-02T14:00:00-04:00',
     delayMs: 4000,
-    sessionKey: 'pfWebinarPromo_2026-08-19_certifications'
+    sessionKey: 'pfWebinarPromo_2026-09-02_walkthrough'
   };
+
+  // "Happening tomorrow" is computed, never hardcoded — otherwise the badge is
+  // wrong on every day but one. Compares ET calendar days so a late-evening
+  // visitor in another timezone still sees the right word.
+  function webinarUrgencyLabel(eventAt) {
+    if (!eventAt) return '';
+    function etDay(d) { return d.toLocaleDateString('en-CA', { timeZone: 'America/New_York' }); }
+    var ev = new Date(etDay(new Date(eventAt)) + 'T00:00:00Z');
+    var today = new Date(etDay(new Date()) + 'T00:00:00Z');
+    var days = Math.round((ev - today) / 86400000);
+    if (days < 0) return '';
+    if (days === 0) return 'Happening today';
+    if (days === 1) return 'Happening tomorrow';
+    if (days <= 14) return 'In ' + days + ' days';
+    return '';
+  }
 
   function renderWebinarPromoPopup() {
     var cfg = WEBINAR_PROMO;
@@ -8857,6 +8875,10 @@
         '.pf-wpop-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:30px}',
         '.pf-wpop-eyebrow{font-size:13px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#F47C2C}',
         '.pf-wpop-logo{height:46px;width:auto;display:block}',
+        '.pf-wpop-urgent{display:inline-flex;align-items:center;gap:9px;padding:9px 18px 9px 15px;border-radius:100px;background:linear-gradient(to right,#F47C2C,#FBC02D);color:#fff;font-size:14px;font-weight:800;letter-spacing:.10em;text-transform:uppercase;margin:0 0 18px;box-shadow:0 4px 16px rgba(244,124,44,.32)}',
+        '.pf-wpop-urgent i{width:9px;height:9px;border-radius:50%;background:#fff;box-shadow:0 0 0 0 rgba(255,255,255,.85);animation:pf-wpop-pulse 1.6s infinite}',
+        '@keyframes pf-wpop-pulse{0%{box-shadow:0 0 0 0 rgba(255,255,255,.85)}70%{box-shadow:0 0 0 9px rgba(255,255,255,0)}100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}}',
+        '@media (prefers-reduced-motion:reduce){.pf-wpop-urgent i{animation:none}}',
         '.pf-wpop h2{font-size:40px;line-height:1.08;font-weight:800;color:#2F2F2F;letter-spacing:-.01em;margin:0 0 28px}',
         '.pf-wpop-sub{font-size:16px;line-height:1.5;color:#6E6E6E;margin:-14px 0 28px}',
         '.pf-wpop-meta{display:flex;align-items:center;flex-wrap:wrap;gap:12px;padding-top:22px;border-top:1px solid #E3DDD2;margin-bottom:14px}',
@@ -8879,6 +8901,7 @@
     }
 
     function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+    var urgency = webinarUrgencyLabel(cfg.eventAt);
 
     var overlay = document.createElement('div');
     overlay.className = 'pf-wpop-overlay';
@@ -8892,6 +8915,7 @@
           '<span class="pf-wpop-eyebrow">' + esc(cfg.eyebrow) + '</span>' +
           '<img class="pf-wpop-logo" src="https://cdn.prod.website-files.com/69ca88e6c52b04fb85f74a02/69cc30a4a0dc86d4b55ee8a1_logo.png" alt="PropFuel">' +
         '</div>' +
+        (urgency ? '<div><span class="pf-wpop-urgent"><i></i>' + esc(urgency) + '</span></div>' : '') +
         '<h2>' + esc(cfg.title) + '</h2>' +
         (cfg.subtitle ? '<p class="pf-wpop-sub">' + esc(cfg.subtitle) + '</p>' : '') +
         '<div class="pf-wpop-meta">' +
@@ -8902,8 +8926,8 @@
           '<span class="dur">' + esc(cfg.duration) + '</span>' +
         '</div>' +
         (cfg.description ? '<p class="pf-wpop-desc">' + esc(cfg.description) + '</p>' : '') +
-        '<div class="pf-wpop-foot">' +
-          '<span class="pf-wpop-speaker">Speaker: <b>' + esc(cfg.speaker) + '</b></span>' +
+        '<div class="pf-wpop-foot"' + (cfg.speaker ? '' : ' style="justify-content:flex-end"') + '>' +
+          (cfg.speaker ? '<span class="pf-wpop-speaker">Speaker: <b>' + esc(cfg.speaker) + '</b></span>' : '') +
           '<a class="pf-wpop-btn" href="' + esc(cfg.ctaUrl) + '" target="_blank" rel="noopener">' + esc(cfg.ctaLabel) + '</a>' +
         '</div>' +
       '</div>';
