@@ -8816,7 +8816,7 @@
   // edit WEBINAR_PROMO below (or set enabled:false to turn it off).
   // ─────────────────────────────────────────
   var WEBINAR_PROMO = {
-    enabled: true,
+    enabled: false,
     eyebrow: 'Live Deminar',
     title: 'PropFuel Walkthrough',
     subtitle: '',
