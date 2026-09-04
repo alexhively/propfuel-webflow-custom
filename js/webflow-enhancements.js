@@ -8816,23 +8816,23 @@
   // edit WEBINAR_PROMO below (or set enabled:false to turn it off).
   // ─────────────────────────────────────────
   var WEBINAR_PROMO = {
-    enabled: false,
-    eyebrow: 'Live Deminar',
-    title: 'PropFuel Walkthrough',
-    subtitle: '',
-    dateLabel: 'Sep 2, 2026',
+    enabled: true,
+    eyebrow: 'Live Webinar',
+    title: 'Converting Students to Professional Membership',
+    subtitle: 'Questions to Ask Before Graduation',
+    dateLabel: 'Sep 9, 2026',
     timeLabel: '1:00 PM ET',
-    duration: '1 hour',
-    description: 'What would you do if you actually had the time to reach every member who needs you? Membership AI builds the audience and drafts the campaign for you, in minutes. Join us for an inside look at the platform. No pressure, just a group walkthrough.',
-    speaker: '',
+    duration: '1 hr',
+    description: 'Graduation is where student members quietly become lapsed records. This session covers the questions that reveal whether a student has entered the field and routes them straight into the right membership offer.',
+    speaker: 'Brittany Lancor',
     ctaLabel: 'Register Free →',
-    ctaUrl: 'https://us02web.zoom.us/webinar/register/7317878649523/WN_Wrr4kAoPSiOBIyROOmcrcg',
+    ctaUrl: 'https://us02web.zoom.us/webinar/register/3917882937818/WN_jASx8NFrTjCG0tozIgkS6Q',
     // Event start — drives the "happening tomorrow / today" badge. ISO with ET offset.
-    eventAt: '2026-09-02T13:00:00-04:00',
+    eventAt: '2026-09-09T13:00:00-04:00',
     // Stop showing after this moment (webinar end). ISO with ET offset.
-    expiresAt: '2026-09-02T14:00:00-04:00',
+    expiresAt: '2026-09-09T14:00:00-04:00',
     delayMs: 4000,
-    sessionKey: 'pfWebinarPromo_2026-09-02_walkthrough'
+    sessionKey: 'pfWebinarPromo_2026-09-09_students'
   };
 
   // "Happening tomorrow" is computed, never hardcoded — otherwise the badge is
