@@ -61,3 +61,14 @@ Publish the site. Done.
 - FAQ accordion toggle
 - Nav scroll detection
 - Reduced motion bypass
+
+## SEO metadata lives in Webflow, not here (Sep 2026)
+
+Titles, meta descriptions, canonical, robots, Open Graph images and JSON-LD
+(Organization, WebSite, WebPage, BreadcrumbList, SoftwareApplication) are set
+natively in Webflow: page settings for static pages, CMS field bindings on the
+Blog Posts / Videos / Case Studies / Team Members / Guides templates, the site
+head custom code (Organization), and the global canonical URL in Site Settings.
+They render server-side so AI crawlers and link unfurlers, which do not run JS,
+see them. This script only adds FAQPage schema. Do not reintroduce client-side
+title/meta/canonical injection; edit the Webflow fields instead.

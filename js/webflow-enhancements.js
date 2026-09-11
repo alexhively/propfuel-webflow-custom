@@ -11,12 +11,14 @@
   if (window.__pfEnhancementsLoaded) return;
   window.__pfEnhancementsLoaded = true;
 
-  // Legacy URL redirect: /demo is the old slug, page has been renamed to /book-a-demo.
-  // This script loads in <head> so the redirect fires before the 404 page paints.
+  // Legacy URL redirect for /demo only. /request-demo is now a Webflow 301
+  // (Site settings > Publishing). /demo still exists as a Webflow page ("Demo
+  // Redirect", noindexed) so a 301 rule cannot fire for it yet; delete that
+  // page, add the /demo -> /book-a-demo 301, then remove this block entirely.
   // Preserves query string + hash (e.g. UTM params, anchors).
   (function redirectLegacyPaths() {
     var p = window.location.pathname.replace(/\/$/, '') || '/';
-    if (p === '/demo' || p === '/request-demo') {
+    if (p === '/demo') {
       window.location.replace('/book-a-demo' + window.location.search + window.location.hash);
     }
   })();
@@ -468,210 +470,40 @@
   }
 
   // ─────────────────────────────────────────
-  // 0B. SEO META INJECTION
+  // 0B. SEO (FAQ schema only)
+  //    Titles, meta descriptions, canonical, robots, Open Graph/Twitter cards
+  //    and Organization/WebPage/WebSite/BreadcrumbList JSON-LD are now set
+  //    natively in Webflow (page settings, CMS template field bindings, site
+  //    head code, global canonical). They render server-side, so AI crawlers
+  //    and social unfurlers that do not execute JS see them. Do not re-add
+  //    client-side versions here: two sources of truth drift and conflict.
+  //    FAQPage stays client-side until FAQ content is moved into a CMS/native
+  //    schema field.
   // ─────────────────────────────────────────
-  var SEO_DATA = {
-    '/': { title: 'AI-Powered Member Engagement Platform | PropFuel', desc: 'PropFuel helps associations understand what members want and act on it. Turn broadcasts into two-way conversations that drive retention and revenue.', ogImage: '/og-images/index.png' },
-    '/book-a-demo': { title: 'Request a Demo \u2014 See PropFuel in Action | PropFuel', desc: 'See PropFuel in action. Request a personalized demo and learn how 330+ associations use PropFuel to grow revenue, retain members, and deepen engagement.', ogImage: '/og-images/demo.png' },
-    '/platform/overview': { title: 'AI Member Engagement Platform Overview | PropFuel', desc: "PropFuel's platform combines insights, automation, and engagement engines to help associations know and grow their membership through conversations.", ogImage: '/og-images/platform-overview.png' },
-    '/platform/automation': { title: 'Marketing Automation Engine for Associations | PropFuel', desc: "PropFuel's Automation Engine builds smart campaigns with conditional branching, blueprint templates, and real-time AMS write-back for associations.", ogImage: '/og-images/platform-automation.png' },
-    '/platform/email': { title: 'Email Engagement for Member Organizations | PropFuel', desc: "PropFuel's conversational email tool sends single-question check-ins that members respond to with one click \u2014 driving 40%+ response rates for associations.", ogImage: '/og-images/platform-email.png' },
-    '/platform/sms': { title: 'SMS Member Engagement & Text Messaging | PropFuel', desc: "PropFuel's SMS engagement tool delivers timely text-based check-ins with 98% open rates \u2014 perfect for event-day engagement and time-sensitive member outreach.", ogImage: '/og-images/platform-sms.png' },
-    '/platform/insights': { title: 'Data Intelligence Engine for Associations | PropFuel', desc: "PropFuel's Insights Engine turns member data into actionable intelligence with AI-powered response analysis, response analysis, and unified profiles.", ogImage: '/og-images/platform-insights.png' },
-    '/platform/engagement': { title: 'Member Engagement Engine for Associations | PropFuel', desc: "PropFuel's Engagement Engine delivers one-question conversations via email, website, and SMS \u2014 getting real answers from members with a single tap.", ogImage: '/og-images/platform-engagement.png' },
-    '/platform/website': { title: 'Website Personalization for Associations | PropFuel', desc: "PropFuel's website engagement widget asks targeted questions to site visitors, capturing intent and converting anonymous traffic into known member intelligence.", ogImage: '/og-images/platform-website.png' },
-    '/integrations': { title: 'AMS & System Integrations for Associations | PropFuel', desc: 'PropFuel integrates with leading AMS platforms including iMIS, Nimble AMS, Fonteva, and Salesforce \u2014 with real-time two-way data sync and write-back.', ogImage: '/og-images/platform-integrations.png' },
-    '/membership-ai': { title: 'Membership AI \u2014 Smart Member Intelligence | PropFuel', desc: "PropFuel's Membership AI uses intelligent agents to surface insights, recommend actions, and build engagement initiatives for association staff automatically.", ogImage: 'https://alexhively.github.io/propfuel-webflow-custom/og-images/platform-membership-ai.png' },
-    '/legal/ai-security': { title: 'AI Data Security at PropFuel \u2014 Zero Retention, No PII, Human in the Loop', desc: "How PropFuel protects your members' data when using AI. Zero data retention, no PII in AI calls, and a human approves every campaign. Read the full AI policy.", ogImage: 'https://alexhively.github.io/propfuel-webflow-custom/og-images/platform-membership-ai.png' },
-    '/capabilities': { title: 'Capabilities \u2014 Everything PropFuel Does | PropFuel', desc: "Every feature in PropFuel: engagement check-ins, campaigns, lists & contacts, connectors, analytics, actions, and conversations. The honest list of what every subscription includes.", ogImage: '/og-images/platform-overview.png' },
-    '/mmct': { title: 'Pull from the Bag of Money \u2014 MMCT Demo Request | PropFuel', desc: 'Met us at MMCT? Drop your email to grab time on the calendar and see PropFuel in action for your association.', ogImage: '/og-images/demo.png' },
-    '/asae-annual': { title: 'Met Us at ASAE Annual? Book Your Demo | PropFuel', desc: 'Met us at ASAE Annual? Drop your email to grab time on the calendar and see PropFuel in action for your association.', ogImage: '/og-images/demo.png' },
-    '/where-broadcast-ends': { title: 'Where Broadcast Ends and PropFuel Begins | PropFuel', desc: 'For associations buying a broadcast platform for the first time, replacing one, or consolidating several — where HubSpot, Marketo, and Higher Logic Thrive stop, and conversational engagement begins.', ogImage: '/og-images/demo.png' },
-    '/referrals': { title: 'Refer an Association — PropFuel Referral Program | PropFuel', desc: 'Know an association that should be using PropFuel? Make a referral in under a minute and pick your reward: lunch for your team, a $250 gift card, $250 off PropFuel, a $250 donation to your association, or a special request.', ogImage: 'https://alexhively.github.io/propfuel-webflow-custom/og-images/referrals.png' },
-    '/i-was-referred': { title: 'You’ve Been Referred — Book Your PropFuel Demo | PropFuel', desc: 'Someone thinks your association should see PropFuel. Tell us who sent you and grab time with our team for a personalized walkthrough.', ogImage: 'https://alexhively.github.io/propfuel-webflow-custom/og-images/i-was-referred.png' },
-    '/mmct-session': { title: 'What\'s Working in Membership \u2014 Session Slides | PropFuel', desc: "Thanks for joining our MMCT session. Drop your email and grab the slides \u2014 every chart, framework, and takeaway from the talk.", ogImage: 'https://alexhively.github.io/propfuel-webflow-custom/og-images/mmct-session.jpg' },
-    '/event-demo': { title: 'Great Meeting You \u2014 Book Your PropFuel Demo | PropFuel', desc: "Met us at an event? Drop your email and grab time on our calendar. We'll show you exactly what PropFuel can do for your association.", ogImage: '/og-images/demo.png' },
-    '/use-cases/onboarding': { title: 'Automate New Member Onboarding Journeys | PropFuel', desc: "Turn new member silence into engagement. PropFuel's onboarding automation delivers personalized check-ins that drive 3x engagement in the first 60 days.", ogImage: '/og-images/use-cases-onboarding.png' },
-    '/use-cases/renewals': { title: 'Membership Renewal Campaigns & Automation | PropFuel', desc: "Stop sending identical renewal reminders. PropFuel's renewal campaigns adapt to each member's response, recovering $320K+ in at-risk revenue.", ogImage: '/og-images/use-cases-renewals.png' },
-    '/use-cases/win-back': { title: 'Win Back Lapsed Members with AI Campaigns | PropFuel', desc: "Re-engage lapsed members with conversations, not campaigns. PropFuel's win-back automation brings 80% back within 90 days.", ogImage: '/og-images/use-cases-win-back.png' },
-    '/use-cases/acquisition': { title: 'Member Acquisition & Growth Strategies | PropFuel', desc: "Convert anonymous prospects into engaged members. PropFuel's acquisition tools deliver 2.4x conversion rates through targeted conversational outreach.", ogImage: '/og-images/use-cases-acquisition.png' },
-    '/use-cases/events': { title: 'Event & Conference Engagement Automation | PropFuel', desc: 'Drive event registration, attendance, and follow-up with PropFuel. Capture real-time feedback and connect event data to member profiles automatically.', ogImage: '/og-images/use-cases-events.png' },
-    '/use-cases/certifications': { title: 'Certification & Continuing Education | PropFuel', desc: 'Keep members on track to certification completion. PropFuel automates check-ins, surfaces obstacles, and prevents credential lapse with personalized outreach.', ogImage: '/og-images/use-cases-certifications.png' },
-    '/use-cases/data-intelligence': { title: 'Member Data Intelligence & Insights | PropFuel', desc: 'Unify fragmented member data into actionable intelligence. PropFuel captures 42K+ insights per quarter by asking the right questions at the right time.', ogImage: '/og-images/use-cases-data-intelligence.png' },
-    '/roi': { title: 'Proven ROI Results for Member Organizations | PropFuel', desc: "See PropFuel's proven ROI: $100M+ in client revenue growth, 8.68% average first-year growth, and 72% of declining organizations reversed course.", ogImage: '/og-images/client-success-roi-results.png' },
-    '/client-success/case-studies': { title: 'Customer Case Studies & Success Stories | PropFuel', desc: 'Real results from real associations. Explore PropFuel case studies showing how organizations drive revenue, retain members, and deepen engagement.', ogImage: '/og-images/client-success-case-studies.png' },
-    '/client-success/testimonials': { title: 'What Associations Say About PropFuel | Testimonials', desc: 'Hear from association leaders who transformed member engagement with PropFuel. Real testimonials from organizations seeing measurable results.', ogImage: '/og-images/client-success-testimonials.png' },
-    '/client-success/customers': { title: 'Trusted by 330+ Associations Nationwide | PropFuel', desc: 'Trusted by 330+ associations across 40+ industries. See the organizations that rely on PropFuel for member insights, engagement, and measurable growth.', ogImage: '/og-images/client-success-customers.png' },
-    '/client-success/implementation': { title: 'Seamless Implementation & Onboarding | PropFuel', desc: 'Get started with PropFuel in weeks, not months. Our proven implementation process includes dedicated success managers for association teams of any size.', ogImage: '/og-images/client-success-implementation.png' },
-    '/resources/blog': { title: 'Blog \u2014 Member Engagement Tips & Insights | PropFuel', desc: 'Insights on member engagement, retention strategies, and association growth from the PropFuel team. Practical advice for membership professionals.', ogImage: '/og-images/resources-blog.png' },
-    '/resources/webinars': { title: 'Webinars on Member Engagement Strategy | PropFuel', desc: 'Watch on-demand webinars and register for upcoming sessions on member engagement, retention strategies, and data-driven association management.', ogImage: '/og-images/resources-webinars.png' },
-    '/resources/guides': { title: 'Guides & Reports for Association Leaders | PropFuel', desc: 'Download free guides, playbooks, and frameworks for association member engagement, renewal campaigns, onboarding strategies, and data intelligence.', ogImage: '/og-images/resources-guides.png' },
-    '/resources/help-center': { title: 'Help Center \u2014 Support & Knowledge Base | PropFuel', desc: 'Get help with PropFuel. Browse our knowledge base, submit a support request, or schedule a call with our customer success team.', ogImage: '/og-images/resources-help.png' },
-    '/resources/newsletter': { title: 'Newsletter \u2014 Association Industry Insights | PropFuel', desc: "Subscribe to PropFuel's newsletter for monthly insights on member engagement trends, association success stories, and product updates.", ogImage: '/og-images/resources-newsletter.png' },
-    '/resources/api-docs': { title: 'API Documentation & Developer Resources | PropFuel', desc: 'PropFuel API documentation for developers. Build custom integrations, sync member data, trigger automated campaigns, and pull engagement insights.', ogImage: '/og-images/resources-api.png' },
-    '/company/about': { title: 'About Us \u2014 Mission, Vision & Team | PropFuel', desc: 'PropFuel helps association staff make membership meaningful. Meet the team behind the membership insights and engagement platform for 330+ associations.', ogImage: '/og-images/company-about.png' },
-    '/company/careers': { title: 'Careers \u2014 Join the PropFuel Team | PropFuel', desc: "Join the PropFuel team. We're building the future of membership engagement for associations. See open positions, benefits, and our company culture.", ogImage: '/og-images/company-careers.png' },
-    '/company/contact': { title: 'Contact PropFuel \u2014 Sales, Support & More | PropFuel', desc: 'Get in touch with PropFuel. Contact our sales, support, or partnership teams to learn how 330+ associations use PropFuel for member engagement.', ogImage: '/og-images/company-contact.png' },
-    '/company/partners': { title: 'Partner Program for AMS & Consulting Firms | PropFuel', desc: 'Partner with PropFuel to grow your business. Explore AMS, consulting, technology, and content partnership opportunities for the association space.', ogImage: '/og-images/company-partners.png' },
-    '/legal/privacy': { title: 'Privacy Policy & Data Protection | PropFuel', desc: "Read PropFuel's privacy policy to understand how we collect, use, store, and protect your personal data when you use our membership engagement platform.", ogImage: '/og-images/legal-privacy.png' },
-    '/legal/terms': { title: 'Terms of Service & Legal Information | PropFuel', desc: "Review PropFuel's terms of service. Understand the rules, usage rights, and responsibilities that govern your use of the PropFuel membership platform.", ogImage: '/og-images/legal-terms.png' }
-  };
-
-  // Canonical/OG URLs always point to the production domain (self-referencing on prod,
-  // and forces staging copies to canonicalize to prod so search engines consolidate
-  // signals to www.propfuel.com and don't index the .webflow.io staging mirror).
-  var SITE_URL = 'https://www.propfuel.com';
-  // OG images live on Webflow's CDN — the user uploaded them to the PropFuel V2
-  // asset library, so we reference them directly instead of routing through
-  // GitHub Pages. Keys match the SEO_DATA ogImage filename (e.g. "company-about.png").
-  var WF_OG_CDN = 'https://cdn.prod.website-files.com/69ca88e6c52b04fb85f74a02/';
-  var WF_OG_MAP = {
-    'index.png': '69ebb0b7cefcc8b8b7971817_Home.png',
-    'demo.png': '69ebb0b7cd336f675b4a3165_demo.png',
-    'platform-overview.png': '69ebb0b893f2f9e41e9287a3_platform-overview.png',
-    'platform-insights.png': '69ebb0b8dd01ecb4a388d8f0_platform-insights.png',
-    'platform-automation.png': '69ebb0b7b4e1e3e3c69484c7_platform-automation.png',
-    'platform-engagement.png': '69ebb0b899ba29fe7ccecfd5_platform-engagement.png',
-    'platform-email.png': '69ebb0b815d99adacb6473ee_platform-email.png',
-    'platform-sms.png': '69ebb0b81c05c0474ef86355_platform-sms.png',
-    'platform-website.png': '69ebb0b869a8d17afbfb9f7c_platform-website.png',
-    'platform-integrations.png': '69ebb0b808aa0608d8bd8f09_platform-integrations.png',
-    // 'platform-membership-ai.png' intentionally omitted — the new gradient OG image
-    // is hosted on GitHub Pages (see /membership-ai entry in OG_DATA) so the full
-    // HTTPS URL fall-through is used instead of the legacy Webflow CDN asset.
-    'use-cases-onboarding.png': '69ebb0b808aa0608d8bd8f25_use-cases-onboarding.png',
-    'use-cases-renewals.png': '69ebb0b8ea20b3efba5534b5_use-cases-renewals.png',
-    'use-cases-win-back.png': '69ebb0b8308e9b8afc0577ae_use-cases-win-back.png',
-    'use-cases-acquisition.png': '69ebb0b849485c8467f7b791_use-cases-acquisition.png',
-    'use-cases-events.png': '69ebb0b89128f1732101b14e_use-cases-events.png',
-    'use-cases-certifications.png': '69ebb0b84be1878d3fa8c288_use-cases-certifications.png',
-    'use-cases-data-intelligence.png': '69ebb0b857b9c7c677f073dc_use-cases-data-intelligence.png',
-    'client-success-case-studies.png': '69ebb0b962a9160dff7917bd_client-success-case-studies.png',
-    'client-success-customers.png': '69ebb0b734d8c9e65d9852c6_client-success-customers.png',
-    'client-success-roi-results.png': '69ebb0b7d8ec906b8f3bf9f4_client-success-roi-results.png',
-    'client-success-testimonials.png': '69ebb0b76a5348bfd0b84f2a_client-success-testimonials.png',
-    'client-success-implementation.png': '69ebb0b7d3c3da1ee4829eb5_client-success-implementation.png',
-    'resources-blog.png': '69ebb0b8f158f4c588f3b615_resources-blog.png',
-    'resources-webinars.png': '69ebb0b82807a2d37e1a27e8_resources-webinars.png',
-    'resources-guides.png': '69ebb0b83dfd30c83a4fc0b5_resources-guides.png',
-    'resources-help.png': '69ebb0b8cd637b9786c6eda3_resources-help.png',
-    'resources-newsletter.png': '69ebb0b80b7e2520b7d44783_resources-newsletter.png',
-    'resources-api.png': '69ebb0b82d3234c2f8cd5dcc_resources-api.png',
-    'company-about.png': '69ebb0b73781f93611a606de_company-about.png',
-    'company-careers.png': '69ebb0b7ceb75ccd7c205a41_company-careers.png',
-    'company-contact.png': '69ebb0b7cf0de11a360aa3cc_company-contact.png',
-    'company-partners.png': '69ebb0b7308e9b8afc0574a5_company-partners.png',
-    'legal-privacy.png': '69ebb0b76c8e953dce3c8b30_legal-privacy.png',
-    'legal-terms.png': '69ebb0b7838220a7461c3a5f_legal-terms.png'
-  };
-
-  function injectSEOMeta() {
-    var path = window.location.pathname.replace(/\/$/, '') || '/';
-    var data = SEO_DATA[path];
-    if (!data) return;
-
-    function setMeta(attr, key, val) {
-      var sel = 'meta[' + attr + '="' + key + '"]';
-      var el = document.querySelector(sel);
-      if (!el) { el = document.createElement('meta'); el.setAttribute(attr, key); document.head.appendChild(el); }
-      el.setAttribute('content', val);
-    }
-
-    // Title
-    if (data.title) document.title = data.title;
-
-    // Description
-    setMeta('name', 'description', data.desc);
-
-    // Robots
-    setMeta('name', 'robots', 'index, follow');
-
-    // Open Graph — prefer the Webflow CDN URL for the uploaded asset
-    var ogFilename = (data.ogImage || '').split('/').pop();
-    var ogImageURL;
-    if (WF_OG_MAP[ogFilename]) {
-      ogImageURL = WF_OG_CDN + WF_OG_MAP[ogFilename];
-    } else if (/^https?:\/\//.test(data.ogImage)) {
-      ogImageURL = data.ogImage;
-    } else {
-      ogImageURL = SITE_URL + data.ogImage;
-    }
-    setMeta('property', 'og:title', data.title);
-    setMeta('property', 'og:description', data.desc);
-    setMeta('property', 'og:image', ogImageURL);
-    setMeta('property', 'og:image:width', '1200');
-    setMeta('property', 'og:image:height', '630');
-    setMeta('property', 'og:url', SITE_URL + path);
-    setMeta('property', 'og:type', 'website');
-    setMeta('property', 'og:site_name', 'PropFuel');
-
-    // Twitter Card
-    setMeta('name', 'twitter:card', 'summary_large_image');
-    setMeta('name', 'twitter:title', data.title);
-    setMeta('name', 'twitter:description', data.desc);
-    setMeta('name', 'twitter:image', ogImageURL);
-
-    // Canonical
-    var canon = document.querySelector('link[rel="canonical"]');
-    if (!canon) { canon = document.createElement('link'); canon.rel = 'canonical'; document.head.appendChild(canon); }
-    canon.href = SITE_URL + path;
-  }
-
   function injectSchemaMarkup() {
-    var path = window.location.pathname.replace(/\/$/, '') || '/';
-    var data = SEO_DATA[path];
-    if (!data) return;
-
-    var schemas = [];
-
-    // Organization (all pages)
-    schemas.push({
-      '@context': 'https://schema.org',
-      '@type': 'Organization',
-      'name': 'PropFuel',
-      'url': SITE_URL,
-      'logo': SITE_URL + '/logo.png',
-      'description': 'The membership insights and engagement platform for associations',
-      'sameAs': []
-    });
-
-    // WebPage (all pages)
-    schemas.push({
-      '@context': 'https://schema.org',
-      '@type': 'WebPage',
-      'name': data.title,
-      'description': data.desc,
-      'url': SITE_URL + path
-    });
-
-    // FAQPage (pages with FAQ sections)
     var faqItems = document.querySelectorAll('.pf-faq-item');
-    if (faqItems.length > 0) {
-      var faqSchema = {
-        '@context': 'https://schema.org',
-        '@type': 'FAQPage',
-        'mainEntity': []
-      };
-      faqItems.forEach(function(item) {
-        var q = item.querySelector('.pf-faq-question');
-        var a = item.querySelector('.pf-faq-answer');
-        if (q && a) {
-          faqSchema.mainEntity.push({
-            '@type': 'Question',
-            'name': q.textContent.trim(),
-            'acceptedAnswer': { '@type': 'Answer', 'text': a.textContent.trim() }
-          });
-        }
-      });
-      if (faqSchema.mainEntity.length > 0) schemas.push(faqSchema);
-    }
-
-    schemas.forEach(function(schema) {
-      var script = document.createElement('script');
-      script.type = 'application/ld+json';
-      script.textContent = JSON.stringify(schema);
-      document.head.appendChild(script);
+    if (!faqItems.length) return;
+    var faqSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      'mainEntity': []
+    };
+    faqItems.forEach(function(item) {
+      var q = item.querySelector('.pf-faq-question');
+      var a = item.querySelector('.pf-faq-answer');
+      if (q && a) {
+        faqSchema.mainEntity.push({
+          '@type': 'Question',
+          'name': q.textContent.trim(),
+          'acceptedAnswer': { '@type': 'Answer', 'text': a.textContent.trim() }
+        });
+      }
     });
+    if (!faqSchema.mainEntity.length) return;
+    var script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify(faqSchema);
+    document.head.appendChild(script);
   }
 
   // ─────────────────────────────────────────
@@ -8441,7 +8273,7 @@
     // Also serves cloned conference pages — identical layout/form/ChiliPiper
     // flow, only the conference name and lead_source differ. To add one:
     // duplicate the /mmct shell page in Webflow (keeps nav/footer symbols),
-    // then add the slug here and to SEO_DATA.
+    // then add the slug here and set its SEO title/description in Webflow page settings.
     var CONFERENCES = {
       'mmct': { h1: 'We met at MMCT and you’re about to pull from the <span class="accent">bag of money!</span>' },
       'asae-annual': { h1: 'We met at <span class="accent">ASAE Annual</span>' }
@@ -9111,28 +8943,6 @@
     });
   }
 
-  // CMS detail pages ship no per-item <title>, so Webflow falls back to the
-  // site name ("PropFuel V2") in the browser tab. Set the tab title from the
-  // item's H1 client-side. (Full fix for social link previews still requires
-  // binding the template SEO Title -> collection Name natively in Webflow —
-  // unfurlers don't run JS. See known-issues doc.)
-  function fixCmsDetailTitle() {
-    var path = window.location.pathname;
-    var map = [
-      { re: /^\/videos\/[^/]+/, sel: '.webinar-title' },
-      { re: /^\/blog-posts\/[^/]+/, sel: '.blog-article-title' },
-      { re: /^\/case-studies\/[^/]+/, sel: '.cs-hero-title' },
-      { re: /^\/team-members\/[^/]+/, sel: 'main h1, h1' }
-    ];
-    for (var i = 0; i < map.length; i++) {
-      if (!map[i].re.test(path)) continue;
-      var el = document.querySelector(map[i].sel) || document.querySelector('h1');
-      var name = el ? (el.textContent || '').trim().replace(/\s+/g, ' ') : '';
-      if (name) document.title = name + ' | PropFuel';
-      return;
-    }
-  }
-
   // Audit fix: many hero sections inject TWO CTAs that both point at
   // /book-a-demo (redundant). Keep the first (primary) as the demo CTA and
   // repoint any additional demo link in the same hero group to smooth-scroll
@@ -9165,7 +8975,6 @@
   // ─────────────────────────────────────────
   function init() {
     injectDynamicCSS();
-    fixCmsDetailTitle();
     applyTextures();
     fixNav();
     fixHomepage();
@@ -9283,8 +9092,7 @@
     initNavScroll();
     initDemoForm();
     applyMembershipAIPalette();
-    // SEO: inject meta tags and schema after all content is built
-    injectSEOMeta();
+    // SEO: FAQ schema only; all other metadata is native in Webflow (see 0B)
     injectSchemaMarkup();
   }
 
