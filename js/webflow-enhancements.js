@@ -11,18 +11,6 @@
   if (window.__pfEnhancementsLoaded) return;
   window.__pfEnhancementsLoaded = true;
 
-  // Legacy URL redirect for /demo only. /request-demo is now a Webflow 301
-  // (Site settings > Publishing). /demo still exists as a Webflow page ("Demo
-  // Redirect", noindexed) so a 301 rule cannot fire for it yet; delete that
-  // page, add the /demo -> /book-a-demo 301, then remove this block entirely.
-  // Preserves query string + hash (e.g. UTM params, anchors).
-  (function redirectLegacyPaths() {
-    var p = window.location.pathname.replace(/\/$/, '') || '/';
-    if (p === '/demo') {
-      window.location.replace('/book-a-demo' + window.location.search + window.location.hash);
-    }
-  })();
-
   var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // ─────────────────────────────────────────
