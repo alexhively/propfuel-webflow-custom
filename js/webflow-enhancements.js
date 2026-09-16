@@ -8638,21 +8638,26 @@
   var WEBINAR_PROMO = {
     enabled: true,
     eyebrow: 'Live Webinar',
-    title: 'Converting Students to Professional Membership',
-    subtitle: 'Questions to Ask Before Graduation',
-    dateLabel: 'Sep 9, 2026',
+    title: 'Rethinking Renewals',
+    subtitle: 'Integrating Engagement Conversation into Membership Renewal and Retention Strategy',
+    dateLabel: 'Sep 18, 2026',
     timeLabel: '1:00 PM ET',
     duration: '1 hr',
-    description: 'Graduation is where student members quietly become lapsed records. This session covers the questions that reveal whether a student has entered the field and routes them straight into the right membership offer.',
-    speaker: 'Brittany Lancor',
-    ctaLabel: 'Register Free →',
-    ctaUrl: 'https://us02web.zoom.us/webinar/register/3917882937818/WN_jASx8NFrTjCG0tozIgkS6Q',
+    description: 'After a dip in retention, one of our clients rebuilt their renewal approach around a single question: are you planning to renew? Lauren joins Brittany to share how they built it and what\'s next for 2027.',
+    // Two speakers on this one — `speakers` (array) takes precedence over the
+    // legacy single `speaker` string, which still works for one-presenter events.
+    speakers: [
+      { name: 'Brittany Lancor', org: 'PropFuel' },
+      { name: 'Lauren Taggart', org: 'FelineVMA' }
+    ],
+    ctaLabel: 'Register Free \u2192',
+    ctaUrl: 'https://us02web.zoom.us/webinar/register/4917895036270/WN_1amYWZsJSS6TlSV6_hz3VA',
     // Event start — drives the "happening tomorrow / today" badge. ISO with ET offset.
-    eventAt: '2026-09-09T13:00:00-04:00',
+    eventAt: '2026-09-18T13:00:00-04:00',
     // Stop showing after this moment (webinar end). ISO with ET offset.
-    expiresAt: '2026-09-09T14:00:00-04:00',
+    expiresAt: '2026-09-18T14:00:00-04:00',
     delayMs: 4000,
-    sessionKey: 'pfWebinarPromo_2026-09-09_students'
+    sessionKey: 'pfWebinarPromo_2026-09-18_renewals'
   };
 
   // "Happening tomorrow" is computed, never hardcoded — otherwise the badge is
@@ -8723,6 +8728,16 @@
     function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
     var urgency = webinarUrgencyLabel(cfg.eventAt);
 
+    // Accepts either `speakers: [{name, org}]` or the legacy `speaker: 'Name'`.
+    var speakerList = (cfg.speakers && cfg.speakers.length) ? cfg.speakers
+                    : (cfg.speaker ? [{ name: cfg.speaker }] : []);
+    var speakerHtml = speakerList.length
+      ? '<span class="pf-wpop-speaker">' + (speakerList.length > 1 ? 'Speakers: ' : 'Speaker: ') +
+        speakerList.map(function (sp) {
+          return '<b>' + esc(sp.name) + '</b>' + (sp.org ? ', ' + esc(sp.org) : '');
+        }).join(' \u00b7 ') + '</span>'
+      : '';
+
     var overlay = document.createElement('div');
     overlay.className = 'pf-wpop-overlay';
     overlay.setAttribute('role', 'dialog');
@@ -8746,8 +8761,8 @@
           '<span class="dur">' + esc(cfg.duration) + '</span>' +
         '</div>' +
         (cfg.description ? '<p class="pf-wpop-desc">' + esc(cfg.description) + '</p>' : '') +
-        '<div class="pf-wpop-foot"' + (cfg.speaker ? '' : ' style="justify-content:flex-end"') + '>' +
-          (cfg.speaker ? '<span class="pf-wpop-speaker">Speaker: <b>' + esc(cfg.speaker) + '</b></span>' : '') +
+        '<div class="pf-wpop-foot"' + (speakerHtml ? '' : ' style="justify-content:flex-end"') + '>' +
+          speakerHtml +
           '<a class="pf-wpop-btn" href="' + esc(cfg.ctaUrl) + '" target="_blank" rel="noopener">' + esc(cfg.ctaLabel) + '</a>' +
         '</div>' +
       '</div>';
