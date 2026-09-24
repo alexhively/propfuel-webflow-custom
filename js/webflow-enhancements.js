@@ -2421,7 +2421,7 @@
     }
     var ctaSub = document.querySelector('.pf-cta-sub');
     if (ctaSub) {
-      ctaSub.textContent = 'See how PropFuel helps associations understand what members want and act on it\u00a0\u2014\u00a0all in one platform.';
+      ctaSub.textContent = 'Most member communication solutions stop at the send. See how PropFuel helps associations understand what members want and act on it\u00a0\u2014\u00a0all in one platform.';
     }
 
     // ═══════════════════════════════════════
@@ -4875,7 +4875,7 @@
       heroLabel: 'Onboarding',
       heroTitle: 'Member Onboarding Starts the Retention Conversation.',
       heroSub: 'Most associations send a welcome email and then go silent until renewal. PropFuel turns new member onboarding into a year-long engagement journey \u2014 one question at a time, enrolled automatically from your AMS, with the right conversation at every milestone.',
-      heroNote: 'Launch from a ready-made onboarding blueprint \u00b7 Check-ins by email, SMS, and your website \u00b7 New members enroll automatically from your AMS',
+      heroNote: 'Launch association new member onboarding from a ready-made blueprint \u00b7 Check-ins by email, SMS, and your website \u00b7 New members enroll automatically from your AMS',
       problemLabel: 'The Problem',
       problemH2: 'A welcome email is not an onboarding strategy.',
       problemBody: [
@@ -5041,7 +5041,7 @@
         html: '<div style="max-width:1100px;margin:0 auto">' +
           '<div style="max-width:760px;margin:0 auto 56px;text-align:center">' +
             '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15;margin:0 0 24px">Member retention strategies before the renewal notice</h2>' +
-            '<p style="font-size:17px;color:#6E6E6E;line-height:1.65;margin:0 0 16px">Membership retention isn\u2019t the same thing as a renewal reminder. By the time the invoice goes out, most members have already decided. Non-payment is the symptom, not the cause \u2014 the decision happens weeks earlier, when a member stops finding value and nobody notices.</p>' +
+            '<p style="font-size:17px;color:#6E6E6E;line-height:1.65;margin:0 0 16px">Membership retention isn\u2019t the same thing as a renewal reminder \u2014 yet most membership retention strategies still start with the invoice. By the time it goes out, most members have already decided. Non-payment is the symptom, not the cause \u2014 the decision happens weeks earlier, when a member stops finding value and nobody notices.</p>' +
             '<p style="font-size:17px;color:#6E6E6E;line-height:1.65;margin:0">That\u2019s why PropFuel works as member retention software, not just a way to automate membership renewals: every step is designed to learn why members stay or go while there\u2019s still time to act.</p>' +
           '</div>' +
           '<div class="uc-feature-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px">' +
