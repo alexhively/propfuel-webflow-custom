@@ -1601,6 +1601,18 @@
       }
     });
 
+    // Homepage blog preview: the Webflow Data API can't set a Collection List
+    // link to "Current Blog Post", so each card carries its CMS slug in a hidden
+    // .pf-blog-slug element. Build the href from it. Once the card link is set
+    // to "Current Blog Post" in the Designer, hrefs are already correct and
+    // this is a no-op.
+    document.querySelectorAll('a.pf-blog-card').forEach(function(card) {
+      var slugEl = card.querySelector('.pf-blog-slug');
+      var slug = slugEl ? slugEl.textContent.trim() : '';
+      var href = card.getAttribute('href') || '';
+      if (slug && !/^\/blog-posts\/[^/]+/.test(href)) card.setAttribute('href', '/blog-posts/' + slug);
+    });
+
     // Add logo image to footer brand section
     var footerBrand = document.querySelector('.pf-footer-brand');
     if (footerBrand && !footerBrand.querySelector('img')) {
