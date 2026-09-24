@@ -471,6 +471,13 @@
   function injectSchemaMarkup() {
     var faqItems = document.querySelectorAll('.pf-faq-item');
     if (!faqItems.length) return;
+    // Pages whose FAQPage JSON-LD is set natively in Webflow (e.g. the homepage)
+    // must not get a second, client-side copy.
+    var hasNativeFaq = Array.prototype.some.call(
+      document.querySelectorAll('script[type="application/ld+json"]'),
+      function(s) { return /"FAQPage"/.test(s.textContent); }
+    );
+    if (hasNativeFaq) return;
     var faqSchema = {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
@@ -1289,7 +1296,11 @@
     ];
     var tSection = document.querySelector('.pf-testimonials-section');
     var tmplSlide = document.querySelector('.pf-testimonial-slide');
-    if (tSection && tmplSlide) {
+    // The homepage now ships the real testimonials natively; only rewrite
+    // pages whose Webflow slides still hold placeholder copy.
+    var firstAuthor = tmplSlide ? tmplSlide.querySelector('.pf-testimonial-author') : null;
+    var slidesAreReal = firstAuthor && firstAuthor.textContent.trim() === realTestimonials[0].a;
+    if (tSection && tmplSlide && !slidesAreReal) {
       var slideParent = tmplSlide.parentElement;
       // Ensure there are at least as many slides as real testimonials
       while (slideParent.querySelectorAll('.pf-testimonial-slide').length < realTestimonials.length) {
@@ -1336,7 +1347,20 @@
       if (i > 0) bar.style.display = 'none';
     });
     var logosBar = allLogosBars[0];
-    if (logosBar) {
+    var staticTrack = logosBar ? logosBar.querySelector('.lc-track') : null;
+    if (staticTrack) {
+      // Logos are static Webflow markup (homepage). Duplicate the items once so
+      // the CSS scroll animation (-50%) loops seamlessly; clones are decorative.
+      if (!staticTrack.dataset.pfLooped) {
+        Array.prototype.slice.call(staticTrack.children).forEach(function(item) {
+          var clone = item.cloneNode(true);
+          clone.setAttribute('aria-hidden', 'true');
+          clone.querySelectorAll('img').forEach(function(img) { img.alt = ''; });
+          staticTrack.appendChild(clone);
+        });
+        staticTrack.dataset.pfLooped = '1';
+      }
+    } else if (logosBar) {
       var CDN = 'https://cdn.prod.website-files.com/69ca88e6c52b04fb85f74a02/';
       var logos = [
         { file: '69cc2ec91996f9fc1d17b050_aap-logo-gray.png', alt: 'AAP logo' },
@@ -1487,10 +1511,10 @@
     var platformGrid = platformSection ? platformSection.querySelector('.pf-platform-grid') : null;
     if (platformGrid) {
       var tabs = [
-        { id: 'insights', label: 'Insights', title: 'More signal. Less noise.', desc: 'The Insights Engine interprets member behavior and surfaces who wants what, who\u2019s at risk, and who\u2019s ready for more \u2014 so you stop guessing and start acting.', features: ['Real-time member signals and response analysis','At-risk member identification before they lapse','AI-powered insight agent that learns over time','Clear, actionable dashboards \u2014 not data dumps'], link: '/platform/insights', mockup: '<div class="mu-card"><div class="mu-hdr"><span class="mu-t">Member Signal</span><span class="mu-pill mu-g">Healthy</span></div><div style="display:flex;justify-content:space-between;margin-top:10px"><div><div class="mu-name">Sarah Chen</div><div class="mu-sub">Director of Programs, ACME Assoc.</div></div><div style="text-align:right"><div class="mu-score">87</div><div class="mu-sub">Signal Strength</div></div></div><div class="mu-div"></div><div class="mu-tags"><span class="mu-tag">Certification</span><span class="mu-tag">Events</span><span class="mu-tag">Advocacy</span><span class="mu-tag">Mentorship</span></div></div><div class="mu-card"><div class="mu-hdr"><span class="mu-t">At-Risk Members</span><span class="mu-pill mu-r">12 flagged</span></div><div style="margin-top:10px"><div class="mu-bar-row"><span class="mu-bar-l">J. Rivera</span><div class="mu-bar"><div class="mu-bar-f" style="width:23%"></div></div><span class="mu-bar-v">23</span></div><div class="mu-bar-row" style="margin-top:8px"><span class="mu-bar-l">M. Patel</span><div class="mu-bar"><div class="mu-bar-f" style="width:31%"></div></div><span class="mu-bar-v">31</span></div><div class="mu-bar-row" style="margin-top:8px"><span class="mu-bar-l">K. Olsen</span><div class="mu-bar"><div class="mu-bar-f" style="width:18%"></div></div><span class="mu-bar-v">18</span></div></div></div>' },
-        { id: 'automation', label: 'Automation', title: 'More personalization. Less busy work.', desc: 'The Automation Engine builds campaigns from scratch \u2014 segments, messaging, workflows \u2014 using 70+ blueprints. You just approve and launch.', features: ['70+ campaign blueprints ready to deploy','AI-generated messaging tailored to each segment','Conditional logic and drip sequences','One-click campaign builder \u2014 no technical skills needed'], link: '/platform/automation', mockup: '<div class="mu-card"><div class="mu-hdr"><span class="mu-t">Campaign Blueprint</span><span class="mu-pill mu-o">Ready to Launch</span></div><div style="margin-top:12px"><div class="mu-name">Renewal Win-Back \u2014 90 Day</div><div class="mu-sub">Targets 847 lapsed members \u00b7 3-step drip</div></div><div class="mu-div"></div><div style="display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:#2F2F2F"><div style="display:flex;align-items:center;gap:6px"><span class="mu-step-n">1</span> Segment</div><span style="color:#D6D0C4">\u2192</span><div style="display:flex;align-items:center;gap:6px"><span class="mu-step-n">2</span> Message</div><span style="color:#D6D0C4">\u2192</span><div style="display:flex;align-items:center;gap:6px"><span class="mu-step-n">3</span> Follow-up</div></div><div style="margin-top:16px;display:flex;gap:8px"><span class="mu-btn mu-btn-p">1-Click Deploy</span><span class="mu-btn mu-btn-o">Customize</span></div></div>' },
-        { id: 'engagement', label: 'Engagement', title: 'More engagement. Less silence.', desc: 'The Engagement Engine turns one-way communications into two-way exchanges. Single-click responses across email, website, and SMS.', features: ['Single-click email responses members actually use','Website targeting \u2014 pop-ups, banners, inline content','SMS engagement with opt-in management','AMS integration with automatic data write-back'], link: '/platform/engagement', mockup: '<div class="mu-card"><div class="mu-hdr"><span class="mu-t">Live Response</span><span class="mu-pill mu-o">Collecting</span></div><div style="margin-top:12px;font-size:15px;font-weight:700;color:#2F2F2F">What\u2019s most important to you this year?</div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><span class="mu-resp sel">Professional Development</span><span class="mu-resp">Networking</span><span class="mu-resp">Certification</span><span class="mu-resp">Advocacy</span></div><div class="mu-div"></div><div style="display:flex;gap:16px"><div style="flex:1;text-align:center"><div style="font-size:20px;font-weight:900;color:#2F2F2F">1,847</div><div class="mu-sub">Responses</div></div><div style="flex:1;text-align:center"><div style="font-size:20px;font-weight:900;background:linear-gradient(135deg,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent">45%</div><div class="mu-sub">Engagement Rate</div></div><div style="flex:1;text-align:center"><div style="font-size:20px;font-weight:900;color:#2F2F2F">3</div><div class="mu-sub">Channels</div></div></div></div>' },
-        { id: 'ai', label: 'Membership AI', title: 'The reinforcements you\u2019ve been waiting for.', desc: 'Three AI agents working alongside your team \u2014 watching every signal, recommending every next move, and even building the campaigns. Backup that never sleeps, so a small team can run like a big one.', features: ['Insight \u2014 never misses a member signal','Recommendation Agent \u2014 always knows the next move','Initiative \u2014 builds the campaigns for you','Always on, always learning \u2014 sharper with every interaction'], link: '/membership-ai', mockup: '<div class="mu-card"><div style="font-size:12px;font-weight:700;color:#2F2F2F;margin-bottom:8px">\u2728 Insight</div><div class="mu-bubble"><strong>12 members</strong> showing lapse signals this week. Signal strength dropped below 30.</div><div style="margin-top:12px;font-size:12px;font-weight:700;color:#2F2F2F;margin-bottom:8px">\ud83c\udfaf Initiative</div><div class="mu-bubble">Recommended: Launch a <strong>win-back campaign</strong> for Q2 non-renewals. 80% success rate.</div><div style="margin-top:14px;display:flex;gap:8px"><span class="mu-btn mu-btn-p">Apply Recommendation</span><span class="mu-btn mu-btn-o">View Details</span></div></div>' }
+        { id: 'insights', label: 'Insights', title: 'More signal. Less noise.', desc: 'The Insights Engine builds a signal for every member from how they answer your questions, how they engage with your emails and website, and what your AMS already knows about them \u2014 so you see who wants what, who\u2019s at risk, and who\u2019s ready for more.', features: ['Member signals built from responses, engagement, and AMS data','At-risk members flagged before they lapse \u2014 not after a missed payment','AI-powered insight agent that learns over time','Clear dashboards that show what to do next'], link: '/platform/insights', cta: 'Explore Insights Engine', mockup: '<div class="mu-card"><div class="mu-hdr"><span class="mu-t">Member Signal</span><span class="mu-pill mu-g">Healthy</span></div><div style="display:flex;justify-content:space-between;margin-top:10px"><div><div class="mu-name">Sarah Chen</div><div class="mu-sub">Director of Programs, ACME Assoc.</div></div><div style="text-align:right"><div class="mu-score">87</div><div class="mu-sub">Signal Strength</div></div></div><div class="mu-div"></div><div class="mu-tags"><span class="mu-tag">Certification</span><span class="mu-tag">Events</span><span class="mu-tag">Advocacy</span><span class="mu-tag">Mentorship</span></div></div><div class="mu-card"><div class="mu-hdr"><span class="mu-t">At-Risk Members</span><span class="mu-pill mu-r">12 flagged</span></div><div style="margin-top:10px"><div class="mu-bar-row"><span class="mu-bar-l">J. Rivera</span><div class="mu-bar"><div class="mu-bar-f" style="width:23%"></div></div><span class="mu-bar-v">23</span></div><div class="mu-bar-row" style="margin-top:8px"><span class="mu-bar-l">M. Patel</span><div class="mu-bar"><div class="mu-bar-f" style="width:31%"></div></div><span class="mu-bar-v">31</span></div><div class="mu-bar-row" style="margin-top:8px"><span class="mu-bar-l">K. Olsen</span><div class="mu-bar"><div class="mu-bar-f" style="width:18%"></div></div><span class="mu-bar-v">18</span></div></div></div>' },
+        { id: 'automation', label: 'Automation', title: 'More personalization. Less busy work.', desc: 'The Automation Engine launches campaigns from 70+ blueprints \u2014 ready-made campaigns with the segment, send timing, and messaging already set. You tailor, approve, and launch, and your team spends less time on busy work.', features: ['70+ campaign blueprints ready to deploy','AI-generated messaging tailored to each segment','Conditional logic and drip sequences','One-click campaign builder \u2014 no technical skills needed'], link: '/platform/automation', cta: 'Explore Automation Engine', mockup: '<div class="mu-card"><div class="mu-hdr"><span class="mu-t">Campaign Blueprint</span><span class="mu-pill mu-o">Ready to Launch</span></div><div style="margin-top:12px"><div class="mu-name">Renewal Win-Back \u2014 90 Day</div><div class="mu-sub">Targets 847 lapsed members \u00b7 3-step drip</div></div><div class="mu-div"></div><div style="display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:#2F2F2F"><div style="display:flex;align-items:center;gap:6px"><span class="mu-step-n">1</span> Segment</div><span style="color:#D6D0C4">\u2192</span><div style="display:flex;align-items:center;gap:6px"><span class="mu-step-n">2</span> Message</div><span style="color:#D6D0C4">\u2192</span><div style="display:flex;align-items:center;gap:6px"><span class="mu-step-n">3</span> Follow-up</div></div><div style="margin-top:16px;display:flex;gap:8px"><span class="mu-btn mu-btn-p">1-Click Deploy</span><span class="mu-btn mu-btn-o">Customize</span></div></div>' },
+        { id: 'engagement', label: 'Engagement', title: 'More engagement. Less silence.', desc: 'The Engagement Engine turns one-way communications into two-way exchanges. Members answer with a single click right inside the email \u2014 no login, no form, nothing to download \u2014 which is why they actually reply.', features: ['Single-click email responses members actually use','Website targeting \u2014 pop-ups, banners, inline content','SMS with opt-in management and messaging compliance built in','AMS integration with automatic data write-back'], link: '/platform/engagement', cta: 'Explore Engagement Engine', mockup: '<div class="mu-card"><div class="mu-hdr"><span class="mu-t">Live Response</span><span class="mu-pill mu-o">Collecting</span></div><div style="margin-top:12px;font-size:15px;font-weight:700;color:#2F2F2F">What\u2019s most important to you this year?</div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><span class="mu-resp sel">Professional Development</span><span class="mu-resp">Networking</span><span class="mu-resp">Certification</span><span class="mu-resp">Advocacy</span></div><div class="mu-div"></div><div style="display:flex;gap:16px"><div style="flex:1;text-align:center"><div style="font-size:20px;font-weight:900;color:#2F2F2F">1,847</div><div class="mu-sub">Responses</div></div><div style="flex:1;text-align:center"><div style="font-size:20px;font-weight:900;background:linear-gradient(135deg,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent">45%</div><div class="mu-sub">Engagement Rate</div></div><div style="flex:1;text-align:center"><div style="font-size:20px;font-weight:900;color:#2F2F2F">3</div><div class="mu-sub">Channels</div></div></div></div>' },
+        { id: 'ai', label: 'Membership AI', title: 'The reinforcements you\u2019ve been waiting for.', lead: 'A small team can run like a big one.', desc: 'Three AI agents working alongside your team \u2014 watching every signal, recommending every next move, and drafting the campaigns you approve. It learns from your member responses, campaign history, website, and the goals you set, so it gets sharper with every interaction.', features: ['Insight \u2014 never misses a member signal','Recommendation Agent \u2014 always knows the next move','Initiative \u2014 builds the campaigns for you','Always on, always learning \u2014 sharper with every interaction'], link: '/membership-ai', cta: 'Explore Membership AI', mockup: '<div class="mu-card"><div style="font-size:12px;font-weight:700;color:#2F2F2F;margin-bottom:8px">\u2728 Insight</div><div class="mu-bubble"><strong>12 members</strong> showing lapse signals this week. Signal strength dropped below 30.</div><div style="margin-top:12px;font-size:12px;font-weight:700;color:#2F2F2F;margin-bottom:8px">\ud83c\udfaf Initiative</div><div class="mu-bubble">Recommended: Launch a <strong>win-back campaign</strong> for Q2 non-renewals. 80% success rate.</div><div style="margin-top:14px;display:flex;gap:8px"><span class="mu-btn mu-btn-p">Apply Recommendation</span><span class="mu-btn mu-btn-o">View Details</span></div></div>' }
       ];
 
       // Build tabbed UI
@@ -1510,13 +1534,14 @@
         html += '<div class="pf-tab-panel" data-panel="' + i + '" style="display:' + (i === 0 ? 'grid' : 'none') + ';grid-template-columns:1fr 1fr;gap:64px;align-items:start">';
         html += '<div>';
         html += '<h3 style="' + titleStyle + '">' + t.title + '</h3>';
+        if (t.lead) html += '<p class="pf-tab-lead" style="font-size:20px;font-weight:700;color:#1F3A51;line-height:1.35;margin-bottom:12px">' + t.lead + '</p>';
         html += '<p style="font-size:17px;color:#6E6E6E;line-height:1.65;margin-bottom:32px">' + t.desc + '</p>';
         html += '<ul style="list-style:none;padding:0;margin:0 0 36px">';
         t.features.forEach(function(f) {
           html += '<li style="font-size:15px;font-weight:500;color:#2F2F2F;display:flex;align-items:flex-start;gap:10px;line-height:1.4;margin-bottom:12px"><span style="width:6px;height:6px;min-width:6px;border-radius:50%;background:' + dotColor + ';margin-top:7px"></span>' + f + '</li>';
         });
         html += '</ul>';
-        html += '<a href="' + t.link + '" style="display:inline-flex;align-items:center;gap:8px;background:#1A1714;border-radius:100px;padding:14px 28px;font-size:14px;font-weight:600;letter-spacing:0.03em;color:#F4F1EA;text-decoration:none;box-shadow:0 4px 16px rgba(0,0,0,0.15)">Learn More \u2192</a>';
+        html += '<a href="' + t.link + '" style="display:inline-flex;align-items:center;gap:8px;background:#1A1714;border-radius:100px;padding:14px 28px;font-size:14px;font-weight:600;letter-spacing:0.03em;color:#F4F1EA;text-decoration:none;box-shadow:0 4px 16px rgba(0,0,0,0.15)">' + (t.cta || 'Learn More') + ' \u2192</a>';
         html += '</div>';
         html += '<div class="mu-ui" style="background:#EBE6DA;border-radius:20px;padding:28px;min-height:420px">' + t.mockup + '</div>';
         html += '</div>';
@@ -1570,7 +1595,8 @@
 
     // Add arrows to primary CTA buttons that say "Get Started"
     document.querySelectorAll('.pf-btn-primary').forEach(function(btn) {
-      if (btn.textContent.trim() === 'Get Started' && !btn.querySelector('svg')) {
+      var btnLabel = btn.textContent.trim();
+      if ((btnLabel === 'Get Started' || btnLabel === 'Get a Free Demo') && !btn.querySelector('svg')) {
         btn.insertAdjacentHTML('beforeend', ' <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-left:4px"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>');
       }
     });
@@ -1602,7 +1628,9 @@
     // ═══════════════════════════════════════
     // USE CASES SECTION — inject between stats and testimonials
     // ═══════════════════════════════════════
-    if (!document.querySelector('.hp-use-cases')) {
+    // The homepage use-case grid is static Webflow markup (.hp-uc-grid).
+    var hasStaticUseCases = !!document.querySelector('.hp-uc-grid');
+    if (!hasStaticUseCases && !document.querySelector('.hp-use-cases')) {
       var ucCards = [
         { type: 'Win-Back', num: '80%', label: 'win-back rate on lapsed members', org: 'AAP', featured: true },
         { type: 'Renewals', num: '95%', label: 'on-time renewal rate — up from 80.5%', org: 'AAMFT' },
@@ -1661,7 +1689,7 @@
         dot.dataset.slide = d;
         dotsDiv.appendChild(dot);
       }
-      section.appendChild(dotsDiv);
+      allSlides[allSlides.length - 1].insertAdjacentElement('afterend', dotsDiv);
 
       // Update dots when slides change
       var origInterval = setInterval(function() {
@@ -1682,7 +1710,7 @@
       if (firstCard) ucSection = firstCard.closest('section') || firstCard.parentElement.parentElement;
     }
 
-    if (ucSection) {
+    if (ucSection && !hasStaticUseCases) {
       // Find the grid container (the div holding the cards) — reuse ucGrid if already found
       if (!ucGrid) ucGrid = ucSection.querySelector('[class*="usecase-grid"], [class*="usecases-grid"]');
       if (!ucGrid) {
@@ -8638,21 +8666,26 @@
   var WEBINAR_PROMO = {
     enabled: true,
     eyebrow: 'Live Webinar',
-    title: 'Converting Students to Professional Membership',
-    subtitle: 'Questions to Ask Before Graduation',
-    dateLabel: 'Sep 9, 2026',
+    title: 'Rethinking Renewals',
+    subtitle: 'Integrating Engagement Conversation into Membership Renewal and Retention Strategy',
+    dateLabel: 'Sep 18, 2026',
     timeLabel: '1:00 PM ET',
     duration: '1 hr',
-    description: 'Graduation is where student members quietly become lapsed records. This session covers the questions that reveal whether a student has entered the field and routes them straight into the right membership offer.',
-    speaker: 'Brittany Lancor',
-    ctaLabel: 'Register Free →',
-    ctaUrl: 'https://us02web.zoom.us/webinar/register/3917882937818/WN_jASx8NFrTjCG0tozIgkS6Q',
+    description: 'After a dip in retention, one of our clients rebuilt their renewal approach around a single question: are you planning to renew? Lauren joins Brittany to share how they built it and what\'s next for 2027.',
+    // Two speakers on this one — `speakers` (array) takes precedence over the
+    // legacy single `speaker` string, which still works for one-presenter events.
+    speakers: [
+      { name: 'Brittany Lancor', org: 'PropFuel' },
+      { name: 'Lauren Taggart', org: 'FelineVMA' }
+    ],
+    ctaLabel: 'Register Free \u2192',
+    ctaUrl: 'https://us02web.zoom.us/webinar/register/4917895036270/WN_1amYWZsJSS6TlSV6_hz3VA',
     // Event start — drives the "happening tomorrow / today" badge. ISO with ET offset.
-    eventAt: '2026-09-09T13:00:00-04:00',
+    eventAt: '2026-09-18T13:00:00-04:00',
     // Stop showing after this moment (webinar end). ISO with ET offset.
-    expiresAt: '2026-09-09T14:00:00-04:00',
+    expiresAt: '2026-09-18T14:00:00-04:00',
     delayMs: 4000,
-    sessionKey: 'pfWebinarPromo_2026-09-09_students'
+    sessionKey: 'pfWebinarPromo_2026-09-18_renewals'
   };
 
   // "Happening tomorrow" is computed, never hardcoded — otherwise the badge is
@@ -8723,6 +8756,16 @@
     function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
     var urgency = webinarUrgencyLabel(cfg.eventAt);
 
+    // Accepts either `speakers: [{name, org}]` or the legacy `speaker: 'Name'`.
+    var speakerList = (cfg.speakers && cfg.speakers.length) ? cfg.speakers
+                    : (cfg.speaker ? [{ name: cfg.speaker }] : []);
+    var speakerHtml = speakerList.length
+      ? '<span class="pf-wpop-speaker">' + (speakerList.length > 1 ? 'Speakers: ' : 'Speaker: ') +
+        speakerList.map(function (sp) {
+          return '<b>' + esc(sp.name) + '</b>' + (sp.org ? ', ' + esc(sp.org) : '');
+        }).join(' \u00b7 ') + '</span>'
+      : '';
+
     var overlay = document.createElement('div');
     overlay.className = 'pf-wpop-overlay';
     overlay.setAttribute('role', 'dialog');
@@ -8746,8 +8789,8 @@
           '<span class="dur">' + esc(cfg.duration) + '</span>' +
         '</div>' +
         (cfg.description ? '<p class="pf-wpop-desc">' + esc(cfg.description) + '</p>' : '') +
-        '<div class="pf-wpop-foot"' + (cfg.speaker ? '' : ' style="justify-content:flex-end"') + '>' +
-          (cfg.speaker ? '<span class="pf-wpop-speaker">Speaker: <b>' + esc(cfg.speaker) + '</b></span>' : '') +
+        '<div class="pf-wpop-foot"' + (speakerHtml ? '' : ' style="justify-content:flex-end"') + '>' +
+          speakerHtml +
           '<a class="pf-wpop-btn" href="' + esc(cfg.ctaUrl) + '" target="_blank" rel="noopener">' + esc(cfg.ctaLabel) + '</a>' +
         '</div>' +
       '</div>';
