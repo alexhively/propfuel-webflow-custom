@@ -1957,7 +1957,7 @@
     // --- 3. Fix subtitle text using exact Webflow class ---
     var heroSub = document.querySelector('.pf-page-hero-sub');
     if (heroSub) {
-      heroSub.textContent = 'The AI-powered membership insights and engagement platform that helps associations understand what members want\u00a0\u2014\u00a0and act on it.';
+      heroSub.textContent = 'The AI-powered online member engagement platform that helps associations understand what members want\u00a0\u2014\u00a0and act on it. Not another email tool: PropFuel turns one-way member communication into two-way conversations.';
     }
 
     // --- 4. Inject hero buttons (Webflow has NO buttons in the hero) ---
@@ -1990,15 +1990,21 @@
       var philHTML = '<section class="po-philosophy" style="padding:96px 48px;background:#EBE6DA">' +
         '<div style="max-width:1100px;margin:0 auto">' +
         '<div style="text-align:center;margin-bottom:64px">' +
-          '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">The PropFuel Difference</p>' +
-          '<h2 style="font-size:clamp(32px,5vw,48px);font-weight:800;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.1;margin-bottom:20px">Stop Broadcasting.<br>Start Conversing.</h2>' +
+          '<h2 style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin:0 0 16px;line-height:1.4">The PropFuel Difference</h2>' +
+          '<p style="font-size:clamp(32px,5vw,48px);font-weight:800;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.1;margin:0 0 20px">Stop Broadcasting.<br>Start Conversing.</p>' +
           '<p style="font-size:18px;color:#6E6E6E;max-width:620px;margin:0 auto;line-height:1.65">PropFuel is not another email tool or marketing automation platform. It is built on a fundamentally different idea: instead of broadcasting at members, you have conversations with them.</p>' +
         '</div>' +
         '<div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center">' +
           '<div>' +
             '<h3 style="font-size:clamp(22px,3vw,28px);font-weight:700;color:#2F2F2F;line-height:1.2;margin-bottom:20px">One question at a time. Three channels. Every response matters.</h3>' +
             '<p style="font-size:16px;color:#6E6E6E;line-height:1.65;margin-bottom:16px">Most platforms send newsletters, surveys, and blast emails \u2014 hoping someone responds. PropFuel asks one clear question through email, SMS, or your website. Members respond with a single tap. No friction, no fatigue.</p>' +
-            '<p style="font-size:16px;color:#6E6E6E;line-height:1.65">Every response flows back into the member profile and triggers the right next action \u2014 automatically. It is a continuous loop of listening and acting that turns passive members into engaged ones.</p>' +
+            '<p style="font-size:16px;color:#6E6E6E;line-height:1.65;margin-bottom:28px">Every response flows back into the member profile and triggers the right next action \u2014 automatically. It is a continuous loop of listening and acting that turns passive members into engaged ones.</p>' +
+            '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px">' +
+              '<div style="background:#F6F2E8;border-radius:14px;padding:18px 16px"><p style="font-size:26px;font-weight:900;color:#F47C2C;line-height:1;margin:0 0 6px">70+</p><p style="font-size:13px;color:#6E6E6E;line-height:1.45;margin:0">ready-made campaign blueprints, so nobody writes from scratch</p></div>' +
+              '<div style="background:#F6F2E8;border-radius:14px;padding:18px 16px"><p style="font-size:26px;font-weight:900;color:#F47C2C;line-height:1;margin:0 0 6px">10\u201345 min</p><p style="font-size:13px;color:#6E6E6E;line-height:1.45;margin:0">to train your staff on the platform</p></div>' +
+              '<div style="background:#F6F2E8;border-radius:14px;padding:18px 16px"><p style="font-size:26px;font-weight:900;color:#F47C2C;line-height:1;margin:0 0 6px">0</p><p style="font-size:13px;color:#6E6E6E;line-height:1.45;margin:0">CSV exports \u2014 every response writes back to your AMS automatically</p></div>' +
+            '</div>' +
+            '<p style="font-size:15px;color:#2F2F2F;font-style:italic;line-height:1.55;margin:0;border-left:3px solid #FBC02D;padding-left:16px">\u201CYou just gave us another staff member.\u201D <span style="font-style:normal;color:#8C8479">\u2014 Bryan Soady, Executive Director &amp; CEO, SUAA</span></p>' +
           '</div>' +
           '<div style="display:flex;align-items:center;justify-content:center">' +
             '<div style="max-width:400px;width:100%;font-family:DM Sans,sans-serif">' +
@@ -2032,9 +2038,10 @@
     var engineSection = document.querySelector('.pf-section, .pf-feature-grid');
     if (engineSection && !document.querySelector('.po-engines-header')) {
       var engHeaderHTML = '<div class="po-engines-header" style="text-align:center;padding:96px 48px 32px;max-width:800px;margin:0 auto">' +
-        '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">Three Engines, One Platform</p>' +
-        '<h2 style="font-size:clamp(28px,4vw,42px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.1;margin-bottom:20px">Everything You Need to Understand and Engage Your Members</h2>' +
-        '<p style="font-size:18px;color:#6E6E6E;line-height:1.6">PropFuel unifies insights, automation, and engagement into a single platform purpose-built for associations.</p>' +
+        '<h2 style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin:0 0 16px;line-height:1.4">Three Engines, One Platform</h2>' +
+        '<p style="font-size:clamp(28px,4vw,42px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.1;margin:0 0 20px">Everything You Need to Understand and Engage Your Members</p>' +
+        '<p style="font-size:18px;color:#6E6E6E;line-height:1.6;margin:0 0 16px">PropFuel unifies insights, automation, and engagement into a single platform purpose-built for associations.</p>' +
+        '<p style="font-size:16px;color:#6E6E6E;line-height:1.6;margin:0">Why one platform instead of three tools? Because the engines share one member profile. An answer captured by the Engagement Engine updates the Insights Engine instantly and can trigger the next step in the Automation Engine \u2014 no exports, no syncing between systems, and one AMS integration instead of three.</p>' +
       '</div>';
       engineSection.insertAdjacentHTML('beforebegin', engHeaderHTML);
     }
@@ -2135,8 +2142,10 @@
     // Map mockups to visuals by index (order on page: insights=0, automation=1, engagement=2, ai=3)
     var mockups = [insightsMockup, automationMockup, engagementMockup, aiMockup];
     visuals.forEach(function(v, i) {
-      if (mockups[i] && !v.querySelector('.mu-card')) {
-        v.innerHTML = mockups[i];
+      // Mockups may already be static Webflow markup; the container styling
+      // still comes from here.
+      if (mockups[i] && !v.querySelector('.mu-card')) v.innerHTML = mockups[i];
+      if (mockups[i]) {
         v.style.background = i === 3 ? '#1C1C1C' : '#EBE6DA';
         v.style.borderRadius = '20px';
         v.style.padding = '28px';
@@ -2178,7 +2187,7 @@
         num: 'Engine 03',
         title: 'The Engagement Engine',
         tagline: 'More Engagement, Less Silence',
-        desc: 'The Engagement Engine turns one-way communications into two-way exchanges. Single-click responses across email, website, and SMS. Near-zero friction for members.',
+        desc: 'The Engagement Engine turns one-way communications into two-way exchanges: multichannel member communication with single-click responses across email, website, and SMS. Near-zero friction for members.',
         bullets: [
           'Three channels unified: Email, Website, and SMS',
           'One question at a time\u00a0\u2014\u00a0not surveys, not newsletters',
@@ -2287,30 +2296,34 @@
       var channelsHTML = '<section class="po-channels" style="background:#EAE4D8;padding:96px 48px;width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)">' +
         '<div style="max-width:1200px;margin:0 auto">' +
         '<div style="text-align:center;margin-bottom:56px">' +
-          '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">Channels</p>' +
-          '<h2 style="font-size:clamp(32px,5vw,42px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.1;margin-bottom:20px">Reach Members Where They Are</h2>' +
-          '<p style="font-size:18px;color:#6E6E6E;max-width:600px;margin:0 auto;line-height:1.6">Three channels, unified in one platform. Every response\u00a0\u2014\u00a0regardless of channel\u00a0\u2014\u00a0flows into the same member profile.</p>' +
+          '<h2 style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin:0 0 16px;line-height:1.4">Multichannel Member Communication</h2>' +
+          '<p style="font-size:clamp(32px,5vw,42px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.1;margin:0 0 20px">Reach Members Where They Are</p>' +
+          '<p style="font-size:18px;color:#6E6E6E;max-width:600px;margin:0 auto;line-height:1.6">Three channels, unified in one member communication platform. Every response\u00a0\u2014\u00a0regardless of channel\u00a0\u2014\u00a0flows into the same member profile.</p>' +
         '</div>' +
         '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">' +
           '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 32px">' +
             '<div style="width:48px;height:48px;border-radius:14px;background:rgba(249,168,37,0.12);display:flex;align-items:center;justify-content:center;margin-bottom:20px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F47C2C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22 6 12 13 2 6"/></svg></div>' +
             '<h3 style="font-size:22px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Email</h3>' +
             '<p style="font-size:16px;color:#6E6E6E;line-height:1.6;margin-bottom:20px">Conversational emails with single-click response buttons embedded right in the message. No links to click, no forms to fill out.</p>' +
+            '<p style="font-size:14px;color:#2F2F2F;line-height:1.55;margin-bottom:20px"><strong>Use it for:</strong> ongoing check-ins across the member lifecycle \u2014 onboarding, renewals, and profile updates.</p>' +
             '<a href="/platform/email" style="font-size:14px;font-weight:600;color:#F47C2C;text-decoration:none;display:inline-flex;align-items:center;gap:6px">Learn more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>' +
           '</div>' +
           '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 32px">' +
             '<div style="width:48px;height:48px;border-radius:14px;background:rgba(249,168,37,0.12);display:flex;align-items:center;justify-content:center;margin-bottom:20px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F47C2C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>' +
             '<h3 style="font-size:22px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Website</h3>' +
             '<p style="font-size:16px;color:#6E6E6E;line-height:1.6;margin-bottom:20px">Personalized pop-ups, banners, and inline widgets that turn anonymous visitors into known, engaged members on your site.</p>' +
+            '<p style="font-size:14px;color:#2F2F2F;line-height:1.55;margin-bottom:20px"><strong>Use it for:</strong> reaching people while they\u2019re already on your site \u2014 event promotion, content, and learning who anonymous visitors are.</p>' +
             '<a href="/platform/website" style="font-size:14px;font-weight:600;color:#F47C2C;text-decoration:none;display:inline-flex;align-items:center;gap:6px">Learn more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>' +
           '</div>' +
           '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 32px">' +
             '<div style="width:48px;height:48px;border-radius:14px;background:rgba(249,168,37,0.12);display:flex;align-items:center;justify-content:center;margin-bottom:20px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F47C2C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>' +
             '<h3 style="font-size:22px;font-weight:700;color:#2F2F2F;margin-bottom:12px">SMS</h3>' +
             '<p style="font-size:16px;color:#6E6E6E;line-height:1.6;margin-bottom:20px">Event-day texts, time-sensitive questions, and real-time engagement with built-in opt-in management and compliance.</p>' +
+            '<p style="font-size:14px;color:#2F2F2F;line-height:1.55;margin-bottom:20px"><strong>Use it for:</strong> event-day logistics and time-sensitive questions that need an answer today.</p>' +
             '<a href="/platform/sms" style="font-size:14px;font-weight:600;color:#F47C2C;text-decoration:none;display:inline-flex;align-items:center;gap:6px">Learn more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>' +
           '</div>' +
         '</div>' +
+        '<p style="font-size:15px;color:#6E6E6E;line-height:1.6;max-width:720px;margin:40px auto 0;text-align:center">Members stay in control of their member communication: opt-ins, opt-outs, and channel preferences are honored across every PropFuel campaign and sync with your AMS preference center, so members only hear from you on the channels they\u2019ve chosen.</p>' +
         '</div>' +
       '</section>';
       ctaSectionEl.insertAdjacentHTML('beforebegin', channelsHTML);
@@ -2350,6 +2363,37 @@
     }
 
     // ═══════════════════════════════════════
+    // SECTION 6B: PLATFORM FAQ (Mamba SEO outline)
+    // ═══════════════════════════════════════
+    var intEl = document.querySelector('.po-integrations');
+    if ((intEl || ctaSectionEl) && !document.querySelector('.po-faq')) {
+      var poFaqs = [
+        { q: 'How does the AMS sync actually work?', a: 'PropFuel connects to your association management system with a two-way sync. It pulls member data from your AMS, typically every hour, and writes every response back in real time \u2014 mapped to the standard and custom fields you already use, with no custom objects required. Most connections take 5\u201330 minutes to set up.' },
+        { q: 'Does the AI write the messages or just suggest them?', a: 'Both, and your team stays in control. Membership AI can recommend what to do next, draft campaign copy, and assemble complete campaigns, but AI-built campaigns arrive as drafts. Nothing sends until someone on your team reviews and approves it.' },
+        { q: 'Do we need technical staff to set this up?', a: 'No. PropFuel is built for membership professionals, not developers. The AMS connection is plug-and-play, staff training takes 10\u201345 minutes, and a dedicated Customer Success Manager sets things up with you.' },
+        { q: 'How long does implementation take?', a: 'Most associations have their first campaign live within 2\u20133 weeks, with full ramp-up in 2\u20133 months. Starting from one of 70+ ready-made blueprints keeps the first launch fast.' },
+        { q: 'What if our AMS isn\u2019t on the list?', a: 'PropFuel has 60+ pre-built connectors, including Salesforce, Fonteva, iMIS, Impexium, Novi, MemberSuite, Aptify, Personify, netFORUM, YourMembership, MemberClicks, GrowthZone, and HubSpot. For less common systems, a Zapier connector and the PropFuel API are available \u2014 tell us what you use and we\u2019ll confirm the best path.' }
+      ];
+      var poFaqHTML = '<section class="po-faq" style="padding:96px 48px">' +
+        '<div style="max-width:800px;margin:0 auto">' +
+          '<div style="text-align:center;margin-bottom:56px">' +
+            '<h2 style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin:0 0 16px;line-height:1.4">FAQ</h2>' +
+            '<p style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15;margin:0">Common questions about the PropFuel platform.</p>' +
+          '</div>';
+      poFaqs.forEach(function(item) {
+        poFaqHTML += '<div class="pf-faq-item" style="border-bottom:1px solid #E3DDD2;padding:24px 0">' +
+          '<h3 class="pf-faq-question" style="width:100%;display:flex;align-items:center;justify-content:space-between;cursor:pointer;font:700 17px/1.4 \'DM Sans\',sans-serif;color:#2F2F2F;text-align:left;padding:0;margin:0">' + item.q + '</h3>' +
+          '<div class="pf-faq-answer" style="max-height:0;overflow:hidden;transition:max-height .35s ease">' +
+            '<p style="font-size:16px;color:#6E6E6E;line-height:1.65;padding-top:16px;margin:0">' + item.a + '</p>' +
+          '</div>' +
+        '</div>';
+      });
+      poFaqHTML += '</div></section>';
+      if (intEl) intEl.insertAdjacentHTML('afterend', poFaqHTML);
+      else ctaSectionEl.insertAdjacentHTML('beforebegin', poFaqHTML);
+    }
+
+    // ═══════════════════════════════════════
     // SECTION 7B: STATS BAND — "Proven Results Across 330+ Associations"
     // ═══════════════════════════════════════
     var ctaSectionForStats = document.querySelector('.pf-cta-section, [class*="cta-section"]');
@@ -2357,7 +2401,7 @@
       var statsHTML = '<section class="po-stats-band pf-section-dark" style="background:#1A1713;padding:96px 48px">' +
         '<div style="max-width:1000px;margin:0 auto;text-align:center">' +
           '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#EDE8DF;letter-spacing:-0.02em;line-height:1.15;margin-bottom:12px">Proven Results Across 330+ Associations</h2>' +
-          '<p style="font-size:17px;color:#8C8479;margin-bottom:56px">Organizations that use PropFuel don\u2019t just engage more members \u2014 they grow.</p>' +
+          '<p style="font-size:17px;color:#8C8479;margin-bottom:56px">Organizations that use PropFuel don\u2019t just engage more members \u2014 they grow. Explore their <a href="/client-success/case-studies" style="color:#FBC02D;font-weight:600;text-decoration:underline">success stories</a> to see how associations like yours put the platform to work.</p>' +
           '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:48px">' +
             '<div><p style="font-size:clamp(40px,5vw,56px);font-weight:900;letter-spacing:-0.03em;line-height:1;background:linear-gradient(to top,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">$100M+</p><p style="font-size:14px;color:#8C8479;margin-top:8px;line-height:1.5">Revenue growth attributed to PropFuel campaigns</p></div>' +
             '<div><p style="font-size:clamp(40px,5vw,56px);font-weight:900;letter-spacing:-0.03em;line-height:1;background:linear-gradient(to top,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">330+</p><p style="font-size:14px;color:#8C8479;margin-top:8px;line-height:1.5">Associations trust PropFuel</p></div>' +
@@ -4623,6 +4667,12 @@
     if (window.location.pathname.indexOf(cfg.path) === -1) return;
 
     var prefix = cfg.path.replace(/[^a-z]/g, '');
+    // SEO heading structure (Mamba outlines): opted-in pages render the small
+    // section label as the <h2> and the big display line as a <p>, and engine
+    // names as <h3>. Other use-case pages keep the original tags.
+    var LBL = cfg.seoTags ? 'h2' : 'p';
+    var HD = cfg.seoTags ? 'p' : 'h2';
+    var ENG = cfg.seoTags ? 'h3' : 'h4';
 
     // ═══════════════════════════════════════
     // HERO
@@ -4664,6 +4714,9 @@
         var sub2 = heroParent.querySelector('.pf-page-hero-sub');
         if (sub2) { sub2.parentNode.insertBefore(btnWrap, sub2.nextSibling); }
         else { heroParent.appendChild(btnWrap); }
+        if (cfg.heroNote && !heroParent.querySelector('.pf-hero-note-injected')) {
+          btnWrap.insertAdjacentHTML('afterend', '<p class="pf-hero-note-injected" style="margin:20px 0 0;font-size:14px;line-height:1.5;color:#8C8479;font-weight:500;text-align:center">' + cfg.heroNote + '</p>');
+        }
       }
     }
 
@@ -4678,8 +4731,8 @@
       var problemHTML = '<section class="' + prefix + '-problem" style="background:#1A1713;padding:96px 48px">' +
         '<div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center">' +
           '<div>' +
-            '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">' + (cfg.problemLabel || 'The Problem') + '</p>' +
-            '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#EDE8DF;letter-spacing:-0.02em;line-height:1.15;margin-bottom:32px">' + cfg.problemH2 + '</h2>';
+            '<' + LBL + ' style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin:0 0 16px;line-height:1.4">' + (cfg.problemLabel || 'The Problem') + '</' + LBL + '>' +
+            '<' + HD + ' style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#EDE8DF;letter-spacing:-0.02em;line-height:1.15;margin:0 0 32px">' + cfg.problemH2 + '</' + HD + '>';
       cfg.problemBody.forEach(function(p) {
         problemHTML += '<p style="font-size:17px;color:#8C8479;line-height:1.65;margin-bottom:20px">' + p.replace(/<strong>/g, '<strong style="color:#EDE8DF">') + '</p>';
       });
@@ -4704,8 +4757,8 @@
     if (cfg.engines && !document.querySelector('.' + prefix + '-engines')) {
       var engHTML = '<section class="' + prefix + '-engines" style="padding:96px 48px;background:#EBE6DA">' +
         '<div style="max-width:1100px;margin:0 auto;text-align:center">' +
-          '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">Which Engines Power This</p>' +
-          '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15;margin-bottom:56px">' + cfg.enginesH2 + '</h2>' +
+          '<' + LBL + ' style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin:0 0 16px;line-height:1.4">Which Engines Power This</' + LBL + '>' +
+          '<' + HD + ' style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15;margin:0 0 56px">' + cfg.enginesH2 + '</' + HD + '>' +
           '<div style="display:grid;grid-template-columns:repeat(' + cfg.engines.length + ',1fr);gap:24px">';
       var engIcons = {
         'Engagement Engine': '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F47C2C" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
@@ -4719,7 +4772,7 @@
         var icon = engIcons[eng.name] || '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="' + iconColor + '" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>';
         engHTML += '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 28px;text-align:center">' +
           '<div style="width:56px;height:56px;border-radius:50%;background:' + (isAI ? 'rgba(74,127,165,0.1)' : 'rgba(244,124,44,0.1)') + ';display:flex;align-items:center;justify-content:center;margin:0 auto 16px">' + icon + '</div>' +
-          '<h4 style="font-size:18px;font-weight:700;color:' + (isAI ? '#4A7FA5' : '#2F2F2F') + ';margin-bottom:10px">' + eng.name + '</h4>' +
+          '<' + ENG + ' style="font-size:18px;font-weight:700;color:' + (isAI ? '#4A7FA5' : '#2F2F2F') + ';margin:0 0 10px;line-height:1.3">' + eng.name + '</' + ENG + '>' +
           '<p style="font-size:14px;color:#6E6E6E;line-height:1.6">' + eng.desc + '</p>' +
         '</div>';
       });
@@ -4733,12 +4786,23 @@
       }
     }
 
+    // --- EXTRA SECTIONS (page-specific, e.g. SEO outline additions) ---
+    // Each: { cls, after: 'centerpiece' | 'engines', html }. Skipped when the
+    // section already exists (e.g. rendered statically in Webflow).
+    (cfg.extraSections || []).forEach(function(x) {
+      if (document.querySelector('.' + x.cls)) return;
+      var anchor = document.querySelector('.' + prefix + '-' + x.after);
+      var secHTML = '<section class="' + x.cls + '" style="' + (x.style || 'padding:96px 48px') + '">' + x.html + '</section>';
+      if (anchor) anchor.insertAdjacentHTML('afterend', secHTML);
+      else ctaSection.insertAdjacentHTML('beforebegin', secHTML);
+    });
+
     // --- STATS BAND (dark) ---
     if (cfg.stats && !document.querySelector('.' + prefix + '-stats')) {
       var stHTML = '<section class="' + prefix + '-stats" style="background:#1A1713;padding:96px 48px">' +
         '<div style="max-width:1000px;margin:0 auto;text-align:center">' +
-          '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">Results</p>' +
-          '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#EDE8DF;letter-spacing:-0.02em;line-height:1.15;margin-bottom:56px">' + cfg.statsH2 + '</h2>' +
+          '<' + LBL + ' style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin:0 0 16px;line-height:1.4">Results</' + LBL + '>' +
+          '<' + HD + ' style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#EDE8DF;letter-spacing:-0.02em;line-height:1.15;margin:0 0 56px">' + cfg.statsH2 + '</' + HD + '>' +
           '<div style="display:grid;grid-template-columns:repeat(' + cfg.stats.length + ',1fr);gap:32px">';
       cfg.stats.forEach(function(st) {
         stHTML += '<div style="text-align:center">' +
@@ -4749,6 +4813,10 @@
       });
       stHTML += '</div></div></section>';
       var engSection = document.querySelector('.' + prefix + '-engines');
+      (cfg.extraSections || []).forEach(function(x) {
+        var el = x.after === 'engines' ? document.querySelector('.' + x.cls) : null;
+        if (el) engSection = el;
+      });
       if (engSection) { engSection.insertAdjacentHTML('afterend', stHTML); }
       else { ctaSection.insertAdjacentHTML('beforebegin', stHTML); }
     }
@@ -4758,8 +4826,8 @@
       var faqHTML = '<section class="' + prefix + '-faq" style="padding:96px 48px">' +
         '<div style="max-width:800px;margin:0 auto">' +
           '<div style="text-align:center;margin-bottom:56px">' +
-            '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">FAQ</p>' +
-            '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15">' + cfg.faqH2 + '</h2>' +
+            '<' + LBL + ' style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin:0 0 16px;line-height:1.4">FAQ</' + LBL + '>' +
+            '<' + HD + ' style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15;margin:0">' + cfg.faqH2 + '</' + HD + '>' +
           '</div>';
       cfg.faqs.forEach(function(item) {
         faqHTML += '<div class="pf-faq-item" style="border-bottom:1px solid #E3DDD2;padding:24px 0">' +
@@ -4803,14 +4871,16 @@
   function fixUseCaseOnboarding() {
     buildUseCasePage({
       path: 'use-cases/onboarding',
+      seoTags: true,
       heroLabel: 'Onboarding',
-      heroTitle: 'The retention conversation starts the day a member joins.',
-      heroSub: 'Most associations send a welcome email and then go silent until renewal. PropFuel turns onboarding into a year-long engagement journey \u2014 with the right conversation at every milestone.',
+      heroTitle: 'Member Onboarding Starts the Retention Conversation.',
+      heroSub: 'Most associations send a welcome email and then go silent until renewal. PropFuel turns new member onboarding into a year-long engagement journey \u2014 one question at a time, enrolled automatically from your AMS, with the right conversation at every milestone.',
+      heroNote: 'Launch from a ready-made onboarding blueprint \u00b7 Check-ins by email, SMS, and your website \u00b7 New members enroll automatically from your AMS',
       problemLabel: 'The Problem',
       problemH2: 'A welcome email is not an onboarding strategy.',
       problemBody: [
         'A new member joins. They get a welcome email \u2014 maybe two. It has a login link, a list of benefits, and a reminder to update their profile. Then silence. For months. The next time they hear from the association, it is a renewal notice.',
-        'In the meantime, that member never found the resources that would have mattered to them. They never connected with a local chapter or a committee. <strong>They never told anyone what they were hoping to get out of their membership \u2014 because nobody asked.</strong>',
+        'Call it the welcome-email gap: the stretch between joining and renewing where nothing is asked and nothing is learned. In that window, the member never found the resources that would have mattered to them. They never connected with a local chapter or a committee. <strong>They never told anyone what they were hoping to get out of their membership \u2014 because nobody asked.</strong>',
         '<strong>\u201CHorrible retention rate \u2014 losing new members before years two or three.\u201D</strong> That is not a PropFuel talking point. That is what associations say about themselves when they are being honest.'
       ],
       problemGraphic: '<div style="background:rgba(255,255,255,.06);border-radius:16px;padding:32px;border:1px solid rgba(255,255,255,.1);text-align:center;max-width:340px">' +
@@ -4823,8 +4893,10 @@
         '<div style="font-size:12px;color:#8C8479;margin-top:4px">\u201CPlease renew\u201D \u2014 with no relationship built</div>' +
       '</div>',
       centerpieceHTML: '<div style="text-align:center;margin-bottom:56px">' +
-        '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">The Journey</p>' +
-        '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15">Six conversations across the first year.</h2>' +
+        '<h2 style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin:0 0 16px;line-height:1.4">Member Onboarding Process &amp; Checklist</h2>' +
+        '<p style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15;margin:0 0 24px">Six conversations across the first year.</p>' +
+        '<p style="font-size:17px;color:#6E6E6E;line-height:1.65;max-width:720px;margin:0 auto 16px">A good member onboarding process isn\u2019t a welcome series \u2014 it\u2019s a sequence of short conversations timed to how new members actually settle in. Think of it as a new member onboarding checklist that runs itself. PropFuel\u2019s onboarding blueprint starts with six touchpoints across the first year: frequent enough to learn what each member wants, spaced out enough that none of them feels like noise.</p>' +
+        '<p style="font-size:17px;color:#6E6E6E;line-height:1.65;max-width:720px;margin:0 auto">New members are enrolled automatically from your AMS as they join, and the sequence adapts to every answer instead of sending everyone the same thing. Association member onboarding rarely fits one track, so you can run separate journeys by chapter, member type, or credentialing path.</p>' +
       '</div>' +
       '<div style="max-width:700px;margin:0 auto;position:relative">' +
         '<div style="position:absolute;left:24px;top:24px;bottom:24px;width:2px;background:linear-gradient(to bottom,#FBC02D,#F47C2C);border-radius:1px"></div>' +
@@ -4833,7 +4905,7 @@
          'Month 2|Update Their Profile|Confirm their role, focus area, and contact details. This is a database update disguised as a friendly check-in.|We want to make sure we\u2019re sending you relevant content. Can you confirm your current role and area of focus?',
          'Month 3\u20134|Get Them Involved|Surface volunteer opportunities, committees, and local chapters based on what they have already told you about their interests.|Is there a committee or volunteer opportunity you\u2019d be interested in?',
          'Month 5\u20136|Gauge Satisfaction|A mid-year pulse check. Promoters get routed to testimonial and referral requests. Detractors trigger staff alerts.|How has your membership experience been so far?',
-         'Month 8\u20139|Prepare for Renewal|The pre-renewal conversation. This is the moment to surface hesitations, reinforce value, and give staff a heads-up on at-risk members.|Has your membership been worth it so far? We\u2019d love your honest feedback.'
+         'Month 8\u20139|Prepare for Renewal|The pre-renewal conversation. Surface hesitations, reinforce value, and give staff a heads-up on at-risk members \u2014 then hand off to your renewal campaign so you can <a href="/use-cases/renewals" style="color:#F47C2C;font-weight:600;text-decoration:underline">prepare for renewal</a> with context, not guesswork.|Has your membership been worth it so far? We\u2019d love your honest feedback.'
         ].map(function(s) {
           var p = s.split('|');
           return '<div style="display:flex;gap:24px;margin-bottom:40px;position:relative">' +
@@ -4850,6 +4922,10 @@
             '</div>' +
           '</div>';
         }).join('') +
+      '</div>' +
+      '<div style="max-width:700px;margin:8px auto 0;background:#FFFBF2;border:1px solid #E3DDD2;border-radius:16px;padding:24px 28px">' +
+          '<p style="font-size:15px;color:#2F2F2F;line-height:1.6;margin:0 0 8px"><strong>If a new member doesn\u2019t respond:</strong> they get an automatic reminder at an interval you choose, and the silence itself shows up as a signal your team can see \u2014 so quiet members get attention before they drift.</p>' +
+          '<p style="font-size:15px;color:#2F2F2F;line-height:1.6;margin:0"><strong>Every interval is editable:</strong> move, add, or remove any step to match your membership cycle and team capacity.</p>' +
       '</div>',
       enginesH2: 'Four engines working together to run your onboarding.',
       engines: [
@@ -4858,6 +4934,33 @@
         { name: 'Insights Engine', desc: 'Turns every response into a searchable, reportable data point. See trends, identify at-risk members, and measure engagement over time.' },
         { name: 'Membership AI', desc: 'Generates campaign content, analyzes open-ended responses, and scores member health \u2014 so your team focuses where it matters most.' }
       ],
+      extraSections: [{
+        cls: 'usecasesonboarding-features',
+        after: 'engines',
+        style: 'padding:96px 48px',
+        html: '<div style="max-width:1100px;margin:0 auto">' +
+          '<div style="text-align:center;margin-bottom:56px">' +
+            '<h2 style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin:0 0 16px;line-height:1.4">Features</h2>' +
+            '<p style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15;margin:0">Everything you need to run new member onboarding.</p>' +
+          '</div>' +
+          '<div class="uc-feature-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px">' +
+          [['Onboarding blueprint','Start from a proven six-step onboarding campaign, then customize the questions, timing, and branches.'],
+           ['AMS enrollment and write-back','New members enter the sequence based on their join date, and every answer writes back to their AMS record in real time.'],
+           ['One-click answers','Members reply inside the email, text, or website prompt with a single click or tap \u2014 no login, no form.'],
+           ['Branching by answer','Each response routes the member to the next relevant conversation, so no two journeys have to look the same.'],
+           ['Smart reminders','Non-responders get configurable reminders, so no new member slips through the cracks.'],
+           ['Tags and staff alerts','Interests are tagged automatically, and staff get an alert when a new member needs a personal touch.'],
+           ['Segmented tracks','Run different journeys for students, professionals, chapters, or organizational members.'],
+           ['Dashboards and AI summaries','Track response trends and at-risk new members, with AI summaries of open-ended answers.']
+          ].map(function(f) {
+            return '<div class="pf-card" style="background:#F6F2E8;border-radius:18px;padding:28px 24px">' +
+              '<h3 style="font-size:17px;font-weight:700;color:#2F2F2F;margin:0 0 8px;line-height:1.3">' + f[0] + '</h3>' +
+              '<p style="font-size:14px;color:#6E6E6E;line-height:1.6;margin:0">' + f[1] + '</p>' +
+            '</div>';
+          }).join('') +
+          '</div>' +
+        '</div>'
+      }],
       statsH2: 'Proof that conversations build retention.',
       stats: [
         { num: '2x', org: 'AMA', desc: 'Doubled new member engagement with a structured onboarding conversation series.' },
@@ -4871,6 +4974,8 @@
         { q: 'What if we already send a welcome email series?', a: 'PropFuel onboarding is different from a welcome drip. Your existing emails broadcast information. PropFuel emails ask questions and capture responses. They work alongside your existing communications \u2014 adding a listening layer on top of what you already send.' },
         { q: 'Can we customize the questions for different member types?', a: 'Yes. PropFuel supports segmentation by member type, join date, chapter, or any field in your AMS. You can run different onboarding tracks for students vs. professionals, individual vs. organizational members, or any other segment.' },
         { q: 'How do responses get back to our AMS?', a: 'Every response writes back to your AMS automatically in real time. No CSV exports, no manual data entry. If a member tells PropFuel they are interested in a committee, that data appears in their AMS record immediately.' },
+        { q: 'Can we onboard members who joined months ago?', a: 'Yes. PropFuel reads join dates from your AMS, so you can build a segment of recent joiners \u2014 say, everyone who joined in the last six months \u2014 and enroll them in an onboarding track written for where they are in their first year.' },
+        { q: 'What happens if a new member doesn\u2019t respond?', a: 'They get an automatic reminder at an interval you set, and the sequence keeps going with the next check-in. Non-response is also tracked as a signal, so your team can see which new members have gone quiet and reach out personally before they disengage.' },
         { q: 'What kind of response rates should we expect?', a: 'Onboarding campaigns typically see 10\u201325% response rates per check-in. New members are the most engaged audience you have \u2014 they just joined and they want to hear from you. The key is asking while the motivation is fresh.' }
       ],
       ctaH2: 'Stop losing members<br>you never onboarded.',
@@ -4884,9 +4989,11 @@
   function fixUseCaseRenewals() {
     buildUseCasePage({
       path: 'use-cases/renewals',
-      heroLabel: 'Renewals',
+      seoTags: true,
+      heroLabel: 'Member Retention & Renewals',
       heroTitle: 'Earn the renewal. Long before the invoice.',
-      heroSub: 'PropFuel starts the renewal conversation 90 days before the invoice. Committed members renew faster. Wavering members get the nudge that matters.',
+      heroSub: 'PropFuel starts the renewal conversation 90 days before the invoice, so member retention is earned long before you ask for payment. Committed members renew faster. Wavering members get the nudge that matters.',
+      heroNote: 'Works alongside your existing renewal emails and AMS invoices',
       problemLabel: 'The Problem',
       problemH2: 'You remind them. You never ask them.',
       problemBody: [
@@ -4895,16 +5002,17 @@
       ],
       problemGraphic: '<div style="background:rgba(255,255,255,.06);border-radius:18px;padding:26px;border:1px solid rgba(255,255,255,.1);max-width:380px;font-family:\'DM Sans\',sans-serif;box-shadow:0 20px 60px rgba(0,0,0,.3)"><div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.08)"><div style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#F47C2C,#FBC02D);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:15px;flex-shrink:0">JD</div><div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:700;color:#EDE8DF;line-height:1.2">Jennifer Davis</div><div style="font-size:11px;color:#8C8479;margin-top:2px">Member since 2019 \u00B7 Expires Apr 30</div></div><div style="background:rgba(230,81,0,.18);color:#F47C2C;font-size:10px;font-weight:800;padding:5px 9px;border-radius:6px;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap">At Risk</div></div><div style="display:flex;flex-direction:column;gap:10px"><div style="background:rgba(255,255,255,.04);border-left:3px solid #F47C2C;padding:12px 14px;border-radius:8px"><div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px"><span style="font-size:11px;color:#8C8479">no-reply@assoc.org</span><span style="font-size:11px;color:#8C8479">Apr 15</span></div><div style="font-size:13px;color:#EDE8DF;font-weight:600;margin-bottom:5px">Your membership is expiring</div><div style="display:flex;align-items:center;gap:6px;font-size:10px;color:#8C8479"><span style="width:6px;height:6px;border-radius:50%;background:#F47C2C;display:inline-block"></span>Unread</div></div><div style="background:rgba(255,255,255,.04);border-left:3px solid #F47C2C;padding:12px 14px;border-radius:8px"><div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px"><span style="font-size:11px;color:#8C8479">no-reply@assoc.org</span><span style="font-size:11px;color:#8C8479">Apr 22</span></div><div style="font-size:13px;color:#EDE8DF;font-weight:600;margin-bottom:5px">Reminder: Membership expires soon</div><div style="display:flex;align-items:center;gap:6px;font-size:10px;color:#8C8479"><span style="width:6px;height:6px;border-radius:50%;background:#F47C2C;display:inline-block"></span>Unread</div></div><div style="background:rgba(255,255,255,.04);border-left:3px solid #E65100;padding:12px 14px;border-radius:8px"><div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px"><span style="font-size:11px;color:#8C8479">no-reply@assoc.org</span><span style="font-size:11px;color:#8C8479">Apr 29</span></div><div style="font-size:13px;color:#EDE8DF;font-weight:600;margin-bottom:5px">Final notice: Renew today</div><div style="display:flex;align-items:center;gap:6px;font-size:10px;color:#8C8479"><span style="width:6px;height:6px;border-radius:50%;background:#E65100;display:inline-block"></span>Unread</div></div></div><div style="margin-top:18px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:space-between;gap:12px"><span style="font-size:12px;color:#8C8479;font-style:italic">3 messages. 0 conversations.</span><span style="font-size:10px;font-weight:800;color:#EDE8DF;text-transform:uppercase;letter-spacing:.08em;background:#E65100;padding:5px 10px;border-radius:6px">Lapsed</span></div></div>',
       centerpieceHTML: '<div style="text-align:center;margin-bottom:56px">' +
-        '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">The Sandwich Technique</p>' +
-        '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15;margin-bottom:24px">Five steps. Ninety days.</h2>' +
-        '<p style="font-size:17px;color:#6E6E6E;line-height:1.6;max-width:700px;margin:0 auto">PropFuel\u2019s renewal approach wraps the direct renewal ask between emotional value conversations \u2014 so the payment request never arrives cold.</p>' +
+        '<h2 style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin:0 0 16px;line-height:1.4">The Sandwich Technique</h2>' +
+        '<p style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15;margin:0 0 24px">Five steps. Ninety days.</p>' +
+        '<p style="font-size:17px;color:#6E6E6E;line-height:1.6;max-width:700px;margin:0 auto 16px">PropFuel\u2019s renewal approach wraps the direct renewal ask between emotional value conversations \u2014 so the payment request never arrives cold.</p>' +
+        '<p style="font-size:17px;color:#6E6E6E;line-height:1.6;max-width:700px;margin:0 auto">It adapts to every answer instead of running on a fixed schedule. A member who tells you at step 1 that they plan to renew can move straight to the renewal ask, anyone who renews drops out of the sequence, and members who go quiet or signal doubt continue through every step.</p>' +
       '</div>' +
       '<div style="max-width:800px;margin:0 auto;display:flex;flex-direction:column;gap:24px">' +
-        ['90 Days Out|Soft Intent|A low-pressure check-in that asks about the member\u2019s experience. No mention of renewal yet. Just listening.|#FBC02D',
-         '60 Days Out|Emotional Value|Reinforce what the membership has delivered. Surface personalized benefits based on their engagement history.|#F9A825',
-         '45 Days Out|Direct Action|The renewal ask \u2014 but it arrives after two conversations that reminded them why they joined. Context changes everything.|#F47C2C',
-         '30 Days Out|Surface Hesitations|For non-responders: ask what is holding them back. Cost? Relevance? Time? The answer determines the follow-up.|#E65100',
-         'Expiration|Final Notice|A last touchpoint that acknowledges the relationship and makes it easy to act \u2014 or tells you exactly why they are leaving.|#D84315'
+        ['90 Days Out|Soft Intent|A low-pressure check-in that asks about the member\u2019s experience. No mention of renewal yet. Just listening.|#FBC02D|Every member, 90 days before their expiration date|How would you rate the value of your membership this year?',
+         '60 Days Out|Emotional Value|Reinforce what the membership has delivered. Surface personalized benefits based on their engagement history and their step 1 answer.|#F9A825|Members who haven\u2019t renewed yet|Which of these benefits has been most useful to you this year?',
+         '45 Days Out|Direct Action|The renewal ask \u2014 but it arrives after two conversations that reminded them why they joined. Context changes everything.|#F47C2C|Members who haven\u2019t renewed yet, including anyone who confirmed at step 1|Your renewal is coming up. Can we count on you for another year?',
+         '30 Days Out|Surface Hesitations|For non-responders and anyone who signaled doubt: ask what is holding them back. Cost? Relevance? Time? The answer is written to their AMS record and triggers an alert to your membership team, so the right person can follow up \u2014 with a call, a payment option, or a better-fit membership type.|#E65100|Non-responders and members who signaled doubt|Is anything holding you back from renewing \u2014 cost, relevance, or time?',
+         'Expiration|Final Notice|A last touchpoint that acknowledges the relationship and makes it easy to act \u2014 or tells you exactly why they are leaving.|#D84315|Anyone who still hasn\u2019t renewed|Before your membership expires, is there anything we can do to keep you with us?'
         ].map(function(s, i) {
           var p = s.split('|');
           return '<div style="display:flex;gap:24px;align-items:flex-start">' +
@@ -4913,12 +5021,43 @@
             '</div>' +
             '<div class="pf-card" style="flex:1;background:#F6F2E8;border-radius:16px;padding:28px 24px">' +
               '<div style="font-size:13px;font-weight:700;color:#F47C2C;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px">' + p[0] + '</div>' +
-              '<h3 style="font-size:20px;font-weight:700;color:#2F2F2F;margin-bottom:8px">' + p[1] + '</h3>' +
-              '<p style="font-size:15px;color:#6E6E6E;line-height:1.6">' + p[2] + '</p>' +
+              '<h3 style="font-size:20px;font-weight:700;color:#2F2F2F;margin:0 0 8px">' + p[1] + '</h3>' +
+              '<p style="font-size:15px;color:#6E6E6E;line-height:1.6;margin:0 0 12px">' + p[2] + '</p>' +
+              '<p style="font-size:13px;color:#8C8479;line-height:1.5;margin:0 0 12px"><strong style="color:#2F2F2F">Who gets this step:</strong> ' + p[4] + '</p>' +
+              '<div style="background:#FFFBF2;border-radius:12px;padding:14px 18px;border-left:3px solid #FBC02D">' +
+                '<p style="font-size:14px;color:#2F2F2F;font-style:italic;line-height:1.5;margin:0">Example question: \u201C' + p[5] + '\u201D</p>' +
+              '</div>' +
             '</div>' +
           '</div>';
         }).join('') +
+      '</div>' +
+      '<div style="max-width:800px;margin:32px auto 0;background:#FFFBF2;border:1px solid #E3DDD2;border-radius:16px;padding:24px 28px">' +
+        '<p style="font-size:15px;color:#2F2F2F;line-height:1.6;margin:0"><strong>After step 5:</strong> members who renew roll into your ongoing engagement campaigns. Members who lapse move into a win-back campaign built to <a href="/use-cases/win-back" style="color:#F47C2C;font-weight:600;text-decoration:underline">win back lapsed members</a> with a conversation instead of another invoice.</p>' +
       '</div>',
+      extraSections: [{
+        cls: 'usecasesrenewals-retention',
+        after: 'centerpiece',
+        style: 'padding:96px 48px;background:#F6F2E8',
+        html: '<div style="max-width:1100px;margin:0 auto">' +
+          '<div style="max-width:760px;margin:0 auto 56px;text-align:center">' +
+            '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15;margin:0 0 24px">Member retention strategies before the renewal notice</h2>' +
+            '<p style="font-size:17px;color:#6E6E6E;line-height:1.65;margin:0 0 16px">Membership retention isn\u2019t the same thing as a renewal reminder. By the time the invoice goes out, most members have already decided. Non-payment is the symptom, not the cause \u2014 the decision happens weeks earlier, when a member stops finding value and nobody notices.</p>' +
+            '<p style="font-size:17px;color:#6E6E6E;line-height:1.65;margin:0">That\u2019s why PropFuel works as member retention software, not just a way to automate membership renewals: every step is designed to learn why members stay or go while there\u2019s still time to act.</p>' +
+          '</div>' +
+          '<div class="uc-feature-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px">' +
+          [['Listen before you ask','The 90-day sequence above is a membership retention strategy, not a reminder schedule. It learns how each member feels before the renewal ask arrives.'],
+           ['Act on early signals','Low satisfaction, silence, and shifting interests show up in PropFuel before the renewal date, so staff can step in while it still matters.'],
+           ['Start on day one','<a href="/use-cases/onboarding" style="color:#F47C2C;font-weight:600;text-decoration:underline">Retention starts at onboarding</a>. Members who are asked what they want in their first year arrive at renewal already engaged.'],
+           ['Plan for lapses','Some member renewals will slip anyway. A dedicated <a href="/use-cases/win-back" style="color:#F47C2C;font-weight:600;text-decoration:underline">win-back campaign</a> asks why and invites them back.']
+          ].map(function(f) {
+            return '<div class="pf-card" style="background:#FFFBF2;border-radius:18px;padding:28px 24px">' +
+              '<h3 style="font-size:17px;font-weight:700;color:#2F2F2F;margin:0 0 8px;line-height:1.3">' + f[0] + '</h3>' +
+              '<p style="font-size:14px;color:#6E6E6E;line-height:1.6;margin:0">' + f[1] + '</p>' +
+            '</div>';
+          }).join('') +
+          '</div>' +
+        '</div>'
+      }],
       enginesH2: 'Four engines working together to run your renewal conversation.',
       engines: [
         { name: 'Engagement Engine', desc: 'Delivers single-question check-ins that surface intent, satisfaction, and hesitations \u2014 the signals that predict renewal.' },
@@ -4939,6 +5078,8 @@
         { q: 'Will this replace our existing renewal emails?', a: 'It can complement or replace them. Many organizations run PropFuel\u2019s renewal sequence alongside their AMS-generated invoices. The PropFuel emails handle the conversation; your AMS handles the transaction.' },
         { q: 'What if a member says they are not going to renew?', a: 'That response is valuable data. PropFuel captures the reason, triggers a staff alert, and can route the member to a personalized follow-up \u2014 a discount offer, a call from a board member, or an exit survey.' },
         { q: 'How do we measure the impact on renewal rates?', a: 'PropFuel\u2019s Insights Engine tracks renewal intent, member signals, and actual renewal rates. You can compare cohorts that received PropFuel outreach against those that did not.' },
+        { q: 'How does PropFuel know when our members expire?', a: 'PropFuel reads each member\u2019s expiration or renewal date from your AMS through its two-way sync, which typically runs hourly. The sequence is scheduled relative to that date, so every member starts 90 days before their own expiration \u2014 and once your AMS shows a member as renewed, they can be removed from the sequence automatically.' },
+        { q: 'What\u2019s a good membership retention rate?', a: 'According to Marketing General Incorporated\u2019s annual Membership Marketing Benchmarking Report, the median association renewal rate is about 84%, and first-year members renew at a noticeably lower rate \u2014 around 75%. Track both numbers separately: the gap between them is usually where the biggest retention gains are. With PropFuel, AAMFT raised its on-time renewal rate from 80.5% to 95%.' },
         { q: 'Can we run different renewal campaigns for different member types?', a: 'Yes. Segment by member type, tenure, engagement level, or any AMS field. A first-year member gets a different renewal experience than a 20-year veteran.' }
       ],
       ctaH2: 'Turn renewals<br>into conversations.',
