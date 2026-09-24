@@ -4966,7 +4966,7 @@
         { num: '2x', org: 'AMA', desc: 'Doubled new member engagement with a structured onboarding conversation series.' },
         { num: '45%', org: 'AMA', desc: 'Engagement rate on a 10-email onboarding series \u2014 far above industry benchmarks.' },
         { num: '1,700+', org: 'AMA', desc: 'Responses collected from new members in the first year of onboarding campaigns.' },
-        { num: '$650K', org: 'All Clients', desc: 'Average first-year revenue growth across PropFuel clients running onboarding programs.' }
+        { num: '$650K', org: 'All Clients', desc: 'Average first-year revenue increase for associations after adopting PropFuel.' }
       ],
       faqH2: 'Common questions about onboarding campaigns.',
       faqs: [
