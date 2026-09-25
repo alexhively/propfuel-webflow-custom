@@ -8819,26 +8819,25 @@
   var WEBINAR_PROMO = {
     enabled: true,
     eyebrow: 'Live Webinar',
-    title: 'Rethinking Renewals',
-    subtitle: 'Integrating Engagement Conversation into Membership Renewal and Retention Strategy',
-    dateLabel: 'Sep 18, 2026',
-    timeLabel: '1:00 PM ET',
-    duration: '1 hr',
-    description: 'After a dip in retention, one of our clients rebuilt their renewal approach around a single question: are you planning to renew? Lauren joins Brittany to share how they built it and what\'s next for 2027.',
+    title: 'How NASP Converts Students to Members',
+    dateLabel: 'Sep 30, 2026',
+    timeLabel: '2:00 PM ET',
+    duration: '60 min',
+    description: 'Students face real barriers before they join: cost, relevance, and belonging. See how NASP turns a routine account sign-up into the start of the member relationship.',
     // Two speakers on this one — `speakers` (array) takes precedence over the
     // legacy single `speaker` string, which still works for one-presenter events.
     speakers: [
-      { name: 'Brittany Lancor', org: 'PropFuel' },
-      { name: 'Lauren Taggart', org: 'FelineVMA' }
+      { name: 'Brittany Lancor' },
+      { name: 'Kaleigh Quinn' }
     ],
     ctaLabel: 'Register Free \u2192',
-    ctaUrl: 'https://us02web.zoom.us/webinar/register/4917895036270/WN_1amYWZsJSS6TlSV6_hz3VA',
+    ctaUrl: 'https://us02web.zoom.us/webinar/register/2717902881082/WN_Vk0isvIzSAiiO6nt6DtqsQ',
     // Event start — drives the "happening tomorrow / today" badge. ISO with ET offset.
-    eventAt: '2026-09-18T13:00:00-04:00',
+    eventAt: '2026-09-30T14:00:00-04:00',
     // Stop showing after this moment (webinar end). ISO with ET offset.
-    expiresAt: '2026-09-18T14:00:00-04:00',
+    expiresAt: '2026-09-30T15:00:00-04:00',
     delayMs: 4000,
-    sessionKey: 'pfWebinarPromo_2026-09-18_renewals'
+    sessionKey: 'pfWebinarPromo_2026-09-30_nasp-students'
   };
 
   // "Happening tomorrow" is computed, never hardcoded — otherwise the badge is
