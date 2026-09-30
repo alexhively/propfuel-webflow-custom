@@ -1,6 +1,6 @@
 {
   "_comment": "Snapshot of Webflow CMS Case Studies collection. Re-run to refresh.",
-  "generatedAt": "2026-04-24",
+  "generatedAt": "2026-09-30",
   "urlPrefix": "/case-studies/",
   "items": [
     {
@@ -26,6 +26,18 @@
     {
       "name": "Soaring Member Engagement: How AMA Doubled New Member Engagement with Personalized Onboarding",
       "slug": "how-ama-doubled-new-member-engagement-with-personalized-onboarding"
+    },
+    {
+      "name": "A Medical Society Won Back 42 Lapsed Members and $18,438 in Seven Weeks Using PropFuel",
+      "slug": "medical-society-lapsed-member-win-back"
+    },
+    {
+      "name": "NACUBO's Renewal Contacts Were Going Stale. One Yes/No Question Assured Correct Data for 996 Institutions.",
+      "slug": "nacubo-chief-business-officer-contact-check-in"
+    },
+    {
+      "name": "How TXCPA Turned Autorenewal Into a 38.3% Response Rate",
+      "slug": "txcpa-autorenewal-response"
     }
   ]
 }

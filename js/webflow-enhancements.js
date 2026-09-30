@@ -7454,8 +7454,11 @@
   function fixCaseStudies() {
     // Only run on the case studies listing page, not individual case study templates
     if (!/^\/client-success\/case-studies\/?$/.test(window.location.pathname)) return;
-    // If Webflow CMS has rendered real case study items, defer to the CMS template but wire up hrefs
-    if (document.querySelector('.w-dyn-item')) { wireCaseStudyCardHrefs(); return; }
+    // The grid is a native Webflow Collection List inside .cs-wrap (Sept 30 2026), so the JSON-driven
+    // builder below skips itself (it only runs when no .cs-wrap exists). Hero, stats band and CTA
+    // copy still come from here, so don't return early. wireCaseStudyCardHrefs is a no-op fallback
+    // that only acts if Webflow ever emits placeholder hrefs on the cards.
+    if (document.querySelector('.w-dyn-item')) { wireCaseStudyCardHrefs(); }
     var heroLabel=document.querySelector('.pf-page-hero-label');if(heroLabel){heroLabel.textContent='Client Success';}else{var heroTitle=document.querySelector('.pf-page-hero-title');if(heroTitle){var parent=heroTitle.parentElement;if(!parent.querySelector('.pf-hero-label-injected')){var label=document.createElement('p');label.className='pf-hero-label-injected fade-up';label.style.cssText='display:inline-flex;align-items:center;padding:8px 20px;border-radius:100px;background:rgba(251,192,45,0.08);border:1px solid rgba(249,168,37,0.35);font-size:13px;font-weight:600;color:#2F2F2F;letter-spacing:0.04em;margin-bottom:48px;box-shadow:0 2px 8px rgba(120,110,95,0.06)';label.textContent='Client Success';parent.insertBefore(label,heroTitle);}}}
     var heroHeading=document.querySelector('.pf-page-hero-title');if(heroHeading){heroHeading.innerHTML='Real Results from Real Associations';}
     var heroSub=document.querySelector('.pf-page-hero-sub');if(heroSub){heroSub.textContent='See how associations like yours are using PropFuel to drive engagement, retention, and revenue.';}
