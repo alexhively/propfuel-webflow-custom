@@ -16,6 +16,51 @@
     "category": "Registrations"
   },
   {
+    "name": "How TXCPA Turned Autorenewal Into a 38.3% Response Rate",
+    "slug": "txcpa-autorenewal-response",
+    "org": "TXCPA",
+    "subtitle": "How one question turned a silent autorenewal notice into real data",
+    "summary": "Texas Society of CPAs autorenewal notices used to confirm a payment and teach the team nothing else. So they added one question to the notice itself. The email reached 1,502 members and got 575 responses, a 38.3% rate.",
+    "quote": "I'm very grateful for the managed service thing.",
+    "kpis": [
+      { "value": "38.3%", "label": "Response Rate" },
+      { "value": "575", "label": "Members Responded" },
+      { "value": "1,502", "label": "Autorenewal Notices Sent" }
+    ],
+    "image": "https://cdn.prod.website-files.com/69cd3b6113342ddaaa180799/6ab29df41d2b084d7225732b_original.svg",
+    "category": "Renewals and Retention"
+  },
+  {
+    "name": "NACUBO's Renewal Contacts Were Going Stale. One Yes/No Question Assured Correct Data for 996 Institutions.",
+    "slug": "nacubo-chief-business-officer-contact-check-in",
+    "org": "NACUBO",
+    "subtitle": "How one yes-or-no question kept renewal contacts current",
+    "summary": "NACUBO used PropFuel to ask institutional contacts one question: are you the current Chief Business Officer? The campaign drew 996 answers and a 62% engagement rate, and members who said no named 67 new contacts.",
+    "quote": "",
+    "kpis": [
+      { "value": "996", "label": "Answers" },
+      { "value": "62%", "label": "Engagement rate" },
+      { "value": "67", "label": "New CBO contacts" }
+    ],
+    "image": "https://cdn.prod.website-files.com/69cd3b6113342ddaaa180799/6abbe9699c53392f67fe67e6_1_U-w4zzf0d9gapmE2aYyLjA.png",
+    "category": "Profile Building"
+  },
+  {
+    "name": "A Medical Society Won Back 42 Lapsed Members and $18,438 in Seven Weeks Using PropFuel",
+    "slug": "medical-society-lapsed-member-win-back",
+    "org": "Medical Society",
+    "subtitle": "How one no-pressure question brought lapsed members back",
+    "summary": "An international medical society ran its first-ever PropFuel campaign: a check-in to 478 lapsed members. Within seven weeks, 42 members rejoined, recovering $18,438 in dues.",
+    "quote": "",
+    "kpis": [
+      { "value": "42", "label": "Lapsed members rejoined" },
+      { "value": "$18,438", "label": "In recovered dues" },
+      { "value": "7 Weeks", "label": "To recover a year of PropFuel's cost" }
+    ],
+    "image": "",
+    "category": "Renewals and Retention"
+  },
+  {
     "name": "How AMA Turned Website Visitors Into $304K in Membership Revenue",
     "slug": "ama-website-engagement-membership-revenue",
     "org": "Academy of Model Aeronautics",
