@@ -134,5 +134,21 @@
     ],
     "image": "https://cdn.prod.website-files.com/69cd3b6113342ddaaa180799/69d5219843de54f0963594f2_67eb2dbe418c0867fa188318_ama%20logo.png",
     "category": "Acquisition, Engagement & Profile Building"
+  },
+  {
+    "featured": false,
+    "name": "1,078 Members Came Back. Most Didn't Know They'd Left GSA",
+    "slug": "gsa-renewal-lapsed-member-check-in",
+    "org": "Geological Society of America",
+    "subtitle": "How a renewal sequence that keeps asking recovered lapsed members",
+    "summary": "The Geological Society of America replaced a one-way renewal drip with a year-round sequence, timed to each member's anniversary, that asks members where they stand and why. It has brought in 1,078 renewals since June 2025 at a 14.4% average response rate.",
+    "quote": "",
+    "kpis": [
+      { "value": "1,078", "label": "Renewals so far" },
+      { "value": "40%", "label": "Engagement rate" },
+      { "value": "14.4%", "label": "Avg. response rate" }
+    ],
+    "image": "",
+    "category": "Renewals and Retention"
   }
 ]
