@@ -19,6 +19,8 @@
   // ─────────────────────────────────────────
   function injectDynamicCSS() {
     var css = '' +
+      /* /case-studies/* placeholder "More Client Stories" cards: hidden until fixMoreClientStories swaps in real ones */
+      '.cs-more-grid:not([data-pf-real]){visibility:hidden}' +
       /* Card/feature texture overlays */
       '.pf-card,.pf-demo-form-card,.pf-feature-visual{position:relative;overflow:hidden}' +
       '.pf-card::before,.pf-demo-form-card::before,.pf-feature-visual::before{' +
@@ -9239,6 +9241,43 @@
     }
   }
 
+  // ─────────────────────────────────────────
+  // CASE STUDY DETAIL: "MORE CLIENT STORIES"
+  // The /case-studies/* template ships three hard-coded placeholder cards (National Restaurant
+  // Association, SHRM, American Chemical Society) that are not PropFuel clients. Replace them with
+  // three real live studies from case-studies.json, same category first, never the current page.
+  // The grid stays hidden until real cards are in; if the feed fails the whole section is removed,
+  // so the fake cards can never show.
+  // ─────────────────────────────────────────
+  function fixMoreClientStories() {
+    var m = window.location.pathname.match(/^\/case-studies\/([^\/]+)\/?$/);
+    var grid = document.querySelector('.cs-more-grid');
+    if (!m || !grid) return;
+    var section = document.querySelector('.cs-more-section');
+    var current = m[1];
+    var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
+    var drop = function () { if (section) section.parentNode.removeChild(section); };
+    fetch('https://alexhively.github.io/propfuel-webflow-custom/js/case-studies.json?v=2')
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (cs) {
+        if (!Array.isArray(cs)) return drop();
+        var me = cs.filter(function (c) { return c.slug === current; })[0];
+        var others = cs.filter(function (c) { return c.slug !== current && c.kpis && c.kpis.length; });
+        var same = me ? others.filter(function (c) { return c.category === me.category; }) : [];
+        var pick = same.concat(others.filter(function (c) { return same.indexOf(c) < 0; })).slice(0, 3);
+        if (!pick.length) return drop();
+        grid.innerHTML = pick.map(function (c) {
+          var k = c.kpis[0];
+          return '<a href="/case-studies/' + esc(c.slug) + '" class="cs-card w-inline-block"><div class="cs-card-top">' +
+            '<div class="cs-card-industry">' + esc(c.category) + '</div><div><div class="cs-card-stat-number">' + esc(k.value) +
+            '</div><div class="cs-card-stat-desc">' + esc(k.label) + '</div></div></div><div class="cs-card-body">' +
+            '<div class="cs-card-client">' + esc(c.org) + '</div><div class="cs-card-desc">' + esc(c.subtitle) + '</div></div></a>';
+        }).join('');
+        grid.setAttribute('data-pf-real', '1');
+      })
+      .catch(drop);
+  }
+
   function renderLeadMagnets() {
     if (!LEAD_MAGNET_FORM.formId) return; // not live until the HubSpot form exists
     var path = window.location.pathname;
@@ -9658,6 +9697,7 @@
     renderMmctSessionPage();
     renderEventDemoPage();
     renderWebinarPromoPopup();
+    fixMoreClientStories();
     renderLeadMagnets();
     fixDuplicateHeroCtas();
     fixDeadResourceLinks();
