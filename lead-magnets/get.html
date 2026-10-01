@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Your PropFuel download</title>
+<style>body{margin:0;font:16px/1.5 -apple-system,BlinkMacSystemFont,"DM Sans",sans-serif;background:#F6F2E8;color:#2F2F2F;display:flex;min-height:100vh;align-items:center;justify-content:center;padding:24px;box-sizing:border-box}
+main{max-width:460px;text-align:center}a{display:inline-block;margin-top:16px;padding:14px 28px;border-radius:12px;background:linear-gradient(to right,#F47C2C,#FBC02D);color:#fff;font-weight:800;text-decoration:none}</style></head>
+<body><main><p id="msg">Opening your download&hellip;</p><a id="go" href="https://www.propfuel.com/resources/guides">Browse all guides</a></main>
+<script>
+// Linked from the HubSpot lead magnet delivery email as get.html?r={{ contact.website_lead_magnet }}.
+var MAP = {
+  "member_renewal_playbook": {
+    "name": "Member Renewal Playbook",
+    "url": "https://21158441.fs1.hubspotusercontent-na1.net/hubfs/21158441/Member%20Renewal%20Playbook_2026.pdf"
+  },
+  "member_onboarding_guide": {
+    "name": "Member Onboarding Guide",
+    "url": "https://21158441.fs1.hubspotusercontent-na1.net/hubfs/21158441/2026%20Propfuel%20Onboarding_Blueprints.pdf"
+  },
+  "member_acquisition_playbook": {
+    "name": "Member Acquisition Playbook",
+    "url": "https://alexhively.github.io/propfuel-webflow-custom/lead-magnets/member-acquisition-playbook-2026.pdf"
+  },
+  "engaging_members_through_certification": {
+    "name": "Engaging Members Through Certification",
+    "url": "https://alexhively.github.io/propfuel-webflow-custom/lead-magnets/certification-webinar-slides.pdf"
+  },
+  "voice_of_the_member_ebook": {
+    "name": "Voice of the Member eBook",
+    "url": "https://21158441.fs1.hubspotusercontent-na1.net/hubfs/21158441/Ebooks/Voice%20of%20the%20Member%20eBook.pdf"
+  },
+  "ten_glances": {
+    "name": "10 Glances: Member Insights at a Glance",
+    "url": "https://21158441.fs1.hubspotusercontent-na1.net/hubfs/21158441/PropFuel%20Member%20Glances_April2025.pdf"
+  },
+  "evergreen_membership_campaigns": {
+    "name": "Evergreen Membership Campaigns",
+    "url": "https://21158441.fs1.hubspotusercontent-na1.net/hubfs/21158441/100%2B%20Questions/2026%20PropFuel%20Evergreen%20Automation%20Guide.pdf"
+  },
+  "conversational_engagement_ebook": {
+    "name": "Conversational Engagement eBook",
+    "url": "https://21158441.fs1.hubspotusercontent-na1.net/hubfs/21158441/Ebooks/Conversational%20Engagement%20eBook.pdf"
+  },
+  "hundred_questions": {
+    "name": "100+ Questions to Ask Your Members",
+    "url": "https://alexhively.github.io/propfuel-webflow-custom/lead-magnets/100-questions-2026.pdf"
+  },
+  "ten_lies": {
+    "name": "10 Lies Associations Tell Themselves About Member Engagement",
+    "url": "https://21158441.fs1.hubspotusercontent-na1.net/hubfs/21158441/10%20Lies%20Associations%20Tell%20Themselves%20About%20Member%20Engagement.pdf"
+  },
+  "membership_ai_one_pager": {
+    "name": "Membership AI One-Pager",
+    "url": "https://alexhively.github.io/propfuel-webflow-custom/lead-magnets/membership-ai-one-pager.pdf"
+  }
+};
+var key = new URLSearchParams(location.search).get('r') || '';
+var hit = MAP[key];
+if (hit) {
+  document.getElementById('msg').textContent = 'Opening ' + hit.name + '\u2026';
+  var a = document.getElementById('go'); a.href = hit.url; a.textContent = 'Open it now';
+  location.replace(hit.url);
+}
+</script></body></html>

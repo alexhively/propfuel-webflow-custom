@@ -8826,7 +8826,7 @@
   // ─────────────────────────────────────────
   var LEAD_MAGNET_FORM = {
     portalId: '21158441',
-    formId: '',                 // HubSpot "Lead Magnet Download" form GUID
+    formId: '5c5fead1-27d2-4ba1-b31a-f1f957e0b59b', // HubSpot "Website Lead Magnet Download"
     resourceField: 'website_lead_magnet', // dropdown property; sends each magnet's `hs` value
     answerField: 'lead_magnet_answer'     // text property for the slide-in answer
   };
@@ -9056,11 +9056,11 @@
 
   function lmDoneHtml(lm) {
     return '<div class="pf-lm-done"><a class="pf-lm-btn" href="' + lmEsc(lm.url) + '" target="_blank" rel="noopener">Open the ' + lmEsc(lm.type.toLowerCase()) + ' →</a>' +
-      '<p>It’s yours. We’ll send a copy to your inbox too.</p></div>';
+      '<p>It’s yours. The link works any time.</p></div>';
   }
 
   function lmFormHtml(btnLabel) {
-    return '<form class="pf-lm-form" novalidate>' +
+    return '<form class="pf-lm-form" data-hs-do-not-collect="true" novalidate>' +
       '<input class="pf-lm-input" type="email" name="email" autocomplete="email" inputmode="email" placeholder="Work email" aria-label="Work email" required>' +
       '<button class="pf-lm-btn" type="submit">' + lmEsc(btnLabel) + '</button></form>' +
       '<p class="pf-lm-err" role="alert">Please enter a valid work email.</p>';
@@ -9115,7 +9115,7 @@
       '<p class="pf-lm-eyebrow">Free ' + lmEsc(lm.type) + '</p>' +
       '<h2 class="pf-lm-title">' + lmEsc(lm.name) + '</h2>' +
       '<p class="pf-lm-blurb">' + lmEsc(lm.blurb) + '</p>' +
-      (known ? lmDoneHtml(lm).replace('It’s yours. We’ll send a copy to your inbox too.', 'Free for you, no form needed.') :
+      (known ? lmDoneHtml(lm).replace('It’s yours. The link works any time.', 'Free for you, no form needed.') :
         lmFormHtml('Get the ' + lm.type.toLowerCase()) + '<p class="pf-lm-fine">Instant download. No spam, unsubscribe anytime.</p>') +
       '</div></div></section>';
     anchor.insertAdjacentHTML('beforebegin', html);
