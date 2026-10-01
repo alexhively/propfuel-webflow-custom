@@ -53,8 +53,10 @@ var MAP = {
     "url": "https://alexhively.github.io/propfuel-webflow-custom/lead-magnets/membership-ai-one-pager.pdf"
   }
 };
-var key = new URLSearchParams(location.search).get('r') || '';
+var key = (new URLSearchParams(location.search).get('r') || '').trim();
+// HubSpot email tokens render the dropdown's label, not its internal value: accept both.
 var hit = MAP[key];
+if (!hit) for (var k in MAP) if (MAP[k].name.toLowerCase() === key.toLowerCase()) { hit = MAP[k]; break; }
 if (hit) {
   document.getElementById('msg').textContent = 'Opening ' + hit.name + '\u2026';
   var a = document.getElementById('go'); a.href = hit.url; a.textContent = 'Open it now';
