@@ -9299,6 +9299,62 @@
   }
 
   // ─────────────────────────────────────────
+  // /downloads/{slug} — ad landing pages (Webflow CMS "Downloads" collection).
+  // Layout and copy are native Webflow; this only wires the form in the
+  // template's HTML embed. Reads the resource from .dl-data (attributes bound
+  // to CMS fields) and posts to the same HubSpot form as the on-site lead
+  // magnets, so #leadgen and the delivery email fire the same way.
+  // The PDF opens in a new tab inside the click (popup blockers allow it),
+  // and the HubSpot post goes out with keepalive.
+  // ─────────────────────────────────────────
+  function renderDownloadPage() {
+    if (!/^\/downloads\/[^/]+\/?$/.test(window.location.pathname)) return;
+    var data = document.querySelector('.dl-data');
+    var form = document.querySelector('.dl-form');
+    if (!data || !form || form.getAttribute('data-wired')) return;
+    form.setAttribute('data-wired', '1');
+    var hs = data.getAttribute('data-lm-hs') || '';
+    var file = data.getAttribute('data-lm-file') || '';
+    var name = data.getAttribute('data-lm-name') || document.title;
+    var done = document.querySelector('.dl-done');
+    var err = form.querySelector('.dl-err');
+    lmTrack('lead_magnet_view', hs, { placement: 'landing_page' });
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var fn = (form.querySelector('[name=firstname]').value || '').trim();
+      var email = (form.querySelector('[name=email]').value || '').trim();
+      var org = (form.querySelector('[name=company]').value || '').trim();
+      if (!fn) { err.textContent = 'Please add your first name.'; form.querySelector('[name=firstname]').focus(); return; }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { err.textContent = 'Please enter a valid work email.'; form.querySelector('[name=email]').focus(); return; }
+      err.textContent = '';
+      if (file) window.open(file, '_blank', 'noopener');
+      var cfg = LEAD_MAGNET_FORM;
+      var fields = [{ name: 'firstname', value: fn }, { name: 'email', value: email }];
+      if (org) fields.push({ name: 'company', value: org });
+      if (hs) fields.push({ name: cfg.resourceField, value: hs });
+      var hutk = (document.cookie.match(/(?:^|;\s*)hubspotutk=([^;]+)/) || [])[1];
+      var context = { pageUri: window.location.href, pageName: 'Download page: ' + name };
+      if (hutk) context.hutk = hutk;
+      var btn = form.querySelector('.dl-btn');
+      btn.disabled = true; btn.textContent = 'Sending…';
+      fetch('https://api.hsforms.com/submissions/v3/integration/submit/' + cfg.portalId + '/' + cfg.formId, {
+        method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fields: fields, context: context })
+      }).then(function (r) { return r.ok; }).catch(function () { return false; }).then(function (ok) {
+        lmStore('local', 'pfLM_submitted', '1');
+        lmTrack('lead_magnet_submit', hs, { placement: 'landing_page', hubspot_ok: ok ? 'yes' : 'no' });
+        if (!ok && window.console) console.warn('[pf] download page HubSpot submit failed', hs);
+        form.hidden = true; form.style.display = 'none';
+        if (done) {
+          var a = done.querySelector('.dl-done-btn');
+          if (a && file) a.href = file;
+          done.hidden = false;
+        }
+      });
+    });
+  }
+
+  // ─────────────────────────────────────────
   // WEBINAR PROMO POPUP — homepage only
   // Time-boxed modal promoting an upcoming live webinar. Shows once per
   // browser session (sessionStorage), after a short delay, and auto-stops
@@ -9699,6 +9755,7 @@
     renderWebinarPromoPopup();
     fixMoreClientStories();
     renderLeadMagnets();
+    renderDownloadPage();
     fixDuplicateHeroCtas();
     fixDeadResourceLinks();
     addFooterReferralLink();
