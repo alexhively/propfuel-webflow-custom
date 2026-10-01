@@ -8813,6 +8813,442 @@
   }
 
   // ─────────────────────────────────────────
+  // LEAD MAGNETS — on-page download blocks + one-question slide-ins
+  // Every download is email-gated through a HubSpot form (POST to the Forms
+  // API, same hand-rolled pattern as /mmct-session). Edit LEAD_MAGNETS to
+  // change a resource, LEAD_MAGNET_PAGES to change what shows where.
+  // Visitors who already submitted (localStorage) get the file directly and
+  // never see a slide-in again; a dismissed slide-in stays away for 7 days.
+  // GA4: lead_magnet_view / lead_magnet_submit / lead_magnet_dismiss. Not
+  // generate_lead — that event is the Google Ads demo conversion.
+  // ─────────────────────────────────────────
+  var LEAD_MAGNET_FORM = {
+    portalId: '21158441',
+    formId: '',                 // HubSpot "Lead Magnet Download" form GUID
+    resourceField: 'lead_magnet', // hidden field on that form; '' to skip
+    answerField: ''             // optional field for the slide-in answer
+  };
+  var LM_FILES = 'https://alexhively.github.io/propfuel-webflow-custom/lead-magnets/';
+  
+  var LEAD_MAGNETS = {
+    renewal: {
+      cover: LM_FILES + 'covers/renewal.jpg',
+      name: 'Member Renewal Playbook', type: 'Playbook',
+      blurb: 'Listen earlier, spot the signals, and build the relationships that make renewal the easy decision.',
+      url: 'https://21158441.fs1.hubspotusercontent-na1.net/hubfs/21158441/Member%20Renewal%20Playbook_2026.pdf',
+      question: 'Is renewal season on your plate this quarter?', answers: ['Yes, it’s coming up', 'Planning ahead']
+    },
+    onboarding: {
+      cover: LM_FILES + 'covers/onboarding.jpg',
+      name: 'Member Onboarding Guide', type: 'Guide',
+      blurb: 'Strategies and a quick-start plan for turning a new member’s first 90 days into a habit.',
+      url: 'https://21158441.fs1.hubspotusercontent-na1.net/hubfs/21158441/2026%20Propfuel%20Onboarding_Blueprints.pdf',
+      question: 'Are new members going quiet after they join?', answers: ['Too often', 'Want to get ahead of it']
+    },
+    acquisition: {
+      cover: LM_FILES + 'covers/acquisition.jpg',
+      name: 'Member Acquisition Playbook', type: 'Playbook',
+      blurb: 'How associations attract, convert and keep new members, with a quick-start plan you can run this quarter.',
+      url: LM_FILES + 'member-acquisition-playbook-2026.pdf',
+      question: 'Is growing new members a goal this year?', answers: ['It’s the goal', 'One of several']
+    },
+    certification: {
+      cover: LM_FILES + 'covers/certification.jpg',
+      name: 'Engaging Members Through Certification', type: 'Webinar Slides',
+      blurb: 'The full deck from our certification webinar: keeping candidates moving from interest to credential.',
+      url: LM_FILES + 'certification-webinar-slides.pdf',
+      question: 'Do you run a certification program?', answers: ['Yes', 'We’re building one']
+    },
+    voice: {
+      cover: LM_FILES + 'covers/voice.jpg',
+      name: 'Voice of the Member eBook', type: 'eBook',
+      blurb: 'Capture real member feedback and act on it, so decisions are driven by what members actually say.',
+      url: 'https://21158441.fs1.hubspotusercontent-na1.net/hubfs/21158441/Ebooks/Voice%20of%20the%20Member%20eBook.pdf',
+      question: 'Do you know what your members want right now?', answers: ['Roughly', 'Not really']
+    },
+    glances: {
+      cover: LM_FILES + 'covers/glances.jpg',
+      name: '10 Glances: Member Insights at a Glance', type: 'Quick Read',
+      blurb: 'Ten quick data snapshots that show association leaders where engagement is really happening.',
+      url: 'https://21158441.fs1.hubspotusercontent-na1.net/hubfs/21158441/PropFuel%20Member%20Glances_April2025.pdf',
+      question: 'Want a faster read on member engagement?', answers: ['Yes', 'Show me']
+    },
+    automation: {
+      cover: LM_FILES + 'covers/automation.jpg',
+      name: 'Evergreen Membership Campaigns', type: 'Automation Guide',
+      blurb: 'Build evergreen engagement workflows that run year-round without your team rebuilding them each cycle.',
+      url: 'https://21158441.fs1.hubspotusercontent-na1.net/hubfs/21158441/100%2B%20Questions/2026%20PropFuel%20Evergreen%20Automation%20Guide.pdf',
+      question: 'Is your team rebuilding the same campaigns every year?', answers: ['Every year', 'Some of them']
+    },
+    conversational: {
+      cover: LM_FILES + 'covers/conversational.jpg',
+      name: 'Conversational Engagement eBook', type: 'eBook',
+      blurb: 'How associations bring one-on-one conversation to every member, at scale.',
+      url: 'https://21158441.fs1.hubspotusercontent-na1.net/hubfs/21158441/Ebooks/Conversational%20Engagement%20eBook.pdf',
+      question: 'Are your emails getting replies, or just opens?', answers: ['Mostly opens', 'Some replies']
+    },
+    questions: {
+      cover: LM_FILES + 'covers/questions.jpg',
+      name: '100+ Questions to Ask Your Members', type: 'Question Bank',
+      blurb: 'A ready-to-use bank of questions that start real conversations and uncover what members need.',
+      url: LM_FILES + '100-questions-2026.pdf',
+      question: 'Not sure what to ask your members?', answers: ['Give me ideas', 'Always looking']
+    },
+    lies: {
+      cover: LM_FILES + 'covers/lies.jpg',
+      name: '10 Lies Associations Tell Themselves About Member Engagement', type: 'eBook',
+      blurb: 'The comfortable myths that quietly stall engagement, and what the associations growing fastest do instead.',
+      url: 'https://21158441.fs1.hubspotusercontent-na1.net/hubfs/21158441/10%20Lies%20Associations%20Tell%20Themselves%20About%20Member%20Engagement.pdf',
+      question: 'Is member engagement where you want it?', answers: ['Not yet', 'Close']
+    },
+    membershipai: {
+      cover: LM_FILES + 'covers/membershipai.jpg',
+      name: 'Membership AI One-Pager', type: 'One-Pager',
+      blurb: 'What Membership AI does, how it works with your team, and what it surfaces, on one page.',
+      url: LM_FILES + 'membership-ai-one-pager.pdf',
+      question: 'Exploring AI for your membership team?', answers: ['Actively', 'Just curious']
+    }
+  };
+  // trigger: 'scroll' (50% of page) or 'exit' (exit intent, desktop; falls back
+  // to 70% scroll on touch). popup:false = on-page block only.
+  var LEAD_MAGNET_PAGES = [
+    { re: /^\/use-cases\/renewals\/?$/, lm: 'renewal', trigger: 'scroll' },
+    { re: /^\/use-cases\/win-back\/?$/, lm: 'renewal', trigger: 'scroll' },
+    { re: /^\/use-cases\/onboarding\/?$/, lm: 'onboarding', trigger: 'scroll' },
+    { re: /^\/use-cases\/acquisition\/?$/, lm: 'acquisition', trigger: 'scroll' },
+    { re: /^\/use-cases\/certifications\/?$/, lm: 'certification', trigger: 'scroll' },
+    { re: /^\/use-cases\/data-intelligence\/?$/, lm: 'voice', trigger: 'scroll' },
+    { re: /^\/use-cases\/events\/?$/, lm: 'questions', trigger: 'scroll' },
+    { re: /^\/platform\/insights\/?$/, lm: 'glances', trigger: 'scroll' },
+    { re: /^\/platform\/automation\/?$/, lm: 'automation', trigger: 'scroll' },
+    { re: /^\/platform\/(email|engagement|sms|website)\/?$/, lm: 'conversational', trigger: 'scroll' },
+    { re: /^\/(platform\/overview|roi|client-success\/customers)\/?$/, lm: 'lies', trigger: 'exit' },
+    { re: /^\/membership-ai\/?$/, lm: 'membershipai', trigger: 'scroll' },
+    { re: /^\/case-studies\/[^/]+\/?$/, lm: 'auto', trigger: 'scroll', popup: false },
+    { re: /^\/blog-posts\/[^/]+\/?$/, lm: 'auto', trigger: 'scroll' }
+  ];
+
+  // Detail pages: pick the resource from the page's own words.
+  function lmPickByContent() {
+    // Headline only: page titles carry SEO keywords ("... & Retention") that mislead.
+    var h1 = document.querySelector('h1');
+    var text = (h1 ? h1.textContent : document.title).toLowerCase();
+    if (/\bai\b|artificial intelligence/.test(text)) return 'membershipai';
+    if (/certif|credential|exam/.test(text)) return 'certification';
+    if (/onboard|new member/.test(text)) return 'onboarding';
+    if (/renew|lapsed|win.?back|retention|retain/.test(text)) return 'renewal';
+    if (/acqui|recruit|prospect|website visitor/.test(text)) return 'acquisition';
+    if (/automat|workflow|evergreen/.test(text)) return 'automation';
+    if (/data|insight|survey|feedback|contact/.test(text)) return 'voice';
+    return 'lies';
+  }
+
+  function lmStore(kind, key, val) {
+    try {
+      var s = kind === 'session' ? window.sessionStorage : window.localStorage;
+      if (val === undefined) return s.getItem(key);
+      s.setItem(key, val);
+    } catch (e) { return null; }
+  }
+
+  function lmTrack(event, lmKey, extra) {
+    var params = { lead_magnet: lmKey, page_path: window.location.pathname };
+    if (extra) for (var k in extra) params[k] = extra[k];
+    try {
+      if (typeof window.gtag === 'function') window.gtag('event', event, params);
+      else if (window.dataLayer && window.dataLayer.push) { params.event = event; window.dataLayer.push(params); }
+    } catch (e) {}
+  }
+
+  function lmSubmit(email, lmKey, placement, answer) {
+    var cfg = LEAD_MAGNET_FORM;
+    var lm = LEAD_MAGNETS[lmKey];
+    if (!cfg.formId) return Promise.resolve(false);
+    var fields = [{ name: 'email', value: email }];
+    if (cfg.resourceField) fields.push({ name: cfg.resourceField, value: lm.name });
+    if (cfg.answerField && answer) fields.push({ name: cfg.answerField, value: answer });
+    var hutk = (document.cookie.match(/(?:^|;\s*)hubspotutk=([^;]+)/) || [])[1];
+    var context = {
+      pageUri: window.location.href,
+      pageName: 'Lead magnet: ' + lm.name + ' (' + placement + (answer ? ' — ' + answer : '') + ')'
+    };
+    if (hutk) context.hutk = hutk;
+    return fetch('https://api.hsforms.com/submissions/v3/integration/submit/' + cfg.portalId + '/' + cfg.formId, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ fields: fields, context: context })
+    }).then(function (r) { return r.ok; }).catch(function () { return false; });
+  }
+
+  function lmStyles() {
+    if (document.getElementById('pf-lm-styles')) return;
+    var st = document.createElement('style');
+    st.id = 'pf-lm-styles';
+    st.textContent = [
+      '.pf-lm-section{padding:80px 48px;background:#F6F2E8}',
+      '.pf-lm-card{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:260px 1fr;gap:48px;align-items:center;background:#fff;border:1px solid #E3DDD2;border-radius:24px;padding:40px;position:relative;overflow:hidden}',
+      '.pf-lm-card::before{content:"";position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(to right,#F47C2C,#FBC02D)}',
+      '.pf-lm-cover{aspect-ratio:4/5;border-radius:14px;background:#EBE6DA center/contain no-repeat;box-shadow:0 14px 34px rgba(47,47,47,.14);display:flex;align-items:flex-end;padding:22px;overflow:hidden}',
+      '.pf-lm-cover.pf-lm-typeset{background:linear-gradient(160deg,#2F2F2F,#1A1713);align-items:stretch;flex-direction:column;justify-content:space-between}',
+      '.pf-lm-cover .pf-lm-ct{font-size:20px;line-height:1.2;font-weight:800;color:#F6F2E8;letter-spacing:-.01em}',
+      '.pf-lm-cover .pf-lm-cb{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#FBC02D}',
+      '.pf-lm-eyebrow{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#F47C2C;margin:0 0 12px}',
+      '.pf-lm-title{font-size:30px;line-height:1.15;font-weight:800;color:#2F2F2F;letter-spacing:-.02em;margin:0 0 14px}',
+      '.pf-lm-blurb{font-size:16px;line-height:1.6;color:#6E6E6E;margin:0 0 26px}',
+      '.pf-lm-form{display:flex;gap:10px;flex-wrap:wrap}',
+      '.pf-lm-input{flex:1 1 240px;min-width:0;height:52px;padding:0 18px;border:1px solid #E3DDD2;border-radius:12px;font:500 16px/1 \'DM Sans\',sans-serif;color:#2F2F2F;background:#FBF9F4;outline:none;transition:border-color .2s ease,box-shadow .2s ease}',
+      '.pf-lm-input:focus{border-color:#F47C2C;box-shadow:0 0 0 4px rgba(244,124,44,.14)}',
+      '.pf-lm-btn{height:52px;padding:0 26px;border:none;border-radius:12px;font:800 15px/1 \'DM Sans\',sans-serif;color:#fff!important;background:linear-gradient(to right,#F47C2C,#FBC02D);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none!important;white-space:nowrap;transition:box-shadow .2s ease,transform .2s ease}',
+      '.pf-lm-btn:hover{box-shadow:0 6px 20px rgba(244,124,44,.32);transform:translateY(-1px)}',
+      '.pf-lm-btn[disabled]{opacity:.7;cursor:default;transform:none}',
+      '.pf-lm-fine{font-size:12.5px;color:#8C8479;margin:12px 0 0}',
+      '.pf-lm-err{font-size:13px;color:#C2410C;margin:10px 0 0;display:none}',
+      '.pf-lm-done{display:flex;align-items:center;gap:16px;flex-wrap:wrap}',
+      '.pf-lm-done p{font-size:15px;color:#2F2F2F;font-weight:600;margin:0}',
+      '.pf-lm-picks{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 22px}',
+      '.pf-lm-pick{padding:11px 18px;border:1px solid #E3DDD2;border-radius:100px;background:#FBF9F4;font:700 14px/1 \'DM Sans\',sans-serif;color:#2F2F2F;cursor:pointer;transition:border-color .2s ease,background .2s ease}',
+      '.pf-lm-pick:hover,.pf-lm-pick[aria-pressed="true"]{border-color:#F47C2C;background:rgba(244,124,44,.08)}',
+      /* slide-in */
+      '.pf-lm-pop{position:fixed;right:24px;bottom:24px;z-index:9998;width:380px;max-width:calc(100vw - 32px);background:#fff;border:1px solid #E3DDD2;border-radius:20px;box-shadow:0 24px 60px rgba(26,23,20,.22),0 6px 18px rgba(26,23,20,.1);padding:26px 24px 22px;transform:translateY(24px);opacity:0;transition:transform .35s cubic-bezier(.2,.8,.2,1),opacity .35s ease;overflow:hidden}',
+      '.pf-lm-pop.pf-lm-in{transform:none;opacity:1}',
+      '.pf-lm-pop::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(to right,#F47C2C,#FBC02D)}',
+      '.pf-lm-x{position:absolute;top:12px;right:12px;width:32px;height:32px;border:none;border-radius:50%;background:transparent;color:#8C8479;font-size:20px;line-height:1;cursor:pointer}',
+      '.pf-lm-x:hover{background:#F6F2E8;color:#2F2F2F}',
+      '.pf-lm-pop .pf-lm-eyebrow{font-size:11px;margin-bottom:10px}',
+      '.pf-lm-q{font-size:20px;line-height:1.25;font-weight:800;color:#2F2F2F;margin:0 28px 16px 0;letter-spacing:-.01em}',
+      '.pf-lm-pop .pf-lm-title{font-size:18px;margin:0 28px 8px 0}',
+      '.pf-lm-pop .pf-lm-blurb{font-size:14px;margin:0 0 16px}',
+      '.pf-lm-pop .pf-lm-input,.pf-lm-pop .pf-lm-btn{height:46px}',
+      '.pf-lm-pop .pf-lm-btn{width:100%}',
+      '.pf-lm-pop .pf-lm-picks{flex-direction:column;margin-bottom:4px}',
+      '.pf-lm-pop .pf-lm-pick{text-align:left;border-radius:12px;padding:13px 16px}',
+      '@media (max-width:767px){',
+      '.pf-lm-section{padding:56px 16px}',
+      '.pf-lm-card{grid-template-columns:1fr;gap:28px;padding:28px 22px}',
+      '.pf-lm-cover{width:100%;max-width:190px;margin:0 auto}',
+      '.pf-lm-title{font-size:24px}',
+      '.pf-lm-btn{width:100%}',
+      '.pf-lm-pop{left:0;right:0;bottom:0;width:auto;max-width:none;border-radius:20px 20px 0 0;padding-bottom:calc(22px + env(safe-area-inset-bottom))}',
+      '}',
+      '@media (prefers-reduced-motion:reduce){.pf-lm-pop{transition:opacity .2s ease;transform:none}}'
+    ].join('');
+    document.head.appendChild(st);
+  }
+
+  function lmEsc(s) {
+    return String(s || '').replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function lmDoneHtml(lm) {
+    return '<div class="pf-lm-done"><a class="pf-lm-btn" href="' + lmEsc(lm.url) + '" target="_blank" rel="noopener">Open the ' + lmEsc(lm.type.toLowerCase()) + ' →</a>' +
+      '<p>It’s yours. We’ll send a copy to your inbox too.</p></div>';
+  }
+
+  function lmFormHtml(btnLabel) {
+    return '<form class="pf-lm-form" novalidate>' +
+      '<input class="pf-lm-input" type="email" name="email" autocomplete="email" inputmode="email" placeholder="Work email" aria-label="Work email" required>' +
+      '<button class="pf-lm-btn" type="submit">' + lmEsc(btnLabel) + '</button></form>' +
+      '<p class="pf-lm-err" role="alert">Please enter a valid work email.</p>';
+  }
+
+  // Wires a .pf-lm-form inside `root`. getKey/getAnswer are read at submit
+  // time so the picker can change the resource after render.
+  function lmWireForm(root, getKey, placement, getAnswer, onDone) {
+    var form = root.querySelector('.pf-lm-form');
+    if (!form) return;
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var input = form.querySelector('.pf-lm-input');
+      var err = root.querySelector('.pf-lm-err');
+      var email = (input.value || '').trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+        if (err) err.style.display = 'block';
+        input.focus();
+        return;
+      }
+      if (err) err.style.display = 'none';
+      var btn = form.querySelector('.pf-lm-btn');
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+      var key = getKey();
+      var answer = getAnswer ? getAnswer() : '';
+      lmSubmit(email, key, placement, answer).then(function (ok) {
+        // Always hand over the file: a failed post should never punish the visitor.
+        lmStore('local', 'pfLM_submitted', '1');
+        lmTrack('lead_magnet_submit', key, { placement: placement, hubspot_ok: ok ? 'yes' : 'no' });
+        if (!ok && window.console) console.warn('[pf] lead magnet HubSpot submit failed', key);
+        var wrap = form.parentNode;
+        var holder = document.createElement('div');
+        holder.innerHTML = lmDoneHtml(LEAD_MAGNETS[key]);
+        wrap.replaceChild(holder.firstChild, form);
+        if (err && err.parentNode) err.parentNode.removeChild(err);
+        if (onDone) onDone();
+      });
+    });
+  }
+
+  function lmCoverHtml(lm) {
+    if (lm.cover) return '<div class="pf-lm-cover" style="background-image:url(\'' + lmEsc(lm.cover) + '\')" role="img" aria-label="' + lmEsc(lm.name) + ' cover"></div>';
+    return '<div class="pf-lm-cover pf-lm-typeset" aria-hidden="true"><span class="pf-lm-cb">' + lmEsc(lm.type) + '</span><span class="pf-lm-ct">' + lmEsc(lm.name) + '</span><span class="pf-lm-cb" style="color:#8C8479">PropFuel</span></div>';
+  }
+
+  function renderLeadMagnetBlock(lmKey, anchor) {
+    if (document.querySelector('.pf-lm-section')) return;
+    var lm = LEAD_MAGNETS[lmKey];
+    var known = lmStore('local', 'pfLM_submitted') === '1';
+    var html = '<section class="pf-lm-section"><div class="pf-lm-card">' + lmCoverHtml(lm) + '<div>' +
+      '<p class="pf-lm-eyebrow">Free ' + lmEsc(lm.type) + '</p>' +
+      '<h2 class="pf-lm-title">' + lmEsc(lm.name) + '</h2>' +
+      '<p class="pf-lm-blurb">' + lmEsc(lm.blurb) + '</p>' +
+      (known ? lmDoneHtml(lm).replace('It’s yours. We’ll send a copy to your inbox too.', 'Free for you, no form needed.') :
+        lmFormHtml('Get the ' + lm.type.toLowerCase()) + '<p class="pf-lm-fine">Instant download. No spam, unsubscribe anytime.</p>') +
+      '</div></div></section>';
+    anchor.insertAdjacentHTML('beforebegin', html);
+    var section = document.querySelector('.pf-lm-section');
+    lmWireForm(section, function () { return lmKey; }, 'inline');
+    // Count a view only when the block is actually seen.
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) { lmTrack('lead_magnet_view', lmKey, { placement: 'inline' }); io.disconnect(); }
+      }, { threshold: 0.4 });
+      io.observe(section);
+    }
+  }
+
+  function webinarPromoWillShow() {
+    var cfg = WEBINAR_PROMO;
+    if (!cfg.enabled) return false;
+    var path = window.location.pathname.replace(/\/$/, '') || '/';
+    if (path !== '/') return false;
+    if (cfg.expiresAt && new Date() > new Date(cfg.expiresAt)) return false;
+    return !lmStore('session', cfg.sessionKey);
+  }
+
+  // Homepage-only picker: one question routes to the right resource.
+  var LM_PICKER = [
+    { label: 'Renewals', lm: 'renewal' },
+    { label: 'Bringing in new members', lm: 'acquisition' },
+    { label: 'Onboarding new members', lm: 'onboarding' },
+    { label: 'Knowing what members want', lm: 'questions' }
+  ];
+
+  function renderLeadMagnetPopup(lmKey, trigger) {
+    if (lmStore('local', 'pfLM_submitted') === '1') return;
+    var dismissedAt = parseInt(lmStore('local', 'pfLM_dismissed') || '0', 10);
+    if (dismissedAt && Date.now() - dismissedAt < 7 * 86400000) return;
+    if (lmStore('session', 'pfLM_shown')) return;
+    if (webinarPromoWillShow()) return;
+
+    var isPicker = lmKey === 'picker';
+    var shown = false;
+    var answer = '';
+    var currentKey = isPicker ? LM_PICKER[0].lm : lmKey;
+
+    function close(reason) {
+      var pop = document.querySelector('.pf-lm-pop');
+      if (!pop) return;
+      pop.classList.remove('pf-lm-in');
+      setTimeout(function () { if (pop.parentNode) pop.parentNode.removeChild(pop); }, 350);
+      document.removeEventListener('keydown', onKey);
+      if (reason === 'dismiss') {
+        lmStore('local', 'pfLM_dismissed', String(Date.now()));
+        lmTrack('lead_magnet_dismiss', currentKey, { placement: 'slide-in' });
+      }
+    }
+    function onKey(e) { if (e.key === 'Escape') close('dismiss'); }
+
+    function gateStep(pop) {
+      var lm = LEAD_MAGNETS[currentKey];
+      var body = pop.querySelector('.pf-lm-body');
+      body.innerHTML = '<p class="pf-lm-eyebrow">Free ' + lmEsc(lm.type) + '</p>' +
+        '<p class="pf-lm-title">' + lmEsc(lm.name) + '</p>' +
+        '<p class="pf-lm-blurb">' + lmEsc(lm.blurb) + '</p>' + lmFormHtml('Send it to me');
+      lmWireForm(body, function () { return currentKey; }, 'slide-in', function () { return answer; },
+        function () { setTimeout(function () { close('done'); }, 6000); });
+      var input = body.querySelector('.pf-lm-input');
+      if (input && window.matchMedia('(min-width:768px)').matches) input.focus();
+    }
+
+    function show() {
+      if (lmStore('local', 'pfLM_submitted') === '1') return;
+      if (shown || document.querySelector('.pf-lm-pop') || document.querySelector('.pf-wpop-overlay')) return;
+      shown = true;
+      lmStore('session', 'pfLM_shown', '1');
+      lmStyles();
+      var lm = LEAD_MAGNETS[currentKey];
+      var q = isPicker ? 'What’s your biggest focus this year?' : lm.question;
+      var opts = isPicker ? LM_PICKER.map(function (p) { return { label: p.label, lm: p.lm }; })
+        : lm.answers.map(function (a) { return { label: a, lm: lmKey }; });
+      var pop = document.createElement('div');
+      pop.className = 'pf-lm-pop';
+      pop.setAttribute('role', 'dialog');
+      pop.setAttribute('aria-label', q);
+      pop.innerHTML = '<button class="pf-lm-x" type="button" aria-label="Close">×</button><div class="pf-lm-body">' +
+        '<p class="pf-lm-eyebrow">Quick question</p><p class="pf-lm-q">' + lmEsc(q) + '</p><div class="pf-lm-picks">' +
+        opts.map(function (o, i) { return '<button type="button" class="pf-lm-pick" data-i="' + i + '">' + lmEsc(o.label) + '</button>'; }).join('') +
+        '</div></div>';
+      document.body.appendChild(pop);
+      pop.querySelector('.pf-lm-x').addEventListener('click', function () { close('dismiss'); });
+      pop.querySelectorAll('.pf-lm-pick').forEach(function (b) {
+        b.addEventListener('click', function () {
+          var o = opts[+b.getAttribute('data-i')];
+          answer = o.label;
+          currentKey = o.lm;
+          lmTrack('lead_magnet_answer', currentKey, { answer: answer, placement: 'slide-in' });
+          gateStep(pop);
+        });
+      });
+      document.addEventListener('keydown', onKey);
+      requestAnimationFrame(function () { requestAnimationFrame(function () { pop.classList.add('pf-lm-in'); }); });
+      lmTrack('lead_magnet_view', currentKey, { placement: 'slide-in', trigger: trigger });
+    }
+
+    // Never before 8s on the page, whatever the trigger.
+    var armedAt = Date.now() + 8000;
+    var touch = window.matchMedia('(hover:none)').matches;
+    var threshold = (trigger === 'exit' && touch) ? 0.7 : 0.5;
+    function onScroll() {
+      var h = document.documentElement.scrollHeight - window.innerHeight;
+      if (h > 0 && window.scrollY / h >= threshold && Date.now() >= armedAt) {
+        window.removeEventListener('scroll', onScroll);
+        show();
+      }
+    }
+    if (trigger === 'exit' && !touch) {
+      document.addEventListener('mouseout', function onOut(e) {
+        if (!e.relatedTarget && e.clientY <= 0 && Date.now() >= armedAt) {
+          document.removeEventListener('mouseout', onOut);
+          show();
+        }
+      });
+    } else {
+      window.addEventListener('scroll', onScroll, { passive: true });
+    }
+  }
+
+  function renderLeadMagnets() {
+    if (!LEAD_MAGNET_FORM.formId) return; // not live until the HubSpot form exists
+    var path = window.location.pathname;
+    if (path.replace(/\/$/, '') === '' ) {
+      renderLeadMagnetPopup('picker', 'exit');
+      return;
+    }
+    var rule = null;
+    for (var i = 0; i < LEAD_MAGNET_PAGES.length; i++) {
+      if (LEAD_MAGNET_PAGES[i].re.test(path)) { rule = LEAD_MAGNET_PAGES[i]; break; }
+    }
+    if (!rule) return;
+    var key = rule.lm === 'auto' ? lmPickByContent() : rule.lm;
+    if (!LEAD_MAGNETS[key]) return;
+    lmStyles();
+    var anchor = document.querySelector('.cs-more-section') || document.querySelector('.pf-cta-section');
+    if (anchor) renderLeadMagnetBlock(key, anchor);
+    if (rule.popup !== false) renderLeadMagnetPopup(key, rule.trigger);
+  }
+
+  // ─────────────────────────────────────────
   // WEBINAR PROMO POPUP — homepage only
   // Time-boxed modal promoting an upcoming live webinar. Shows once per
   // browser session (sessionStorage), after a short delay, and auto-stops
@@ -9211,6 +9647,7 @@
     renderMmctSessionPage();
     renderEventDemoPage();
     renderWebinarPromoPopup();
+    renderLeadMagnets();
     fixDuplicateHeroCtas();
     fixDeadResourceLinks();
     addFooterReferralLink();
