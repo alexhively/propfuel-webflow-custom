@@ -8825,14 +8825,15 @@
   var LEAD_MAGNET_FORM = {
     portalId: '21158441',
     formId: '',                 // HubSpot "Lead Magnet Download" form GUID
-    resourceField: 'lead_magnet', // hidden field on that form; '' to skip
-    answerField: ''             // optional field for the slide-in answer
+    resourceField: 'website_lead_magnet', // dropdown property; sends each magnet's `hs` value
+    answerField: 'lead_magnet_answer'     // text property for the slide-in answer
   };
   var LM_FILES = 'https://alexhively.github.io/propfuel-webflow-custom/lead-magnets/';
   
   var LEAD_MAGNETS = {
     renewal: {
       cover: LM_FILES + 'covers/renewal.jpg',
+      hs: 'member_renewal_playbook',
       name: 'Member Renewal Playbook', type: 'Playbook',
       blurb: 'Listen earlier, spot the signals, and build the relationships that make renewal the easy decision.',
       url: 'https://21158441.fs1.hubspotusercontent-na1.net/hubfs/21158441/Member%20Renewal%20Playbook_2026.pdf',
@@ -8840,6 +8841,7 @@
     },
     onboarding: {
       cover: LM_FILES + 'covers/onboarding.jpg',
+      hs: 'member_onboarding_guide',
       name: 'Member Onboarding Guide', type: 'Guide',
       blurb: 'Strategies and a quick-start plan for turning a new member’s first 90 days into a habit.',
       url: 'https://21158441.fs1.hubspotusercontent-na1.net/hubfs/21158441/2026%20Propfuel%20Onboarding_Blueprints.pdf',
@@ -8847,6 +8849,7 @@
     },
     acquisition: {
       cover: LM_FILES + 'covers/acquisition.jpg',
+      hs: 'member_acquisition_playbook',
       name: 'Member Acquisition Playbook', type: 'Playbook',
       blurb: 'How associations attract, convert and keep new members, with a quick-start plan you can run this quarter.',
       url: LM_FILES + 'member-acquisition-playbook-2026.pdf',
@@ -8854,6 +8857,7 @@
     },
     certification: {
       cover: LM_FILES + 'covers/certification.jpg',
+      hs: 'engaging_members_through_certification',
       name: 'Engaging Members Through Certification', type: 'Webinar Slides',
       blurb: 'The full deck from our certification webinar: keeping candidates moving from interest to credential.',
       url: LM_FILES + 'certification-webinar-slides.pdf',
@@ -8861,6 +8865,7 @@
     },
     voice: {
       cover: LM_FILES + 'covers/voice.jpg',
+      hs: 'voice_of_the_member_ebook',
       name: 'Voice of the Member eBook', type: 'eBook',
       blurb: 'Capture real member feedback and act on it, so decisions are driven by what members actually say.',
       url: 'https://21158441.fs1.hubspotusercontent-na1.net/hubfs/21158441/Ebooks/Voice%20of%20the%20Member%20eBook.pdf',
@@ -8868,6 +8873,7 @@
     },
     glances: {
       cover: LM_FILES + 'covers/glances.jpg',
+      hs: 'ten_glances',
       name: '10 Glances: Member Insights at a Glance', type: 'Quick Read',
       blurb: 'Ten quick data snapshots that show association leaders where engagement is really happening.',
       url: 'https://21158441.fs1.hubspotusercontent-na1.net/hubfs/21158441/PropFuel%20Member%20Glances_April2025.pdf',
@@ -8875,6 +8881,7 @@
     },
     automation: {
       cover: LM_FILES + 'covers/automation.jpg',
+      hs: 'evergreen_membership_campaigns',
       name: 'Evergreen Membership Campaigns', type: 'Automation Guide',
       blurb: 'Build evergreen engagement workflows that run year-round without your team rebuilding them each cycle.',
       url: 'https://21158441.fs1.hubspotusercontent-na1.net/hubfs/21158441/100%2B%20Questions/2026%20PropFuel%20Evergreen%20Automation%20Guide.pdf',
@@ -8882,6 +8889,7 @@
     },
     conversational: {
       cover: LM_FILES + 'covers/conversational.jpg',
+      hs: 'conversational_engagement_ebook',
       name: 'Conversational Engagement eBook', type: 'eBook',
       blurb: 'How associations bring one-on-one conversation to every member, at scale.',
       url: 'https://21158441.fs1.hubspotusercontent-na1.net/hubfs/21158441/Ebooks/Conversational%20Engagement%20eBook.pdf',
@@ -8889,6 +8897,7 @@
     },
     questions: {
       cover: LM_FILES + 'covers/questions.jpg',
+      hs: 'hundred_questions',
       name: '100+ Questions to Ask Your Members', type: 'Question Bank',
       blurb: 'A ready-to-use bank of questions that start real conversations and uncover what members need.',
       url: LM_FILES + '100-questions-2026.pdf',
@@ -8896,6 +8905,7 @@
     },
     lies: {
       cover: LM_FILES + 'covers/lies.jpg',
+      hs: 'ten_lies',
       name: '10 Lies Associations Tell Themselves About Member Engagement', type: 'eBook',
       blurb: 'The comfortable myths that quietly stall engagement, and what the associations growing fastest do instead.',
       url: 'https://21158441.fs1.hubspotusercontent-na1.net/hubfs/21158441/10%20Lies%20Associations%20Tell%20Themselves%20About%20Member%20Engagement.pdf',
@@ -8903,6 +8913,7 @@
     },
     membershipai: {
       cover: LM_FILES + 'covers/membershipai.jpg',
+      hs: 'membership_ai_one_pager',
       name: 'Membership AI One-Pager', type: 'One-Pager',
       blurb: 'What Membership AI does, how it works with your team, and what it surfaces, on one page.',
       url: LM_FILES + 'membership-ai-one-pager.pdf',
@@ -8965,7 +8976,7 @@
     var lm = LEAD_MAGNETS[lmKey];
     if (!cfg.formId) return Promise.resolve(false);
     var fields = [{ name: 'email', value: email }];
-    if (cfg.resourceField) fields.push({ name: cfg.resourceField, value: lm.name });
+    if (cfg.resourceField) fields.push({ name: cfg.resourceField, value: lm.hs });
     if (cfg.answerField && answer) fields.push({ name: cfg.answerField, value: answer });
     var hutk = (document.cookie.match(/(?:^|;\s*)hubspotutk=([^;]+)/) || [])[1];
     var context = {
