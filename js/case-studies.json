@@ -150,5 +150,21 @@
     ],
     "image": "",
     "category": "Renewals and Retention"
+  },
+  {
+    "featured": false,
+    "name": "One Question Got 2,246 Lapsing AWHONN Members Talking",
+    "slug": "awhonn-lapsed-member-check-in",
+    "org": "AWHONN",
+    "subtitle": "A renewal sequence that keeps asking until a lapsed member rejoins",
+    "summary": "AWHONN built a renewal sequence that asks instead of just reminding, at four points where a member could go quiet. The first question drew 2,246 answers from 12,067 members, and 88% of lapsed members who answered said yes to rejoining.",
+    "quote": "Looks great. This is such a huge leap forward for us. You have no idea.",
+    "kpis": [
+      { "value": "2,246", "label": "Answers to one question" },
+      { "value": "18%", "label": "Engagement rate" },
+      { "value": "88%", "label": "Said yes to rejoining" }
+    ],
+    "image": "",
+    "category": "Renewals and Retention"
   }
 ]
