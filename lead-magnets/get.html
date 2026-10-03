@@ -56,7 +56,10 @@ var MAP = {
 var key = (new URLSearchParams(location.search).get('r') || '').trim();
 // HubSpot email tokens render the dropdown's label, not its internal value: accept both.
 var hit = MAP[key];
-if (!hit) for (var k in MAP) if (MAP[k].name.toLowerCase() === key.toLowerCase()) { hit = MAP[k]; break; }
+// Compare on letters and digits only, so '+' that arrives as a space (and any
+// other encoding drift from email clients) still matches.
+function norm(v) { return String(v || '').toLowerCase().replace(/[^a-z0-9]/g, ''); }
+if (!hit) for (var k in MAP) if (norm(MAP[k].name) === norm(key) || norm(k) === norm(key)) { hit = MAP[k]; break; }
 if (hit) {
   document.getElementById('msg').textContent = 'Opening ' + hit.name + '\u2026';
   var a = document.getElementById('go'); a.href = hit.url; a.textContent = 'Open it now';
