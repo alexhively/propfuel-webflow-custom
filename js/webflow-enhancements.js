@@ -460,48 +460,20 @@
   }
 
   // ─────────────────────────────────────────
-  // 0B. SEO (FAQ schema only)
-  //    Titles, meta descriptions, canonical, robots, Open Graph/Twitter cards
-  //    and Organization/WebPage/WebSite/BreadcrumbList JSON-LD are now set
-  //    natively in Webflow (page settings, CMS template field bindings, site
-  //    head code, global canonical). They render server-side, so AI crawlers
-  //    and social unfurlers that do not execute JS see them. Do not re-add
-  //    client-side versions here: two sources of truth drift and conflict.
-  //    FAQPage stays client-side until FAQ content is moved into a CMS/native
-  //    schema field.
+  // 0B. SEO: nothing here, by design.
+  //    ALL structured data and metadata is set natively in Webflow and
+  //    renders server-side, so AI crawlers (GPTBot, ClaudeBot, PerplexityBot)
+  //    that do not execute JS can read it:
+  //      - Titles, meta, canonical, robots, OG: page settings / CMS bindings
+  //      - Organization JSON-LD: site head custom code
+  //      - WebPage/BreadcrumbList/FAQPage/SoftwareApplication: page schema field
+  //      - BlogPosting/VideoObject/Article/Person/DigitalDocument: CMS template
+  //        head code with {{wf}} field tokens
+  //    injectSchemaMarkup() (client-side FAQPage) was removed 2026-10-07 after
+  //    FAQPage was added natively to every page with a .pf-faq-item block.
+  //    New page with an FAQ? Add its FAQPage JSON-LD in the Webflow page schema
+  //    field. Do not re-add client-side schema here.
   // ─────────────────────────────────────────
-  function injectSchemaMarkup() {
-    var faqItems = document.querySelectorAll('.pf-faq-item');
-    if (!faqItems.length) return;
-    // Pages whose FAQPage JSON-LD is set natively in Webflow (e.g. the homepage)
-    // must not get a second, client-side copy.
-    var hasNativeFaq = Array.prototype.some.call(
-      document.querySelectorAll('script[type="application/ld+json"]'),
-      function(s) { return /"FAQPage"/.test(s.textContent); }
-    );
-    if (hasNativeFaq) return;
-    var faqSchema = {
-      '@context': 'https://schema.org',
-      '@type': 'FAQPage',
-      'mainEntity': []
-    };
-    faqItems.forEach(function(item) {
-      var q = item.querySelector('.pf-faq-question');
-      var a = item.querySelector('.pf-faq-answer');
-      if (q && a) {
-        faqSchema.mainEntity.push({
-          '@type': 'Question',
-          'name': q.textContent.trim(),
-          'acceptedAnswer': { '@type': 'Answer', 'text': a.textContent.trim() }
-        });
-      }
-    });
-    if (!faqSchema.mainEntity.length) return;
-    var script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.textContent = JSON.stringify(faqSchema);
-    document.head.appendChild(script);
-  }
 
   // ─────────────────────────────────────────
   // 1. TEXTURE GENERATION
@@ -9823,8 +9795,6 @@
     initNavScroll();
     initDemoForm();
     applyMembershipAIPalette();
-    // SEO: FAQ schema only; all other metadata is native in Webflow (see 0B)
-    injectSchemaMarkup();
   }
 
   // ─────────────────────────────────────────────────────────────
