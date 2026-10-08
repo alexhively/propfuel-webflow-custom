@@ -7556,6 +7556,50 @@
   //   (hsFormCallback message). Lead-magnet forms report their own events.
   // announcement_banner_clicked: the top Membership AI banner.
   // ─────────────────────────────────────────
+  // ─────────────────────────────────────────
+  // BOOK A DEMO: brand the HubSpot form
+  // The demo form renders in a same-origin HubSpot iframe with HubSpot's default look (grey
+  // inputs, small black 'Request Demo' button). Inject brand styles into the iframe once it's ready.
+  // Scoped to /book-a-demo because other pages' HubSpot forms may sit on dark sections.
+  // ─────────────────────────────────────────
+  function styleDemoForm() {
+    if (!/^\/book-a-demo\/?$/.test(window.location.pathname)) return;
+    var css = [
+      '.hs-form,.hs-form *{font-family:"DM Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important}',
+      '.hs-form label{font-size:13px!important;font-weight:600!important;color:#2F2F2F!important}',
+      '.hs-form .hs-input:not([type=checkbox]):not([type=radio]){width:100%!important;height:46px!important;box-sizing:border-box!important;padding:0 14px!important;border:1px solid #E3DDD2!important;border-radius:12px!important;background:#fff!important;color:#2F2F2F!important;font-size:15px!important;box-shadow:none!important}',
+      '.hs-form textarea.hs-input{height:auto!important;min-height:96px!important;padding:12px 14px!important}',
+      '.hs-form .hs-input:focus{outline:none!important;border-color:#F47C2C!important;box-shadow:0 0 0 3px rgba(244,124,44,.15)!important}',
+      '.hs-form .hs_submit{margin-top:8px}',
+      '.hs-form .hs-button{width:100%!important;height:54px!important;border:1.5px solid transparent!important;border-radius:100px!important;background:linear-gradient(to right,#F47C2C,#FBC02D)!important;color:#fff!important;font-size:16px!important;font-weight:700!important;letter-spacing:0!important;cursor:pointer;box-shadow:0 4px 16px rgba(240,90,40,.2)!important;transition:background .2s ease,color .2s ease,border-color .2s ease,box-shadow .2s ease}',
+      '.hs-form .hs-button:hover,.hs-form .hs-button:focus{background:#FBC02D!important;color:#1A1714!important;border-color:#1A1714!important;box-shadow:0 4px 20px rgba(251,192,45,.3)!important}'
+    ].join('');
+    var tries = 0;
+    (function poll() {
+      var fr = document.querySelector('iframe.hs-form-iframe');
+      var doc = null;
+      try { doc = fr && fr.contentDocument; } catch (e) { return; }
+      if (doc && doc.querySelector('.hs-button')) {
+        if (doc.getElementById('pf-hs-style')) return;
+        var font = doc.createElement('link');
+        font.rel = 'stylesheet';
+        font.href = 'https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&display=swap';
+        doc.head.appendChild(font);
+        var st = doc.createElement('style');
+        st.id = 'pf-hs-style';
+        st.textContent = css;
+        doc.head.appendChild(st);
+        // Taller inputs outgrow HubSpot's own iframe sizing; keep the frame matched to its content
+        // (also covers validation messages and the thank-you swap).
+        var fit = function () { var h = doc.body.scrollHeight; if (h && Math.abs(fr.offsetHeight - h) > 2) fr.style.height = h + 'px'; };
+        if (window.ResizeObserver) new ResizeObserver(fit).observe(doc.body);
+        setTimeout(fit, 600);
+        return;
+      }
+      if (++tries < 80) setTimeout(poll, 250);
+    })();
+  }
+
   function initSiteTracking() {
     if (window.__pfTrackingWired) return;
     window.__pfTrackingWired = true;
@@ -10107,6 +10151,7 @@
     renderLeadMagnets();
     initHeroDemo();
     initSiteTracking();
+    styleDemoForm();
     renderDownloadPage();
     fixDuplicateHeroCtas();
     fixDeadResourceLinks();
