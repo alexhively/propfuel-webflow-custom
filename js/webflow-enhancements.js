@@ -7545,6 +7545,13 @@
       if (!a) return;
       var href = a.getAttribute('href') || '';
       var text = (a.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 60);
+      // Existing customers heading to the web app: tag them so the Marketing Engine
+      // dashboards can exclude them from prospect analytics (cohort "PropFuel customers").
+      if (/app\.propfuel\.com/i.test(href)) {
+        pfPH('app_login_clicked', { cta_location: where(a) });
+        try { if (window.posthog && window.posthog.setPersonProperties) window.posthog.setPersonProperties({ propfuel_customer: true }); } catch (err) {}
+        return;
+      }
       if (a.closest('.pf-mai-banner, [class*="mai-banner"]')) {
         pfPH('announcement_banner_clicked', { cta_href: href, cta_text: text });
         return;
