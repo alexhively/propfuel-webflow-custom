@@ -4,42 +4,42 @@
     "name": "Member Renewal Playbook",
     "type": "Playbook",
     "summary": "A practical guide for associations to improve member renewals by listening earlier, spotting signals, and building stronger relationships throughout the year.",
-    "url": "https://21158441.fs1.hubspotusercontent-na1.net/hubfs/21158441/Member%20Renewal%20Playbook_2026.pdf",
+    "url": "/downloads/member-renewal-playbook",
     "cover": "https://cdn.prod.website-files.com/69cd3b6113342ddaaa180799/69dd97efe11d9d536394e748_Screenshot%202026-01-16%20at%203.59.10%20p.m.-1.png"
   },
   {
     "name": "Member Onboarding Guide",
     "type": "Guide",
     "summary": "Effective strategies to onboard new members with actionable insights and a quick-start plan for your association.",
-    "url": "https://21158441.fs1.hubspotusercontent-na1.net/hubfs/21158441/2026%20Propfuel%20Onboarding_Blueprints.pdf",
+    "url": "/downloads/member-onboarding-guide",
     "cover": "https://cdn.prod.website-files.com/69cd3b6113342ddaaa180799/69dd97f1e07309cc66491af0_Screenshot%202026-01-16%20at%203.38.32%20p.m.-1.png"
   },
   {
     "name": "Member Acquisition Playbook",
     "type": "Playbook",
     "summary": "Effective strategies to attract and convert new members with actionable insights and a quick-start plan for associations.",
-    "url": "https://info.propfuel.com/memberacquisitionplaybook",
+    "url": "/downloads/member-acquisition-playbook",
     "cover": "https://cdn.prod.website-files.com/69cd3b6113342ddaaa180799/69dd97f3e07309cc66491d38_Member%20Acquisition%20Playbook.pdf%20%282%29-1.png"
   },
   {
     "name": "100+ Questions to Ask Your Members",
     "type": "Question Bank",
     "summary": "A curated list of 100+ questions to help associations spark real conversations with members and uncover what they actually need.",
-    "url": "https://21158441.fs1.hubspotusercontent-na1.net/hubfs/21158441/100%2B%20Questions/100%2B%20Questions%20Ebook%20-%20Second%20Edition.pdf",
+    "url": "/downloads/100-questions-to-ask-members",
     "cover": null
   },
   {
-    "name": "Automation Guide",
+    "name": "Evergreen Membership Campaigns Guide",
     "type": "Guide",
     "summary": "A practical guide to building evergreen automated member engagement workflows that run year-round.",
-    "url": "https://21158441.fs1.hubspotusercontent-na1.net/hubfs/21158441/100%2B%20Questions/2026%20PropFuel%20Evergreen%20Automation%20Guide.pdf",
+    "url": "/downloads/evergreen-membership-campaigns-guide",
     "cover": "https://cdn.prod.website-files.com/69cd3b6113342ddaaa180799/69dd97ece11d9d536394e64b_Screenshot%202026-01-30%20at%203.21.30%20p.m.-1.png"
   },
   {
     "name": "Conversational Engagement Ebook",
     "type": "eBook",
     "summary": "Learn how associations can apply the power of one-on-one communication at scale to drive deeper member engagement.",
-    "url": "https://21158441.fs1.hubspotusercontent-na1.net/hubfs/21158441/Ebooks/Conversational%20Engagement%20eBook.pdf",
+    "url": "/downloads/conversational-engagement-ebook",
     "cover": "https://cdn.prod.website-files.com/69cd3b6113342ddaaa180799/69dd97fa633a09fd102da38f_Conversational%20Engagement%20Basic%20Header.png"
   },
   {
@@ -53,21 +53,21 @@
     "name": "10 Lies Killing Member Engagement",
     "type": "eBook",
     "summary": "The myths killing member engagement — and effective strategies to enhance connections and boost participation.",
-    "url": "https://21158441.fs1.hubspotusercontent-na1.net/hubfs/21158441/10%20Lies%20Associations%20Tell%20Themselves%20About%20Member%20Engagement.pdf",
+    "url": "/downloads/member-engagement-myths",
     "cover": null
   },
   {
     "name": "10 Glances: Member Insights at a Glance",
     "type": "Quick Read",
     "summary": "Ten quick data snapshots that give association leaders an instant view into member engagement, behavior, and opportunities.",
-    "url": "https://21158441.fs1.hubspotusercontent-na1.net/hubfs/21158441/PropFuel%20Member%20Glances_April2025.pdf",
+    "url": "/downloads/member-engagement-signals-glances",
     "cover": null
   },
   {
     "name": "Voice of the Member eBook",
     "type": "eBook",
     "summary": "A guide to capturing and acting on real member feedback — so your association can make decisions driven by the voice of the member.",
-    "url": "https://21158441.fs1.hubspotusercontent-na1.net/hubfs/21158441/Ebooks/Voice%20of%20the%20Member%20eBook.pdf",
+    "url": "/downloads/voice-of-the-member-ebook",
     "cover": null
   }
 ]
