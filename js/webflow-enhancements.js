@@ -333,6 +333,8 @@
         '[class*="-hero-mockup"]{max-width:100%!important;overflow:hidden}' +
         /* Platform tab panels: stack */
         '.pf-tab-panel{grid-template-columns:1fr!important}' +
+        /* Homepage engine rows: let product mockups shrink inside their slot */
+        '.hp-eng-visual{overflow:hidden}' +
         /* Platform section: desktop's 120px|48px padding (set by Webflow stylesheet, not inline) cramps bullets
            against the viewport edge; at ≤768px drop horizontal to 20px so tab-panel content fits. Mobile only. */
         '.pf-platform-section{padding:56px 20px!important}' +
@@ -828,10 +830,11 @@
       logoLink.insertBefore(img, logoLink.firstChild);
     }
 
-    // Fix CTA button text
+    // Nav CTA label, site-wide. One constant so it can be A/B tested
+    // (Oct 8 2026: "Get a Free Demo" per the Mamba SEO revision; was "Get Started").
     var navBtn = document.querySelector('.pf-btn-nav');
-    if (navBtn && navBtn.textContent.trim() === 'Get a Demo') {
-      navBtn.textContent = 'Get Started';
+    if (navBtn && /^(Get a Demo|Get Started|Get a Free Demo)$/.test(navBtn.textContent.trim())) {
+      navBtn.textContent = NAV_CTA_LABEL;
     }
 
     // Center nav links within the pill
@@ -976,12 +979,12 @@
       // when .pf-nav-right is hidden on mobile.
       if (navLinksEl && !navLinksEl.querySelector('.pf-mobile-ctas')) {
         var loginSrc = Array.from(document.querySelectorAll('.pf-nav-right a, .pf-nav-right button')).find(function(a) { return a.textContent.trim() === 'Log In'; });
-        var startedSrc = Array.from(document.querySelectorAll('.pf-nav-right a, .pf-nav-right button')).find(function(a) { return a.textContent.trim() === 'Get Started'; });
+        var startedSrc = document.querySelector('.pf-nav-right .pf-btn-nav');
         var ctaWrap = document.createElement('div');
         ctaWrap.className = 'pf-mobile-ctas';
         var ctaHTML = '';
         if (loginSrc) { ctaHTML += '<a href="' + (loginSrc.getAttribute('href')||'#') + '" class="pf-mobile-login">Log In</a>'; }
-        if (startedSrc) { ctaHTML += '<a href="' + (startedSrc.getAttribute('href')||'/book-a-demo') + '" class="pf-mobile-started pf-btn-nav">Get Started</a>'; }
+        if (startedSrc) { ctaHTML += '<a href="' + (startedSrc.getAttribute('href')||'/book-a-demo') + '" class="pf-mobile-started pf-btn-nav">' + NAV_CTA_LABEL + '</a>'; }
         ctaWrap.innerHTML = ctaHTML;
         navLinksEl.appendChild(ctaWrap);
       }
@@ -1292,9 +1295,11 @@
       });
     }
 
-    // Testimonial carousel — show one at a time, rotate every 5s
+    // Testimonial carousel — show one at a time, rotate every 5s.
+    // Skipped when the section is the static grid (.hp-tm-grid, Oct 2026 SEO revision).
+    var tmStaticGrid = !!document.querySelector('.hp-tm-grid');
     var allSlides = document.querySelectorAll('.pf-testimonial-slide');
-    if (allSlides.length > 1) {
+    if (allSlides.length > 1 && !tmStaticGrid) {
       var currentSlide = 0;
       allSlides.forEach(function(s, idx) {
         s.style.display = idx === 0 ? 'block' : 'none';
@@ -1424,7 +1429,8 @@
         logo.src = 'https://cdn.prod.website-files.com/69ca88e6c52b04fb85f74a02/69cc30a4a0dc86d4b55ee8a1_logo.png';
         logo.alt = 'PropFuel';
         logo.style.cssText = 'height:80px;width:auto;margin:0 auto 20px;display:block';
-        parent.insertBefore(logo, welcomeHeading);
+        var loopEyebrow = parent.querySelector('.hp-loop-eyebrow');
+        parent.insertBefore(logo, loopEyebrow || welcomeHeading);
       }
 
       // Add loop SVG after description
@@ -1482,7 +1488,7 @@
 
     // Replace static platform card grid with tabbed carousel
     var platformSection = document.querySelector('.pf-platform-section');
-    var platformGrid = platformSection ? platformSection.querySelector('.pf-platform-grid') : null;
+    var platformGrid = platformSection ? platformSection.querySelector('.hp-eng-list, .pf-platform-grid') : null;
     if (platformGrid) {
       var tabs = [
         { id: 'insights', label: 'Insights', title: 'More signal. Less noise.', desc: 'The Insights Engine builds a signal for every member from how they answer your questions, how they engage with your emails and website, and what your AMS already knows about them \u2014 so you see who wants what, who\u2019s at risk, and who\u2019s ready for more.', features: ['Member signals built from responses, engagement, and AMS data','At-risk members flagged before they lapse \u2014 not after a missed payment','AI-powered Signals that learn from member behavior over time','Clear dashboards that show what to do next'], link: '/platform/insights', cta: 'Explore Insights Engine', mockup: '<div class="mu-card"><div class="mu-hdr"><span class="mu-t">Member Signal</span><span class="mu-pill mu-g">Healthy</span></div><div style="display:flex;justify-content:space-between;margin-top:10px"><div><div class="mu-name">Sarah Chen</div><div class="mu-sub">Director of Programs, ACME Assoc.</div></div><div style="text-align:right"><div class="mu-score">87</div><div class="mu-sub">Signal Strength</div></div></div><div class="mu-div"></div><div class="mu-tags"><span class="mu-tag">Certification</span><span class="mu-tag">Events</span><span class="mu-tag">Advocacy</span><span class="mu-tag">Mentorship</span></div></div><div class="mu-card"><div class="mu-hdr"><span class="mu-t">At-Risk Members</span><span class="mu-pill mu-r">12 flagged</span></div><div style="margin-top:10px"><div class="mu-bar-row"><span class="mu-bar-l">J. Rivera</span><div class="mu-bar"><div class="mu-bar-f" style="width:23%"></div></div><span class="mu-bar-v">23</span></div><div class="mu-bar-row" style="margin-top:8px"><span class="mu-bar-l">M. Patel</span><div class="mu-bar"><div class="mu-bar-f" style="width:31%"></div></div><span class="mu-bar-v">31</span></div><div class="mu-bar-row" style="margin-top:8px"><span class="mu-bar-l">K. Olsen</span><div class="mu-bar"><div class="mu-bar-f" style="width:18%"></div></div><span class="mu-bar-v">18</span></div></div></div>' },
@@ -1490,6 +1496,16 @@
         { id: 'engagement', label: 'Engagement', title: 'More engagement. Less silence.', desc: 'The Engagement Engine turns one-way communications into two-way exchanges. Members answer with a single click right inside the email \u2014 no login, no form, nothing to download \u2014 which is why they actually reply.', features: ['Single-click email responses members actually use','Website targeting \u2014 pop-ups, banners, inline content','SMS with opt-in management and messaging compliance built in','AMS integration with automatic data write-back'], link: '/platform/engagement', cta: 'Explore Engagement Engine', mockup: '<div class="mu-card"><div class="mu-hdr"><span class="mu-t">Live Response</span><span class="mu-pill mu-o">Collecting</span></div><div style="margin-top:12px;font-size:15px;font-weight:700;color:#2F2F2F">What\u2019s most important to you this year?</div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><span class="mu-resp sel">Professional Development</span><span class="mu-resp">Networking</span><span class="mu-resp">Certification</span><span class="mu-resp">Advocacy</span></div><div class="mu-div"></div><div style="display:flex;gap:16px"><div style="flex:1;text-align:center"><div style="font-size:20px;font-weight:900;color:#2F2F2F">1,847</div><div class="mu-sub">Responses</div></div><div style="flex:1;text-align:center"><div style="font-size:20px;font-weight:900;background:linear-gradient(135deg,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent">45%</div><div class="mu-sub">Engagement Rate</div></div><div style="flex:1;text-align:center"><div style="font-size:20px;font-weight:900;color:#2F2F2F">3</div><div class="mu-sub">Channels</div></div></div></div>' },
         { id: 'ai', label: 'Membership AI', title: 'The reinforcements you\u2019ve been waiting for.', lead: 'A small team can run like a big one.', desc: 'Membership AI works like the extra hires you\u2019ve been waiting for \u2014 a data analyst watching every signal, a membership coordinator building your segments, and a campaign manager drafting the campaigns you approve. It learns from your member responses, campaign history, website, and the goals you set, so it gets sharper with every interaction.', features: ['Signals \u2014 your new data analyst, never misses a member signal','AI Segments \u2014 your new membership coordinator, builds audiences from plain language','AI Campaign Builder \u2014 your new campaign manager, drafts campaigns for your approval','Always on, always learning \u2014 sharper with every interaction'], link: '/membership-ai', cta: 'Explore Membership AI', mockup: '<div class="mu-card"><div style="font-size:12px;font-weight:700;color:#2F2F2F;margin-bottom:8px">\u2728 Insight</div><div class="mu-bubble"><strong>12 members</strong> showing lapse signals this week. Signal strength dropped below 30.</div><div style="margin-top:12px;font-size:12px;font-weight:700;color:#2F2F2F;margin-bottom:8px">\ud83c\udfaf Initiative</div><div class="mu-bubble">Recommended: Launch a <strong>win-back campaign</strong> for Q2 non-renewals. 80% success rate.</div><div style="margin-top:14px;display:flex;gap:8px"><span class="mu-btn mu-btn-p">Apply Recommendation</span><span class="mu-btn mu-btn-o">View Details</span></div></div>' }
       ];
+
+      // Homepage (Oct 2026 SEO revision): the four engines are native Webflow rows
+      // (.hp-eng-row) with all copy in the served HTML. Only drop each engine's product
+      // mockup into its .hp-eng-visual slot; don't build the tabbed carousel.
+      var nativeEngineRows = platformGrid.querySelectorAll('.hp-eng-row');
+      nativeEngineRows.length && tabs.forEach(function (t) {
+        var slot = platformGrid.querySelector('.hp-eng-visual[data-engine="' + t.id + '"]');
+        if (slot && !slot.children.length) slot.innerHTML = t.mockup;
+      });
+      if (!nativeEngineRows.length) {
 
       // Build tabbed UI
       var html = '<div class="pf-tabs" style="display:flex;gap:12px;margin-bottom:64px;flex-wrap:wrap">';
@@ -1565,6 +1581,7 @@
         btn.addEventListener('click', function() { activateTab(i); startRotation(); });
       });
       startRotation();
+      }
     }
 
     // Add arrows to primary CTA buttons that say "Get Started"
@@ -1665,7 +1682,7 @@
 
     // Add testimonial dots
     var section = document.querySelector('.pf-testimonials-section');
-    if (section && allSlides.length > 1) {
+    if (section && allSlides.length > 1 && !tmStaticGrid) {
       var dotsDiv = document.createElement('div');
       dotsDiv.style.cssText = 'display:flex;justify-content:center;gap:8px;margin-top:32px';
       for (var d = 0; d < allSlides.length; d++) {
@@ -5621,7 +5638,7 @@
     // Update nav CTA button text on template (button class differs from main site)
     document.querySelectorAll('.pf-btn-nav, .w-button').forEach(function(btn){
       var t = (btn.textContent || '').trim();
-      if (t === 'Get a Demo') btn.textContent = 'Get Started';
+      if (btn.classList.contains('pf-btn-nav') && /^(Get a Demo|Get Started)$/.test(t)) btn.textContent = NAV_CTA_LABEL;
     });
     // Nav overlaps top of blog content — push the article wrap down past the floating nav (nav = 96px tall)
     var articleWrap = document.querySelector('.blog-article-wrap');
@@ -5926,7 +5943,7 @@
             '<div class="pf-footer-brand">' +
               '<img src="https://cdn.prod.website-files.com/69ca88e6c52b04fb85f74a02/69cc30a4a0dc86d4b55ee8a1_logo.png" alt="PropFuel" style="height:48px;width:auto;display:block;margin-bottom:16px">' +
               '<h4 class="pf-nav-logo-text" style="color:#EDE8DF">PropFuel</h4>' +
-              '<p>The membership insights and engagement platform that helps associations understand what members want and act on it.</p>' +
+              '<p>The member engagement platform that helps associations understand what members want and act on it.</p>' +
             '</div>' +
             '<div>' +
               '<h4 class="pf-footer-col-title">Product</h4>' +
@@ -8796,6 +8813,8 @@
   // GA4: lead_magnet_view / lead_magnet_submit / lead_magnet_dismiss. Not
   // generate_lead — that event is the Google Ads demo conversion.
   // ─────────────────────────────────────────
+  var NAV_CTA_LABEL = 'Get a Free Demo'; // site-wide nav button label (A/B test candidate)
+
   var LEAD_MAGNET_FORM = {
     portalId: '21158441',
     formId: '5c5fead1-27d2-4ba1-b31a-f1f957e0b59b', // HubSpot "Website Lead Magnet Download"
