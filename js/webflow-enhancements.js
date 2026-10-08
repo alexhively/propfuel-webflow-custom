@@ -9333,7 +9333,15 @@
       '.pf-lm-cover{width:100%;max-width:190px;margin:0 auto}',
       '.pf-lm-title{font-size:24px}',
       '.pf-lm-btn{width:100%}',
-      '.pf-lm-pop{left:0;right:0;bottom:0;width:auto;max-width:none;border-radius:20px 20px 0 0;padding-bottom:calc(22px + env(safe-area-inset-bottom))}',
+      '.pf-lm-pop{left:0;right:0;bottom:0;width:auto;max-width:none;border-radius:20px 20px 0 0;padding:18px 16px calc(14px + env(safe-area-inset-bottom))}',
+      // Phones: keep the question sheet short (2x2 answers, smaller type) and the close target thumb-sized
+      '.pf-lm-x{top:4px;right:4px;width:44px;height:44px;font-size:24px}',
+      '.pf-lm-pop .pf-lm-eyebrow{margin-bottom:6px}',
+      '.pf-lm-q{font-size:17px;margin:0 40px 12px 0}',
+      '.pf-lm-pop .pf-lm-picks{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:0}',
+      '.pf-lm-pop .pf-lm-pick{display:flex;align-items:center;justify-content:center;min-height:44px;padding:10px 12px;font-size:13px;line-height:1.25;text-align:center}',
+      '.pf-lm-pop .pf-lm-title{font-size:17px;margin-right:40px}',
+      '.pf-lm-pop .pf-lm-blurb{font-size:13px;margin-bottom:12px}',
       '}',
       '@media (prefers-reduced-motion:reduce){.pf-lm-pop{transition:opacity .2s ease;transform:none}}'
     ].join('');
@@ -9555,10 +9563,10 @@
       lmTrack('lead_magnet_view', currentKey, { placement: 'slide-in', trigger: trigger });
     }
 
-    // Never before 8s on the page, whatever the trigger.
-    var armedAt = Date.now() + 8000;
+    // Never before 8s on the page (15s on touch screens, where the sheet covers more of the page).
     var touch = window.matchMedia('(hover:none)').matches;
-    var threshold = (trigger === 'exit' && touch) ? 0.7 : 0.5;
+    var armedAt = Date.now() + (touch ? 15000 : 8000);
+    var threshold = (trigger === 'exit' && touch) ? 0.7 : touch ? 0.6 : 0.5;
     function onScroll() {
       var h = document.documentElement.scrollHeight - window.innerHeight;
       if (h > 0 && window.scrollY / h >= threshold && Date.now() >= armedAt) {
