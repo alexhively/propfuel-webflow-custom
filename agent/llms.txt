@@ -1,6 +1,6 @@
 # PropFuel
 
-> PropFuel is member engagement software for associations (trade associations and professional societies). It asks each member one question by email, SMS, or the association's website, members answer in a single click, and every answer is written back to the member's record in the association's AMS. More than 330 associations use it.
+> PropFuel is member engagement software for associations (trade associations and professional societies). It asks each member one question by email, SMS, or the association's website, members answer in a single click, and every answer is written back to the member's record in the association's AMS. More than 370 associations use it.
 
 PropFuel is a SaaS platform sold to association staff (membership, marketing, and executive teams). It is not a member-facing app, an AMS, or a general email marketing tool; it works alongside the AMS and email tool an association already has. The platform has four parts: the Insights Engine (member signals and at-risk flags), the Automation Engine (70+ campaign blueprints), the Engagement Engine (single-click email, website, and SMS check-ins), and Membership AI (Signals, AI Segments, and an AI Campaign Builder whose drafts staff approve before anything sends).
 
