@@ -245,6 +245,13 @@
 
       /* Injected centerpiece H2s and problem/stats H2s: balance wrapping */
       '.pf-section h2,.cs-wrap h2,.tm-famewall h2,.tm-featured-quote p,.cs-aggregate h2{text-wrap:balance}' +
+      /* Blog posts with no Author/Category/Date set in the CMS rendered empty orange avatar circles,
+         an empty author card and a stray "·". Hide those empty bindings (all breakpoints). */
+      '.blog-author-bio-card:has(.blog-author-name.w-dyn-bind-empty){display:none!important}' +
+      '.blog-meta-bar>div:first-child:has(.blog-author-name.w-dyn-bind-empty){display:none!important}' +
+      '.blog-meta-right>.w-dyn-bind-empty,.blog-meta-right>.w-dyn-bind-empty+div{display:none!important}' +
+      '.blog-category-badge:has(>.w-dyn-bind-empty:only-child){display:none!important}' +
+      '.cs-client-info-row:has(>.cs-client-info-value.w-dyn-bind-empty){display:none!important}' +
 
       /* Gradient-text glyph clip guard: any element using -webkit-background-clip:text + linear-gradient gets enough line-box height so heavy 900-weight glyphs do not get their tops/bottoms clipped. Applies site-wide so every case-study stat card is safe. */
       '[style*="-webkit-background-clip:text"][style*="linear-gradient"]{line-height:1.2!important;padding-top:4px!important;padding-bottom:4px!important}' +
@@ -452,6 +459,34 @@
         '.pf-demo-hero{padding:96px 12px 48px!important}' +
         '.pf-demo-form-card{padding:24px 20px!important}' +
         '.hs-form-iframe{width:100%!important;min-width:0!important}' +
+        /* ── Mobile usability sweep (Oct 2026) ── */
+        /* Inline section paddings written by el.style serialize WITH a space ("padding: 96px 48px"),
+           so the no-space rules above never matched them. Cover both spellings. */
+        '[style*="padding: 96px 48px"],[style*="padding: 120px 48px"],[style*="padding: 112px 48px"],[style*="padding: 80px 48px"],[style*="padding:80px 48px"],[style*="padding:112px 48px"]{padding-top:56px!important;padding-bottom:56px!important}' +
+        '[style*="padding: 96px 48px"],[style*="padding: 120px 48px"],[style*="padding: 112px 48px"],[style*="padding: 80px 48px"],[style*="padding: 64px 48px"],[style*="padding: 32px 48px"],[style*="padding: 24px 48px"],[style*="padding:80px 48px"],[style*="padding:64px 48px"],[style*="padding:112px 48px"],[style*="padding:32px 48px"],[style*="padding:24px 48px"],[style*="padding:48px 48px"]{padding-left:20px!important;padding-right:20px!important}' +
+        /* Webinars: cards were two-up at ~130px wide */
+        '.webinar-card-grid>.w-dyn-item{width:100%!important;max-width:100%!important;flex:0 0 100%!important}' +
+        /* Customers logo wall: one logo per row for ~24 screens -> three across */
+        '.cu-logo-grid-inner{grid-template-columns:repeat(3,1fr)!important;gap:8px!important}' +
+        '.cu-logo-grid-inner>*{height:72px!important;padding:8px!important}' +
+        '.cu-logo-grid-inner img{max-width:100%!important;max-height:44px!important}' +
+        /* Integrations connector cards: two across instead of one tall column */
+        '.ig-connectors [style*="repeat(5"]{grid-template-columns:repeat(2,1fr)!important;gap:10px!important}' +
+        '.ig-connectors .pf-card{padding:16px 10px!important}' +
+        /* Number-in-gutter timelines (renewals sequence, about timeline): stack the marker above the card */
+        '[style*="display:flex;gap:24px;align-items:flex-start"],[style*="display:flex;align-items:flex-start;gap:24px"]{flex-direction:column!important;gap:10px!important}' +
+        /* Insights hero dashboard header pills */
+        '.ie-dashboard [style*="justify-content:space-between;margin-bottom:18px"]{flex-wrap:wrap!important;gap:8px!important}' +
+        '.ie-dashboard [style*="justify-content:space-between;margin-bottom:18px"] span{white-space:nowrap!important}' +
+        /* Blog post header sat flush against the screen edge */
+        '.blog-article-wrap .pf-container>div:first-child{padding-left:20px!important;padding-right:20px!important}' +
+        /* Tap targets (>=44px rows) */
+        '.pf-footer-link{display:block!important;padding:10px 0!important;width:fit-content!important}' +
+        '.blog-breadcrumb-link,.dl-foot-link{display:inline-block!important;padding:12px 4px!important}' +
+        '.pf-faq-question{min-height:48px!important}' +
+        '.pf-mai-banner-close{width:44px!important;height:44px!important;right:4px!important}' +
+        /* Small meta text floor: 12px */
+        '.cs-card-stat-desc,.cs-card-industry,.sidebar-guide-meta,.guide-cover-pages,.webinar-card-duration,.blog-card-category,.blog-sidebar-dark-label,.blog-sidebar-card-title,.cs-client-card-title,.download-card-label,.guide-audience-title,.guide-related-title,.sidebar-guide-tag{font-size:12px!important}' +
       '}' +
 
       '';
@@ -627,7 +662,7 @@
             observer.unobserve(entry.target);
           }
         });
-      }, { threshold: 0.08 });
+      }, { threshold: 0, rootMargin: '0px 0px -8% 0px' });
 
       fadeEls.forEach(function (el) {
         observer.observe(el);
@@ -7653,7 +7688,9 @@
       ".pf-wb-story{padding:30px 24px}" +
       "}" +
       "@media (max-width:520px){.pf-wb-stats{grid-template-columns:1fr}}" +
-      ".pf-wb-clients2{display:grid;grid-template-columns:1fr 1fr;gap:40px}";
+      ".pf-wb-clients2{display:grid;grid-template-columns:1fr 1fr;gap:40px}" +
+      /* Must come after the base rule above, or the base 2-col rule wins on phones. */
+      "@media (max-width:820px){.pf-wb-clients2{grid-template-columns:1fr;gap:28px}}";
     document.head.appendChild(st);
 
     function pill(kind, label) {
@@ -10225,7 +10262,7 @@
         entries.forEach(function (e) {
           if (e.isIntersecting) { e.target.classList.add('revealed'); io.unobserve(e.target); }
         });
-      }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+      }, { threshold: 0, rootMargin: '0px 0px -60px 0px' });
       items.forEach(function (i) { io.observe(i); });
     })();
 
