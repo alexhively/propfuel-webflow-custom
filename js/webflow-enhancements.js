@@ -1777,14 +1777,29 @@
   // Meta conversion events go only to the PropFuel pixel (trackSingle), not to
   // every pixel the page has initialised. Lead = any lead (demo or download),
   // Schedule = demo-intent only, so ad sets can optimise for either.
+  // Each event also goes server-side to the Conversions API relay
+  // (github.com/alexhively/propfuel-capi) with the same eventID, so Meta
+  // dedupes the pair and still counts leads the browser pixel misses.
+  // email is optional, hashed by the relay, and never sent to GA4.
   var PF_META_PIXEL = '1098547535032926';
-  function pfMetaEvent(name, params) {
+  var PF_CAPI_URL = 'https://propfuel-capi.vercel.app/api/event';
+  function pfMetaEvent(name, params, email) {
+    var eventId = name + '-' + Date.now() + '-' + Math.random().toString(36).slice(2, 10);
     try {
-      if (typeof window.fbq === 'function') window.fbq('trackSingle', PF_META_PIXEL, name, params || {});
+      if (typeof window.fbq === 'function') window.fbq('trackSingle', PF_META_PIXEL, name, params || {}, { eventID: eventId });
+    } catch (e) {}
+    try {
+      var ck = function (n) { return (document.cookie.match(new RegExp('(?:^|;\\s*)' + n + '=([^;]+)')) || [])[1]; };
+      var body = JSON.stringify({
+        event_name: name, event_id: eventId, event_source_url: window.location.href,
+        email: email || undefined, fbp: ck('_fbp'), fbc: ck('_fbc'), custom_data: params || {}
+      });
+      if (navigator.sendBeacon) navigator.sendBeacon(PF_CAPI_URL, body);
+      else fetch(PF_CAPI_URL, { method: 'POST', body: body, keepalive: true, mode: 'cors' });
     } catch (e) {}
   }
 
-  function pfTrackLead(source) {
+  function pfTrackLead(source, email) {
     try {
       if (typeof window.gtag === 'function') {
         window.gtag('event', 'generate_lead', { lead_source: source });
@@ -1792,8 +1807,8 @@
         window.dataLayer.push({ event: 'generate_lead', lead_source: source });
       }
     } catch (e) {}
-    pfMetaEvent('Lead', { content_category: 'demo', content_name: source });
-    pfMetaEvent('Schedule', { content_name: source });
+    pfMetaEvent('Lead', { content_category: 'demo', content_name: source }, email);
+    pfMetaEvent('Schedule', { content_name: source }, email);
   }
 
   function initDemoForm() {
@@ -1838,7 +1853,7 @@
     window.addEventListener('message', function(event) {
       if (cpFormId && event.data.id !== cpFormId) return;
       if (event.data.type === 'hsFormCallback' && event.data.eventName === 'onFormSubmitted') {
-        pfTrackLead('book-a-demo');
+        pfTrackLead('book-a-demo', (event.data.data.submissionValues || {}).email);
         var lead = event.data.data.submissionValues;
         for (var key in lead) {
           if (Array.isArray(lead[key])) { lead[key] = lead[key].toString().replaceAll(',', ';'); }
@@ -8409,7 +8424,7 @@
           throw new Error((err && err.errors && err.errors[0] && err.errors[0].message) || 'Submission failed.');
         });
       }).then(function () {
-        pfTrackLead('i-was-referred');
+        pfTrackLead('i-was-referred', email);
         // Standard HubSpot internal names only — ChiliPiper's map:true silently
         // fails on custom field names and would open the booker blank.
         var lead = { email: email };
@@ -8624,7 +8639,7 @@
             throw new Error((err && err.errors && err.errors[0] && err.errors[0].message) || 'Submission failed.');
           });
         }).then(function(){
-          pfTrackLead(confSlug + (repSlug ? '-' + repSlug : ''));
+          pfTrackLead(confSlug + (repSlug ? '-' + repSlug : ''), email);
           // Show ChiliPiper calendar — same tenant/router as /book-a-demo
           var lead = { email: email };
           if (window.ChiliPiper) {
@@ -8967,7 +8982,7 @@
     } catch (e) { return null; }
   }
 
-  function lmTrack(event, lmKey, extra) {
+  function lmTrack(event, lmKey, extra, email) {
     var params = { lead_magnet: lmKey, page_path: window.location.pathname };
     if (extra) for (var k in extra) params[k] = extra[k];
     try {
@@ -8975,7 +8990,7 @@
       else if (window.dataLayer && window.dataLayer.push) { params.event = event; window.dataLayer.push(params); }
     } catch (e) {}
     if (event === 'lead_magnet_submit') {
-      pfMetaEvent('Lead', { content_category: 'download', content_name: lmKey, placement: params.placement });
+      pfMetaEvent('Lead', { content_category: 'download', content_name: lmKey, placement: params.placement }, email);
     }
   }
 
@@ -9141,7 +9156,7 @@
       (blocked ? Promise.resolve(true) : lmSubmit(email, key, placement, answer)).then(function (ok) {
         // Always hand over the file: a failed post should never punish the visitor.
         lmStore('local', 'pfLM_submitted', '1');
-        if (!blocked) lmTrack('lead_magnet_submit', key, { placement: placement, hubspot_ok: ok ? 'yes' : 'no' });
+        if (!blocked) lmTrack('lead_magnet_submit', key, { placement: placement, hubspot_ok: ok ? 'yes' : 'no' }, email);
         if (!ok && window.console) console.warn('[pf] lead magnet HubSpot submit failed', key);
         var wrap = form.parentNode;
         var holder = document.createElement('div');
@@ -9397,7 +9412,7 @@
         body: JSON.stringify({ fields: fields, context: context })
       }).then(function (r) { return r.ok; }).catch(function () { return false; })).then(function (ok) {
         lmStore('local', 'pfLM_submitted', '1');
-        if (!blocked) lmTrack('lead_magnet_submit', hs, { placement: 'landing_page', hubspot_ok: ok ? 'yes' : 'no' });
+        if (!blocked) lmTrack('lead_magnet_submit', hs, { placement: 'landing_page', hubspot_ok: ok ? 'yes' : 'no' }, email);
         if (!ok && window.console) console.warn('[pf] download page HubSpot submit failed', hs);
         form.hidden = true; form.style.display = 'none';
         if (done) {
