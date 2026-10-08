@@ -7504,6 +7504,133 @@
       .catch(function(){});
   }
 
+  // ─────────────────────────────────────────
+  // HOMEPAGE HERO: interactive check-in card
+  // The native card (.hp-hero-card) shows one question with 1-click answers.
+  // This makes the answers tappable and shows the automation that runs behind
+  // each one: AMS write-back → segment → campaign → staff alert. Auto-cycles
+  // until the visitor interacts (no auto-cycle with reduced motion).
+  // ─────────────────────────────────────────
+  function initHeroDemo() {
+    var card = document.querySelector('.hp-hero-card');
+    if (!card || card.getAttribute('data-hd-ready')) return;
+    var answers = [].slice.call(card.querySelectorAll('.hp-hc-ans'));
+    var callout = card.querySelector('.hp-hc-callout');
+    if (answers.length < 2 || !callout) return;
+    card.setAttribute('data-hd-ready', '1');
+
+    var FLOWS = {
+      'Professional development': { field: 'Professional development', segment: 'Education seekers', campaign: 'CE courses & webinars · 3 emails', alert: 'Education team notified' },
+      'Getting certified': { field: 'Certification', segment: 'Certification prospects', campaign: 'Certification prep series · 3 emails', alert: 'Certification manager notified' },
+      'Networking': { field: 'Networking', segment: 'Networking-focused members', campaign: 'Chapter & event invites · 2 emails', alert: 'Chapter leader notified' },
+      'Advocacy': { field: 'Advocacy', segment: 'Advocacy-ready members', campaign: 'Action alert sign-up · 2 emails', alert: 'Government affairs team notified' }
+    };
+    var ICON = {
+      ams: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>',
+      seg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.5 3.4-5.5 6.5-5.5s5.7 2 6.5 5.5"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18.5 14.8c1.6.8 2.7 2.6 3 5.2"/></svg>',
+      mail: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></svg>',
+      bell: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/></svg>'
+    };
+
+    var st = document.createElement('style');
+    st.textContent =
+      '.hp-hc-ans{cursor:pointer;transition:border-color .2s ease,background-color .2s ease,box-shadow .2s ease;-webkit-tap-highlight-color:transparent}' +
+      '.hp-hc-ans:hover{border-color:rgba(244,124,44,.45)}' +
+      '.hp-hc-ans:focus-visible{outline:2px solid #F47C2C;outline-offset:2px}' +
+      '.hp-hc-ans.is-sel{border-color:#F47C2C!important;background-color:rgba(244,124,44,.08)!important;box-shadow:0 0 0 3px rgba(244,124,44,.12)!important}' +
+      '.hp-hc-ans:not(.is-sel){border-color:rgba(47,47,47,.12);background-color:#FAF8F4;box-shadow:none}' +
+      '.hp-hc-hint{margin:-10px 0 14px;color:#8C8479;font-size:13px;font-weight:500}' +
+      '.hp-hc-flow{margin-bottom:12px;padding:14px 16px 6px;border-radius:12px;background:#1A1714;color:#F4F1EA}' +
+      '.hp-hc-flow-h{display:flex;justify-content:space-between;align-items:center;margin:0 0 10px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(244,241,234,.6)}' +
+      '.hp-hc-flow-h span{color:#FBC02D;letter-spacing:.04em;text-transform:none;font-weight:600}' +
+      '.hp-hc-steps{list-style:none;margin:0;padding:0}' +
+      '.hp-hc-step{display:flex;gap:10px;align-items:flex-start;padding:0 0 10px;opacity:.25;transform:translateY(4px);transition:opacity .35s ease,transform .35s ease}' +
+      '.hp-hc-step.on{opacity:1;transform:none}' +
+      '.hp-hc-step i{flex:none;display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:8px;background:rgba(251,192,45,.14);color:#FBC02D}' +
+      '.hp-hc-step i svg{width:15px;height:15px}' +
+      '.hp-hc-step b{display:block;font-size:13px;line-height:1.3;color:#F4F1EA}' +
+      '.hp-hc-step small{display:block;font-size:12.5px;line-height:1.35;color:rgba(244,241,234,.68)}' +
+      '@media (prefers-reduced-motion:reduce){.hp-hc-step{transition:none;transform:none}}';
+    document.head.appendChild(st);
+
+    // Make answers real, accessible controls
+    var q = card.querySelector('.hp-hc-q');
+    if (q && !card.querySelector('.hp-hc-hint')) {
+      var hint = document.createElement('p');
+      hint.className = 'hp-hc-hint';
+      hint.textContent = 'Tap an answer to see what PropFuel does with it.';
+      q.insertAdjacentElement('afterend', hint);
+    }
+    var group = card.querySelector('.hp-hc-answers');
+    if (group) { group.setAttribute('role', 'radiogroup'); group.setAttribute('aria-label', 'Sample member answers'); }
+    answers.forEach(function (a) {
+      a.setAttribute('role', 'radio');
+      a.setAttribute('tabindex', '0');
+      a.setAttribute('aria-checked', a.classList.contains('is-sel') ? 'true' : 'false');
+    });
+
+    var flow = document.createElement('div');
+    flow.className = 'hp-hc-flow';
+    flow.setAttribute('aria-live', 'polite');
+    callout.replaceWith(flow);
+
+    var timers = [];
+    function clearTimers() { timers.forEach(clearTimeout); timers = []; }
+
+    function render(ans, animate) {
+      var label = ans.textContent.trim();
+      var f = FLOWS[label] || FLOWS['Getting certified'];
+      answers.forEach(function (a) {
+        var on = a === ans;
+        a.classList.toggle('is-sel', on);
+        a.setAttribute('aria-checked', on ? 'true' : 'false');
+      });
+      var steps = [
+        [ICON.ams, 'Saved to the AMS', 'Sarah Chen › Top priority = ' + f.field],
+        [ICON.seg, 'Segment updated', 'Added to: ' + f.segment],
+        [ICON.mail, 'Campaign triggered', f.campaign],
+        [ICON.bell, 'Staff alerted', f.alert]
+      ];
+      flow.innerHTML = '<p class="hp-hc-flow-h">Behind the scenes <span>Automated · 0 clicks</span></p><ol class="hp-hc-steps">' +
+        steps.map(function (x) { return '<li class="hp-hc-step"><i aria-hidden="true">' + x[0] + '</i><div><b>' + x[1] + '</b><small>' + x[2] + '</small></div></li>'; }).join('') +
+        '</ol>';
+      var lis = flow.querySelectorAll('.hp-hc-step');
+      clearTimers();
+      if (!animate || prefersReducedMotion) { [].forEach.call(lis, function (li) { li.classList.add('on'); }); return; }
+      [].forEach.call(lis, function (li, i) {
+        timers.push(setTimeout(function () { li.classList.add('on'); }, 180 + i * 260));
+      });
+    }
+
+    var userTook = false, cycle = null;
+    function stopCycle() { userTook = true; if (cycle) { clearInterval(cycle); cycle = null; } }
+    answers.forEach(function (a) {
+      a.addEventListener('click', function () { stopCycle(); render(a, true); });
+      a.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); stopCycle(); render(a, true); }
+      });
+    });
+
+    var start = card.querySelector('.hp-hc-ans.is-sel') || answers[1];
+    render(start, false);
+
+    if (!prefersReducedMotion && 'IntersectionObserver' in window) {
+      var idx = answers.indexOf(start);
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting && !userTook && !cycle) {
+            cycle = setInterval(function () {
+              if (userTook || document.hidden) return;
+              idx = (idx + 1) % answers.length;
+              render(answers[idx], true);
+            }, 4200);
+          } else if (!e.isIntersecting && cycle) { clearInterval(cycle); cycle = null; }
+        });
+      }, { threshold: 0.3 });
+      io.observe(card);
+    }
+  }
+
   function fixCaseStudies() {
     // Only run on the case studies listing page, not individual case study templates
     if (!/^\/client-success\/case-studies\/?$/.test(window.location.pathname)) return;
@@ -9862,6 +9989,7 @@
     renderWebinarPromoPopup();
     fixMoreClientStories();
     renderLeadMagnets();
+    initHeroDemo();
     renderDownloadPage();
     fixDuplicateHeroCtas();
     fixDeadResourceLinks();
