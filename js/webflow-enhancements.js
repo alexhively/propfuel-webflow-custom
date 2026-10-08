@@ -1774,6 +1774,16 @@
   // globally; dataLayer push is the fallback if this runs before that script.
   // Event name 'generate_lead' is the GA4 recommended lead event — the Google
   // Ads conversion action is defined against it.
+  // Meta conversion events go only to the PropFuel pixel (trackSingle), not to
+  // every pixel the page has initialised. Lead = any lead (demo or download),
+  // Schedule = demo-intent only, so ad sets can optimise for either.
+  var PF_META_PIXEL = '1098547535032926';
+  function pfMetaEvent(name, params) {
+    try {
+      if (typeof window.fbq === 'function') window.fbq('trackSingle', PF_META_PIXEL, name, params || {});
+    } catch (e) {}
+  }
+
   function pfTrackLead(source) {
     try {
       if (typeof window.gtag === 'function') {
@@ -1782,6 +1792,8 @@
         window.dataLayer.push({ event: 'generate_lead', lead_source: source });
       }
     } catch (e) {}
+    pfMetaEvent('Lead', { content_category: 'demo', content_name: source });
+    pfMetaEvent('Schedule', { content_name: source });
   }
 
   function initDemoForm() {
@@ -8962,6 +8974,9 @@
       if (typeof window.gtag === 'function') window.gtag('event', event, params);
       else if (window.dataLayer && window.dataLayer.push) { params.event = event; window.dataLayer.push(params); }
     } catch (e) {}
+    if (event === 'lead_magnet_submit') {
+      pfMetaEvent('Lead', { content_category: 'download', content_name: lmKey, placement: params.placement });
+    }
   }
 
   function lmSubmit(email, lmKey, placement, answer) {
