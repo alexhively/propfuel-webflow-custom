@@ -9047,7 +9047,7 @@
 
   function lmDoneHtml(lm) {
     return '<div class="pf-lm-done"><a class="pf-lm-btn" href="' + lmEsc(lm.url) + '" target="_blank" rel="noopener">Open the ' + lmEsc(lm.type.toLowerCase()) + ' →</a>' +
-      '<p>It’s yours. The link works any time.</p></div>';
+      '<p>It’s yours, and we’ve emailed you a copy too.</p></div>';
   }
 
   function lmFormHtml(btnLabel) {
@@ -9151,7 +9151,7 @@
       '<p class="pf-lm-eyebrow">Free ' + lmEsc(lm.type) + '</p>' +
       '<h2 class="pf-lm-title">' + lmEsc(lm.name) + '</h2>' +
       '<p class="pf-lm-blurb">' + lmEsc(lm.blurb) + '</p>' +
-      (known ? lmDoneHtml(lm).replace('It’s yours. The link works any time.', 'Free for you, no form needed.') :
+      (known ? lmDoneHtml(lm).replace('It’s yours, and we’ve emailed you a copy too.', 'Free for you, no form needed.') :
         lmFormHtml('Get the ' + lm.type.toLowerCase()) + '<p class="pf-lm-fine">Instant download. No spam, unsubscribe anytime.</p>') +
       '</div></div></section>';
     anchor.insertAdjacentHTML('beforebegin', html);
