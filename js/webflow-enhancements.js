@@ -9169,7 +9169,7 @@
       hs: 'member_renewal_playbook',
       name: 'Member Renewal Playbook', type: 'Playbook',
       blurb: 'Listen earlier, spot the signals, and build the relationships that make renewal the easy decision.',
-      url: 'https://21158441.fs1.hubspotusercontent-na1.net/hubfs/21158441/Member%20Renewal%20Playbook_2026.pdf',
+      url: 'https://alexhively.github.io/propfuel-webflow-custom/lead-magnets/member-renewal-playbook-2026.pdf',
       question: 'Is renewal season on your plate this quarter?', answers: ['Yes, it’s coming up', 'Planning ahead']
     },
     onboarding: {
@@ -9177,7 +9177,7 @@
       hs: 'member_onboarding_guide',
       name: 'Member Onboarding Guide', type: 'Guide',
       blurb: 'Strategies and a quick-start plan for turning a new member’s first 90 days into a habit.',
-      url: 'https://21158441.fs1.hubspotusercontent-na1.net/hubfs/21158441/2026%20Propfuel%20Onboarding_Blueprints.pdf',
+      url: 'https://alexhively.github.io/propfuel-webflow-custom/lead-magnets/member-onboarding-guide-2026.pdf',
       question: 'Are new members going quiet after they join?', answers: ['Too often', 'Want to get ahead of it']
     },
     acquisition: {
