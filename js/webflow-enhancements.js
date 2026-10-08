@@ -1834,7 +1834,20 @@
     } catch (e) {}
   }
 
+  // PostHog custom events (project "PropFuel Website"). Feeds the Marketing Engine
+  // "Website" dashboard. Never send email or other PII as a property.
+  function pfPH(event, props) {
+    try {
+      if (window.posthog && typeof window.posthog.capture === 'function') {
+        var p = { page_path: window.location.pathname };
+        if (props) for (var k in props) p[k] = props[k];
+        window.posthog.capture(event, p);
+      }
+    } catch (e) {}
+  }
+
   function pfTrackLead(source, email) {
+    pfPH('demo_requested', { lead_source: source });
     try {
       if (typeof window.gtag === 'function') {
         window.gtag('event', 'generate_lead', { lead_source: source });
@@ -7505,6 +7518,58 @@
   }
 
   // ─────────────────────────────────────────
+  // SITE-WIDE POSTHOG TRACKING
+  // cta_clicked: any link to a demo / quote / contact page, with where it sits.
+  // resource_downloaded: PDF / lead-magnet file links.
+  // form_submitted: Webflow forms (submit event) and HubSpot iframe forms
+  //   (hsFormCallback message). Lead-magnet forms report their own events.
+  // announcement_banner_clicked: the top Membership AI banner.
+  // ─────────────────────────────────────────
+  function initSiteTracking() {
+    if (window.__pfTrackingWired) return;
+    window.__pfTrackingWired = true;
+
+    function where(el) {
+      if (el.closest('.pf-nav, .pf-nav-bar, nav, .w-nav')) return 'nav';
+      if (el.closest('.pf-footer, footer')) return 'footer';
+      if (el.closest('.pf-mai-banner, [class*="mai-banner"]')) return 'banner';
+      if (el.closest('.pf-hero, .pf-page-hero, .pf-demo-hero, .guide-hero, [class*="hero"]')) return 'hero';
+      if (el.closest('.pf-cta-section, [class*="cta"]')) return 'cta_section';
+      if (el.closest('.pf-lm-pop, .pf-lm-slide, [class*="pf-lm"]')) return 'lead_magnet';
+      var sec = el.closest('section');
+      return sec && sec.className ? String(sec.className).split(/\s+/)[0] : 'body';
+    }
+
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a[href]');
+      if (!a) return;
+      var href = a.getAttribute('href') || '';
+      var text = (a.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 60);
+      if (a.closest('.pf-mai-banner, [class*="mai-banner"]')) {
+        pfPH('announcement_banner_clicked', { cta_href: href, cta_text: text });
+        return;
+      }
+      if (/\/(book-a-demo|demo|pricing|company\/contact|i-was-referred|referrals)(\/|\?|#|$)/.test(href)) {
+        pfPH('cta_clicked', { cta_text: text, cta_href: href, cta_location: where(a) });
+      } else if (/\.pdf(\?|#|$)|\/lead-magnets\//i.test(href)) {
+        pfPH('resource_downloaded', { file_href: href, link_text: text });
+      }
+    }, true);
+
+    document.addEventListener('submit', function (e) {
+      var f = e.target;
+      if (!f || f.tagName !== 'FORM' || f.classList.contains('pf-lm-form')) return;
+      pfPH('form_submitted', { form_name: f.getAttribute('data-name') || f.getAttribute('name') || f.id || 'unnamed', form_type: 'webflow', form_location: where(f) });
+    }, true);
+
+    window.addEventListener('message', function (ev) {
+      var d = ev.data;
+      if (!d || typeof d !== 'object' || d.type !== 'hsFormCallback') return;
+      if (d.eventName === 'onFormSubmitted') pfPH('form_submitted', { form_id: d.id || '', form_type: 'hubspot' });
+    });
+  }
+
+  // ─────────────────────────────────────────
   // HOMEPAGE HERO: interactive check-in card
   // The native card (.hp-hero-card) shows one question with 1-click answers.
   // This makes the answers tappable and shows the automation that runs behind
@@ -7605,7 +7670,7 @@
     var userTook = false, cycle = null;
     function stopCycle() { userTook = true; if (cycle) { clearInterval(cycle); cycle = null; } }
     answers.forEach(function (a) {
-      a.addEventListener('click', function () { stopCycle(); render(a, true); });
+      a.addEventListener('click', function () { stopCycle(); render(a, true); pfPH('hero_card_answer', { answer: a.textContent.trim() }); });
       a.addEventListener('keydown', function (e) {
         if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); stopCycle(); render(a, true); }
       });
@@ -8239,6 +8304,7 @@
       return { name: name, email: email, incentive: incentiveLabel() };
     }
     function track(method) {
+      pfPH('referral_submitted', { referral_method: method, referral_incentive: selectedKey });
       try {
         if (typeof window.gtag === 'function') {
           window.gtag('event', 'referral_submitted', { referral_method: method, referral_incentive: selectedKey });
@@ -9149,6 +9215,7 @@
   function lmTrack(event, lmKey, extra, email) {
     var params = { lead_magnet: lmKey, page_path: window.location.pathname };
     if (extra) for (var k in extra) params[k] = extra[k];
+    pfPH(event, params);
     try {
       if (typeof window.gtag === 'function') window.gtag('event', event, params);
       else if (window.dataLayer && window.dataLayer.push) { params.event = event; window.dataLayer.push(params); }
@@ -9990,6 +10057,7 @@
     fixMoreClientStories();
     renderLeadMagnets();
     initHeroDemo();
+    initSiteTracking();
     renderDownloadPage();
     fixDuplicateHeroCtas();
     fixDeadResourceLinks();
