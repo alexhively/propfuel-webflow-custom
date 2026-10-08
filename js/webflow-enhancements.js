@@ -9040,9 +9040,51 @@
 
   // Wires a .pf-lm-form inside `root`. getKey/getAnswer are read at submit
   // time so the picker can change the resource after render.
+  // Spam guard for every lead magnet form (on-page block, slide-in, /downloads pages).
+  // Added Oct 8 2026 after a form bot (karen.liu.vj4f@…) submitted every few hours and
+  // flooded #leadgen. A blocked submission still looks like a success to the visitor
+  // (the file opens) so bots get no signal; it just never reaches HubSpot.
+  // GA4: lead_magnet_blocked { reason }.
+  function lmArmForm(form) {
+    if (!form || form.querySelector('.pf-hp')) return;
+    var hp = document.createElement('input');
+    hp.type = 'text'; hp.name = 'website_url'; hp.className = 'pf-hp';
+    hp.tabIndex = -1; hp.autocomplete = 'off'; hp.setAttribute('aria-hidden', 'true');
+    hp.style.cssText = 'position:absolute;left:-9999px;top:auto;width:1px;height:1px;opacity:0;pointer-events:none';
+    form.appendChild(hp);
+    form._pfArmedAt = Date.now();
+  }
+  function lmReadLog() {
+    var log = {};
+    try { log = JSON.parse(lmStore('local', 'pfLM_log') || '{}') || {}; } catch (e) { log = {}; }
+    var now = Date.now();
+    for (var k in log) if (now - log[k] > 86400000) delete log[k];
+    return log;
+  }
+  function lmBlockReason(form, email, key) {
+    var hp = form.querySelector('.pf-hp');
+    if (hp && hp.value) return 'honeypot';
+    if (Date.now() - (form._pfArmedAt || 0) < 3000) return 'too_fast';
+    var local = String(email).split('@')[0].toLowerCase();
+    // Machine-generated "first.last.xxxx" where the last segment mixes letters and digits
+    // (e.g. karen.liu.vj4f). Real addresses like jane.doe23 or j.smith.2024 pass.
+    if (/^[a-z]+\.[a-z]+\.(?=[a-z0-9]*\d)(?=[a-z0-9]*[a-z])[a-z0-9]{3,6}$/.test(local)) return 'bot_pattern';
+    var log = lmReadLog();
+    if (log[email.toLowerCase() + '|' + key]) return 'duplicate';
+    var n = 0; for (var k in log) n++;
+    if (n >= 3) return 'rate_limit';
+    return '';
+  }
+  function lmLogSubmit(email, key) {
+    var log = lmReadLog();
+    log[email.toLowerCase() + '|' + key] = Date.now();
+    try { lmStore('local', 'pfLM_log', JSON.stringify(log)); } catch (e) {}
+  }
+
   function lmWireForm(root, getKey, placement, getAnswer, onDone) {
     var form = root.querySelector('.pf-lm-form');
     if (!form) return;
+    lmArmForm(form);
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var input = form.querySelector('.pf-lm-input');
@@ -9059,10 +9101,13 @@
       btn.textContent = 'Sending…';
       var key = getKey();
       var answer = getAnswer ? getAnswer() : '';
-      lmSubmit(email, key, placement, answer).then(function (ok) {
+      var blocked = lmBlockReason(form, email, key);
+      if (blocked) lmTrack('lead_magnet_blocked', key, { placement: placement, reason: blocked });
+      else lmLogSubmit(email, key);
+      (blocked ? Promise.resolve(true) : lmSubmit(email, key, placement, answer)).then(function (ok) {
         // Always hand over the file: a failed post should never punish the visitor.
         lmStore('local', 'pfLM_submitted', '1');
-        lmTrack('lead_magnet_submit', key, { placement: placement, hubspot_ok: ok ? 'yes' : 'no' });
+        if (!blocked) lmTrack('lead_magnet_submit', key, { placement: placement, hubspot_ok: ok ? 'yes' : 'no' });
         if (!ok && window.console) console.warn('[pf] lead magnet HubSpot submit failed', key);
         var wrap = form.parentNode;
         var holder = document.createElement('div');
@@ -9291,6 +9336,7 @@
     var done = document.querySelector('.dl-done');
     var err = form.querySelector('.dl-err');
     lmTrack('lead_magnet_view', hs, { placement: 'landing_page' });
+    lmArmForm(form);
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var fn = (form.querySelector('[name=firstname]').value || '').trim();
@@ -9309,12 +9355,15 @@
       if (hutk) context.hutk = hutk;
       var btn = form.querySelector('.dl-btn');
       btn.disabled = true; btn.textContent = 'Sending…';
-      fetch('https://api.hsforms.com/submissions/v3/integration/submit/' + cfg.portalId + '/' + cfg.formId, {
+      var blocked = lmBlockReason(form, email, hs);
+      if (blocked) lmTrack('lead_magnet_blocked', hs, { placement: 'landing_page', reason: blocked });
+      else lmLogSubmit(email, hs);
+      (blocked ? Promise.resolve(true) : fetch('https://api.hsforms.com/submissions/v3/integration/submit/' + cfg.portalId + '/' + cfg.formId, {
         method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ fields: fields, context: context })
-      }).then(function (r) { return r.ok; }).catch(function () { return false; }).then(function (ok) {
+      }).then(function (r) { return r.ok; }).catch(function () { return false; })).then(function (ok) {
         lmStore('local', 'pfLM_submitted', '1');
-        lmTrack('lead_magnet_submit', hs, { placement: 'landing_page', hubspot_ok: ok ? 'yes' : 'no' });
+        if (!blocked) lmTrack('lead_magnet_submit', hs, { placement: 'landing_page', hubspot_ok: ok ? 'yes' : 'no' });
         if (!ok && window.console) console.warn('[pf] download page HubSpot submit failed', hs);
         form.hidden = true; form.style.display = 'none';
         if (done) {
