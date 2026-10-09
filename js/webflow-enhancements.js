@@ -7562,6 +7562,20 @@
   // inputs, small black 'Request Demo' button). Inject brand styles into the iframe once it's ready.
   // Scoped to /book-a-demo because other pages' HubSpot forms may sit on dark sections.
   // ─────────────────────────────────────────
+  // ─────────────────────────────────────────
+  // AGENT READINESS: point AI agents at a Markdown copy of this page
+  // Served by the propfuel-edge Vercel project (/<page>.md); works without any DNS change.
+  // ─────────────────────────────────────────
+  function addMarkdownAlternate() {
+    if (document.querySelector('link[rel="alternate"][type="text/markdown"]')) return;
+    var path = window.location.pathname.replace(/\/$/, '');
+    var link = document.createElement('link');
+    link.rel = 'alternate';
+    link.type = 'text/markdown';
+    link.href = 'https://propfuel-edge.vercel.app' + (path ? path + '.md' : '/index.md');
+    document.head.appendChild(link);
+  }
+
   function styleDemoForm() {
     if (!/^\/book-a-demo\/?$/.test(window.location.pathname)) return;
     var css = [
@@ -10184,6 +10198,7 @@
     renderLeadMagnets();
     initHeroDemo();
     initSiteTracking();
+    addMarkdownAlternate();
     styleDemoForm();
     renderDownloadPage();
     fixDuplicateHeroCtas();
