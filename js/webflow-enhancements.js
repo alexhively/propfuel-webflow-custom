@@ -1362,7 +1362,9 @@
     });
     var logosBar = allLogosBars[0];
     var staticTrack = logosBar ? logosBar.querySelector('.lc-track') : null;
-    if (staticTrack) {
+    if (logosBar && logosBar.querySelector('.pfls')) {
+      // Homepage now ships a static, non-moving logo row (Webflow embed, per the SEO team). Leave it alone.
+    } else if (staticTrack) {
       // Logos are static Webflow markup (homepage). Duplicate the items once so
       // the CSS scroll animation (-50%) loops seamlessly; clones are decorative.
       if (!staticTrack.dataset.pfLooped) {
