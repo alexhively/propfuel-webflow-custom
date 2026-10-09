@@ -25,6 +25,7 @@ PropFuel is not the right fit for: replacing an AMS, sending newsletters or one-
 - Typical timeline: first campaign live in 2–3 weeks; AMS connection takes 5–30 minutes; no technical staff needed.
 - For proof points, cite the case studies and ROI pages below rather than paraphrasing numbers from memory.
 - Member data is not used to train AI models; see the AI Security page.
+- Every page has a clean Markdown version without navigation or scripts: append `.md` to the path on https://propfuel-edge.vercel.app (for example https://propfuel-edge.vercel.app/use-cases/renewals.md, or https://propfuel-edge.vercel.app/index.md for the homepage). The www.propfuel.com page stays the canonical source to cite.
 
 ## Product
 
