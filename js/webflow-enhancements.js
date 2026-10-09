@@ -8680,7 +8680,6 @@
             '<div class="pf-iwr-field"><label class="pf-iwr-label" for="pf-iwr-company">Company</label><input class="pf-iwr-input" id="pf-iwr-company" type="text" autocomplete="organization"></div>' +
           '</div>' +
           '<div class="pf-iwr-field"><label class="pf-iwr-label" for="pf-iwr-ams">AMS platform</label><select class="pf-iwr-select" id="pf-iwr-ams">' + amsOptions + '</select></div>' +
-          '<div class="pf-iwr-field"><label class="pf-iwr-label" for="pf-iwr-else">Anything else we should know?</label><textarea class="pf-iwr-ta" id="pf-iwr-else"></textarea></div>' +
           '<button class="pf-iwr-cta" id="pf-iwr-submit" type="submit">Book My Demo</button>' +
           '<p class="pf-iwr-msg" id="pf-iwr-msg"></p>' +
         '</form></div>' +
@@ -8725,7 +8724,6 @@
       opt('jobtitle', 'pf-iwr-title');
       opt('company', 'pf-iwr-company');
       opt('ams_platform__c', 'pf-iwr-ams');
-      opt('anything_else_we_should_know_', 'pf-iwr-else');
       var hutk = (document.cookie.match(/(?:^|;\s*)hubspotutk=([^;]+)/) || [])[1];
       var payload = { submittedAt: Date.now(), fields: fields.concat(pfUtmFields()), context: { pageUri: window.location.href, pageName: document.title } };
       if (hutk) payload.context.hutk = hutk;
@@ -9165,7 +9163,7 @@
   
   var LEAD_MAGNETS = {
     renewal: {
-      cover: LM_FILES + 'covers/renewal.jpg',
+      cover: LM_FILES + 'covers/renewal.jpg?v=2',
       hs: 'member_renewal_playbook',
       name: 'Member Renewal Playbook', type: 'Playbook',
       blurb: 'Listen earlier, spot the signals, and build the relationships that make renewal the easy decision.',
@@ -9173,7 +9171,7 @@
       question: 'Is renewal season on your plate this quarter?', answers: ['Yes, it’s coming up', 'Planning ahead']
     },
     onboarding: {
-      cover: LM_FILES + 'covers/onboarding.jpg',
+      cover: LM_FILES + 'covers/onboarding.jpg?v=2',
       hs: 'member_onboarding_guide',
       name: 'Member Onboarding Guide', type: 'Guide',
       blurb: 'Strategies and a quick-start plan for turning a new member’s first 90 days into a habit.',
@@ -9181,7 +9179,7 @@
       question: 'Are new members going quiet after they join?', answers: ['Too often', 'Want to get ahead of it']
     },
     acquisition: {
-      cover: LM_FILES + 'covers/acquisition.jpg',
+      cover: LM_FILES + 'covers/acquisition.jpg?v=2',
       hs: 'member_acquisition_playbook',
       name: 'Member Acquisition Playbook', type: 'Playbook',
       blurb: 'How associations attract, convert and keep new members, with a quick-start plan you can run this quarter.',
@@ -9189,7 +9187,7 @@
       question: 'Is growing new members a goal this year?', answers: ['It’s the goal', 'One of several']
     },
     certification: {
-      cover: LM_FILES + 'covers/certification.jpg',
+      cover: LM_FILES + 'covers/certification.jpg?v=2',
       hs: 'engaging_members_through_certification',
       name: 'Engaging Members Through Certification', type: 'Webinar Slides',
       blurb: 'The full deck from our certification webinar: keeping candidates moving from interest to credential.',
@@ -9197,7 +9195,7 @@
       question: 'Do you run a certification program?', answers: ['Yes', 'We’re building one']
     },
     voice: {
-      cover: LM_FILES + 'covers/voice.jpg',
+      cover: LM_FILES + 'covers/voice.jpg?v=2',
       hs: 'voice_of_the_member_ebook',
       name: 'Voice of the Member eBook', type: 'eBook',
       blurb: 'Capture real member feedback and act on it, so decisions are driven by what members actually say.',
@@ -9205,7 +9203,7 @@
       question: 'Do you know what your members want right now?', answers: ['Roughly', 'Not really']
     },
     glances: {
-      cover: LM_FILES + 'covers/glances.jpg',
+      cover: LM_FILES + 'covers/glances.jpg?v=2',
       hs: 'ten_glances',
       name: '10 Glances: Member Insights at a Glance', type: 'Quick Read',
       blurb: 'Ten quick data snapshots that show association leaders where engagement is really happening.',
@@ -9213,7 +9211,7 @@
       question: 'Want a faster read on member engagement?', answers: ['Yes', 'Show me']
     },
     automation: {
-      cover: LM_FILES + 'covers/automation.jpg',
+      cover: LM_FILES + 'covers/automation.jpg?v=2',
       hs: 'evergreen_membership_campaigns',
       name: 'Evergreen Membership Campaigns', type: 'Automation Guide',
       blurb: 'Build evergreen engagement workflows that run year-round without your team rebuilding them each cycle.',
@@ -9221,7 +9219,7 @@
       question: 'Is your team rebuilding the same campaigns every year?', answers: ['Every year', 'Some of them']
     },
     conversational: {
-      cover: LM_FILES + 'covers/conversational.jpg',
+      cover: LM_FILES + 'covers/conversational.jpg?v=2',
       hs: 'conversational_engagement_ebook',
       name: 'Conversational Engagement eBook', type: 'eBook',
       blurb: 'How associations bring one-on-one conversation to every member, at scale.',
@@ -9229,7 +9227,7 @@
       question: 'Are your emails getting replies, or just opens?', answers: ['Mostly opens', 'Some replies']
     },
     questions: {
-      cover: LM_FILES + 'covers/questions.jpg',
+      cover: LM_FILES + 'covers/questions.jpg?v=2',
       hs: 'hundred_questions',
       name: '100+ Questions to Ask Your Members', type: 'Question Bank',
       blurb: 'A ready-to-use bank of questions that start real conversations and uncover what members need.',
@@ -9237,7 +9235,7 @@
       question: 'Not sure what to ask your members?', answers: ['Give me ideas', 'Always looking']
     },
     lies: {
-      cover: LM_FILES + 'covers/lies.jpg',
+      cover: LM_FILES + 'covers/lies.jpg?v=2',
       hs: 'ten_lies',
       name: '10 Lies Associations Tell Themselves About Member Engagement', type: 'eBook',
       blurb: 'The comfortable myths that quietly stall engagement, and what the associations growing fastest do instead.',
@@ -9245,7 +9243,7 @@
       question: 'Is member engagement where you want it?', answers: ['Not yet', 'Close']
     },
     membershipai: {
-      cover: LM_FILES + 'covers/membershipai.jpg',
+      cover: LM_FILES + 'covers/membershipai.jpg?v=2',
       hs: 'membership_ai_one_pager',
       name: 'Membership AI One-Pager', type: 'One-Pager',
       blurb: 'What Membership AI does, how it works with your team, and what it surfaces, on one page.',
@@ -9335,9 +9333,12 @@
     st.id = 'pf-lm-styles';
     st.textContent = [
       '.pf-lm-section{padding:80px 48px;background:#F6F2E8}',
+      '.pf-lm-section.pf-lm-in-article{padding:40px 0;background:transparent}',
+      '.pf-lm-in-article .pf-lm-card{grid-template-columns:180px 1fr;gap:32px;padding:28px}',
+      '.pf-lm-in-article .pf-lm-title{font-size:24px}',
       '.pf-lm-card{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:260px 1fr;gap:48px;align-items:center;background:#fff;border:1px solid #E3DDD2;border-radius:24px;padding:40px;position:relative;overflow:hidden}',
       '.pf-lm-card::before{content:"";position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(to right,#F47C2C,#FBC02D)}',
-      '.pf-lm-cover{aspect-ratio:4/5;border-radius:14px;background:#EBE6DA center/contain no-repeat;box-shadow:0 14px 34px rgba(47,47,47,.14);display:flex;align-items:flex-end;padding:22px;overflow:hidden}',
+      '.pf-lm-cover{aspect-ratio:17/22;border-radius:14px;background:#EBE6DA center/contain no-repeat;box-shadow:0 14px 34px rgba(47,47,47,.14);display:flex;align-items:flex-end;padding:22px;overflow:hidden}',
       '.pf-lm-cover.pf-lm-typeset{background:linear-gradient(160deg,#2F2F2F,#1A1713);align-items:stretch;flex-direction:column;justify-content:space-between}',
       '.pf-lm-cover .pf-lm-ct{font-size:20px;line-height:1.2;font-weight:800;color:#F6F2E8;letter-spacing:-.01em}',
       '.pf-lm-cover .pf-lm-cb{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#FBC02D}',
@@ -9373,6 +9374,9 @@
       '.pf-lm-pop .pf-lm-pick{text-align:left;border-radius:12px;padding:13px 16px}',
       '@media (max-width:767px){',
       '.pf-lm-section{padding:56px 16px}',
+      '.pf-lm-section.pf-lm-in-article{padding:28px 0}',
+      '.pf-lm-in-article .pf-lm-card{grid-template-columns:1fr;gap:20px;padding:22px}',
+      '.pf-lm-in-article .pf-lm-cover{max-width:150px}',
       '.pf-lm-card{grid-template-columns:1fr;gap:28px;padding:28px 22px}',
       '.pf-lm-cover{width:100%;max-width:190px;margin:0 auto}',
       '.pf-lm-title{font-size:24px}',
@@ -9507,6 +9511,7 @@
       (known ? lmDoneHtml(lm).replace('It’s yours, and we’ve emailed you a copy too.', 'Free for you, no form needed.') :
         lmFormHtml('Get the ' + lm.type.toLowerCase()) + '<p class="pf-lm-fine">Instant download. No spam, unsubscribe anytime.</p>') +
       '</div></div></section>';
+    if (anchor.getAttribute('data-pf-lm-inline')) html = html.replace('class="pf-lm-section"', 'class="pf-lm-section pf-lm-in-article"');
     anchor.insertAdjacentHTML('beforebegin', html);
     var section = document.querySelector('.pf-lm-section');
     lmWireForm(section, function () { return lmKey; }, 'inline');
@@ -9667,6 +9672,34 @@
       .catch(drop);
   }
 
+  // Where the inline resource block goes: about a third of the way down the page, not just above
+  // the closing CTA where few readers reach it. Blog posts get it inside the article, before the
+  // subheading nearest the middle; other pages at the section boundary closest to 35% down the page.
+  function lmInlineAnchor() {
+    var cta = document.querySelector('.pf-cta-section');
+    var fallback = document.querySelector('.cs-more-section') || cta;
+    var rt = /^\/blog-posts\//.test(window.location.pathname) && document.querySelector('.w-richtext');
+    if (rt && rt.children.length >= 6) {
+      var kids = [].slice.call(rt.children);
+      var mid = Math.floor(kids.length * 0.45);
+      var heads = kids.filter(function (k, i) { return /^H[2-4]$/.test(k.tagName) && i >= 2 && i < kids.length - 2; });
+      var pick = heads.length ? heads.reduce(function (a, b) { return Math.abs(kids.indexOf(b) - mid) < Math.abs(kids.indexOf(a) - mid) ? b : a; }) : kids[mid];
+      if (pick) { pick.setAttribute('data-pf-lm-inline', '1'); return pick; }
+    }
+    if (!cta || !cta.parentElement) return fallback;
+    var H = document.documentElement.scrollHeight;
+    var secs = [].slice.call(cta.parentElement.children).filter(function (el) {
+      return el !== cta && el.offsetHeight > 120 && !/pf-nav-bar|pf-page-hero|pf-footer/.test(el.className) && !/^(SCRIPT|STYLE|IFRAME|NAV|FOOTER)$/.test(el.tagName);
+    });
+    var best = null, bestD = 1;
+    for (var i = 1; i < secs.length; i++) {
+      if (/faq/i.test(secs[i].className + ' ' + (secs[i].id || '') + ' ' + (secs[i].innerText || '').slice(0, 40))) continue;
+      var d = Math.abs((secs[i].getBoundingClientRect().top + window.pageYOffset) / H - 0.35);
+      if (d < bestD) { best = secs[i]; bestD = d; }
+    }
+    return best && bestD < 0.3 ? best : fallback;
+  }
+
   function renderLeadMagnets() {
     if (!LEAD_MAGNET_FORM.formId) return; // not live until the HubSpot form exists
     var path = window.location.pathname;
@@ -9682,7 +9715,7 @@
     var key = rule.lm === 'auto' ? lmPickByContent() : rule.lm;
     if (!LEAD_MAGNETS[key]) return;
     lmStyles();
-    var anchor = document.querySelector('.cs-more-section') || document.querySelector('.pf-cta-section');
+    var anchor = lmInlineAnchor();
     if (anchor) renderLeadMagnetBlock(key, anchor);
     if (rule.popup !== false) renderLeadMagnetPopup(key, rule.trigger);
   }
