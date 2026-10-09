@@ -191,6 +191,21 @@
         'transform:translate(-50%,-50%);object-fit:cover;z-index:0}' +
       '.vbg-overlay{position:absolute;inset:0;background:rgba(26,23,19,.55);z-index:1}' +
 
+      /* Homepage "What's missing" */
+      '.pf-transition-inner .hp-sec-h2{max-width:780px;margin:0 auto 20px;text-wrap:balance;font-size:clamp(30px,3.6vw,44px);line-height:1.12;letter-spacing:-.02em}' +
+      '.pf-transition-inner:has(.pf-wm-cards){max-width:1040px!important;width:100%}' +
+      '.pf-transition-inner .hp-sec-intro{max-width:640px;margin:0 auto 48px;text-wrap:balance}' +
+      '.pf-wm-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1040px;margin:0 auto;text-align:left}' +
+      '.pf-wm-card{background:#fff;border:1px solid #E3DDD2;border-radius:20px;padding:28px 28px 30px}' +
+      '.pf-wm-k{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#8C8479;margin:0 0 12px}' +
+      '.pf-wm-h{font-size:26px;font-weight:800;color:#2F2F2F;letter-spacing:-.015em;line-height:1.15;margin:0 0 10px}' +
+      '.pf-wm-t{font-size:15px;line-height:1.6;color:#6E6E6E;margin:0}' +
+      '.pf-wm-card.is-gap{background:#1A1714;border-color:#1A1714;box-shadow:0 14px 34px rgba(26,23,20,.18)}' +
+      '.pf-wm-card.is-gap .pf-wm-k{color:#FBC02D}' +
+      '.pf-wm-card.is-gap .pf-wm-h{background:linear-gradient(135deg,#F47C2C,#FBC02D);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}' +
+      '.pf-wm-card.is-gap .pf-wm-t{color:#CFC8BC}' +
+      '@media (max-width:767px){.pf-wm-cards{grid-template-columns:1fr;gap:14px}.pf-wm-card{padding:22px}.pf-wm-h{font-size:22px}.pf-transition-inner .hp-sec-intro{margin-bottom:32px}}' +
+
       /* Logo carousel */
       '.lc-label{font-size:13px;font-weight:600;color:#8C8479;letter-spacing:.06em;text-transform:uppercase;text-align:center;margin-bottom:32px}' +
       '.lc-carousel{position:relative;overflow:hidden;max-width:960px;margin:0 auto;' +
@@ -1446,13 +1461,20 @@
       });
     }
 
-    // Fix transition heading — split into 3 lines, third line orange
+    // "What's missing": one headline (the SEO H2), the explanation, then the gap as three cards.
+    // (Was the H2 stacked on a second 40px three-line statement: two competing headlines.)
     var transHeading = document.querySelector('.pf-transition-heading');
-    if (transHeading && transHeading.textContent.indexOf('AMS') !== -1) {
-      transHeading.innerHTML =
-        'You have an AMS to store data.<br>' +
-        'You have an email tool to send messages.<br>' +
-        '<span style="background:linear-gradient(135deg,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">But you still need better member data<br>and engagement, right?</span>';
+    if (transHeading && transHeading.textContent.indexOf('AMS') !== -1 && !document.querySelector('.pf-wm-cards')) {
+      var wmInner = transHeading.parentElement;
+      var wmIntro = wmInner.querySelector('.hp-sec-intro');
+      var wmCards = document.createElement('div');
+      wmCards.className = 'pf-wm-cards';
+      wmCards.innerHTML =
+        '<div class="pf-wm-card"><p class="pf-wm-k">Your AMS</p><p class="pf-wm-h">Stores member data.</p><p class="pf-wm-t">Who members are, what they bought, and when they renew.</p></div>' +
+        '<div class="pf-wm-card"><p class="pf-wm-k">Your email tool</p><p class="pf-wm-h">Sends messages.</p><p class="pf-wm-t">Opens and clicks, but no answers. The conversation only goes one way.</p></div>' +
+        '<div class="pf-wm-card is-gap"><p class="pf-wm-k">The missing piece</p><p class="pf-wm-h">Member answers.</p><p class="pf-wm-t">What each member wants, in their own words, saved to their record. That\u2019s what PropFuel adds.</p></div>';
+      transHeading.parentNode.replaceChild(wmCards, transHeading);
+      if (wmIntro) wmInner.insertBefore(wmIntro, wmCards);
     }
 
     // Add logo + loop SVG to Welcome to PropFuel section
