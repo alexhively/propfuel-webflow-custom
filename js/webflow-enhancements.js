@@ -8062,6 +8062,21 @@
   // Standard site chrome (nav/footer symbols on the Webflow shell page);
   // this renders the article content into main.
   // ─────────────────────────────────────────
+  // ─────────────────────────────────────────
+  // /MEMBERSHIP-AI-OVERVIEW — SALES LEAVE-BEHIND (AI Campaign Builder leads)
+  // Webflow shell page (nav/footer only). The page module (styles + markup + script) lives in
+  // js/pages/membership-ai-overview.js and is loaded only on this path to keep every other page light.
+  // Source of truth: propfuel-page-previews/src/membership-ai-overview/embed.html (tools/gh-page.mjs).
+  // ─────────────────────────────────────────
+  function renderMembershipAIOverviewPage() {
+    if (!/^\/membership-ai-overview\/?$/.test(window.location.pathname)) return;
+    if (document.getElementById('pf-mai-overview-js') || document.getElementById('mai')) return;
+    var s = document.createElement('script');
+    s.id = 'pf-mai-overview-js';
+    s.src = 'https://alexhively.github.io/propfuel-webflow-custom/js/pages/membership-ai-overview.js?v=1';
+    document.head.appendChild(s);
+  }
+
   function renderBroadcastPage() {
     if (!/^\/where-broadcast-ends(\/|$)/.test(window.location.pathname)) return;
     var main = document.querySelector('main, .main-wrapper, .page-wrapper');
@@ -10352,6 +10367,7 @@
     fixAISecurityPage();
     fixCapabilitiesPage();
     renderMmctPage();
+    renderMembershipAIOverviewPage();
     renderBroadcastPage();
     renderReferralsPage();
     renderReferredPage();
