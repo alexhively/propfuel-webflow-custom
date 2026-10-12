@@ -4318,21 +4318,6 @@
         '.maif-v2 .mai-cb .pill,.maif-v2 .mai-cb-feeds .pill{display:inline-flex;align-items:center;padding:10px 22px;border-radius:100px;background:rgba(74,127,165,0.08);border:1px solid rgba(74,127,165,0.35);font-size:13px;font-weight:600;color:#4A7FA5;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:28px}' +
         '.maif-v2 .mai-cb .h2{font-size:clamp(32px,4.6vw,52px);font-weight:800;letter-spacing:-0.025em;line-height:1.08}' +
         '.maif-v2 .mai-cb .lead,.maif-v2 .mai-cb-feeds .lead{font-size:clamp(17px,1.4vw,19px);color:#6E6E6E;line-height:1.6;margin:20px auto 0;max-width:680px}' +
-        '.maif-v2 .mai-cb-demo{max-width:760px;margin:56px auto 0;background:#F6F2E8;border:1px solid #E3DDD2;border-radius:20px;box-shadow:0 18px 50px rgba(31,58,81,0.12);overflow:hidden;text-align:left}' +
-        '.maif-v2 .mai-cb-demo .bar{display:flex;align-items:center;gap:6px;padding:12px 16px;border-bottom:1px solid #E3DDD2;font-size:12px;font-weight:700;color:#6E6E6E;letter-spacing:0.04em}' +
-        '.maif-v2 .mai-cb-demo .bar i{width:9px;height:9px;border-radius:50%;background:#E7E2D8;display:block}' +
-        '.maif-v2 .mai-cb-demo .bar span{margin-left:8px}' +
-        '.maif-v2 .mai-cb-demo .bar em{margin-left:auto;font-style:normal;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;background:#EAE4D8;color:#8a8478;padding:3px 8px;border-radius:100px}' +
-        '.maif-v2 .mai-cb-demo .body{padding:22px;display:grid;gap:14px}' +
-        '.maif-v2 .mai-cb-demo .who{font-size:11px;font-weight:700;letter-spacing:0.12em;color:#6E6E6E;text-transform:uppercase}' +
-        '.maif-v2 .mai-cb-demo .prompt{background:#F4F1EA;border:1px solid #E3DDD2;border-radius:14px 14px 14px 4px;padding:14px 16px;font-size:16px;font-weight:600;color:#2F2F2F;line-height:1.45}' +
-        '.maif-v2 .mai-cb-demo .draft{border-radius:14px;background:rgba(74,127,165,0.06);border:1px solid rgba(74,127,165,0.18);padding:16px}' +
-        '.maif-v2 .mai-cb-demo .draft b{display:block;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#4A7FA5;margin-bottom:10px}' +
-        '.maif-v2 .mai-cb-demo .draft ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}' +
-        '.maif-v2 .mai-cb-demo .draft li{font-size:13px;font-weight:700;padding:7px 12px;border-radius:100px;background:#FBF9F4;border:1px solid rgba(74,127,165,0.22);color:#35607E}' +
-        '.maif-v2 .mai-cb-demo .ready{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:14px;font-weight:600;color:#6E6E6E}' +
-        '.maif-v2 .mai-cb-demo .ready strong{font-size:14px;color:#2F2F2F}' +
-        '.maif-v2 .mai-cb-demo .ready span.btn-mock{font-size:13px;font-weight:700;color:#FFFFFF;padding:8px 14px;border-radius:100px;background:linear-gradient(to right,#F47C2C,#FBC02D)}' +
         '.maif-v2 .mai-cb-steps{list-style:none;margin:72px auto 0;padding:0;max-width:1100px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;counter-reset:cb}' +
         '.maif-v2 .mai-cb-steps li{background:#F6F2E8;border:1px solid #E3DDD2;border-radius:18px;padding:26px 24px;text-align:left}' +
         '.maif-v2 .mai-cb-steps li b{display:block;font-size:12px;font-weight:700;letter-spacing:0.12em;color:#4A7FA5}' +
@@ -4457,15 +4442,6 @@
           '<h2 class="h2" id="mai-cb-h">From one sentence to a complete campaign.</h2>' +
           '<p class="lead">Setting up a campaign is the work: the content, the sequencing, the workflow logic. It’s also where small teams stall. Describe what’s going on, and the AI Campaign Builder hands you a finished draft to review instead of a blank page.</p>' +
         '</div>' +
-        '<div class="mai-cb-demo" role="img" aria-label="Example: a membership director describes members who renew in the next 60 days and haven’t opened anything since spring, and the AI Campaign Builder returns a draft renewal campaign with cadence, check-in questions, answer branches, a landing page, tags and staff alerts. Sample.">' +
-          '<div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>AI Campaign Builder</span><em>Sample</em></div>' +
-          '<div class="body" aria-hidden="true">' +
-            '<div class="who">You</div>' +
-            '<div class="prompt">Members who renew in the next 60 days and haven’t opened anything since spring. Find out who’s on the fence and why.</div>' +
-            '<div class="draft"><b>Draft built on the Membership Renewal playbook</b><ul><li>Cadence</li><li>Email copy</li><li>Check-in questions</li><li>Answer branches</li><li>Landing page</li><li>Tags</li><li>Staff alerts</li><li>Contact removals</li></ul></div>' +
-            '<div class="ready"><strong>Draft ready to review</strong><span class="btn-mock">Review draft</span></div>' +
-          '</div>' +
-        '</div>' +
         '<ol class="mai-cb-steps">' +
           '<li><b>01</b><h3>Describe it</h3><p>Type the situation in plain language, or start from a recommendation in Today’s Briefing.</p></li>' +
           '<li><b>02</b><h3>It picks the playbook</h3><p>It draws on PropFuel’s library of proven campaign playbooks: renewal, win-back, onboarding, events, acquisition, profile updates and more.</p></li>' +
@@ -4537,7 +4513,7 @@
         '<section class="section dark mai-stats">' +
           '<div class="container medium" style="text-align:center"><p class="eyebrow">Results</p><h2 class="h2">The numbers — even before the full AI layer.</h2></div>' +
           '<div class="container medium" style="margin-top:48px"><div class="stats-grid">' +
-            '<div class="stat"><div class="num">8.68%</div><div class="desc">Average first-year revenue growth (vs 0.98% industry avg)</div></div>' +
+            '<div class="stat"><div class="num">8.68%</div><div class="desc">Average first-year revenue growth</div></div>' +
             '<div class="stat"><div class="num">$100M+</div><div class="desc">Revenue growth across clients</div></div>' +
             '<div class="stat"><div class="num">72%</div><div class="desc">Of declining orgs reversed course</div></div>' +
           '</div></div>' +
@@ -4555,7 +4531,7 @@
               '<details><summary>How is this different from ChatGPT or other general-purpose AI tools?</summary><p class="answer">General AI doesn’t know your AMS schema, your renewal cycle, which committees matter to which members, or what worked in last year’s win-back campaign. Membership AI is purpose-built for associations and operates inside PropFuel — where your member data, campaign history, and engagement signals already live. It carries your association’s context the way a long-tenured staff member would.</p></details>' +
               '<details><summary>What kind of results have other associations seen?</summary><p class="answer">PropFuel clients have generated $100M+ in additional revenue, with $650K average first-year growth per organization. 72% of declining associations reverse course after implementing PropFuel. AAMFT moved from 80.5% to 95% on-time renewals. Membership AI accelerates these outcomes by identifying opportunities your team would miss and executing faster than any manual workflow.</p></details>' +
               '<details><summary>What happens to our institutional knowledge when staff turn over?</summary><p class="answer">When a membership director leaves today, the institutional memory walks out the door with them — every member context, every campaign learning, every nuance about which board member cares about what. With Membership AI, the intelligence lives in the platform, not in people. A new hire is productive on day one because PropFuel already knows the member history, the campaign performance, and the recommended next actions.</p></details>' +
-              '<details><summary>How long until we see results?</summary><p class="answer">First campaign live in 2–3 weeks. Full ramp-up in 2–3 months. Staff training takes 10–45 minutes. You get a dedicated Customer Success Manager with a sub-3-hour response time. PropFuel’s onboarding has been recognized with an ASAE Gold Circle Award.</p></details>' +
+              '<details><summary>How long until we see results?</summary><p class="answer">First campaign live in 2–3 weeks. Full ramp-up in 2–3 months. Staff training takes 10–45 minutes. You get a dedicated Customer Success Manager with a sub-3-hour response time.</p></details>' +
             '</div>' +
           '</div>' +
         '</section>' +
@@ -9445,11 +9421,11 @@
       question: 'Is member engagement where you want it?', answers: ['Not yet', 'Close']
     },
     membershipai: {
-      cover: LM_FILES + 'covers/membershipai.jpg?v=2',
+      cover: LM_FILES + 'covers/membershipai.jpg?v=3',
       hs: 'membership_ai_one_pager',
       name: 'Membership AI One-Pager', type: 'One-Pager',
-      blurb: 'What Membership AI does, how it works with your team, and what it surfaces, on one page.',
-      url: LM_FILES + 'membership-ai-one-pager.pdf',
+      blurb: 'How the AI Campaign Builder turns a plain-language description into a complete campaign draft, plus everything else Membership AI does, on one page.',
+      url: LM_FILES + 'membership-ai-one-pager.pdf?v=2',
       question: 'Exploring AI for your membership team?', answers: ['Actively', 'Just curious']
     }
   };
