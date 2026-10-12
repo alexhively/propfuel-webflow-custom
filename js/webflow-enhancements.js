@@ -4263,6 +4263,51 @@
         '.maif-v2 .section.warm.mai-what{padding:96px 32px 112px}' +
         '@media (max-width:700px){.maif-v2 .funnel{grid-template-columns:1fr;grid-template-rows:auto 56px auto 56px auto;column-gap:0;row-gap:0;max-width:420px}.maif-v2 .funnel-card-left{grid-column:1;grid-row:1}.maif-v2 .funnel-card-right{grid-column:1;grid-row:3}.maif-v2 .funnel-connector{grid-column:1;grid-row:2}.maif-v2 .funnel-connector.connector-2{grid-column:1;grid-row:4;display:block}.maif-v2 .funnel-result{grid-column:1;grid-row:5;min-width:0;width:100%}.maif-v2 .funnel-connector svg.desktop-only{display:none}.maif-v2 .funnel-connector svg.mobile-only{display:block;margin:0 auto}}' +
         '@media (min-width:701px){.maif-v2 .funnel-connector.connector-2{display:none}.maif-v2 .funnel-connector svg.mobile-only{display:none}}' +
+        // AI Campaign Builder (lead feature, Oct 2026)
+        '.maif-v2 .mai-cb{padding:112px 32px;background:#F4F1EA}' +
+        '.maif-v2 .mai-cb .head{text-align:center;max-width:820px;margin:0 auto}' +
+        '.maif-v2 .mai-cb .pill,.maif-v2 .mai-cb-feeds .pill{display:inline-flex;align-items:center;padding:10px 22px;border-radius:100px;background:rgba(74,127,165,0.08);border:1px solid rgba(74,127,165,0.35);font-size:13px;font-weight:600;color:#4A7FA5;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:28px}' +
+        '.maif-v2 .mai-cb .h2{font-size:clamp(32px,4.6vw,52px);font-weight:800;letter-spacing:-0.025em;line-height:1.08}' +
+        '.maif-v2 .mai-cb .lead,.maif-v2 .mai-cb-feeds .lead{font-size:clamp(17px,1.4vw,19px);color:#6E6E6E;line-height:1.6;margin:20px auto 0;max-width:680px}' +
+        '.maif-v2 .mai-cb-demo{max-width:760px;margin:56px auto 0;background:#F6F2E8;border:1px solid #E3DDD2;border-radius:20px;box-shadow:0 18px 50px rgba(31,58,81,0.12);overflow:hidden;text-align:left}' +
+        '.maif-v2 .mai-cb-demo .bar{display:flex;align-items:center;gap:6px;padding:12px 16px;border-bottom:1px solid #E3DDD2;font-size:12px;font-weight:700;color:#6E6E6E;letter-spacing:0.04em}' +
+        '.maif-v2 .mai-cb-demo .bar i{width:9px;height:9px;border-radius:50%;background:#E7E2D8;display:block}' +
+        '.maif-v2 .mai-cb-demo .bar span{margin-left:8px}' +
+        '.maif-v2 .mai-cb-demo .bar em{margin-left:auto;font-style:normal;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;background:#EAE4D8;color:#8a8478;padding:3px 8px;border-radius:100px}' +
+        '.maif-v2 .mai-cb-demo .body{padding:22px;display:grid;gap:14px}' +
+        '.maif-v2 .mai-cb-demo .who{font-size:11px;font-weight:700;letter-spacing:0.12em;color:#6E6E6E;text-transform:uppercase}' +
+        '.maif-v2 .mai-cb-demo .prompt{background:#F4F1EA;border:1px solid #E3DDD2;border-radius:14px 14px 14px 4px;padding:14px 16px;font-size:16px;font-weight:600;color:#2F2F2F;line-height:1.45}' +
+        '.maif-v2 .mai-cb-demo .draft{border-radius:14px;background:rgba(74,127,165,0.06);border:1px solid rgba(74,127,165,0.18);padding:16px}' +
+        '.maif-v2 .mai-cb-demo .draft b{display:block;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#4A7FA5;margin-bottom:10px}' +
+        '.maif-v2 .mai-cb-demo .draft ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}' +
+        '.maif-v2 .mai-cb-demo .draft li{font-size:13px;font-weight:700;padding:7px 12px;border-radius:100px;background:#FFFFFF;border:1px solid rgba(74,127,165,0.22);color:#35607E}' +
+        '.maif-v2 .mai-cb-demo .ready{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:14px;font-weight:600;color:#6E6E6E}' +
+        '.maif-v2 .mai-cb-demo .ready strong{font-size:14px;color:#2F2F2F}' +
+        '.maif-v2 .mai-cb-demo .ready span.btn-mock{font-size:13px;font-weight:700;color:#FFFFFF;padding:8px 14px;border-radius:100px;background:linear-gradient(to right,#F47C2C,#FBC02D)}' +
+        '.maif-v2 .mai-cb-steps{list-style:none;margin:72px auto 0;padding:0;max-width:1100px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;counter-reset:cb}' +
+        '.maif-v2 .mai-cb-steps li{background:#F6F2E8;border:1px solid #E3DDD2;border-radius:18px;padding:26px 24px;text-align:left}' +
+        '.maif-v2 .mai-cb-steps li b{display:block;font-size:12px;font-weight:700;letter-spacing:0.12em;color:#4A7FA5}' +
+        '.maif-v2 .mai-cb-steps li h3{font-size:21px;font-weight:700;letter-spacing:-0.01em;color:#2F2F2F;margin:8px 0 8px}' +
+        '.maif-v2 .mai-cb-steps li p{font-size:15px;color:#6E6E6E;line-height:1.6;margin:0}' +
+        '.maif-v2 .mai-cb-builds{max-width:1100px;margin:72px auto 0;display:grid;grid-template-columns:1fr 1fr;gap:20px}' +
+        '.maif-v2 .mai-cb-builds .card{border-radius:20px;padding:32px 28px;text-align:left;background:linear-gradient(160deg,#1F3A51 0%,#35607E 75%,#4A7FA5 130%);color:#EDE8DF}' +
+        '.maif-v2 .mai-cb-builds .card.alt{background:#2F2F2F}' +
+        '.maif-v2 .mai-cb-builds .k{font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#D0DFEA}' +
+        '.maif-v2 .mai-cb-builds h3{font-size:24px;font-weight:700;color:#FFFFFF;margin:8px 0 14px;letter-spacing:-0.01em}' +
+        '.maif-v2 .mai-cb-builds ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}' +
+        '.maif-v2 .mai-cb-builds li{font-size:15px;line-height:1.5;color:rgba(237,232,223,0.88);padding-left:18px;position:relative}' +
+        '.maif-v2 .mai-cb-builds li::before{content:"";position:absolute;left:0;top:9px;width:6px;height:6px;border-radius:50%;background:#FBC02D}' +
+        '.maif-v2 .mai-cb-roles{max-width:1100px;margin:72px auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}' +
+        '.maif-v2 .mai-cb-roles .role{background:#F6F2E8;border:1px solid #E3DDD2;border-radius:18px;padding:26px 24px;text-align:left}' +
+        '.maif-v2 .mai-cb-roles .k{font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#4A7FA5}' +
+        '.maif-v2 .mai-cb-roles h3{font-size:20px;font-weight:700;color:#2F2F2F;margin:8px 0 8px;line-height:1.25}' +
+        '.maif-v2 .mai-cb-roles p{font-size:15px;color:#6E6E6E;line-height:1.6;margin:0}' +
+        '.maif-v2 .mai-cb-trust{max-width:1100px;margin:40px auto 0;display:flex;flex-wrap:wrap;justify-content:center;gap:10px}' +
+        '.maif-v2 .mai-cb-trust span{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:100px;background:rgba(125,155,78,0.10);border:1px solid rgba(125,155,78,0.28);font-size:13px;font-weight:700;color:#5c7a32}' +
+        '.maif-v2 .mai-cb-feeds{padding:96px 32px 24px;text-align:center;background:#F4F1EA}' +
+        '.maif-v2 .mai-cb-feeds .h2{max-width:760px;margin:0 auto}' +
+        '@media (max-width:900px){.maif-v2 .mai-cb-steps,.maif-v2 .mai-cb-roles{grid-template-columns:1fr 1fr}.maif-v2 .mai-cb-builds{grid-template-columns:1fr}}' +
+        '@media (max-width:600px){.maif-v2 .mai-cb{padding:72px 20px}.maif-v2 .mai-cb-feeds{padding:64px 20px 8px}.maif-v2 .mai-cb-steps,.maif-v2 .mai-cb-roles{grid-template-columns:1fr}.maif-v2 .mai-cb-steps{margin-top:48px}.maif-v2 .mai-cb-builds,.maif-v2 .mai-cb-roles{margin-top:48px}}' +
         // Stats
         '.maif-v2 .mai-stats h2{text-align:center;margin-bottom:48px}' +
         '.maif-v2 .mai-stats .stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:48px;text-align:center}' +
@@ -4313,11 +4358,11 @@
     // 5. Hero H1 + sub
     var heroHeading = document.querySelector('.pf-page-hero-title');
     if (heroHeading) {
-      heroHeading.innerHTML = '<span class="maif-v2-hero-accent">Membership AI</span>, for the ones who do the job of many.';
+      heroHeading.innerHTML = 'Describe it. <span class="maif-v2-hero-accent">Membership AI</span> builds it.';
     }
     var heroSub = document.querySelector('.pf-page-hero-sub');
     if (heroSub) {
-      heroSub.innerHTML = 'Meet your new teammate trained on every part of the playbook<br>and your association’s unique context.';
+      heroSub.innerHTML = 'Tell the AI Campaign Builder what’s going on with your members, in plain language. It drafts the whole campaign on proven playbooks.<br>You review, edit and launch.';
     }
 
     // 6. Hero buttons (brand spec)
@@ -4328,8 +4373,8 @@
         btnWrap.className = 'pf-hero-btns-injected fade-up';
         btnWrap.style.cssText = 'display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:40px';
         btnWrap.innerHTML =
-          '<a href="/book-a-demo" class="btn btn-primary">Meet Your AI Membership Team <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>' +
-          '<a href="/book-a-demo" class="btn btn-secondary">Get Started</a>';
+          '<a href="/book-a-demo" class="btn btn-primary">See It Build a Campaign <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>' +
+          '<a href="#ai-campaign-builder" class="btn btn-secondary">How It Works</a>';
         var sub = heroParent.querySelector('.pf-page-hero-sub');
         if (sub) { sub.parentNode.insertBefore(btnWrap, sub.nextSibling); }
         else { heroParent.appendChild(btnWrap); }
@@ -4356,8 +4401,45 @@
             '</span>' +
           '</button>' +
         '</div></div>' +
-        // Testimonial (light)
-        '<section class="section warm mai-quote"><div class="container narrow"><div class="mark">“</div><blockquote>You just gave us another staff member.</blockquote><cite>Bryan Soady — Executive Director &amp; CEO, SUAA</cite></div></section>' +
+        // AI Campaign Builder: the lead feature (Oct 2026). Replaces the SUAA quote, which has no live case study.
+        '<section class="mai-cb" id="ai-campaign-builder" aria-labelledby="mai-cb-h"><div class="head">' +
+          '<span class="pill">The AI Campaign Builder</span>' +
+          '<h2 class="h2" id="mai-cb-h">From one sentence to a complete campaign.</h2>' +
+          '<p class="lead">Setting up a campaign is the work: the content, the sequencing, the workflow logic. It’s also where small teams stall. Describe what’s going on, and the AI Campaign Builder hands you a finished draft to review instead of a blank page.</p>' +
+        '</div>' +
+        '<div class="mai-cb-demo" role="img" aria-label="Example: a membership director describes members who renew in the next 60 days and haven’t opened anything since spring, and the AI Campaign Builder returns a draft renewal campaign with cadence, check-in questions, answer branches, a landing page, tags and staff alerts. Sample.">' +
+          '<div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>AI Campaign Builder</span><em>Sample</em></div>' +
+          '<div class="body" aria-hidden="true">' +
+            '<div class="who">You</div>' +
+            '<div class="prompt">Members who renew in the next 60 days and haven’t opened anything since spring. Find out who’s on the fence and why.</div>' +
+            '<div class="draft"><b>Draft built on the Membership Renewal playbook</b><ul><li>Cadence</li><li>Email copy</li><li>Check-in questions</li><li>Answer branches</li><li>Landing page</li><li>Tags</li><li>Staff alerts</li><li>Contact removals</li></ul></div>' +
+            '<div class="ready"><strong>Draft ready to review</strong><span class="btn-mock">Review draft</span></div>' +
+          '</div>' +
+        '</div>' +
+        '<ol class="mai-cb-steps">' +
+          '<li><b>01</b><h3>Describe it</h3><p>Type the situation in plain language, or start from a recommendation in Today’s Briefing.</p></li>' +
+          '<li><b>02</b><h3>It picks the playbook</h3><p>It draws on PropFuel’s library of proven campaign playbooks: renewal, win-back, onboarding, events, acquisition, profile updates and more.</p></li>' +
+          '<li><b>03</b><h3>It builds the whole campaign</h3><p>Cadence, email and landing-page copy, check-in questions, answer branches, tags, staff alerts and contact removals. In one pass.</p></li>' +
+          '<li><b>04</b><h3>It checks its own work</h3><p>It applies PropFuel’s campaign validation rules while it builds, so the draft you get is ready for review.</p></li>' +
+          '<li><b>05</b><h3>You review and edit</h3><p>Everything arrives as a draft. Change anything. Draft campaigns can’t launch by accident.</p></li>' +
+          '<li><b>06</b><h3>You launch</h3><p>Members answer, and every response flows back into Signals and your segments for the next campaign.</p></li>' +
+        '</ol>' +
+        '<div class="mai-cb-builds">' +
+          '<div class="card"><p class="k">Email</p><h3>Complete email campaigns</h3><ul><li>Cadence and sequencing</li><li>Email and landing-page copy</li><li>Check-ins with questions and answers</li><li>Answer branches and follow-up campaigns</li><li>Tags, staff alerts and contact removals</li></ul></div>' +
+          '<div class="card alt"><p class="k">Website</p><h3>Website Engagement campaigns</h3><ul><li>On-site campaigns built by description, not assembled by hand</li><li>Starting with simple ones like wayfinding: ask visitors what brought them today and point them to the right page</li><li>The same describe-and-review flow you use for email</li></ul></div>' +
+        '</div>' +
+        '<div class="mai-cb-roles">' +
+          '<div class="role"><p class="k">For membership directors</p><h3>Start from a draft, not a blank page.</h3><p>Launch more campaigns, faster, even with a team of one. Proven playbooks mean you don’t have to be a campaign expert. You stay the decision-maker.</p></div>' +
+          '<div class="role"><p class="k">For marketing and communications</p><h3>Consistent campaigns, built on what works.</h3><p>Well-sequenced campaigns written in your organization’s context and tone, with one way to build for email and your website.</p></div>' +
+          '<div class="role"><p class="k">For executive directors</p><h3>More of the right campaigns, no new headcount.</h3><p>Your team runs the campaigns it never had hours for, and every campaign can sit under an Initiative, so you see whether the goal is moving.</p></div>' +
+        '</div>' +
+        '<div class="mai-cb-trust">' +
+          '<span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>You approve and launch</span>' +
+          '<span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Nothing sends on its own</span>' +
+          '<span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Built on proven playbooks</span>' +
+          '<span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Checks its own work</span>' +
+        '</div>' +
+        '</section>' +
         // Why MAI (dark, orange-gradient arrow + steel-blue glow on solution)
         '<section class="section dark mai-why"><div class="container">' +
           '<span class="pill">Why Membership AI</span>' +
@@ -4394,6 +4476,11 @@
             '<div class="funnel-result"><span>Membership&nbsp;AI</span></div>' +
           '</div>' +
         '</div></section>' +
+        // Frames the features below as what feeds the Campaign Builder
+        '<section class="mai-cb-feeds"><span class="pill">What the builder knows</span>' +
+          '<h2 class="h2">The builder never starts from zero.</h2>' +
+          '<p class="lead">Signals, Segments, AI Content Writing and Strategic Context give every campaign the who, the why and the words.</p>' +
+        '</section>' +
         // Features mount (rendered by renderMembershipAIFeatures)
         '<section id="maif-v2-features-mount" class="membership-ai-features"></section>' +
         // Stats (3-stat orange-yellow gradient)
@@ -4411,6 +4498,8 @@
             '<p class="eyebrow">FAQ</p>' +
             '<h2 class="h2">Common questions about Membership AI.</h2>' +
             '<div class="list">' +
+              '<details><summary>What does the AI Campaign Builder actually build?</summary><p class="answer">A complete, editable campaign draft from a plain-language description: the cadence, email and landing-page copy, check-in questions with answer branches, tags, staff alerts and contact removals. It also builds Website Engagement campaigns, starting with simple ones like wayfinding. Every draft is built on PropFuel’s library of proven campaign playbooks.</p></details>' +
+              '<details><summary>Will it send anything to our members on its own?</summary><p class="answer">No. Every campaign the builder makes arrives as a draft. You review it, edit anything you like, and decide when it launches. Draft campaigns can’t launch by accident.</p></details>' +
               '<details><summary>Most churn is decided in the first 30 days. Can Membership AI actually move that needle?</summary><p class="answer">Yes — that’s exactly where it shines. Engagement patterns in a member’s first month predict retention better than any other window. Membership AI watches every signal from sign-up forward — what they opened, what they ignored, where they got stuck — and surfaces at-risk members weeks before they show up in your churn report. By the time someone is “at-risk” in a spreadsheet, it’s already late. We flag them while there’s still time to re-engage.</p></details>' +
               '<details><summary>We don’t have a data analyst. Can our membership director actually use this?</summary><p class="answer">That’s exactly who it’s built for. There’s no SQL, no dashboard authoring, no analyst required. You describe what you want in plain English — “members who attended last year’s conference but haven’t engaged this quarter” — and Membership AI builds the segment, drafts the campaign, and queues it for your review. Your team brings judgment. The system does the analytical work.</p></details>' +
               '<details><summary>How is this different from ChatGPT or other general-purpose AI tools?</summary><p class="answer">General AI doesn’t know your AMS schema, your renewal cycle, which committees matter to which members, or what worked in last year’s win-back campaign. Membership AI is purpose-built for associations and operates inside PropFuel — where your member data, campaign history, and engagement signals already live. It carries your association’s context the way a long-tenured staff member would.</p></details>' +
@@ -4459,7 +4548,7 @@
       var ctaSub = ctaSection.querySelector('.pf-cta-sub');
       if (ctaSub) {
         ctaSub.style.color = '#A8A097';
-        ctaSub.textContent = 'Membership AI knows your members. It tells you what matters. It builds what you need. And it does it without asking you to add headcount, learn analytics, or spend weeks building campaigns.';
+        ctaSub.textContent = 'Describe what your members need. Membership AI builds the campaign on proven playbooks, and you approve and launch. No new headcount, no analytics degree, no blank page.';
       }
     }
 
