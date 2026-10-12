@@ -4280,7 +4280,7 @@
         '.maif-v2 .mai-cb-demo .draft{border-radius:14px;background:rgba(74,127,165,0.06);border:1px solid rgba(74,127,165,0.18);padding:16px}' +
         '.maif-v2 .mai-cb-demo .draft b{display:block;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#4A7FA5;margin-bottom:10px}' +
         '.maif-v2 .mai-cb-demo .draft ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}' +
-        '.maif-v2 .mai-cb-demo .draft li{font-size:13px;font-weight:700;padding:7px 12px;border-radius:100px;background:#FFFFFF;border:1px solid rgba(74,127,165,0.22);color:#35607E}' +
+        '.maif-v2 .mai-cb-demo .draft li{font-size:13px;font-weight:700;padding:7px 12px;border-radius:100px;background:#FBF9F4;border:1px solid rgba(74,127,165,0.22);color:#35607E}' +
         '.maif-v2 .mai-cb-demo .ready{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:14px;font-weight:600;color:#6E6E6E}' +
         '.maif-v2 .mai-cb-demo .ready strong{font-size:14px;color:#2F2F2F}' +
         '.maif-v2 .mai-cb-demo .ready span.btn-mock{font-size:13px;font-weight:700;color:#FFFFFF;padding:8px 14px;border-radius:100px;background:linear-gradient(to right,#F47C2C,#FBC02D)}' +
@@ -4293,7 +4293,7 @@
         '.maif-v2 .mai-cb-builds .card{border-radius:20px;padding:32px 28px;text-align:left;background:linear-gradient(160deg,#1F3A51 0%,#35607E 75%,#4A7FA5 130%);color:#EDE8DF}' +
         '.maif-v2 .mai-cb-builds .card.alt{background:#2F2F2F}' +
         '.maif-v2 .mai-cb-builds .k{font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#D0DFEA}' +
-        '.maif-v2 .mai-cb-builds h3{font-size:24px;font-weight:700;color:#FFFFFF;margin:8px 0 14px;letter-spacing:-0.01em}' +
+        '.maif-v2 .mai-cb-builds h3{font-size:24px;font-weight:700;color:#F4F1EA;margin:8px 0 14px;letter-spacing:-0.01em}' +
         '.maif-v2 .mai-cb-builds ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}' +
         '.maif-v2 .mai-cb-builds li{font-size:15px;line-height:1.5;color:rgba(237,232,223,0.88);padding-left:18px;position:relative}' +
         '.maif-v2 .mai-cb-builds li::before{content:"";position:absolute;left:0;top:9px;width:6px;height:6px;border-radius:50%;background:#FBC02D}' +
