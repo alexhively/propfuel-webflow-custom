@@ -1857,7 +1857,12 @@
   // Meta browser IDs (_fbc = ad click, _fbp = browser) go to HubSpot pf_fbc / pf_fbp so closed-won
   // deals can be matched back to the ad (OS meta-offline cron). Only for forms whose HubSpot
   // definition has the hidden pf_fbc / pf_fbp fields (allowlist), so no form ever rejects a submit.
-  var PF_FBC_FORMS = {};
+  var PF_FBC_FORMS = {
+    'f8009d2f-d93b-40b1-a669-d6c112abe6a5': 1, // Book a Demo (iframe, URL prefill)
+    'e01dda9b-fbec-4fb2-ab4b-df452862fce4': 1, // I was referred
+    '9db4f81b-6fb2-4b01-9dd4-bba9c2b3c323': 1, // Events Book a Demo
+    '5c5fead1-27d2-4ba1-b31a-f1f957e0b59b': 1  // Website Lead Magnet Download
+  };
   function pfMetaIdFields(formId) {
     if (!formId || !PF_FBC_FORMS[formId]) return [];
     var ck = function (n) { return (document.cookie.match(new RegExp('(?:^|;\\s*)' + n + '=([^;]+)')) || [])[1]; };
