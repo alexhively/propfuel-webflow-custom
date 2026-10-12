@@ -1854,6 +1854,18 @@
     } catch (e) { u = {}; }
     return PF_UTM_KEYS.map(function (k) { return { name: 'pf_last_utm_' + k, value: u[k] || '(none)' }; });
   }
+  // Meta browser IDs (_fbc = ad click, _fbp = browser) go to HubSpot pf_fbc / pf_fbp so closed-won
+  // deals can be matched back to the ad (OS meta-offline cron). Only for forms whose HubSpot
+  // definition has the hidden pf_fbc / pf_fbp fields (allowlist), so no form ever rejects a submit.
+  var PF_FBC_FORMS = {};
+  function pfMetaIdFields(formId) {
+    if (!formId || !PF_FBC_FORMS[formId]) return [];
+    var ck = function (n) { return (document.cookie.match(new RegExp('(?:^|;\\s*)' + n + '=([^;]+)')) || [])[1]; };
+    var out = [], fbc = ck('_fbc'), fbp = ck('_fbp');
+    if (fbc) out.push({ name: 'pf_fbc', value: decodeURIComponent(fbc).slice(0, 255) });
+    if (fbp) out.push({ name: 'pf_fbp', value: decodeURIComponent(fbp).slice(0, 255) });
+    return out;
+  }
 
   // Meta conversion events go only to the PropFuel pixel (trackSingle), not to
   // every pixel the page has initialised. Lead = any lead (demo or download),
@@ -1928,7 +1940,7 @@
         // set from here. HubSpot prefills fields from the page URL, so put them there.
         try {
           var u = new URL(window.location.href), changed = false;
-          pfUtmFields().forEach(function (f) { if (!u.searchParams.has(f.name)) { u.searchParams.set(f.name, f.value); changed = true; } });
+          pfUtmFields().concat(pfMetaIdFields('f8009d2f-d93b-40b1-a669-d6c112abe6a5')).forEach(function (f) { if (!u.searchParams.has(f.name)) { u.searchParams.set(f.name, f.value); changed = true; } });
           if (changed) history.replaceState(history.state, '', u.toString());
         } catch (e) {}
         hbspt.forms.create({
@@ -8763,7 +8775,7 @@
       opt('company', 'pf-iwr-company');
       opt('ams_platform__c', 'pf-iwr-ams');
       var hutk = (document.cookie.match(/(?:^|;\s*)hubspotutk=([^;]+)/) || [])[1];
-      var payload = { submittedAt: Date.now(), fields: fields.concat(pfUtmFields()), context: { pageUri: window.location.href, pageName: document.title } };
+      var payload = { submittedAt: Date.now(), fields: fields.concat(pfUtmFields(), pfMetaIdFields(FORM_ID)), context: { pageUri: window.location.href, pageName: document.title } };
       if (hutk) payload.context.hutk = hutk;
       fetch('https://api.hsforms.com/submissions/v3/integration/submit/21158441/' + FORM_ID, {
         method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
@@ -8971,7 +8983,7 @@
         var hutk = (document.cookie.match(/(?:^|;\s*)hubspotutk=([^;]+)/) || [])[1];
         var payload = {
           submittedAt: Date.now(),
-          fields: [ { name: 'email', value: email } ].concat(pfUtmFields()),
+          fields: [ { name: 'email', value: email } ].concat(pfUtmFields(), pfMetaIdFields(FORM_ID)),
           context: {
             pageUri: window.location.href,
             pageName: document.title
@@ -9141,7 +9153,7 @@
         var hutk = (document.cookie.match(/(?:^|;\s*)hubspotutk=([^;]+)/) || [])[1];
         var payload = {
           submittedAt: Date.now(),
-          fields: [ { name: 'email', value: email } ].concat(pfUtmFields()),
+          fields: [ { name: 'email', value: email } ].concat(pfUtmFields(), pfMetaIdFields('9db4f81b-6fb2-4b01-9dd4-bba9c2b3c323')),
           context: {
             pageUri: window.location.href,
             pageName: document.title
@@ -9351,7 +9363,7 @@
     var fields = [{ name: 'email', value: email }];
     if (cfg.resourceField) fields.push({ name: cfg.resourceField, value: lm.hs });
     if (cfg.answerField && answer) fields.push({ name: cfg.answerField, value: answer });
-    fields = fields.concat(pfUtmFields());
+    fields = fields.concat(pfUtmFields(), pfMetaIdFields(cfg.formId));
     var hutk = (document.cookie.match(/(?:^|;\s*)hubspotutk=([^;]+)/) || [])[1];
     var context = {
       pageUri: window.location.href,
@@ -9793,7 +9805,7 @@
       var fields = [{ name: 'firstname', value: fn }, { name: 'email', value: email }];
       if (org) fields.push({ name: 'company', value: org });
       if (hs) fields.push({ name: cfg.resourceField, value: hs });
-      fields = fields.concat(pfUtmFields());
+      fields = fields.concat(pfUtmFields(), pfMetaIdFields(cfg.formId));
       var hutk = (document.cookie.match(/(?:^|;\s*)hubspotutk=([^;]+)/) || [])[1];
       var context = { pageUri: window.location.href, pageName: 'Download page: ' + name };
       if (hutk) context.hutk = hutk;
@@ -10094,7 +10106,7 @@
       var hutk = (document.cookie.match(/(?:^|;\s*)hubspotutk=([^;]+)/) || [])[1];
       var payload = {
         submittedAt: Date.now(),
-        fields: [ { name: 'email', value: email } ].concat(pfUtmFields()),
+        fields: [ { name: 'email', value: email } ].concat(pfUtmFields(), pfMetaIdFields(FORM_ID)),
         context: {
           pageUri: window.location.href,
           pageName: document.title
