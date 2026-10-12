@@ -4185,6 +4185,51 @@
   // (qa/maif-page-preview.html). Production keeps the existing fixMembershipAIPage()
   // implementation untouched until this is promoted.
   // ─────────────────────────────────────────
+  // Membership AI hero: coded AI Campaign Builder story (no video). Static end state for reduced motion.
+  function mountMaiBuilderAnim(afterEl) {
+    if (!afterEl || document.getElementById('mcb')) return;
+    if (!document.getElementById('mcb-styles')) {
+      var st = document.createElement('style'); st.id = 'mcb-styles';
+      st.textContent = ".mcb{--ch:#2F2F2F;--mg:#6E6E6E;--bg:#F4F1EA;--deep:#EAE4D8;--line:#E3DDD2;--st:#4A7FA5;--dor:#F05A28;--ease:cubic-bezier(.22,1,.36,1);max-width:560px;margin:48px auto 0;text-align:left;background:#F6F2E8;border:1px solid var(--line);border-radius:20px;box-shadow:0 18px 50px rgba(31,58,81,.12),0 2px 6px rgba(120,100,70,.06);overflow:hidden;color:var(--ch);font-family:inherit;line-height:1.5}\n.mcb *,.mcb *::before,.mcb *::after{box-sizing:border-box}\n:where(.mcb) :where(p,b,em,small,span){margin:0}\n.mcb-bar{display:flex;align-items:center;gap:6px;padding:12px 16px;border-bottom:1px solid var(--line)}\n.mcb-bar i{width:9px;height:9px;border-radius:50%;background:#E7E2D8;display:block}\n.mcb-bar span{margin-left:8px;font-size:12px;font-weight:700;color:var(--mg);letter-spacing:.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}\n.mcb-bar em{margin-left:auto;flex:none;font-style:normal;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#8a8478;background:var(--deep);padding:3px 8px;border-radius:999px}\n@media (prefers-reduced-motion:reduce){.mcb *{animation:none!important}}\n.mcb-view{height:440px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:0 18px;-webkit-mask-image:linear-gradient(to bottom,transparent,#000 56px);mask-image:linear-gradient(to bottom,transparent,#000 56px)}\n.mcb-feed{display:grid;gap:12px;padding-bottom:14px}\n.mcb-s{display:grid;grid-template-rows:1fr}\n.mcb-s>div{min-height:0}\n.mcb:not(.mcb-anim) .mcb-tmp{display:none}\n.mcb-me{margin-left:12%!important;background:var(--st);color:#F4F1EA;border-radius:14px 14px 4px 14px;padding:12px 14px;font-size:14px;font-weight:600;line-height:1.45}\n.mcb-st{font-size:13px;font-weight:600;color:var(--mg);display:flex;align-items:center;gap:8px}\n.mcb-st i{width:8px;height:8px;border-radius:50%;background:var(--st);animation:mcb-pulse 1.2s ease-in-out infinite}\n@keyframes mcb-pulse{50%{opacity:.25;transform:scale(.7)}}\n.mcb-card{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:13px}\n.mcb-k{display:block;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--st)}\n.mcb-card p{margin-top:4px!important;font-weight:600}\n.mcb-q{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:8px;padding-top:8px;border-top:1px solid var(--line);color:var(--mg);line-height:1.35}\n.mcb-a{flex:none;font-style:normal;font-weight:700;font-size:12px;color:var(--st);background:rgba(74,127,165,.1);border-radius:999px;padding:4px 10px}\n.mcb-t{font-size:17px;font-weight:800;letter-spacing:-.01em;margin-top:4px!important}\n.mcb-m{font-size:12px;color:var(--mg);font-weight:600}\n.mcb-row{display:grid;grid-template-columns:62px 1fr;gap:10px;align-items:start;font-size:14px;font-weight:700;line-height:1.35}\n.mcb-d{font-size:11px;font-weight:700;text-align:center;padding:4px 0;border-radius:999px;background:var(--deep);color:var(--ch)}\n.mcb-row small{display:block;font-size:12px;font-weight:600;color:var(--st);margin-top:3px}\n.mcb-br{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}\n.mcb-br span{font-size:12px;font-weight:700;border:1px solid rgba(74,127,165,.28);background:#FBF9F4;border-radius:10px;padding:6px 8px;line-height:1.25}\n.mcb-br small{margin-top:2px;color:var(--dor)}\n.mcb-opt{display:flex;align-items:center;gap:8px;margin-top:8px;padding:8px 10px;border-radius:10px;border:1.5px solid var(--st);font-weight:700;box-shadow:0 0 0 3px rgba(74,127,165,.15)}\n.mcb-opt i{width:12px;height:12px;border-radius:50%;border:3.5px solid var(--st);background:#FBF9F4}\n.mcb-ready{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:14px;background:rgba(125,155,78,.12);border:1px solid rgba(125,155,78,.35);color:#5c7a32}\n.mcb-ready b{display:block;font-size:15px;color:var(--ch)}\n.mcb-ready small{font-size:12px;font-weight:700}\n.mcb-in{display:flex;align-items:center;gap:10px;margin:0 14px 14px;padding:10px 10px 10px 14px;border:1px solid var(--line);border-radius:14px;background:#FBF9F4;font-size:13px;color:#9a958c;min-height:44px}\n.mcb-in span{flex:1;height:2.9em;overflow:hidden;line-height:1.45;display:flex;flex-direction:column;justify-content:center}\n.mcb-in.mcb-ty span{justify-content:flex-end}\n.mcb-in.mcb-ty span{color:var(--ch);font-weight:600}\n.mcb-go{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--st);color:#FBF9F4;transition:transform .2s var(--ease)}\n.mcb-in.mcb-snd .mcb-go{transform:scale(.82)}\n.mcb.mcb-anim .mcb-s{grid-template-rows:0fr;opacity:0;transition:grid-template-rows .55s var(--ease),opacity .45s var(--ease)}\n.mcb.mcb-anim .mcb-s>div{overflow:hidden;transform:translateY(10px) scale(.985);transition:transform .6s var(--ease)}\n.mcb.mcb-anim .mcb-s.on{grid-template-rows:1fr;opacity:1}\n.mcb.mcb-anim .mcb-s.on>div{transform:none}\n.mcb.mcb-anim .mcb-s.gone{display:none}\n.mcb.mcb-anim .mcb-a{opacity:0;transform:scale(.9);transition:opacity .3s,transform .4s var(--ease)}\n.mcb.mcb-anim .mcb-a.on{opacity:1;transform:none}\n.mcb.mcb-anim .mcb-br span{opacity:0;transform:translateY(6px);transition:opacity .35s,transform .45s var(--ease)}\n.mcb.mcb-anim .mcb-br span.on{opacity:1;transform:none}\n.mcb.mcb-reset *{transition:none!important}\n.mcb.mcb-reset .mcb-feed{opacity:0;transition:opacity .5s ease!important}\n@media (max-width:480px){.mcb-view{height:400px;padding:0 14px}.mcb-row{grid-template-columns:54px 1fr;font-size:13px}}";
+      document.head.appendChild(st);
+    }
+    var wrap = document.createElement('div');
+    wrap.innerHTML = "<div class=\"mcb\" id=\"mcb\" role=\"img\" aria-label=\"Animated example of the AI Campaign Builder. A membership manager types: I have to completely revamp our new member onboarding. The builder asks two quick questions, then lays out the campaign: a Day 0 welcome check-in whose answer buttons each branch to their own follow-up, Day 3 and Day 7 check-ins that tag what members say, a follow-up for anyone who hasn't answered, and a staff alert on certification interest. It ends on: Draft ready. Review and launch. Sample.\">\n      <div class=\"mcb-bar\" aria-hidden=\"true\"><i></i><i></i><i></i><span>Membership AI &middot; Campaign Builder</span><em>Sample</em></div>\n      <div class=\"mcb-view\" aria-hidden=\"true\"><div class=\"mcb-feed\">\n        <div class=\"mcb-s\"><div><p class=\"mcb-me\" id=\"mcb-me\">I have to completely revamp our new member onboarding. Make it current, use best practices, and give each new member a tailored response based on their interests.</p></div></div>\n        <div class=\"mcb-s mcb-tmp\"><div><p class=\"mcb-st\"><i></i>Searching campaigns&hellip;</p></div></div>\n        <div class=\"mcb-s\"><div class=\"mcb-card\"><b class=\"mcb-k\">Before I build the plan</b><p>A couple of quick things I need from you:</p>\n          <div class=\"mcb-q\"><span>Add a certification interest check-in?</span><em class=\"mcb-a\">Yes, add it</em></div>\n          <div class=\"mcb-q\"><span>Tag career stage and learning style when they answer?</span><em class=\"mcb-a\">Yes, tag everything</em></div></div></div>\n        <div class=\"mcb-s\"><div><b class=\"mcb-k\">Here's the full plan</b><p class=\"mcb-t\">New Member Onboarding</p><p class=\"mcb-m\">Email sequence &middot; check-ins across the first year</p></div></div>\n        <div class=\"mcb-s\"><div class=\"mcb-row\"><b class=\"mcb-d\">Day 0</b><div><p>Welcome! What are you most hoping to get out of your membership this year?</p>\n          <div class=\"mcb-br\"><span>Networking<small>&rarr; Event invite</small></span><span>Learning<small>&rarr; Course guide</small></span><span>Certification<small>&rarr; Cert campaign</small></span><span>Something else<small>&rarr; Alert staff</small></span></div></div></div></div>\n        <div class=\"mcb-s\"><div class=\"mcb-row\"><b class=\"mcb-d\">Day 3</b><div><p>How do you prefer to learn?</p><small>&rarr; Tag learning preference</small></div></div></div>\n        <div class=\"mcb-s\"><div class=\"mcb-row\"><b class=\"mcb-d\">Day 7</b><div><p>Where are you in your career journey?</p><small>&rarr; Tag career stage</small></div></div></div>\n        <div class=\"mcb-s\"><div class=\"mcb-row\"><b class=\"mcb-d\">Day 10</b><div><p>Follow-up for anyone who hasn't answered yet</p><small>&rarr; Short, friendly nudge</small></div></div></div>\n        <div class=\"mcb-s\"><div class=\"mcb-row\"><b class=\"mcb-d\">Month 6</b><div><p>Interested in pursuing certification?</p><small>&rarr; Alert staff on &ldquo;Yes&rdquo;</small></div></div></div>\n        <div class=\"mcb-s\"><div class=\"mcb-card\"><b class=\"mcb-k\">Plan approval</b><p>Does this plan look right?</p><div class=\"mcb-opt\"><i></i>Build it</div></div></div>\n        <div class=\"mcb-s\"><div class=\"mcb-ready\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M20 6 9 17l-5-5\"/></svg><div><b>Draft ready. Review and launch.</b><small>Checked as it built</small></div></div></div>\n      </div></div>\n      <div class=\"mcb-in\" aria-hidden=\"true\"><span id=\"mcb-in\">Ask a question or change anything&hellip;</span><i class=\"mcb-go\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 19V5M5 12l7-7 7 7\"/></svg></i></div>\n    </div>";
+    afterEl.parentNode.insertBefore(wrap.firstElementChild, afterEl.nextSibling);
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce || !('IntersectionObserver' in window)) return;
+    // Hero: AI Campaign Builder story. Runs on its own clock that only advances while the card is on screen.
+    var cb=document.getElementById('mcb');
+    if(cb){
+      var steps=[].slice.call(cb.querySelectorAll('.mcb-s')),ans=[].slice.call(cb.querySelectorAll('.mcb-a')),brs=[].slice.call(cb.querySelectorAll('.mcb-br span'));
+      var inp=cb.querySelector('.mcb-in'),txt=document.getElementById('mcb-in'),idle=txt.textContent,ask=document.getElementById('mcb-me').textContent;
+      var ev=[],t=600,typeAt=t,typeDur=ask.length*26;
+      function at(d,f){t+=d;ev.push([t,f]);}
+      function on(el){return function(){el.classList.add('on');};}
+      at(0,function(){inp.classList.add('mcb-ty');});
+      t+=typeDur;
+      at(350,function(){inp.classList.add('mcb-snd');});
+      at(220,function(){inp.classList.remove('mcb-ty','mcb-snd');txt.textContent='The builder is working\u2026';steps[0].classList.add('on');});
+      at(650,on(steps[1]));at(1500,on(steps[2]));at(900,on(ans[0]));at(700,on(ans[1]));
+      at(900,on(steps[3]));at(800,on(steps[4]));
+      brs.forEach(function(b){at(260,on(b));});
+      for(var k=5;k<9;k++)at(k==5?800:650,on(steps[k]));
+      at(900,on(steps[9]));at(1000,function(){steps[10].classList.add('on');txt.textContent=idle;});
+      at(5200,function(){cb.classList.add('mcb-reset');});
+      at(600,function(){cb.querySelectorAll('.on').forEach(function(e){e.classList.remove('on');});clock=0;i=0;cb.offsetHeight;cb.classList.remove('mcb-reset');});
+      var clock=0,i=0,last=0,run=false,raf=0;
+      function frame(now){
+        if(!run)return;var dt=last?Math.min(now-last,100):16;last=now;clock+=dt;
+        if(clock>=typeAt&&clock<typeAt+typeDur+350)txt.textContent=ask.slice(0,Math.ceil((clock-typeAt)/26));
+        while(i<ev.length&&clock>=ev[i][0]){var f=ev[i][1];i++;f();}
+        raf=requestAnimationFrame(frame);
+      }
+      cb.classList.add('mcb-anim');
+      new IntersectionObserver(function(es){var v=es[0].isIntersecting;if(v&&!run){run=true;last=0;raf=requestAnimationFrame(frame);}else if(!v&&run){run=false;cancelAnimationFrame(raf);}},{threshold:.2}).observe(cb);
+    }
+
+  }
+
   function renderMembershipAIPageStaging() {
     // 1. Inject scoped styles once
     if (!document.getElementById('maif-v2-styles')) {
@@ -4362,7 +4407,7 @@
     }
     var heroSub = document.querySelector('.pf-page-hero-sub');
     if (heroSub) {
-      heroSub.innerHTML = 'Tell the AI Campaign Builder what’s going on with your members, in plain language. It drafts the whole campaign on proven playbooks.<br>You review, edit and launch.';
+      heroSub.textContent = 'Describe what\u2019s going on with your members. Get the whole campaign back as a draft.';
     }
 
     // 6. Hero buttons (brand spec)
@@ -4379,6 +4424,7 @@
         if (sub) { sub.parentNode.insertBefore(btnWrap, sub.nextSibling); }
         else { heroParent.appendChild(btnWrap); }
       }
+      mountMaiBuilderAnim(heroParent.querySelector('.pf-hero-btns-injected'));
     }
 
     // 7. Find CTA section anchor (sections inserted before it)
