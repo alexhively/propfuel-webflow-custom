@@ -1928,6 +1928,12 @@
     try { if (typeof window.lintrk === 'function') window.lintrk('track', { conversion_id: 31101610 }); } catch (e) {}
   }
 
+  // LinkedIn lead-magnet conversion (Campaign Manager conversion 31101618), fired on
+  // every guide request: on-page block, slide-in and /downloads/ pages.
+  function pfLinkedInLeadMagnet() {
+    try { if (typeof window.lintrk === 'function') window.lintrk('track', { conversion_id: 31101618 }); } catch (e) {}
+  }
+
   function initDemoForm() {
     var card = document.querySelector('.pf-demo-form-card');
     if (!card) return;
@@ -9496,6 +9502,7 @@
     } catch (e) {}
     if (event === 'lead_magnet_submit') {
       pfMetaEvent('Lead', { content_category: 'download', content_name: lmKey, placement: params.placement }, email);
+      pfLinkedInLeadMagnet();
     }
   }
 
