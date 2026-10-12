@@ -1917,6 +1917,12 @@
     pfMetaEvent('Schedule', { content_name: source }, email);
   }
 
+  // LinkedIn demo conversion (Campaign Manager conversion 31101610). The Insight
+  // Tag is site-wide; fire only on Book a Demo and the Events Book a Demo form.
+  function pfLinkedInDemo() {
+    try { if (typeof window.lintrk === 'function') window.lintrk('track', { conversion_id: 31101610 }); } catch (e) {}
+  }
+
   function initDemoForm() {
     var card = document.querySelector('.pf-demo-form-card');
     if (!card) return;
@@ -1967,6 +1973,7 @@
       if (cpFormId && event.data.id !== cpFormId) return;
       if (event.data.type === 'hsFormCallback' && event.data.eventName === 'onFormSubmitted') {
         pfTrackLead('book-a-demo', (event.data.data.submissionValues || {}).email);
+        pfLinkedInDemo();
         var lead = event.data.data.submissionValues;
         for (var key in lead) {
           if (Array.isArray(lead[key])) { lead[key] = lead[key].toString().replaceAll(',', ';'); }
@@ -9001,6 +9008,7 @@
           });
         }).then(function(){
           pfTrackLead(confSlug + (repSlug ? '-' + repSlug : ''), email);
+          pfLinkedInDemo();
           // Show ChiliPiper calendar — same tenant/router as /book-a-demo
           var lead = { email: email };
           if (window.ChiliPiper) {
