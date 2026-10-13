@@ -1843,6 +1843,11 @@
     try {
       var q = new URLSearchParams(window.location.search), got = {}, any = false;
       PF_UTM_KEYS.forEach(function (k) { var v = q.get('utm_' + k); if (v) { got[k] = v.slice(0, 200); any = true; } });
+      // 10 Weeks of Fuel (gifting) demo page: gift links may carry no UTMs, so tag the visit as the gifting
+      // campaign unless the link brought its own. Feeds pf_last_utm_* on the demo form like any ad visit.
+      if (!any && /^\/10-weeks-of-fuel\/?$/.test(window.location.pathname)) {
+        got = { source: 'gifting', medium: 'gift', campaign: '10-weeks-of-fuel', content: 'demo-page' }; any = true;
+      }
       if (any) { got.ts = Date.now(); localStorage.setItem('pfUTM', JSON.stringify(got)); }
     } catch (e) {}
   })();
@@ -1923,7 +1928,7 @@
   }
 
   // LinkedIn demo conversion (Campaign Manager conversion 31101610). The Insight
-  // Tag is site-wide; fire only on Book a Demo and the Events Book a Demo form.
+  // Tag is site-wide; fire only on Book a Demo (and its duplicates) and the Events Book a Demo form.
   function pfLinkedInDemo() {
     try { if (typeof window.lintrk === 'function') window.lintrk('track', { conversion_id: 31101610 }); } catch (e) {}
   }
@@ -1983,7 +1988,7 @@
     window.addEventListener('message', function(event) {
       if (cpFormId && event.data.id !== cpFormId) return;
       if (event.data.type === 'hsFormCallback' && event.data.eventName === 'onFormSubmitted') {
-        pfTrackLead('book-a-demo', (event.data.data.submissionValues || {}).email);
+        pfTrackLead(/^\/10-weeks-of-fuel\/?$/.test(window.location.pathname) ? '10-weeks-of-fuel' : 'book-a-demo', (event.data.data.submissionValues || {}).email);
         pfLinkedInDemo();
         var lead = event.data.data.submissionValues;
         for (var key in lead) {
@@ -7747,7 +7752,7 @@
 
   function styleDemoForm() {
     // Also the Google Search landing pages (duplicates of /book-a-demo with the same form card; js/pages/search-lps.js).
-    if (!/^\/(book-a-demo|member-engagement-platform|member-feedback-tool|membership-renewal-software|works-with-your-ams|higher-logic-and-propfuel|feathr-and-propfuel|email-platform-and-propfuel|works-with[\/-][a-z0-9-]+)\/?$/.test(window.location.pathname)) return;
+    if (!/^\/(book-a-demo|10-weeks-of-fuel|member-engagement-platform|member-feedback-tool|membership-renewal-software|works-with-your-ams|higher-logic-and-propfuel|feathr-and-propfuel|email-platform-and-propfuel|works-with[\/-][a-z0-9-]+)\/?$/.test(window.location.pathname)) return;
     var css = [
       '.hs-form,.hs-form *{font-family:"DM Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important}',
       '.hs-form label{font-size:13px!important;font-weight:600!important;color:#2F2F2F!important}',
