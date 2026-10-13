@@ -137,7 +137,10 @@
   function go(id) {
     var t = document.getElementById(id); if (!t) return;
     // the fixed nav pill floats over the top ~90px
-    window.scrollTo({ top: t.getBoundingClientRect().top + window.pageYOffset - 100, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    var smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: t.getBoundingClientRect().top + window.pageYOffset - 100, behavior: smooth ? 'smooth' : 'auto' });
+    // sections slide in (site scroll animation), which moves the target after the first scroll; settle once
+    setTimeout(function () { var y = t.getBoundingClientRect().top; if (Math.abs(y - 100) > 6) window.scrollTo({ top: y + window.pageYOffset - 100, behavior: smooth ? 'smooth' : 'auto' }); }, 900);
   }
 
   // ---------------------------------------------------------------- hero + fit check
