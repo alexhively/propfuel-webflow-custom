@@ -210,9 +210,9 @@
     q1: 'Do we have to replace our email platform?', a1: 'No. Most PropFuel clients keep their email platform. PropFuel adds the question, the answer and the follow-up next to it.'
   });
 
-  // /works-with/{ams}: one page per AMS with a verified, ready PropFuel connector (Super Admin client-integrations check,
-  // Oct 13 2026). Webflow CMS template pages (collection "Works With"); the shell (nav, hero, form card, footer) is built
-  // below when the template has none. Client wording is deliberately rough (Salesforce client counts, not published numbers).
+  // /works-with-{ams}: one page per AMS with a verified, ready PropFuel connector (Super Admin client-integrations check,
+  // Oct 13 2026). Webflow pages duplicated from /member-engagement-platform. /works-with/{ams} is also mapped: if a page
+  // there has no Webflow layout (e.g. a CMS template), the shell (nav, hero, form card, footer) is built below. Client wording is deliberately rough (Salesforce client counts, not published numbers).
   var AMS = {
     'imis': ['iMIS', 'Dozens of associations on iMIS use PropFuel.'],
     'netforum': ['NetForum', 'Dozens of associations on NetForum use PropFuel.'],
@@ -232,7 +232,7 @@
   };
   Object.keys(AMS).forEach(function (slug) {
     var n = AMS[slug][0], who = AMS[slug][1], custom = AMS[slug][2] === 'custom';
-    PAGES['/works-with/' + slug] = {
+    PAGES['/works-with/' + slug] = PAGES['/works-with-' + slug] = {
       shell: true,
       seoTitle: 'PropFuel for ' + n + ' | Member Insights for ' + n + ' Associations',
       hero: {
