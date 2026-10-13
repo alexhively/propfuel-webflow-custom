@@ -10,8 +10,9 @@ import { generateVisualReport } from './lib/report.mjs';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPORTS_DIR = path.join(__dirname, 'reports');
 
-const ORIGINAL = 'https://propfuel-hero-v2-deploy.vercel.app';
-const WEBFLOW  = 'https://propfuel-v2.webflow.io';
+// Before/after on the same staging site: live main files vs the files being pushed.
+// (This used to compare against the old hero-v2 mockup, which the site has long since moved past.)
+const WEBFLOW = 'https://propfuel-v2.webflow.io';
 
 const PAGES = [
   { name: 'Homepage', path: '/' },
@@ -22,6 +23,7 @@ const PAGES = [
 
 const VIEWPORTS = ['desktop', 'tablet', 'mobile'];
 const THRESHOLD = 0.15; // pixelmatch threshold
+export const MIN_SIMILARITY = 99.95; // identical code scores 100%; anything lower is a visible change
 
 export async function runVisualComparison() {
   mkdirSync(REPORTS_DIR, { recursive: true });
@@ -36,11 +38,10 @@ export async function runVisualComparison() {
       console.log(`  Capturing ${label}...`);
 
       try {
-        // Capture both sites
-        const [origBuf, wfBuf] = await Promise.all([
-          captureFullPage(browser, ORIGINAL + page.path, viewport),
-          captureFullPage(browser, WEBFLOW + page.path, viewport),
-        ]);
+        // Same page twice: with live main files, then with this push's files.
+        // One at a time: a tab captured in parallel gets throttled animations and renders differently.
+        const origBuf = await captureFullPage(browser, WEBFLOW + page.path, viewport, { side: 'main' });
+        const wfBuf = await captureFullPage(browser, WEBFLOW + page.path, viewport, { side: 'push' });
 
         // Decode PNGs
         const origPng = PNG.sync.read(origBuf);
@@ -64,8 +65,8 @@ export async function runVisualComparison() {
         const similarity = ((1 - mismatchCount / totalPixels) * 100).toFixed(2);
 
         // Save images
-        const origFile = `${label}-original.png`;
-        const wfFile = `${label}-webflow.png`;
+        const origFile = `${label}-live.png`;
+        const wfFile = `${label}-push.png`;
         const diffFile = `${label}-diff.png`;
 
         writeFileSync(path.join(REPORTS_DIR, origFile), PNG.sync.write(img1));
@@ -88,6 +89,7 @@ export async function runVisualComparison() {
           page: page.name,
           viewport,
           similarity: 0,
+          error: err.message,
           originalFile: '',
           webflowFile: '',
           diffFile: '',
@@ -98,7 +100,7 @@ export async function runVisualComparison() {
 
   await browser.close();
 
-  const reportPath = generateVisualReport(comparisons, REPORTS_DIR);
+  const reportPath = generateVisualReport(comparisons, REPORTS_DIR, MIN_SIMILARITY);
   console.log(`\nVisual report: file://${reportPath}`);
 
   return { comparisons, reportPath };
