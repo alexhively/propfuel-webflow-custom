@@ -136,7 +136,8 @@
   }
   function go(id) {
     var t = document.getElementById(id); if (!t) return;
-    t.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+    // the fixed nav pill floats over the top ~90px
+    window.scrollTo({ top: t.getBoundingClientRect().top + window.pageYOffset - 100, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
   }
 
   // ---------------------------------------------------------------- hero + fit check
