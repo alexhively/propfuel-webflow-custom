@@ -7729,7 +7729,7 @@
   // BOOK A DEMO: brand the HubSpot form
   // The demo form renders in a same-origin HubSpot iframe with HubSpot's default look (grey
   // inputs, small black 'Request Demo' button). Inject brand styles into the iframe once it's ready.
-  // Scoped to /book-a-demo because other pages' HubSpot forms may sit on dark sections.
+  // Scoped to /book-a-demo and the Search landing pages because other pages' HubSpot forms may sit on dark sections.
   // ─────────────────────────────────────────
   // ─────────────────────────────────────────
   // AGENT READINESS: point AI agents at a Markdown copy of this page
@@ -7746,7 +7746,8 @@
   }
 
   function styleDemoForm() {
-    if (!/^\/book-a-demo\/?$/.test(window.location.pathname)) return;
+    // Also the Google Search landing pages (duplicates of /book-a-demo with the same form card; js/pages/search-lps.js).
+    if (!/^\/(book-a-demo|member-engagement-platform|member-feedback-tool|membership-renewal-software|works-with-your-ams)\/?$/.test(window.location.pathname)) return;
     var css = [
       '.hs-form,.hs-form *{font-family:"DM Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important}',
       '.hs-form label{font-size:13px!important;font-weight:600!important;color:#2F2F2F!important}',
