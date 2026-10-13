@@ -168,6 +168,102 @@
     }
   };
 
+  // ---------------------------------------------------------------- competitor campaign pages (PF | Search | Competitors, Oct 13 2026)
+  // "Use both" framing: no claims about the other product, only what PropFuel adds. Names cleared by Alex Oct 13.
+  function toolPage(o) {
+    return {
+      hero: {
+        label: o.label, h1: o.h1, sub: o.sub,
+        checks: [o.keep, 'One-question emails members answer with one click', 'Every answer saved to the member’s record', 'A follow-up that fits each answer'],
+        formH: 'See it next to what you run',
+        formP: 'Tell us what you send with today. We’ll show you where PropFuel fits and what changes for your members.',
+        v: {}, match: o.match || [], variants: o.variants || {}
+      },
+      stats: [['370+', 'associations use PropFuel'], ['2,246', 'answers to one question (AWHONN)'], ['8.68%', 'average revenue growth in year one'], ['72%', 'of declining organizations reversed course']],
+      section: { kind: 'compare', h: 'How they fit together', lh: 'What stays the same', rh: 'What PropFuel adds',
+        left: o.stays, right: ['One question per email or website check-in, answered with one click', 'Every answer saved to the member record, not a separate report', 'A follow-up for each answer, drafted for you', 'Membership AI drafts the next campaign for your team to approve'] },
+      cases: ['awhonn', 'txcpa', 'nacubo'], quote: 'ala',
+      faq: [[o.q1, o.a1], FAQ_EMAIL, FAQ_AMS, FAQ_TEAM, FAQ_COST]
+    };
+  }
+  PAGES['/higher-logic-and-propfuel'] = toolPage({
+    label: 'Higher Logic + PropFuel', h1: 'Already on Higher Logic? Add the listening layer.',
+    sub: 'Keep running Higher Logic. PropFuel adds one-question emails and website check-ins that ask members what they need, saves every answer, and starts the follow-up that fits it. Many PropFuel clients run both.',
+    keep: 'Keep your Higher Logic setup as it is',
+    stays: ['Your Higher Logic setup and the team that runs it', 'The emails and newsletters you already send', 'Your AMS as the system of record'],
+    q1: 'Do we have to stop using Higher Logic?', a1: 'No. Many PropFuel clients run Higher Logic too. PropFuel adds the question, the answer and the follow-up; everything you send today keeps running.',
+    match: [[/thrive/, 'thrive']],
+    variants: { thrive: { h1: 'On Higher Logic Thrive? Add the listening layer.' } }
+  });
+  PAGES['/feathr-and-propfuel'] = toolPage({
+    label: 'Feathr + PropFuel', h1: 'Already on Feathr? Add the listening layer.',
+    sub: 'Keep running Feathr. PropFuel adds one-question emails and website check-ins that ask members what they need, saves every answer, and starts the follow-up that fits it. Many PropFuel clients run both.',
+    keep: 'Keep your Feathr setup as it is',
+    stays: ['Your Feathr setup and the team that runs it', 'The campaigns you already run', 'Your AMS as the system of record'],
+    q1: 'Do we have to stop using Feathr?', a1: 'No. Many PropFuel clients run Feathr too. PropFuel adds the question, the answer and the follow-up; everything you run today keeps running.'
+  });
+  PAGES['/email-platform-and-propfuel'] = toolPage({
+    label: 'Works with your email platform', h1: 'Already have an email platform? Add the listening layer.',
+    sub: 'Keep the platform you send with. PropFuel adds one-question emails and website check-ins that ask members what they need, saves every answer, and starts the follow-up that fits it.',
+    keep: 'Keep the email platform you use today',
+    stays: ['The email platform you send with', 'The newsletters and campaigns already on your calendar', 'Your AMS as the system of record'],
+    q1: 'Do we have to replace our email platform?', a1: 'No. Most PropFuel clients keep their email platform. PropFuel adds the question, the answer and the follow-up next to it.'
+  });
+
+  // /works-with/{ams}: one page per AMS with a verified, ready PropFuel connector (Super Admin client-integrations check,
+  // Oct 13 2026). Webflow CMS template pages (collection "Works With"); the shell (nav, hero, form card, footer) is built
+  // below when the template has none. Client wording is deliberately rough (Salesforce client counts, not published numbers).
+  var AMS = {
+    'imis': ['iMIS', 'Dozens of associations on iMIS use PropFuel.'],
+    'netforum': ['NetForum', 'Dozens of associations on NetForum use PropFuel.'],
+    'yourmembership': ['YourMembership', 'Dozens of associations on YourMembership use PropFuel.'],
+    'memberclicks': ['MemberClicks', 'Around two dozen associations on MemberClicks use PropFuel.'],
+    'fonteva': ['Fonteva', 'Around two dozen associations on Fonteva use PropFuel.'],
+    'nimble-ams': ['Nimble AMS', 'Around two dozen associations on Nimble AMS use PropFuel.'],
+    'novi-ams': ['Novi AMS', 'More than a dozen associations on Novi AMS use PropFuel.'],
+    'impexium': ['Impexium', 'More than a dozen associations on Impexium use PropFuel.'],
+    'protech': ['Protech', 'More than a dozen associations on Protech use PropFuel.'],
+    'membersuite': ['MemberSuite', 'Associations on MemberSuite use PropFuel today.'],
+    'aptify': ['Aptify', 'Associations on Aptify use PropFuel today.', 'custom'],
+    'personify': ['Personify', 'Associations on Personify use PropFuel today.', 'custom'],
+    'membercentral': ['MemberCentral', 'Associations on MemberCentral use PropFuel today.'],
+    'association-anywhere': ['Association Anywhere', 'Associations on Association Anywhere use PropFuel today.'],
+    'rhythm': ['Rhythm', 'Associations on Rhythm use PropFuel today.']
+  };
+  Object.keys(AMS).forEach(function (slug) {
+    var n = AMS[slug][0], who = AMS[slug][1], custom = AMS[slug][2] === 'custom';
+    PAGES['/works-with/' + slug] = {
+      shell: true,
+      seoTitle: 'PropFuel for ' + n + ' | Member Insights for ' + n + ' Associations',
+      hero: {
+        label: 'PropFuel + ' + n,
+        h1: 'Get more from ' + n,
+        sub: n + ' holds your member records. PropFuel asks members what they need, one question at a time, and acts on every answer. ' + who,
+        checks: ['Member records sync from ' + n + ' into PropFuel', 'Member type and renewal dates decide who gets asked what', 'One-question emails members answer with one click', 'Your team keeps working in ' + n],
+        formH: 'See PropFuel with ' + n,
+        formP: 'Tell us how you use ' + n + '. We’ll show you what syncs, what members get asked and what your team sees.',
+        v: {},
+        match: [[/integrat|api|connect|sync/, 'integration'], [/review|compar|altern|pricing|cost|vs\b|versus|replac/, 'shopping']],
+        variants: {
+          integration: { h1: 'Connect ' + n + ' to the member insights it’s missing' },
+          shopping: { h1: 'Before you replace ' + n + ', add member insights',
+                      sub: 'Many teams look at a new AMS because they can’t tell what members need. PropFuel answers that on top of ' + n + '. ' + who }
+        }
+      },
+      stats: [['370+', 'associations use PropFuel'], ['8.68%', 'average revenue growth in year one'], ['4,500+', 'member profile fields updated by one client’s campaign'], ['72%', 'of declining organizations reversed course']],
+      section: { kind: 'compare', h: 'What syncs with ' + n, lh: 'From ' + n + ' into PropFuel', rh: 'From PropFuel back to your team',
+        left: ['Member ID, name and email', 'Member type and status', 'Join, expiry and paid-through dates', 'Email preferences and other fields you choose to map'],
+        right: ['Each member’s answers on their PropFuel profile', 'Segments built from what members said', 'Follow-up campaigns that start from each answer', 'Answers written back to ' + n + ' where your setup supports it'] },
+      cases: ['gsa', 'txcpa', 'nacubo'], quote: 'txcpa',
+      faq: [
+        ['Does PropFuel replace ' + n + '?', 'No. ' + n + ' stays your system of record. PropFuel connects to it, asks members questions and acts on the answers.'],
+        ['What comes over from ' + n + '?', 'The fields you choose to map: usually member ID, name, email, member type, and join, expiry or paid-through dates. Those decide who gets asked what, and when.'],
+        ['Do answers go back into ' + n + '?', 'Where ' + n + ' and your setup support it, yes. We’ll confirm exactly what writes back for your ' + n + ' setup on the call.'],
+        ['How long does setup take?', custom ? 'The ' + n + ' connection is configured for each client, so we scope yours on the call. Our team does the setup with you; it isn’t an IT project.' : 'Our team sets up the ' + n + ' connection with you; it isn’t an IT project. We’ll walk through the steps on the call.'],
+        FAQ_TEAM, FAQ_COST]
+    };
+  });
+
   var cfg = PAGES[path];
   if (!cfg) return;
   var root = document.documentElement;
@@ -181,6 +277,7 @@
     try { raw = new URLSearchParams(window.location.search).get('kw') || ''; } catch (e) {}
     var k = raw.toLowerCase().replace(/[+_]/g, ' ').replace(/["\[\]]/g, '').replace(/\s+/g, ' ').trim();
     var id = cfg.hero.v[k];
+    if (!id && k) (cfg.hero.match || []).some(function (m) { if (m[0].test(k)) { id = m[1]; return true; } return false; });
     return { id: id || 'default', o: (id && cfg.hero.variants[id]) || {} };
   }
   function setText(sel, txt) { var el = document.querySelector(sel); if (el && txt) el.textContent = txt; return el; }
@@ -247,6 +344,20 @@
   var st = document.createElement('style'); st.id = 'pflp-styles'; st.textContent = css; document.head.appendChild(st);
   root.classList.add('pflp-on');
 
+  // ---------------------------------------------------------------- shell (CMS template pages have no Webflow layout)
+  // Same markup as /book-a-demo, so the site script styles the nav and fills .pf-demo-form-card with the HubSpot demo form.
+  // Runs before DOMContentLoaded (defer), i.e. before webflow-enhancements.js init() looks for the form card.
+  if (cfg.shell && !document.querySelector('.pf-demo-hero')) {
+    var shell = document.createElement('div');
+    shell.innerHTML = "<div class=\"pf-nav-bar\"><div class=\"pf-nav-inner\"><a href=\"/\" class=\"pf-nav-logo w-inline-block\"><div class=\"pf-nav-logo-text\">PropFuel</div></a><div class=\"pf-nav-links\"><a href=\"/platform/overview\" class=\"pf-nav-link\">Platform</a><a href=\"/use-cases/onboarding\" class=\"pf-nav-link\">Use Cases</a><a href=\"/client-success/customers\" class=\"pf-nav-link\">Customers</a><a href=\"/resources/blog\" class=\"pf-nav-link\">Resources</a></div><div class=\"pf-nav-right\"><a href=\"https://app.propfuel.com\" class=\"pf-nav-link\">Log In</a><a href=\"/book-a-demo\" aria-current=\"page\" class=\"pf-btn-nav w-button w--current\">Get a Demo</a></div></div></div>" +
+      '<section class="pf-demo-hero"><div class="pf-demo-hero-inner"><div><p class="pf-demo-label"></p><h1 class="pf-demo-title"></h1>' +
+      '<p class="pf-demo-subtitle"></p><div class="pf-demo-checklist">' + new Array(5).join('<p class="pf-demo-check-item"></p>') + '</div></div>' +
+      '<div class="pf-demo-form-card"><h2 class="pf-demo-form-heading"></h2><p class="pf-paragraph-small"></p></div></div></section>' +
+      "<section class=\"pf-footer\"><div class=\"pf-footer-inner\"><div class=\"pf-footer-top\"><div class=\"pf-footer-brand\"><h3 class=\"pf-nav-logo-text is-h3\">PropFuel</h3><p>The membership insights and engagement platform that helps associations understand what members want and act on it.</p></div><div><h3 class=\"pf-footer-col-title is-h3\">Product</h3><a href=\"/platform/insights\" class=\"pf-footer-link\">The Insights Engine</a><a href=\"/platform/automation\" class=\"pf-footer-link\">The Automation Engine</a><a href=\"/platform/website\" class=\"pf-footer-link\">The Engagement Engine</a><a href=\"/membership-ai\" class=\"pf-footer-link\">Membership AI</a><a href=\"/integrations\" class=\"pf-footer-link\">Integrations</a></div><div><h3 class=\"pf-footer-col-title is-h3\">Resources</h3><a href=\"/client-success/case-studies\" class=\"pf-footer-link\">Case Studies</a><a href=\"/resources/blog\" class=\"pf-footer-link\">Blog</a><a href=\"/roi\" class=\"pf-footer-link\">ROI</a><a href=\"/resources/help-center\" class=\"pf-footer-link\">Help Center</a></div><div><h3 class=\"pf-footer-col-title is-h3\">Company</h3><a href=\"/company/about\" class=\"pf-footer-link\">About</a><a href=\"/company/careers\" class=\"pf-footer-link\">Careers</a><a href=\"/company/contact\" class=\"pf-footer-link\">Contact</a><a href=\"/company/partners\" class=\"pf-footer-link\">Partners</a></div></div><div class=\"pf-footer-bottom\"><p class=\"pf-footer-copy\">\u00a9 2026 PropFuel. All rights reserved.</p><div class=\"pf-footer-legal\"><a href=\"/legal/privacy\" class=\"pf-footer-link\">Privacy</a><a href=\"/legal/terms\" class=\"pf-footer-link\">Terms</a></div></div></div></section>";
+    while (shell.lastChild) document.body.insertBefore(shell.lastChild, document.body.firstChild);
+    if (cfg.seoTitle) document.title = cfg.seoTitle;
+  }
+
   // ---------------------------------------------------------------- hero
   var h = cfg.hero, kv = kwVariant();
   setText('.pf-demo-label', kv.o.label || h.label);
@@ -273,9 +384,9 @@
   out.push('<section class="pflp-sec"><div class="pflp-wrap"><p class="pflp-label">How it works</p><h2 class="pflp-h2">Ask. Capture. Act.</h2><div class="pflp-steps">' +
     STEPS.map(function (s, n) { return '<div class="pflp-step"><b><span>' + (n + 1) + '</span>' + esc(s[0]) + '</b><p>' + esc(s[1]) + '</p></div>'; }).join('') +
     '</div></div></section>');
-  var sec = cfg.section, cmp = '<div class="pflp-cmp"><div class="pflp-col"><h3>' + (sec.kind === 'ams' ? 'Your AMS' : 'Today') + '</h3><ul>' +
+  var sec = cfg.section, cmp = '<div class="pflp-cmp"><div class="pflp-col"><h3>' + esc(sec.lh || (sec.kind === 'ams' ? 'Your AMS' : 'Today')) + '</h3><ul>' +
     sec.left.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div><div class="pflp-col is-pf"><h3>' +
-    (sec.kind === 'ams' ? 'Your AMS + PropFuel' : 'With PropFuel') + '</h3><ul>' +
+    esc(sec.rh || (sec.kind === 'ams' ? 'Your AMS + PropFuel' : 'With PropFuel')) + '</h3><ul>' +
     sec.right.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div></div>';
   if (sec.kind === 'ams') {
     out.push('<section class="pflp-sec"><div class="pflp-wrap"><p class="pflp-label">Integrations</p><h2 class="pflp-h2">' + esc(sec.h) + '</h2><div class="pflp-ams">' +

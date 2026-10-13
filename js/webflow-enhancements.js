@@ -7747,7 +7747,7 @@
 
   function styleDemoForm() {
     // Also the Google Search landing pages (duplicates of /book-a-demo with the same form card; js/pages/search-lps.js).
-    if (!/^\/(book-a-demo|member-engagement-platform|member-feedback-tool|membership-renewal-software|works-with-your-ams)\/?$/.test(window.location.pathname)) return;
+    if (!/^\/(book-a-demo|member-engagement-platform|member-feedback-tool|membership-renewal-software|works-with-your-ams|higher-logic-and-propfuel|feathr-and-propfuel|email-platform-and-propfuel|works-with\/[a-z0-9-]+)\/?$/.test(window.location.pathname)) return;
     var css = [
       '.hs-form,.hs-form *{font-family:"DM Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important}',
       '.hs-form label{font-size:13px!important;font-weight:600!important;color:#2F2F2F!important}',
