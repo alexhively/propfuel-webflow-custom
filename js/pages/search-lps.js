@@ -227,8 +227,8 @@
     '.pflp-faq p{color:var(--mg);padding:0 0 18px;max-width:70ch}' +
     '.pflp-cta{text-align:center}.pflp-cta .pflp-h2{margin:8px auto 0}' +
     '.pflp-btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 32px;margin-top:24px;border-radius:100px;border:1.5px solid transparent;' +
-      'background:linear-gradient(to right,#F47C2C,#FBC02D);color:#fff;font-weight:700;font-size:16px;text-decoration:none;box-shadow:0 4px 16px rgba(240,90,40,.2);transition:background .2s ease,color .2s ease,border-color .2s ease}' +
-    '.pflp-btn:hover{background:#FBC02D;color:#1A1714;border-color:#1A1714}' +
+      'background:linear-gradient(to right,#F47C2C,#FBC02D);color:#fff!important;font-weight:700;font-size:16px;text-decoration:none;box-shadow:0 4px 16px rgba(240,90,40,.2);transition:background .2s ease,color .2s ease,border-color .2s ease}' +
+    '.pflp-btn:hover{background:#FBC02D;color:#1A1714!important;border-color:#1A1714}' +
     '.pflp-tag{margin-top:18px;font-weight:700;color:var(--mg);letter-spacing:.02em}' +
     /* nav: logo + demo button only; the demo button scrolls to the form */
     'html.pflp-on .pf-nav-links,html.pflp-on .pf-nav-right>a:not(.pf-btn-nav),html.pflp-on .pf-hamburger{display:none!important}' +
