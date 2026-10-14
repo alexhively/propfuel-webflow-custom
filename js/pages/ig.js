@@ -59,6 +59,7 @@
       'font-family:"DM Sans",-apple-system,BlinkMacSystemFont,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}' +
     '.pfig *,.pfig-hero *{box-sizing:border-box}' +
     '.pfig :where(h2,h3,p,ul,ol,li,blockquote){margin:0;padding:0}.pfig :where(ul,ol){list-style:none}' +
+    '.pfig-hero :where(p,h1){margin-bottom:0}.pfig-match p{margin-bottom:0!important}' +
     /* nav: logo + one button that goes to the fit check */
     'html.pfig-on .pf-nav-links,html.pfig-on .pf-nav-right>a:not(.pf-btn-nav),html.pfig-on .pf-hamburger{display:none!important}' +
     'html.pfig-on .pf-nav-right{display:flex!important}' +
@@ -141,7 +142,7 @@
     card.id = 'pfig-form';
     card.style.scrollMarginTop = '92px';
     var fh = card.querySelector('.pf-demo-form-heading'), fp = card.querySelector('.pf-paragraph-small');
-    if (fh) fh.textContent = 'Pick a time to see it';
+    if (fh) fh.textContent = 'Book your demo';
     if (fp) fp.style.display = 'none';
   }
   function go(id) {
