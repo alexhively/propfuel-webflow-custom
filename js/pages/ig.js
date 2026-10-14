@@ -67,15 +67,17 @@
     'html.pfig-on .pf-demo-hero-inner>div:first-child>:not(.pfig-hero){display:none!important}' +
     '.pfig-eyebrow{display:block;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--rust)}' +
     '.pfig-h1{font-size:clamp(30px,8.2vw,52px);font-weight:800;line-height:1.05;letter-spacing:-.03em;margin:8px 0 0;color:var(--ink)}' +
-    '.pfig-sub{font-size:17px;line-height:1.45;color:#444;margin:10px 0 0;max-width:38ch}' +
-    '.pfig-proof{display:flex;align-items:flex-start;gap:8px;line-height:1.35;margin:12px 0 0;font-size:15px;font-weight:700;color:var(--ink)}' +
-    '.pfig-proof:before{content:"\\2713";display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:var(--or);color:#fff;font-size:12px;flex:none}' +
+    '.pfig-sub{font-size:17px;line-height:1.4;color:#444;margin:8px 0 0;max-width:38ch}' +
+    '.pfig-hero ul.pfig-proof{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:4px}' +
+    '.pfig-proof li{position:relative;padding-left:26px;font-size:15px;font-weight:700;line-height:20px;color:var(--ink)}' +
+    '.pfig-proof li:before{content:"\\2713";position:absolute;left:0;top:1px;width:18px;height:18px;border-radius:50%;background:var(--or);color:#fff;font-size:11px;display:flex;align-items:center;justify-content:center}' +
+    '.pfig-proof small{display:block;font-size:12px;font-weight:500;line-height:16px;color:var(--mute)}' +
     /* fit check */
-    '.pfig-fit{margin-top:16px;background:var(--white);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 14px 34px rgba(110,90,40,.12);scroll-margin-top:92px}' +
+    '.pfig-fit{margin-top:12px;background:var(--white);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 14px 34px rgba(110,90,40,.12);scroll-margin-top:92px}' +
     '.pfig-fit-top{display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mute)}' +
-    '.pfig-fit-q{font-size:20px;font-weight:800;line-height:1.2;letter-spacing:-.01em;margin:8px 0 12px;color:var(--ink)}' +
-    '.pfig-tiles{display:grid;gap:8px}' +
-    '.pfig button.pfig-tile,.pfig-hero button.pfig-tile{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;width:100%;min-height:52px;text-align:left;padding:10px 14px;border-radius:12px;' +
+    '.pfig-fit-q{font-size:20px;font-weight:800;line-height:1.2;letter-spacing:-.01em;margin:6px 0 10px;color:var(--ink)}' +
+    '.pfig-tiles{display:grid;gap:6px}' +
+    '.pfig button.pfig-tile,.pfig-hero button.pfig-tile{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;width:100%;min-height:48px;text-align:left;padding:6px 14px;border-radius:12px;' +
       'border:1.5px solid var(--line);background:var(--card);color:var(--ink);font:600 16px/1.25 "DM Sans",sans-serif;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:border-color .15s ease,background .15s ease}' +
     '.pfig-tile small{font-weight:400;font-size:13px;color:var(--mute);margin-top:2px}' +
     '.pfig-tile:active,.pfig-tile:hover{border-color:var(--or);background:var(--peach)}' +
@@ -161,7 +163,7 @@
     '<span class="pfig-eyebrow">For membership teams at associations</span>' +
     '<h1 class="pfig-h1">See it with your members.</h1>' +
     '<p class="pfig-sub">One question at a time tells you who’s at risk, who’s ready for more, and what to send next.</p>' +
-    '<p class="pfig-proof"><span>Trusted by 370+ associations \u00b7 12% average annual revenue growth after implementing PropFuel</span></p>' +
+    '<ul class="pfig-proof"><li>Trusted by 370+ associations</li><li>12% average annual revenue growth<small>after implementing PropFuel</small></li></ul>' +
     '<div class="pfig-fit" id="pfig-fit" aria-live="polite"></div>';
   if (col) { col.insertBefore(hero, col.firstChild); var oldH1 = col.querySelector('h1.pf-demo-title'); if (oldH1) oldH1.removeAttribute('class'); }
   var fit = hero.querySelector('#pfig-fit'), step = 0, ans = [];
