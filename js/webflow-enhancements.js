@@ -1838,9 +1838,10 @@
   // forms). "(none)" overwrites a stale paid value when a visitor returns organically.
   // HubSpot workflow "Meta Ads Lead Alert" keys off pf_last_utm_medium.
   var PF_UTM_KEYS = ['source', 'medium', 'campaign', 'content'];
-  // Duplicates of /book-a-demo with their own default UTMs (source, medium, campaign); campaign doubles as lead_source.
+  // Campaign pages reached by untagged links, with their default UTMs (source, medium, campaign[, content]);
+  // campaign doubles as lead_source. /10-weeks-of-fuel is the gifting opt-in page (was a demo duplicate until Oct 14 2026).
   var PF_DEMO_PAGE_UTM = {
-    '/10-weeks-of-fuel': ['gifting', 'gift', '10-weeks-of-fuel'],
+    '/10-weeks-of-fuel': ['gifting', 'gift', '10-weeks-of-fuel', 'optin-page'],
     '/ig': ['instagram', 'profile', 'ig-bio']
   };
   (function pfCaptureUtm() {
@@ -1850,7 +1851,7 @@
       // Demo-page duplicates reached by untagged links (gift cards, the Instagram bio): tag the visit with the
       // page's campaign unless the link brought its own UTMs. Feeds pf_last_utm_* on the demo form like any ad visit.
       var dflt = PF_DEMO_PAGE_UTM[window.location.pathname.replace(/\/$/, '')];
-      if (!any && dflt) { got = { source: dflt[0], medium: dflt[1], campaign: dflt[2], content: 'demo-page' }; any = true; }
+      if (!any && dflt) { got = { source: dflt[0], medium: dflt[1], campaign: dflt[2], content: dflt[3] || 'demo-page' }; any = true; }
       if (any) { got.ts = Date.now(); localStorage.setItem('pfUTM', JSON.stringify(got)); }
     } catch (e) {}
   })();
@@ -7755,7 +7756,7 @@
 
   function styleDemoForm() {
     // Also the Google Search landing pages (duplicates of /book-a-demo with the same form card; js/pages/search-lps.js).
-    if (!/^\/(book-a-demo|10-weeks-of-fuel|ig|member-engagement-platform|member-feedback-tool|membership-renewal-software|works-with-your-ams|higher-logic-and-propfuel|feathr-and-propfuel|email-platform-and-propfuel|works-with[\/-][a-z0-9-]+)\/?$/.test(window.location.pathname)) return;
+    if (!/^\/(book-a-demo|ig|member-engagement-platform|member-feedback-tool|membership-renewal-software|works-with-your-ams|higher-logic-and-propfuel|feathr-and-propfuel|email-platform-and-propfuel|works-with[\/-][a-z0-9-]+)\/?$/.test(window.location.pathname)) return;
     var css = [
       '.hs-form,.hs-form *{font-family:"DM Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important}',
       '.hs-form label{font-size:13px!important;font-weight:600!important;color:#2F2F2F!important}',
