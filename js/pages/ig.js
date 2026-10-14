@@ -23,10 +23,10 @@
   ];
   // matched to the fit-check goal; live case studies only, numbers as on the live pages
   var MATCH = [
-    { num: '1,078', text: 'renewals so far from GSA’s renewal and lapsed-member check-in, at a 40% engagement rate.', org: 'Geological Society of America', url: CS + 'gsa-renewal-lapsed-member-check-in' },
-    { num: '2x', text: 'new member engagement at AMA from an onboarding series that asks first.', org: 'Academy of Model Aeronautics', url: CS + 'how-ama-doubled-new-member-engagement-with-personalized-onboarding' },
-    { num: '996', text: 'institutions answered NACUBO’s one yes/no question, and 67 new chief business officer contacts came in.', org: 'NACUBO', url: CS + 'nacubo-chief-business-officer-contact-check-in' },
-    { num: '$315,300', text: 'in revenue at VECCS from website engagement, and 10% of conference registrations.', org: 'VECCS', url: CS + 'how-veccs-drove-10-of-conference-registrations-with-website-engagement' }
+    { num: '1,078', text: 'renewals so far from one renewal and lapsed-member check-in, at a 40% engagement rate.', org: 'Geological Society of America', url: CS + 'gsa-renewal-lapsed-member-check-in' },
+    { num: '2x', text: 'new member engagement from an onboarding series that asks first.', org: 'Academy of Model Aeronautics', url: CS + 'how-ama-doubled-new-member-engagement-with-personalized-onboarding' },
+    { num: '996', text: 'institutions answered one yes/no question, and 67 new chief business officer contacts came in.', org: 'NACUBO', url: CS + 'nacubo-chief-business-officer-contact-check-in' },
+    { num: '$315,300', text: 'in revenue from website engagement, and 10% of conference registrations.', org: 'VECCS', url: CS + 'how-veccs-drove-10-of-conference-registrations-with-website-engagement' }
   ];
   var CASES = [
     { num: '2,246', text: 'answers to one question, with an 18% average engagement rate.', org: 'AWHONN', url: CS + 'awhonn-lapsed-member-check-in' },
@@ -67,8 +67,8 @@
     '.pfig-eyebrow{display:block;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--rust)}' +
     '.pfig-h1{font-size:clamp(30px,8.2vw,52px);font-weight:800;line-height:1.05;letter-spacing:-.03em;margin:8px 0 0;color:var(--ink)}' +
     '.pfig-sub{font-size:17px;line-height:1.45;color:#444;margin:10px 0 0;max-width:38ch}' +
-    '.pfig-proof{display:flex;flex-wrap:wrap;gap:6px 14px;margin:12px 0 0;font-size:14px;font-weight:600;color:var(--ink)}' +
-    '.pfig-proof b{color:var(--deep)}' +
+    '.pfig-proof{display:flex;align-items:center;gap:8px;margin:12px 0 0;font-size:15px;font-weight:700;color:var(--ink)}' +
+    '.pfig-proof:before{content:"\\2713";display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:var(--or);color:#fff;font-size:12px;flex:none}' +
     /* fit check */
     '.pfig-fit{margin-top:16px;background:var(--white);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 14px 34px rgba(110,90,40,.12);scroll-margin-top:92px}' +
     '.pfig-fit-top{display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mute)}' +
@@ -79,10 +79,14 @@
     '.pfig-tile small{font-weight:400;font-size:13px;color:var(--mute);margin-top:2px}' +
     '.pfig-tile:active,.pfig-tile:hover{border-color:var(--or);background:var(--peach)}' +
     '.pfig-bar{height:4px;border-radius:4px;background:var(--line);margin-top:12px;overflow:hidden}.pfig-bar i{display:block;height:100%;background:var(--or);transform-origin:left;transition:transform .25s ease}' +
-    '.pfig-fit-foot{display:flex;justify-content:space-between;margin-top:10px;font-size:14px}' +
+    '.pfig-fit-foot{display:flex;justify-content:space-between;align-items:center;margin-top:4px}' +
+    '.pfig-hero .pfig-quiet{display:inline-flex;align-items:center;min-height:44px;padding:0 2px;background:none;border:0;color:var(--mute)!important;' +
+      'font:600 14px "DM Sans",sans-serif;text-decoration:none;cursor:pointer;-webkit-tap-highlight-color:transparent}' +
+    '.pfig-hero .pfig-quiet:hover,.pfig-hero .pfig-quiet:active{color:var(--ink)!important}' +
     '.pfig-hero a.pfig-link,.pfig-hero button.pfig-link,.pfig a.pfig-link{background:none;border:0;padding:0;color:#3D6E92;text-decoration:underline;text-underline-offset:3px;font:500 14px "DM Sans",sans-serif;cursor:pointer}' +
-    '.pfig-match{margin-top:6px;padding:12px 14px;border-radius:12px;background:var(--card);border:1px solid var(--line)}' +
-    '.pfig-match b{display:block;font-size:26px;font-weight:800;letter-spacing:-.02em;color:var(--ink)}.pfig-match p{font-size:14px;color:#444;margin-top:2px}.pfig-match span{display:block;font-size:12px;font-weight:700;color:var(--mute);margin-top:6px}' +
+    '.pfig-match{margin:0 0 12px;padding:12px;border-radius:12px;background:var(--card);border:1px solid var(--line)}' +
+    '.pfig-match span{display:block;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--mute)}' +
+    '.pfig-match b{display:block;font-size:26px;font-weight:800;letter-spacing:-.02em;line-height:1.15;color:var(--ink);margin-top:4px}.pfig-match p{font-size:14px;line-height:1.4;color:#444;margin-top:2px}' +
     /* body */
     '.pfig{background:var(--page)}' +
     '.pfig-wrap{max-width:1080px;margin:0 auto;padding:0 20px}' +
@@ -110,15 +114,21 @@
     '.pfig-faq summary{list-style:none;cursor:pointer;padding:16px 32px 16px 0;font-weight:700;font-size:16px;position:relative;color:var(--ink)}.pfig-faq summary::-webkit-details-marker{display:none}' +
     '.pfig-faq summary:after{content:"+";position:absolute;right:4px;top:12px;font-size:24px;font-weight:400;color:var(--or)}.pfig-faq details[open] summary:after{content:"\\2212"}' +
     '.pfig-faq p{font-size:15px;color:#444;padding:0 0 16px}' +
-    '.pfig a.pfig-btn,.pfig-hero a.pfig-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:54px;margin-top:20px;padding:10px 24px;border-radius:12px;background:var(--or);color:#2F2F2F!important;' +
+    '.pfig a.pfig-btn,.pfig-hero a.pfig-btn{display:flex;align-items:center;justify-content:center;min-height:52px;margin-top:20px;padding:0 24px;border-radius:12px;background:var(--or);color:#2F2F2F!important;white-space:nowrap;' +
       'font:800 17px/1.2 "DM Sans",sans-serif;text-decoration:none;max-width:420px;box-shadow:0 6px 18px rgba(240,90,40,.22)}' +
-    '.pfig a.pfig-btn small{font-weight:500;font-size:13px}.pfig a.pfig-btn:active{background:var(--deep)}' +
+    '.pfig-hero a.pfig-btn--full{margin-top:0;max-width:none;width:100%}' +
+    '.pfig a.pfig-btn:active,.pfig-hero a.pfig-btn:active{background:var(--deep)}' +
     '.pfig-tag{margin-top:14px;font-weight:700;color:var(--mute)}' +
     '@media (min-width:768px){.pfig-cases{grid-template-columns:repeat(3,1fr)}.pfig-see{grid-template-columns:1fr 1fr}.pfig-vs{grid-template-columns:repeat(3,1fr)}.pfig-sec{padding:64px 0}}' +
     '@media (max-width:767px){' +
       /* first screen: tighter hero so the fit check sits above the fold inside Instagram\'s browser */
-      'html.pfig-on .pf-demo-hero{padding-top:84px!important;padding-bottom:28px!important}' +
-      'html.pfig-on .pf-demo-hero-inner{gap:20px!important}' +
+      /* hero clears the floating nav pill (bottom ~84px) by ~28px; one 16px gutter for hero, fit card and form card */
+      'html.pfig-on .pf-demo-hero{padding:112px 16px 28px!important}' +
+      'html.pfig-on .pf-demo-hero-inner{gap:16px!important;padding:0!important}' +
+      'html.pfig-on .pf-demo-form-card{padding:20px 16px!important;border-radius:16px!important}' +
+      'html.pfig-on .pf-demo-form-heading{font-size:22px!important;margin:0!important}' +
+      'html.pfig-on #hs-demo-form{margin-top:12px!important}' +
+      '.pfig-wrap{padding:0 16px}' +
     '}';
   var st = document.createElement('style'); st.id = 'pfig-styles'; st.textContent = css; document.head.appendChild(st);
   root.classList.add('pfig-on');
@@ -132,7 +142,7 @@
     card.style.scrollMarginTop = '92px';
     var fh = card.querySelector('.pf-demo-form-heading'), fp = card.querySelector('.pf-paragraph-small');
     if (fh) fh.textContent = 'Pick a time to see it';
-    if (fp) fp.textContent = 'A short form, then the calendar. We’ll show you PropFuel on a goal you care about, like renewals or first-year onboarding.';
+    if (fp) fp.style.display = 'none';
   }
   function go(id) {
     var t = document.getElementById(id); if (!t) return;
@@ -150,7 +160,7 @@
     '<span class="pfig-eyebrow">For membership teams at associations</span>' +
     '<h1 class="pfig-h1">See it with your members.</h1>' +
     '<p class="pfig-sub">One question at a time tells you who’s at risk, who’s ready for more, and what to send next.</p>' +
-    '<p class="pfig-proof"><span>Trusted by <b>370+</b> associations</span><span><b>8.68%</b> average revenue growth in year one</span></p>' +
+    '<p class="pfig-proof">Trusted by 370+ associations</p>' +
     '<div class="pfig-fit" id="pfig-fit" aria-live="polite"></div>';
   if (col) { col.insertBefore(hero, col.firstChild); var oldH1 = col.querySelector('h1.pf-demo-title'); if (oldH1) oldH1.removeAttribute('class'); }
   var fit = hero.querySelector('#pfig-fit'), step = 0, ans = [];
@@ -160,10 +170,10 @@
       var m = MATCH[ans[0]];
       fit.appendChild(el('div', 'pfig-fit-top', '<span>Your match</span><span>3 of 3</span>'));
       fit.appendChild(el('p', 'pfig-fit-q', ans[2] === 3 ? 'No pressure. Here’s the closest story to yours.' : 'Good fit. Associations with your goal start here.'));
-      fit.appendChild(el('div', 'pfig-match', '<b>' + esc(m.num) + '</b><p>' + esc(m.text) + '</p><span>' + esc(m.org) + '</span>'));
-      var cta = el('a', 'pfig-btn', 'Pick a demo time<small>Short form, then the calendar</small>'); cta.href = '#pfig-form';
+      fit.appendChild(el('div', 'pfig-match', '<span>' + esc(m.org) + '</span><b>' + esc(m.num) + '</b><p>' + esc(m.text) + '</p>'));
+      var cta = el('a', 'pfig-btn pfig-btn--full', 'Pick a demo time'); cta.href = '#pfig-form';
       fit.appendChild(cta);
-      var again = el('button', 'pfig-link', '← Start over'); again.type = 'button'; again.style.marginTop = '12px';
+      var again = el('button', 'pfig-quiet', '← Start over'); again.type = 'button'; again.style.marginTop = '4px';
       again.addEventListener('click', function () { step = 0; ans = []; renderFit(); });
       fit.appendChild(again);
       ph('ig_fit_check_completed', { fit_goal: FIT[0].a[ans[0]][0], fit_members: FIT[1].a[ans[1]][0], fit_timing: FIT[2].a[ans[2]][0] });
@@ -183,15 +193,15 @@
     fit.appendChild(tiles);
     fit.appendChild(el('div', 'pfig-bar', '<i style="transform:scaleX(' + (step / FIT.length) + ')"></i>'));
     var foot = el('div', 'pfig-fit-foot');
-    if (step > 0) { var back = el('button', 'pfig-link', '← Back'); back.type = 'button'; back.addEventListener('click', function () { step--; renderFit(); }); foot.appendChild(back); }
+    if (step > 0) { var back = el('button', 'pfig-quiet', '← Back'); back.type = 'button'; back.addEventListener('click', function () { step--; renderFit(); }); foot.appendChild(back); }
     else foot.appendChild(el('span'));
-    var skip = el('a', 'pfig-link', 'Skip to the form'); skip.href = '#pfig-form'; foot.appendChild(skip);
+    var skip = el('a', 'pfig-quiet', 'Skip to the form'); skip.href = '#pfig-form'; foot.appendChild(skip);
     fit.appendChild(foot);
   }
   renderFit();
 
   // ---------------------------------------------------------------- body
-  function cta() { return '<a class="pfig-btn" href="#pfig-fit">See it with your members<small>3 taps, then pick a time</small></a>'; }
+  function cta() { return '<a class="pfig-btn" href="#pfig-fit">See it with your members</a>'; }
   var html = '';
   html += '<section class="pfig-sec"><div class="pfig-wrap"><span class="pfig-eyebrow">What your members get</span>' +
     '<h2 class="pfig-h2">One question. One tap. You act on the answer.</h2>' +
@@ -237,5 +247,5 @@
     e.preventDefault(); go(a.getAttribute('href').slice(1));
   });
   var navCta = document.querySelector('.pf-nav-right .pf-btn-nav');
-  if (navCta) { navCta.setAttribute('href', '#pfig-fit'); navCta.textContent = 'See it'; }
+  if (navCta) { navCta.setAttribute('href', '#pfig-form'); navCta.textContent = 'Book a demo'; }
 })();
