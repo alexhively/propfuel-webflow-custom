@@ -1,5 +1,6 @@
 // Claims + typography fixes (Oct 19 2026 sprint). Loaded by loadCopyFixes() in webflow-enhancements.js.
-// Staging only until Alex OKs the prod change list; to ship, drop the hostname check in loadCopyFixes().
+// Live on all hosts since Alex's OK (Oct 19 2026). The site-script copy is also fixed at the source; these text
+// fixes remain a safety net for the same wording in Webflow embeds.
 //  1. Setup/sync wording: the July 2026 audit removed "hourly" sync, guaranteed "real-time" AMS write-back,
 //     "5-30 minutes" setup, "plug-and-play", "connected in minutes", "No IT project" and the PropFuel API (none exists).
 //  2. The 12% revenue-growth stat always sits next to "vs 0.98% for the average association".
