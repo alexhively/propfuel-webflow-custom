@@ -41,7 +41,11 @@
     ['/use-cases/renewals', ', which typically runs hourly', ''],
     ['/platform/insights', 'writes back to your AMS automatically in real time.', 'writes back to your AMS automatically.'],
     ['/platform/automation', 'writes back to your AMS in real time', 'writes back to your AMS automatically'],
-    ['/ig', 'after implementing PropFuel', 'after implementing PropFuel, vs 0.98% for the average association']
+    ['/ig', 'after implementing PropFuel', 'after implementing PropFuel, vs 0.98% for the average association'],
+    // Orphan guards: tie the last two words where text-wrap alone leaves one word on the last line.
+    ['/platform/overview', 'to your AMS automatically', 'to your AMS\u00a0automatically'],
+    ['/use-cases/onboarding', 'or networking?', 'or\u00a0networking?'],
+    ['/blog-posts/strategies-for-optimizing-new-member-acquisition', 'New Member Acquisition', 'New Member\u00a0Acquisition']
   ];
   var mine = FIXES.filter(function (f) { return f[0] === '*' || f[0] === path; });
   var done = {};

@@ -11192,7 +11192,7 @@
   // fixes there are a safety net for Webflow-native text, the text-wrap CSS lives only there.
   function loadCopyFixes() {
     var s = document.createElement('script');
-    s.src = 'https://alexhively.github.io/propfuel-webflow-custom/js/copy-fixes.js?v=1';
+    s.src = 'https://alexhively.github.io/propfuel-webflow-custom/js/copy-fixes.js?v=2';
     s.defer = true;
     document.head.appendChild(s);
   }
