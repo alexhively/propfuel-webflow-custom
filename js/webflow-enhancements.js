@@ -2579,7 +2579,7 @@
     }
     var ctaSub = document.querySelector('.pf-cta-sub');
     if (ctaSub) {
-      ctaSub.textContent = 'Most member communication solutions stop at the send. PropFuel helps associations understand what members want and act on it, all in one platform. Bring your AMS, and we\\u2019ll show you what your members are already telling you.';
+      ctaSub.textContent = 'Most member communication solutions stop at the send. PropFuel helps associations understand what members want and act on it, all in one platform. Bring your AMS, and we\u2019ll show you what your members are already telling you.';
     }
 
     // ═══════════════════════════════════════
