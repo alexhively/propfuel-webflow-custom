@@ -4946,6 +4946,8 @@
     var LBL = cfg.seoTags ? 'h2' : 'p';
     var HD = cfg.seoTags ? 'p' : 'h2';
     var ENG = cfg.seoTags ? 'h3' : 'h4';
+    // Mamba onboarding article: eyebrow is a <p>, the display line is the <h2>
+    if (cfg.headlineH2) { LBL = 'p'; HD = 'h2'; }
 
     // ═══════════════════════════════════════
     // HERO
@@ -4981,9 +4983,9 @@
         btnWrap.style.cssText = 'display:flex;align-items:center;justify-content:center;gap:20px;margin-top:40px';
         btnWrap.innerHTML =
           '<a href="/book-a-demo" class="pf-btn-primary" style="display:inline-flex;align-items:center;gap:8px;padding:16px 36px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:linear-gradient(to right,#F47C2C,#FBC02D);color:#fff;border:none;box-shadow:0 4px 16px rgba(240,90,40,0.2);transition:box-shadow .3s ease">' +
-            'Get Started <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>' +
-          '<a href="#ucCenterpiece" style="display:inline-flex;align-items:center;gap:8px;padding:15px 35px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:transparent;color:#F47C2C;border:1.5px solid rgba(244,124,44,0.35);transition:border-color .25s ease,box-shadow .25s ease">' +
-            'See It in Action</a>';
+            (cfg.heroCta1 || 'Get Started') + ' <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>' +
+          '<a href="' + (cfg.heroCta2Href || '#ucCenterpiece') + '" style="display:inline-flex;align-items:center;gap:8px;padding:15px 35px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:transparent;color:#F47C2C;border:1.5px solid rgba(244,124,44,0.35);transition:border-color .25s ease,box-shadow .25s ease">' +
+            (cfg.heroCta2 || 'See It in Action') + '</a>';
         var sub2 = heroParent.querySelector('.pf-page-hero-sub');
         if (sub2) { sub2.parentNode.insertBefore(btnWrap, sub2.nextSibling); }
         else { heroParent.appendChild(btnWrap); }
@@ -5019,7 +5021,7 @@
 
     // --- CENTERPIECE ---
     if (cfg.centerpieceHTML && !document.querySelector('.' + prefix + '-centerpiece')) {
-      var cpHTML = '<section id="ucCenterpiece" class="' + prefix + '-centerpiece" style="padding:96px 48px">' +
+      var cpHTML = '<section id="' + (cfg.centerpieceId || 'ucCenterpiece') + '" class="' + prefix + '-centerpiece" style="padding:96px 48px">' +
         '<div style="max-width:1100px;margin:0 auto">' + cfg.centerpieceHTML + '</div></section>';
       var prevSection = document.querySelector('.' + prefix + '-problem');
       if (prevSection) { prevSection.insertAdjacentHTML('afterend', cpHTML); }
@@ -5047,6 +5049,7 @@
           '<div style="width:56px;height:56px;border-radius:50%;background:' + (isAI ? 'rgba(74,127,165,0.1)' : 'rgba(244,124,44,0.1)') + ';display:flex;align-items:center;justify-content:center;margin:0 auto 16px">' + icon + '</div>' +
           '<' + ENG + ' style="font-size:18px;font-weight:700;color:' + (isAI ? '#4A7FA5' : '#2F2F2F') + ';margin:0 0 10px;line-height:1.3">' + eng.name + '</' + ENG + '>' +
           '<p style="font-size:14px;color:#6E6E6E;line-height:1.6">' + eng.desc + '</p>' +
+          (eng.href ? '<a href="' + eng.href + '" style="display:inline-block;margin-top:14px;font-size:14px;font-weight:600;color:' + (isAI ? '#4A7FA5' : '#F47C2C') + ';text-decoration:underline">' + eng.linkText + '</a>' : '') +
         '</div>';
       });
       engHTML += '</div></div></section>';
@@ -5084,7 +5087,7 @@
           '<p style="font-size:14px;color:#8C8479;line-height:1.5;margin-top:4px">' + st.desc + '</p>' +
         '</div>';
       });
-      stHTML += '</div></div></section>';
+      stHTML += '</div>' + (cfg.statsBtn ? '<a href="' + cfg.statsBtn.href + '" class="pf-btn-primary" style="display:inline-flex;margin-top:48px;padding:16px 36px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:linear-gradient(to right,#F47C2C,#FBC02D);color:#2F2F2F">' + cfg.statsBtn.label + '</a>' : '') + '</div></section>';
       var engSection = document.querySelector('.' + prefix + '-engines');
       (cfg.extraSections || []).forEach(function(x) {
         var el = x.after === 'engines' ? document.querySelector('.' + x.cls) : null;
@@ -5101,6 +5104,7 @@
           '<div style="text-align:center;margin-bottom:56px">' +
             '<' + LBL + ' style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin:0 0 16px;line-height:1.4">FAQ</' + LBL + '>' +
             '<' + HD + ' style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15;margin:0">' + cfg.faqH2 + '</' + HD + '>' +
+            (cfg.faqSub ? '<p style="font-size:17px;color:#6E6E6E;line-height:1.65;margin:16px 0 0">' + cfg.faqSub + '</p>' : '') +
           '</div>';
       cfg.faqs.forEach(function(item) {
         faqHTML += '<div class="pf-faq-item" style="border-bottom:1px solid #E3DDD2;padding:24px 0">' +
@@ -5145,16 +5149,20 @@
     buildUseCasePage({
       path: 'use-cases/onboarding',
       seoTags: true,
+      headlineH2: true,
       heroLabel: 'Onboarding',
       heroTitle: 'Member Onboarding Starts the Retention Conversation.',
-      heroSub: 'Most associations send a welcome email and then go silent until renewal. PropFuel turns new member onboarding into a year-long engagement journey \u2014 one question at a time, enrolled automatically from your AMS, with the right conversation at every milestone.',
-      heroNote: 'Launch association new member onboarding from a ready-made blueprint \u00b7 Check-ins by email, SMS, and your website \u00b7 New members enroll automatically from your AMS',
-      problemLabel: 'The Problem',
-      problemH2: 'A welcome email is not an onboarding strategy.',
+      heroSub: 'Most associations send a welcome email and then go silent until renewal. PropFuel turns new member onboarding into a year-long conversation: one question at a time, enrolled automatically from your AMS, with the right check-in at every milestone.',
+      heroCta1: 'Get a Free Demo',
+      heroCta2: 'See the Six Check-ins',
+      heroCta2Href: '#journey',
+      centerpieceId: 'journey',
+      heroNote: 'Launch association new member onboarding from a ready-made blueprint · Check-ins by email, SMS, and your website · New members enroll automatically from your AMS · First campaign live in 2–3 weeks',
+      problemLabel: 'The problem',
+      problemH2: 'A Welcome Email Is Not an Onboarding Strategy',
       problemBody: [
-        'A new member joins. They get a welcome email \u2014 maybe two. It has a login link, a list of benefits, and a reminder to update their profile. Then silence. For months. The next time they hear from the association, it is a renewal notice.',
-        'Call it the welcome-email gap: the stretch between joining and renewing where nothing is asked and nothing is learned. In that window, the member never found the resources that would have mattered to them. They never connected with a local chapter or a committee. <strong>They never told anyone what they were hoping to get out of their membership \u2014 because nobody asked.</strong>',
-        '<strong>\u201CHorrible retention rate \u2014 losing new members before years two or three.\u201D</strong> That is not a PropFuel talking point. That is what associations say about themselves when they are being honest.'
+        'A new member joins. They get a welcome email, maybe two. It has a login link, a list of benefits, and a reminder to update their profile. Then silence. For months. The next time they hear from the association, it is a renewal notice.',
+        'Call it the welcome-email gap: the stretch between joining and renewing where nothing is asked and nothing is learned. In that window, the member never found the resources that would have mattered to them. They never connected with a local chapter or a committee. <strong>They never told anyone what they were hoping to get out of their membership, because nobody asked.</strong>'
       ],
       problemGraphic: '<div style="background:rgba(255,255,255,.06);border-radius:16px;padding:32px;border:1px solid rgba(255,255,255,.1);text-align:center;max-width:340px">' +
         '<div style="font-size:48px;font-weight:900;color:#F47C2C;margin-bottom:8px">1</div>' +
@@ -5163,22 +5171,22 @@
         '<div style="width:2px;height:40px;background:rgba(255,255,255,.1);margin:0 auto 16px"></div>' +
         '<div style="font-size:48px;font-weight:900;color:#F47C2C;margin-bottom:8px">?</div>' +
         '<div style="font-size:14px;color:#EDE8DF;font-weight:600">Renewal Notice</div>' +
-        '<div style="font-size:12px;color:#8C8479;margin-top:4px">\u201CPlease renew\u201D \u2014 with no relationship built</div>' +
+        '<div style="font-size:12px;color:#8C8479;margin-top:4px">“Please renew” with no relationship built</div>' +
       '</div>',
       centerpieceHTML: '<div style="text-align:center;margin-bottom:56px">' +
         '<h2 style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin:0 0 16px;line-height:1.4">Member Onboarding Process &amp; Checklist</h2>' +
         '<p style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15;margin:0 0 24px">Six conversations across the first year.</p>' +
-        '<p style="font-size:17px;color:#6E6E6E;line-height:1.65;max-width:720px;margin:0 auto 16px">A good member onboarding process isn\u2019t a welcome series \u2014 it\u2019s a sequence of short conversations timed to how new members actually settle in. Think of it as a new member onboarding checklist that runs itself. PropFuel\u2019s onboarding blueprint starts with six touchpoints across the first year: frequent enough to learn what each member wants, spaced out enough that none of them feels like noise.</p>' +
-        '<p style="font-size:17px;color:#6E6E6E;line-height:1.65;max-width:720px;margin:0 auto">New members are enrolled automatically from your AMS as they join, and the sequence adapts to every answer instead of sending everyone the same thing. Association member onboarding rarely fits one track, so you can run separate journeys by chapter, member type, or credentialing path.</p>' +
+        '<p style="font-size:17px;color:#6E6E6E;line-height:1.65;max-width:720px;margin:0 auto 16px">A good member onboarding process isn’t a welcome series. It’s a sequence of short conversations timed to how new members actually settle in. Think of it as a new member onboarding checklist that runs itself. PropFuel’s onboarding blueprint starts with six touchpoints across the first year: frequent enough to learn what each member wants, spaced out enough that none of them feels like noise.</p>' +
+        '<p style="font-size:17px;color:#6E6E6E;line-height:1.65;max-width:720px;margin:0 auto">New members are enrolled automatically from your AMS as they join, and the sequence adapts to every answer instead of sending everyone the same thing. <a href="/solutions/associations" style="color:#F47C2C;font-weight:600;text-decoration:underline">Association member onboarding</a> rarely fits one track, so you can run separate journeys by chapter, member type, or credentialing path.</p>' +
       '</div>' +
       '<div style="max-width:700px;margin:0 auto;position:relative">' +
         '<div style="position:absolute;left:24px;top:24px;bottom:24px;width:2px;background:linear-gradient(to bottom,#FBC02D,#F47C2C);border-radius:1px"></div>' +
         ['Week 1|Get Acquainted|The very first check-in. Understand what brought them to the association and what they are hoping to get from their membership.|What are you most hoping to get out of your membership this year?',
-         'Week 3|Understand Preferences|Learn how they prefer to engage \u2014 events, online resources, networking, or a mix. This shapes what content and opportunities get surfaced to them.|What\u2019s your preferred way to stay involved \u2014 events, online resources, or networking?',
-         'Month 2|Update Their Profile|Confirm their role, focus area, and contact details. This is a database update disguised as a friendly check-in.|We want to make sure we\u2019re sending you relevant content. Can you confirm your current role and area of focus?',
-         'Month 3\u20134|Get Them Involved|Surface volunteer opportunities, committees, and local chapters based on what they have already told you about their interests.|Is there a committee or volunteer opportunity you\u2019d be interested in?',
-         'Month 5\u20136|Gauge Satisfaction|A mid-year pulse check. Promoters get routed to testimonial and referral requests. Detractors trigger staff alerts.|How has your membership experience been so far?',
-         'Month 8\u20139|Prepare for Renewal|The pre-renewal conversation. Surface hesitations, reinforce value, and give staff a heads-up on at-risk members \u2014 then hand off to your renewal campaign so you can <a href="/use-cases/renewals" style="color:#F47C2C;font-weight:600;text-decoration:underline">prepare for renewal</a> with context, not guesswork.|Has your membership been worth it so far? We\u2019d love your honest feedback.'
+         'Week 3|Understand Preferences|Learn how they prefer to engage: events, online resources, networking, or a mix. This shapes what content and opportunities get surfaced to them.|What’s your preferred way to stay involved: events, online resources, or networking?',
+         'Month 2|Update Their Profile|Confirm their role, focus area, and contact details. This is a database update disguised as a friendly check-in.|We want to make sure we’re sending you relevant content. Can you confirm your current role and area of focus?',
+         'Months 3–4|Get Them Involved|Surface volunteer opportunities, committees, and local chapters based on what they have already told you about their interests.|Is there a committee or volunteer opportunity you’d be interested in?',
+         'Months 5–6|Gauge Satisfaction|A mid-year pulse check. Promoters get routed to testimonial and referral requests. Detractors trigger staff alerts.|How has your membership experience been so far?',
+         'Months 8–9|Prepare for Renewal|The pre-renewal conversation. Surface hesitations, reinforce value, and give staff a heads-up on at-risk members. Then hand off to your renewal campaign so you can <a href="/use-cases/renewals" style="color:#F47C2C;font-weight:600;text-decoration:underline">prepare for renewal</a>.|Has your membership been worth it so far? We’d love your honest feedback.'
         ].map(function(s) {
           var p = s.split('|');
           return '<div style="display:flex;gap:24px;margin-bottom:40px;position:relative">' +
@@ -5190,22 +5198,28 @@
               '<h3 style="font-size:20px;font-weight:700;color:#2F2F2F;margin-bottom:8px">' + p[1] + '</h3>' +
               '<p style="font-size:15px;color:#6E6E6E;line-height:1.6;margin-bottom:12px">' + p[2] + '</p>' +
               '<div style="background:#F6F2E8;border-radius:12px;padding:16px 20px;border-left:3px solid #FBC02D">' +
-                '<p style="font-size:14px;color:#2F2F2F;font-style:italic;line-height:1.5">\u201C' + p[3] + '\u201D</p>' +
+                '<p style="font-size:14px;color:#2F2F2F;font-style:italic;line-height:1.5">“' + p[3] + '”</p>' +
               '</div>' +
             '</div>' +
           '</div>';
         }).join('') +
       '</div>' +
-      '<div style="max-width:700px;margin:8px auto 0;background:#FFFBF2;border:1px solid #E3DDD2;border-radius:16px;padding:24px 28px">' +
-          '<p style="font-size:15px;color:#2F2F2F;line-height:1.6;margin:0 0 8px"><strong>If a new member doesn\u2019t respond:</strong> they get an automatic reminder at an interval you choose, and the silence itself shows up as a signal your team can see \u2014 so quiet members get attention before they drift.</p>' +
-          '<p style="font-size:15px;color:#2F2F2F;line-height:1.6;margin:0"><strong>Every interval is editable:</strong> move, add, or remove any step to match your membership cycle and team capacity.</p>' +
+      '<div style="max-width:900px;margin:8px auto 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px">' +
+        '<div style="background:#FFFBF2;border:1px solid #E3DDD2;border-radius:16px;padding:24px 28px">' +
+          '<h3 style="font-size:17px;font-weight:700;color:#2F2F2F;margin:0 0 8px;line-height:1.3">Every interval is editable</h3>' +
+          '<p style="font-size:15px;color:#6E6E6E;line-height:1.6;margin:0">Move any check-in earlier or later to match your membership cycle, or add and remove steps. The six-step blueprint is a starting point, not a fixed schedule.</p>' +
+        '</div>' +
+        '<div style="background:#FFFBF2;border:1px solid #E3DDD2;border-radius:16px;padding:24px 28px">' +
+          '<h3 style="font-size:17px;font-weight:700;color:#2F2F2F;margin:0 0 8px;line-height:1.3">What happens to non-responders</h3>' +
+          '<p style="font-size:15px;color:#6E6E6E;line-height:1.6;margin:0">Members who don’t answer get a reminder at the interval you set, and the sequence moves on to the next check-in. Silence is tracked too, so your team sees who has gone quiet and can reach out personally.</p>' +
+        '</div>' +
       '</div>',
-      enginesH2: 'Four engines working together to run your onboarding.',
+      enginesH2: 'Four Engines Working Together to Run Your Onboarding',
       engines: [
-        { name: 'Engagement Engine', desc: 'Delivers single-question check-ins via email, website, and SMS \u2014 the interactions that capture what each new member needs.' },
-        { name: 'Automation Engine', desc: 'Runs the full onboarding sequence automatically \u2014 timing, branching, follow-ups, and staff alerts \u2014 with no manual work.' },
-        { name: 'Insights Engine', desc: 'Turns every response into a searchable, reportable data point. See trends, identify at-risk members, and measure engagement over time.' },
-        { name: 'Membership AI', desc: 'Generates campaign content, analyzes open-ended responses, and scores member health \u2014 so your team focuses where it matters most.' }
+        { name: 'Engagement Engine', desc: 'Delivers single-question check-ins by email, website, and SMS. These are the interactions that capture what each new member needs.', href: '/platform/engagement', linkText: 'Explore the Engagement Engine' },
+        { name: 'Automation Engine', desc: 'Runs the full onboarding sequence automatically, including timing, branching, follow-ups, and staff alerts, with no manual work.', href: '/platform/automation', linkText: 'Explore the Automation Engine' },
+        { name: 'Insights Engine', desc: 'Turns every response into a searchable, reportable data point. See trends, identify at-risk members, and measure engagement over time.', href: '/platform/insights', linkText: 'Explore the Insights Engine' },
+        { name: 'Membership AI', desc: 'Generates campaign content, analyzes open-ended responses, and scores member health, so your team focuses where it matters most.', href: '/membership-ai', linkText: 'Explore Membership AI' }
       ],
       extraSections: [{
         cls: 'usecasesonboarding-features',
@@ -5213,17 +5227,17 @@
         style: 'padding:96px 48px',
         html: '<div style="max-width:1100px;margin:0 auto">' +
           '<div style="text-align:center;margin-bottom:56px">' +
-            '<h2 style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin:0 0 16px;line-height:1.4">Features</h2>' +
-            '<p style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15;margin:0">Everything you need to run new member onboarding.</p>' +
+            '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin:0 0 16px;line-height:1.4">Features</p>' +
+            '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15;margin:0">Everything You Need to Run New Member Onboarding</h2>' +
           '</div>' +
           '<div class="uc-feature-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px">' +
           [['Onboarding blueprint','Start from a proven six-step onboarding campaign, then customize the questions, timing, and branches.'],
            ['AMS enrollment and write-back','New members enter the sequence based on their join date, and every answer writes back to their AMS record automatically.'],
-           ['One-click answers','Members reply inside the email, text, or website prompt with a single click or tap \u2014 no login, no form.'],
+           ['One-click answers','Members reply inside the email, text, or website prompt with a single click or tap. No login, no form.'],
            ['Branching by answer','Each response routes the member to the next relevant conversation, so no two journeys have to look the same.'],
            ['Smart reminders','Non-responders get configurable reminders, so no new member slips through the cracks.'],
            ['Tags and staff alerts','Interests are tagged automatically, and staff get an alert when a new member needs a personal touch.'],
-           ['Segmented tracks','Run different journeys for students, professionals, chapters, or organizational members.'],
+           ['Segmented tracks','Run different association member onboarding tracks for students, professionals, chapters, or organizational members.'],
            ['Dashboards and AI summaries','Track response trends and at-risk new members, with AI summaries of open-ended answers.']
           ].map(function(f) {
             return '<div class="pf-card" style="background:#F6F2E8;border-radius:18px;padding:28px 24px">' +
@@ -5234,24 +5248,26 @@
           '</div>' +
         '</div>'
       }],
-      statsH2: 'Proof that conversations build retention.',
+      statsH2: 'Proof That Conversations Build Retention',
       stats: [
         { num: '2x', org: 'AMA', desc: 'Doubled new member engagement with a structured onboarding conversation series.' },
-        { num: '45%', org: 'AMA', desc: 'Engagement rate on a 10-email onboarding series \u2014 far above industry benchmarks.' },
+        { num: '45%', org: 'AMA', desc: 'Engagement rate on a 10-email onboarding series, far above industry benchmarks.' },
         { num: '1,700+', org: 'AMA', desc: 'Responses collected from new members in the first year of onboarding campaigns.' },
         { num: '$650K', org: 'All Clients', desc: 'Average first-year revenue increase for associations after adopting PropFuel.' }
       ],
-      faqH2: 'Common questions about onboarding campaigns.',
+      statsBtn: { href: '/client-success/case-studies', label: 'Read the Onboarding Case Studies' },
+      faqH2: 'Member Onboarding FAQs',
+      faqSub: 'Common questions about onboarding campaigns.',
       faqs: [
-        { q: 'How many check-ins should we send during onboarding?', a: 'Most successful onboarding programs use 3\u201311 check-ins spread across the first 3\u20139 months. PropFuel blueprints default to 6 touchpoints, but the sequence is fully customizable based on your membership cycle and capacity.' },
-        { q: 'What if we already send a welcome email series?', a: 'PropFuel onboarding is different from a welcome drip. Your existing emails broadcast information. PropFuel emails ask questions and capture responses. They work alongside your existing communications \u2014 adding a listening layer on top of what you already send.' },
+        { q: 'How many check-ins should we send during onboarding?', a: 'Most successful onboarding programs use 3–11 check-ins spread across the first 3–9 months. PropFuel blueprints default to 6 touchpoints, but the sequence is fully customizable based on your membership cycle and capacity.' },
+        { q: 'What if we already send a welcome email series?', a: 'PropFuel onboarding is different from a welcome drip. Your existing emails broadcast information. PropFuel emails ask questions and capture responses. They work alongside your existing communications, adding a listening layer on top of what you already send.' },
         { q: 'Can we customize the questions for different member types?', a: 'Yes. PropFuel supports segmentation by member type, join date, chapter, or any field in your AMS. You can run different onboarding tracks for students vs. professionals, individual vs. organizational members, or any other segment.' },
         { q: 'How do responses get back to our AMS?', a: 'Every response writes back to your AMS automatically, where your AMS supports it. No CSV exports, no manual data entry. If a member tells PropFuel they are interested in a committee, that answer is saved to their AMS record.' },
-        { q: 'Can we onboard members who joined months ago?', a: 'Yes. PropFuel reads join dates from your AMS, so you can build a segment of recent joiners \u2014 say, everyone who joined in the last six months \u2014 and enroll them in an onboarding track written for where they are in their first year.' },
-        { q: 'What happens if a new member doesn\u2019t respond?', a: 'They get an automatic reminder at an interval you set, and the sequence keeps going with the next check-in. Non-response is also tracked as a signal, so your team can see which new members have gone quiet and reach out personally before they disengage.' },
-        { q: 'What kind of response rates should we expect?', a: 'Onboarding campaigns typically see 10\u201325% response rates per check-in. New members are the most engaged audience you have \u2014 they just joined and they want to hear from you. The key is asking while the motivation is fresh.' }
+        { q: 'Can we onboard members who joined months ago?', a: 'Yes. PropFuel reads join dates from your AMS, so you can build a segment of recent joiners, such as everyone who joined in the last six months, and enroll them in an onboarding track written for where they are in their first year.' },
+        { q: 'What happens if a new member doesn’t respond?', a: 'They get an automatic reminder at an interval you set, and the sequence keeps going with the next check-in. Non-response is also tracked as a signal, so your team can see which new members have gone quiet and reach out personally before they disengage.' },
+        { q: 'What kind of response rates should we expect?', a: 'Onboarding campaigns typically see 10–15% response rates per check-in. New members are the most engaged audience you have. They just joined and they want to hear from you. The key is asking while the motivation is fresh.' }
       ],
-      ctaH2: 'Stop losing members<br>you never onboarded.',
+      ctaH2: 'Stop Losing Members<br>You Never Onboarded.',
       ctaSub: 'Retention does not start at renewal. It starts the day a member joins. If the first year feels generic, the renewal is already lost.'
     });
   }
