@@ -4407,7 +4407,7 @@
     // 5. Hero H1 + sub
     var heroHeading = document.querySelector('.pf-page-hero-title');
     if (heroHeading) {
-      heroHeading.innerHTML = 'Describe it. <span class="maif-v2-hero-accent">Membership AI</span> builds it.';
+      heroHeading.innerHTML = '<span class="maif-v2-hero-accent">Membership AI</span> and Automation for the Ones Who Do the Job of Many';
     }
     var heroSub = document.querySelector('.pf-page-hero-sub');
     if (heroSub) {
