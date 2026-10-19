@@ -10401,6 +10401,7 @@
     fixDuplicateHeroCtas();
     fixDeadResourceLinks();
     addFooterReferralLink();
+    loadCopyFixes();
     // Clean up duplicates: hide original Webflow elements when injected ones exist
     var injectedBtns = document.querySelector('.pf-hero-btns-injected');
     if (injectedBtns) {
@@ -11145,6 +11146,16 @@
         whenInView(stage, loop, 0.4);
       }
     })();
+  }
+
+  // Claims + orphan-word fixes (js/copy-fixes.js, Oct 19 2026). Staging (*.webflow.io) only until Alex OKs the prod
+  // change list; to ship, delete the hostname check.
+  function loadCopyFixes() {
+    if (!/\.webflow\.io$/.test(location.hostname)) return;
+    var s = document.createElement('script');
+    s.src = 'https://alexhively.github.io/propfuel-webflow-custom/js/copy-fixes.js?v=1';
+    s.defer = true;
+    document.head.appendChild(s);
   }
 
   // expose for the local preview harness only
