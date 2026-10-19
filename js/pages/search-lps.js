@@ -8,7 +8,7 @@
      2. renders the body (proof, how it works, page-specific section, client results, FAQ, CTA) under the hero.
      3. trims the nav to logo + demo button so paid visitors stay on the form.
    Copy rules: knowledge/messaging-guardrails.md + creative-messaging-rules.md in propfuel-meta-ads. Every number
-   is in roi.md / case-studies-master.md / testimonials.md; clients are named only where the case study is live. */
+   is in roi.md / case-studies-master.md / testimonials.md; clients may be named without a live case study. */
 (function () {
   var path = window.location.pathname.replace(/\/+$/, '');
   var CS = 'https://www.propfuel.com/case-studies/';
