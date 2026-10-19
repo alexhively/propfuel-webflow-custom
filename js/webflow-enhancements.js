@@ -4945,7 +4945,7 @@
     // names as <h3>. Other use-case pages keep the original tags.
     var LBL = cfg.seoTags ? 'h2' : 'p';
     var HD = cfg.seoTags ? 'p' : 'h2';
-    var ENG = cfg.seoTags ? 'h3' : 'h4';
+    var ENG = cfg.seoTags ? 'h3' : (cfg.engTag || 'h4');
 
     // ═══════════════════════════════════════
     // HERO
@@ -4981,9 +4981,9 @@
         btnWrap.style.cssText = 'display:flex;align-items:center;justify-content:center;gap:20px;margin-top:40px';
         btnWrap.innerHTML =
           '<a href="/book-a-demo" class="pf-btn-primary" style="display:inline-flex;align-items:center;gap:8px;padding:16px 36px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:linear-gradient(to right,#F47C2C,#FBC02D);color:#fff;border:none;box-shadow:0 4px 16px rgba(240,90,40,0.2);transition:box-shadow .3s ease">' +
-            'Get Started <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>' +
-          '<a href="#ucCenterpiece" style="display:inline-flex;align-items:center;gap:8px;padding:15px 35px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:transparent;color:#F47C2C;border:1.5px solid rgba(244,124,44,0.35);transition:border-color .25s ease,box-shadow .25s ease">' +
-            'See It in Action</a>';
+            (cfg.heroBtn1 || 'Get Started') + ' <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>' +
+          '<a href="#' + (cfg.sequenceId || 'ucCenterpiece') + '" style="display:inline-flex;align-items:center;gap:8px;padding:15px 35px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:transparent;color:#F47C2C;border:1.5px solid rgba(244,124,44,0.35);transition:border-color .25s ease,box-shadow .25s ease">' +
+            (cfg.heroBtn2 || 'See It in Action') + '</a>';
         var sub2 = heroParent.querySelector('.pf-page-hero-sub');
         if (sub2) { sub2.parentNode.insertBefore(btnWrap, sub2.nextSibling); }
         else { heroParent.appendChild(btnWrap); }
@@ -5019,7 +5019,7 @@
 
     // --- CENTERPIECE ---
     if (cfg.centerpieceHTML && !document.querySelector('.' + prefix + '-centerpiece')) {
-      var cpHTML = '<section id="ucCenterpiece" class="' + prefix + '-centerpiece" style="padding:96px 48px">' +
+      var cpHTML = '<section id="' + (cfg.sequenceId || 'ucCenterpiece') + '" class="' + prefix + '-centerpiece" style="padding:96px 48px">' +
         '<div style="max-width:1100px;margin:0 auto">' + cfg.centerpieceHTML + '</div></section>';
       var prevSection = document.querySelector('.' + prefix + '-problem');
       if (prevSection) { prevSection.insertAdjacentHTML('afterend', cpHTML); }
@@ -5047,6 +5047,7 @@
           '<div style="width:56px;height:56px;border-radius:50%;background:' + (isAI ? 'rgba(74,127,165,0.1)' : 'rgba(244,124,44,0.1)') + ';display:flex;align-items:center;justify-content:center;margin:0 auto 16px">' + icon + '</div>' +
           '<' + ENG + ' style="font-size:18px;font-weight:700;color:' + (isAI ? '#4A7FA5' : '#2F2F2F') + ';margin:0 0 10px;line-height:1.3">' + eng.name + '</' + ENG + '>' +
           '<p style="font-size:14px;color:#6E6E6E;line-height:1.6">' + eng.desc + '</p>' +
+          (eng.href ? '<a href="' + eng.href + '" style="display:inline-block;margin-top:14px;font-size:14px;font-weight:600;color:#F47C2C;text-decoration:underline">' + eng.linkText + '</a>' : '') +
         '</div>';
       });
       engHTML += '</div></div></section>';
@@ -5084,7 +5085,9 @@
           '<p style="font-size:14px;color:#8C8479;line-height:1.5;margin-top:4px">' + st.desc + '</p>' +
         '</div>';
       });
-      stHTML += '</div></div></section>';
+      stHTML += '</div>' +
+        (cfg.statsCta ? '<a href="' + cfg.statsCta.href + '" style="display:inline-flex;align-items:center;margin-top:48px;padding:15px 35px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;color:#F9A825;border:1.5px solid rgba(249,168,37,0.45)">' + cfg.statsCta.text + '</a>' : '') +
+        '</div></section>';
       var engSection = document.querySelector('.' + prefix + '-engines');
       (cfg.extraSections || []).forEach(function(x) {
         var el = x.after === 'engines' ? document.querySelector('.' + x.cls) : null;
@@ -5101,13 +5104,16 @@
           '<div style="text-align:center;margin-bottom:56px">' +
             '<' + LBL + ' style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin:0 0 16px;line-height:1.4">FAQ</' + LBL + '>' +
             '<' + HD + ' style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15;margin:0">' + cfg.faqH2 + '</' + HD + '>' +
+            (cfg.faqSub ? '<p style="font-size:17px;color:#6E6E6E;line-height:1.6;margin:16px 0 0">' + cfg.faqSub + '</p>' : '') +
           '</div>';
       cfg.faqs.forEach(function(item) {
         faqHTML += '<div class="pf-faq-item" style="border-bottom:1px solid #E3DDD2;padding:24px 0">' +
+          (cfg.faqHeadings ? '<h3 style="margin:0">' : '') +
           '<button class="pf-faq-question" style="width:100%;display:flex;align-items:center;justify-content:space-between;background:none;border:none;cursor:pointer;font:700 17px/1.4 \'DM Sans\',sans-serif;color:#2F2F2F;text-align:left;padding:0">' +
             item.q +
             '' +
           '</button>' +
+          (cfg.faqHeadings ? '</h3>' : '') +
           '<div class="pf-faq-answer" style="max-height:0;overflow:hidden;transition:max-height .35s ease">' +
             '<p style="font-size:16px;color:#6E6E6E;line-height:1.65;padding-top:16px">' + item.a + '</p>' +
           '</div>' +
@@ -5128,6 +5134,15 @@
       } else {
         ctaHeading.innerHTML = cfg.ctaH2;
       }
+    }
+    var ctaPrimary = document.querySelector('.pf-cta-section .pf-btn-primary');
+    if (ctaPrimary && cfg.ctaBtn1) { ctaPrimary.textContent = cfg.ctaBtn1; }
+    if (ctaPrimary && cfg.ctaBtn2 && !document.querySelector('.pf-cta-btn2-injected')) {
+      var ctaBtn2 = document.createElement('a');
+      ctaBtn2.className = 'pf-btn-secondary pf-cta-btn2-injected';
+      ctaBtn2.href = cfg.ctaBtn2.href;
+      ctaBtn2.textContent = cfg.ctaBtn2.text;
+      ctaPrimary.insertAdjacentElement('afterend', ctaBtn2);
     }
     var ctaSubEl = document.querySelector('.pf-cta-sub');
     if (ctaSubEl) { ctaSubEl.textContent = cfg.ctaSub; }
@@ -5262,30 +5277,37 @@
   function fixUseCaseRenewals() {
     buildUseCasePage({
       path: 'use-cases/renewals',
-      seoTags: true,
+      engTag: 'h3',
+      sequenceId: 'sequence',
+      heroBtn1: 'Get a Free Demo',
+      heroBtn2: 'See the Five Steps',
+      faqHeadings: true,
+      ctaBtn1: 'Get a Free Demo',
+      ctaBtn2: { text: 'See Win-Back Campaigns', href: '/use-cases/win-back' },
+      statsCta: { text: 'Read the Renewal Case Studies', href: '/client-success/case-studies' },
       heroLabel: 'Member Retention & Renewals',
       heroTitle: 'Earn the renewal. Long before the invoice.',
       heroSub: 'PropFuel starts the renewal conversation 90 days before the invoice, so member retention is earned long before you ask for payment. Committed members renew faster. Wavering members get the nudge that matters.',
       heroNote: 'Works alongside your existing renewal emails and AMS invoices',
-      problemLabel: 'The Problem',
-      problemH2: 'You remind them. You never ask them.',
+      problemLabel: 'The problem',
+      problemH2: 'You Remind Them. You Never Ask Them.',
       problemBody: [
-        'Expiration approaches. Three emails go out. A mailed invoice. Maybe a call. <strong>They all say the same thing \u2014 renew now \u2014 and none of them ask whether membership was worth it.</strong>',
-        'When someone doesn\u2019t renew, the only data point is non-payment. Cost? Relevance? Career change? <strong>The decision to leave happened weeks earlier \u2014 and the association was never in the conversation.</strong>'
+        'Expiration approaches. Three emails go out. A mailed invoice. Maybe a call.',
+        'When someone doesn\u2019t renew, the only data point is non-payment. Was it cost? Relevance? A career change? Nobody knows, because nobody asked. That is a member retention problem, not a billing problem.'
       ],
       problemGraphic: '<div style="background:rgba(255,255,255,.06);border-radius:18px;padding:26px;border:1px solid rgba(255,255,255,.1);max-width:380px;font-family:\'DM Sans\',sans-serif;box-shadow:0 20px 60px rgba(0,0,0,.3)"><div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.08)"><div style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#F47C2C,#FBC02D);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:15px;flex-shrink:0">JD</div><div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:700;color:#EDE8DF;line-height:1.2">Jennifer Davis</div><div style="font-size:11px;color:#8C8479;margin-top:2px">Member since 2019 \u00B7 Expires Apr 30</div></div><div style="background:rgba(230,81,0,.18);color:#F47C2C;font-size:10px;font-weight:800;padding:5px 9px;border-radius:6px;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap">At Risk</div></div><div style="display:flex;flex-direction:column;gap:10px"><div style="background:rgba(255,255,255,.04);border-left:3px solid #F47C2C;padding:12px 14px;border-radius:8px"><div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px"><span style="font-size:11px;color:#8C8479">no-reply@assoc.org</span><span style="font-size:11px;color:#8C8479">Apr 15</span></div><div style="font-size:13px;color:#EDE8DF;font-weight:600;margin-bottom:5px">Your membership is expiring</div><div style="display:flex;align-items:center;gap:6px;font-size:10px;color:#8C8479"><span style="width:6px;height:6px;border-radius:50%;background:#F47C2C;display:inline-block"></span>Unread</div></div><div style="background:rgba(255,255,255,.04);border-left:3px solid #F47C2C;padding:12px 14px;border-radius:8px"><div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px"><span style="font-size:11px;color:#8C8479">no-reply@assoc.org</span><span style="font-size:11px;color:#8C8479">Apr 22</span></div><div style="font-size:13px;color:#EDE8DF;font-weight:600;margin-bottom:5px">Reminder: Membership expires soon</div><div style="display:flex;align-items:center;gap:6px;font-size:10px;color:#8C8479"><span style="width:6px;height:6px;border-radius:50%;background:#F47C2C;display:inline-block"></span>Unread</div></div><div style="background:rgba(255,255,255,.04);border-left:3px solid #E65100;padding:12px 14px;border-radius:8px"><div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px"><span style="font-size:11px;color:#8C8479">no-reply@assoc.org</span><span style="font-size:11px;color:#8C8479">Apr 29</span></div><div style="font-size:13px;color:#EDE8DF;font-weight:600;margin-bottom:5px">Final notice: Renew today</div><div style="display:flex;align-items:center;gap:6px;font-size:10px;color:#8C8479"><span style="width:6px;height:6px;border-radius:50%;background:#E65100;display:inline-block"></span>Unread</div></div></div><div style="margin-top:18px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:space-between;gap:12px"><span style="font-size:12px;color:#8C8479;font-style:italic">3 messages. 0 conversations.</span><span style="font-size:10px;font-weight:800;color:#EDE8DF;text-transform:uppercase;letter-spacing:.08em;background:#E65100;padding:5px 10px;border-radius:6px">Lapsed</span></div></div>',
       centerpieceHTML: '<div style="text-align:center;margin-bottom:56px">' +
-        '<h2 style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin:0 0 16px;line-height:1.4">The Sandwich Technique</h2>' +
-        '<p style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15;margin:0 0 24px">Five steps. Ninety days.</p>' +
-        '<p style="font-size:17px;color:#6E6E6E;line-height:1.6;max-width:700px;margin:0 auto 16px">PropFuel\u2019s renewal approach wraps the direct renewal ask between emotional value conversations \u2014 so the payment request never arrives cold.</p>' +
-        '<p style="font-size:17px;color:#6E6E6E;line-height:1.6;max-width:700px;margin:0 auto">It adapts to every answer instead of running on a fixed schedule. A member who tells you at step 1 that they plan to renew can move straight to the renewal ask, anyone who renews drops out of the sequence, and members who go quiet or signal doubt continue through every step.</p>' +
+        '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin:0 0 16px;line-height:1.4">The Sandwich Technique</p>' +
+        '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15;margin:0 0 24px">Five Renewal Conversations in Ninety Days</h2>' +
+        '<p style="font-size:17px;color:#6E6E6E;line-height:1.6;max-width:700px;margin:0 auto 16px">PropFuel\u2019s renewal approach wraps the direct renewal ask between emotional value conversations, so the payment request never arrives cold.</p>' +
+        '<p style="font-size:17px;color:#6E6E6E;line-height:1.6;max-width:700px;margin:0 auto">It adapts to every answer instead of running on a fixed schedule. A member who says at step 1 that they plan to renew can move straight to the renewal ask. Anyone who renews drops out of the sequence. Members who go quiet or signal doubt continue through every step.</p>' +
       '</div>' +
       '<div style="max-width:800px;margin:0 auto;display:flex;flex-direction:column;gap:24px">' +
         ['90 Days Out|Soft Intent|A low-pressure check-in that asks about the member\u2019s experience. No mention of renewal yet. Just listening.|#FBC02D|Every member, 90 days before their expiration date|How would you rate the value of your membership this year?',
          '60 Days Out|Emotional Value|Reinforce what the membership has delivered. Surface personalized benefits based on their engagement history and their step 1 answer.|#F9A825|Members who haven\u2019t renewed yet|Which of these benefits has been most useful to you this year?',
-         '45 Days Out|Direct Action|The renewal ask \u2014 but it arrives after two conversations that reminded them why they joined. Context changes everything.|#F47C2C|Members who haven\u2019t renewed yet, including anyone who confirmed at step 1|Your renewal is coming up. Can we count on you for another year?',
-         '30 Days Out|Surface Hesitations|For non-responders and anyone who signaled doubt: ask what is holding them back. Cost? Relevance? Time? The answer is written to their AMS record and triggers an alert to your membership team, so the right person can follow up \u2014 with a call, a payment option, or a better-fit membership type.|#E65100|Non-responders and members who signaled doubt|Is anything holding you back from renewing \u2014 cost, relevance, or time?',
-         'Expiration|Final Notice|A last touchpoint that acknowledges the relationship and makes it easy to act \u2014 or tells you exactly why they are leaving.|#D84315|Anyone who still hasn\u2019t renewed|Before your membership expires, is there anything we can do to keep you with us?'
+         '45 Days Out|Direct Action|The renewal ask. It arrives after two conversations that reminded them why they joined. Context changes everything.|#F47C2C|Members who haven\u2019t renewed yet, including anyone who confirmed at step 1|Your renewal is coming up. Can we count on you for another year?',
+         '30 Days Out|Surface Hesitations|For non-responders and anyone who signaled doubt: ask what is holding them back. The answer is written to their AMS record and triggers an alert to your membership team, so the right person can follow up with a call, a payment option, or a better-fit membership type.|#E65100|Non-responders and members who signaled doubt|Is anything holding you back from renewing: cost, relevance, or time?',
+         'Expiration|Final Notice|A last touchpoint that acknowledges the relationship and makes it easy to act, or tells you exactly why they are leaving.|#D84315|Anyone who still hasn\u2019t renewed|Before your membership expires, is there anything we can do to keep you with us?'
         ].map(function(s, i) {
           var p = s.split('|');
           return '<div style="display:flex;gap:24px;align-items:flex-start">' +
@@ -5304,8 +5326,10 @@
           '</div>';
         }).join('') +
       '</div>' +
-      '<div style="max-width:800px;margin:32px auto 0;background:#FFFBF2;border:1px solid #E3DDD2;border-radius:16px;padding:24px 28px">' +
-        '<p style="font-size:15px;color:#2F2F2F;line-height:1.6;margin:0"><strong>After step 5:</strong> members who renew roll into your ongoing engagement campaigns. Members who lapse move into a win-back campaign built to <a href="/use-cases/win-back" style="color:#F47C2C;font-weight:600;text-decoration:underline">win back lapsed members</a> with a conversation instead of another invoice.</p>' +
+      '<div style="max-width:800px;margin:32px auto 0;background:#1A1713;border-radius:16px;padding:28px 32px">' +
+        '<div style="font-size:13px;font-weight:700;color:#F9A825;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px">After step 5</div>' +
+        '<h3 style="font-size:20px;font-weight:700;color:#EDE8DF;margin:0 0 8px">Renew or win back</h3>' +
+        '<p style="font-size:15px;color:#8C8479;line-height:1.6;margin:0">Members who renew roll into your ongoing engagement campaigns. Members who lapse move into a win-back campaign built to <a href="/use-cases/win-back" style="color:#F47C2C;font-weight:600;text-decoration:underline">win back lapsed members</a> with a conversation instead of another invoice.</p>' +
       '</div>',
       extraSections: [{
         cls: 'usecasesrenewals-retention',
@@ -5313,9 +5337,9 @@
         style: 'padding:96px 48px;background:#F6F2E8',
         html: '<div style="max-width:1100px;margin:0 auto">' +
           '<div style="max-width:760px;margin:0 auto 56px;text-align:center">' +
-            '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15;margin:0 0 24px">Member retention strategies before the renewal notice</h2>' +
-            '<p style="font-size:17px;color:#6E6E6E;line-height:1.65;margin:0 0 16px">Membership retention isn\u2019t the same thing as a renewal reminder \u2014 yet most membership retention strategies still start with the invoice. By the time it goes out, most members have already decided. Non-payment is the symptom, not the cause \u2014 the decision happens weeks earlier, when a member stops finding value and nobody notices.</p>' +
-            '<p style="font-size:17px;color:#6E6E6E;line-height:1.65;margin:0">That\u2019s why PropFuel works as member retention software, not just a way to automate membership renewals: every step is designed to learn why members stay or go while there\u2019s still time to act.</p>' +
+            '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15;margin:0 0 24px">Member Retention Strategies Before the Renewal Notice</h2>' +
+            '<p style="font-size:17px;color:#6E6E6E;line-height:1.65;margin:0 0 16px">Membership retention isn\u2019t the same thing as a renewal reminder, yet most membership retention strategies still start with the invoice. By the time it goes out, most members have already decided. Non-payment is the symptom, not the cause. The decision happens weeks earlier, when a member stops finding value and nobody notices.</p>' +
+            '<p style="font-size:17px;color:#6E6E6E;line-height:1.65;margin:0">That\u2019s why PropFuel works as member retention software, not just a way to automate membership renewals. Every step is designed to learn why members stay or go while there\u2019s still time to act.</p>' +
           '</div>' +
           '<div class="uc-feature-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px">' +
           [['Listen before you ask','The 90-day sequence above is a membership retention strategy, not a reminder schedule. It learns how each member feels before the renewal ask arrives.'],
@@ -5331,32 +5355,33 @@
           '</div>' +
         '</div>'
       }],
-      enginesH2: 'Four engines working together to run your renewal conversation.',
+      enginesH2: 'Four Engines Working Together to Run Your Renewal Conversation',
       engines: [
-        { name: 'Engagement Engine', desc: 'Delivers single-question check-ins that surface intent, satisfaction, and hesitations \u2014 the signals that predict renewal.' },
-        { name: 'Automation Engine', desc: 'Runs the full 90-day renewal sequence with timing, branching, and staff alerts \u2014 no manual intervention required.' },
-        { name: 'Insights Engine', desc: 'Aggregates renewal signals into dashboards. See who is likely to renew, who is wavering, and what the common objections are.' },
-        { name: 'Membership AI', desc: 'Scores renewal likelihood, generates personalized messaging, and flags at-risk members before staff would catch them.' }
+        { name: 'Engagement Engine', desc: 'Delivers single-question check-ins that surface intent, satisfaction, and hesitations. These are the signals that predict renewal.', href: '/platform/engagement', linkText: 'Explore the Engagement Engine' },
+        { name: 'Automation Engine', desc: 'Runs the full 90-day renewal sequence with timing, branching, and staff alerts. No manual intervention required.', href: '/platform/automation', linkText: 'Explore the Automation Engine' },
+        { name: 'Insights Engine', desc: 'Aggregates renewal signals into dashboards. See who is likely to renew, who is wavering, and what the common objections are.', href: '/platform/insights', linkText: 'Explore the Insights Engine' },
+        { name: 'Membership AI', desc: 'Scores renewal likelihood, generates personalized messaging, and flags at-risk members before staff would catch them.', href: '/membership-ai', linkText: 'Explore Membership AI' }
       ],
-      statsH2: 'Proof that conversations drive renewals.',
+      statsH2: 'Proof That Conversations Drive Renewals',
       stats: [
-        { num: '95%', org: 'AAMFT', desc: 'On-time renewal rate \u2014 up from 80.5%, plus 7% overall membership growth.' },
-        { num: '653', org: 'Feline VMA', desc: 'Members renewed after a targeted PropFuel renewal conversation campaign.' },
-        { num: '$65K', org: 'WQA', desc: 'Additional revenue from a 5% renewal rate increase driven by PropFuel conversations.' },
-        { num: '72%', org: 'All Clients', desc: 'Average engagement rate on renewal intent campaigns across all PropFuel clients.' }
+        { num: '95%', org: 'AAMFT', desc: 'On-time renewal rate, up from 80.5%, plus 7% overall membership growth.' },
+        { num: '653', org: 'Feline VMA', desc: 'Conversions from a targeted PropFuel renewal conversation campaign.' },
+        { num: '$65K', org: 'WQA', desc: 'Additional revenue from a 5% increase in company membership renewals.' },
+        { num: '72%', org: 'All Clients', desc: 'Of declining organizations reversed course.' }
       ],
-      faqH2: 'Common questions about renewal campaigns.',
+      faqH2: 'Member Renewal FAQs',
+      faqSub: 'Common questions about renewal campaigns.',
       faqs: [
-        { q: 'When should we start the renewal conversation?', a: 'Ninety days before expiration. This gives you three months to build context, surface hesitations, and address concerns \u2014 instead of sending three identical payment reminders in the final weeks.' },
-        { q: 'Will this replace our existing renewal emails?', a: 'It can complement or replace them. Many organizations run PropFuel\u2019s renewal sequence alongside their AMS-generated invoices. The PropFuel emails handle the conversation; your AMS handles the transaction.' },
-        { q: 'What if a member says they are not going to renew?', a: 'That response is valuable data. PropFuel captures the reason, triggers a staff alert, and can route the member to a personalized follow-up \u2014 a discount offer, a call from a board member, or an exit survey.' },
+        { q: 'When should we start the renewal conversation?', a: 'Ninety days before expiration. This gives you three months to build context, surface hesitations, and address concerns, instead of sending three identical payment reminders in the final weeks.' },
+        { q: 'Will this replace our existing renewal emails?', a: 'It can complement or replace them. Many organizations run PropFuel\u2019s renewal sequence alongside their AMS-generated invoices. The PropFuel emails handle the conversation, and your AMS handles the transaction.' },
+        { q: 'What if a member says they are not going to renew?', a: 'That response is valuable data. PropFuel captures the reason, triggers a staff alert, and can route the member to a personalized follow-up, such as a discount offer, a call from a board member, or an exit survey.' },
         { q: 'How do we measure the impact on renewal rates?', a: 'PropFuel\u2019s Insights Engine tracks renewal intent, member signals, and actual renewal rates. You can compare cohorts that received PropFuel outreach against those that did not.' },
-        { q: 'How does PropFuel know when our members expire?', a: 'PropFuel reads each member\u2019s expiration or renewal date from your AMS through its two-way sync. The sequence is scheduled relative to that date, so every member starts 90 days before their own expiration \u2014 and once your AMS shows a member as renewed, they can be removed from the sequence automatically.' },
-        { q: 'What\u2019s a good membership retention rate?', a: 'According to Marketing General Incorporated\u2019s annual Membership Marketing Benchmarking Report, the median association renewal rate is about 84%, and first-year members renew at a noticeably lower rate \u2014 around 75%. Track both numbers separately: the gap between them is usually where the biggest retention gains are. With PropFuel, AAMFT raised its on-time renewal rate from 80.5% to 95%.' },
+        { q: 'How does PropFuel know when our members expire?', a: 'PropFuel reads each member\u2019s expiration or renewal date from your AMS through its two-way sync. The sequence is scheduled relative to that date, so every member starts 90 days before their own expiration. Once your AMS shows a member as renewed, they can be removed from the sequence automatically.' },
+        { q: 'What\u2019s a good membership retention rate?', a: 'According to Marketing General Incorporated\u2019s annual Membership Marketing Benchmarking Report, the median association renewal rate is about 84%, and first-year members renew at a noticeably lower rate, around 75%. Track both numbers separately, because the gap between them is usually where the biggest retention gains are. With PropFuel, AAMFT raised its on-time renewal rate from 80.5% to 95%.' },
         { q: 'Can we run different renewal campaigns for different member types?', a: 'Yes. Segment by member type, tenure, engagement level, or any AMS field. A first-year member gets a different renewal experience than a 20-year veteran.' }
       ],
-      ctaH2: 'Turn renewals<br>into conversations.',
-      ctaSub: 'The members who do not renew are not the ones who forgot. They are the ones who decided it was not worth it \u2014 and nobody asked them why until it was too late.'
+      ctaH2: 'Turn Renewals<br>Into Conversations.',
+      ctaSub: 'The members who do not renew are not the ones who forgot. They are the ones who decided it was not worth it, and nobody asked them why until it was too late.'
     });
   }
 
