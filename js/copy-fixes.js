@@ -45,6 +45,7 @@
     // Orphan guards: tie the last two words where text-wrap alone leaves one word on the last line.
     ['/platform/overview', 'to your AMS automatically', 'to your AMS\u00a0automatically'],
     ['/use-cases/onboarding', 'or networking?', 'or\u00a0networking?'],
+    ['/use-cases/onboarding', 'AMS record automatically.', 'AMS record\u00a0automatically.'],
     ['/blog-posts/strategies-for-optimizing-new-member-acquisition', 'New Member Acquisition', 'New Member\u00a0Acquisition']
   ];
   var mine = FIXES.filter(function (f) { return f[0] === '*' || f[0] === path; });
