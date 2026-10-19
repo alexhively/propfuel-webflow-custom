@@ -2115,7 +2115,7 @@
     // --- 3. Fix subtitle text using exact Webflow class ---
     var heroSub = document.querySelector('.pf-page-hero-sub');
     if (heroSub) {
-      heroSub.textContent = 'The AI-powered online member engagement platform that helps associations understand what members want\u00a0\u2014\u00a0and act on it. Not another email tool: PropFuel turns one-way member communication into two-way conversations.';
+      heroSub.textContent = 'PropFuel is the AI-powered online member engagement platform that helps associations understand what members want and act on it. It is not another email tool. PropFuel turns one-way member communication into two-way conversations, and every answer writes back to your AMS automatically, where your AMS supports it.';
     }
 
     // --- 4. Inject hero buttons (Webflow has NO buttons in the hero) ---
@@ -2127,8 +2127,8 @@
         btnWrap.style.cssText = 'display:flex;align-items:center;justify-content:center;gap:20px;margin-top:40px';
         btnWrap.innerHTML =
           '<a href="/book-a-demo" class="pf-btn-primary" style="display:inline-flex;align-items:center;gap:8px;padding:16px 36px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:linear-gradient(to right,#F47C2C,#FBC02D);color:#fff;border:none;box-shadow:0 4px 16px rgba(240,90,40,0.2);transition:box-shadow .3s ease">' +
-            'Get a Demo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>' +
-          '<a href="/platform/insights" style="display:inline-flex;align-items:center;gap:8px;padding:15px 35px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:transparent;color:#F47C2C;border:1.5px solid rgba(244,124,44,0.35);transition:border-color .25s ease,box-shadow .25s ease">' +
+            'Get a Free Demo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>' +
+          '<a href="#engines" style="display:inline-flex;align-items:center;gap:8px;padding:15px 35px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:transparent;color:#F47C2C;border:1.5px solid rgba(244,124,44,0.35);transition:border-color .25s ease,box-shadow .25s ease">' +
             'Explore the Engines</a>';
         // Insert after subtitle
         var sub = heroParent.querySelector('.pf-page-hero-sub');
@@ -2148,21 +2148,21 @@
       var philHTML = '<section class="po-philosophy" style="padding:96px 48px;background:#EBE6DA">' +
         '<div style="max-width:1100px;margin:0 auto">' +
         '<div style="text-align:center;margin-bottom:64px">' +
-          '<h2 style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin:0 0 16px;line-height:1.4">The PropFuel Difference</h2>' +
-          '<p style="font-size:clamp(32px,5vw,48px);font-weight:800;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.1;margin:0 0 20px">Stop Broadcasting.<br>Start Conversing.</p>' +
-          '<p style="font-size:18px;color:#6E6E6E;max-width:620px;margin:0 auto;line-height:1.65">PropFuel is not another email tool or marketing automation platform. It is built on a fundamentally different idea: instead of broadcasting at members, you have conversations with them.</p>' +
+          '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin:0 0 16px;line-height:1.4">The PropFuel Difference</p>' +
+          '<h2 style="font-size:clamp(32px,5vw,48px);font-weight:800;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.1;margin:0 0 20px">Stop Broadcasting.<br>Start Conversing.</h2>' +
+          '<p style="font-size:18px;color:#6E6E6E;max-width:620px;margin:0 auto;line-height:1.65">PropFuel is not another email tool or marketing automation platform. Instead of broadcasting at members, you have conversations with them.</p>' +
         '</div>' +
         '<div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center">' +
           '<div>' +
             '<h3 style="font-size:clamp(22px,3vw,28px);font-weight:700;color:#2F2F2F;line-height:1.2;margin-bottom:20px">One question at a time. Three channels. Every response matters.</h3>' +
-            '<p style="font-size:16px;color:#6E6E6E;line-height:1.65;margin-bottom:16px">Most platforms send newsletters, surveys, and blast emails \u2014 hoping someone responds. PropFuel asks one clear question through email, SMS, or your website. Members respond with a single tap. No friction, no fatigue.</p>' +
-            '<p style="font-size:16px;color:#6E6E6E;line-height:1.65;margin-bottom:28px">Every response flows back into the member profile and triggers the right next action \u2014 automatically. It is a continuous loop of listening and acting that turns passive members into engaged ones.</p>' +
+            '<p style="font-size:16px;color:#6E6E6E;line-height:1.65;margin-bottom:16px">Most member communication solutions send newsletters, surveys, and blast emails and hope someone responds. PropFuel asks one clear question through email, SMS, or your website. Members respond with a single tap. No friction, no fatigue.</p>' +
+            '<p style="font-size:16px;color:#6E6E6E;line-height:1.65;margin-bottom:28px">Every response flows back into the member profile and triggers the right next action automatically. It is a continuous loop of listening and acting that turns passive members into engaged ones.</p>' +
             '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px">' +
               '<div style="background:#F6F2E8;border-radius:14px;padding:18px 16px"><p style="font-size:26px;font-weight:900;color:#F47C2C;line-height:1;margin:0 0 6px">70+</p><p style="font-size:13px;color:#6E6E6E;line-height:1.45;margin:0">ready-made campaign blueprints, so nobody writes from scratch</p></div>' +
               '<div style="background:#F6F2E8;border-radius:14px;padding:18px 16px"><p style="font-size:26px;font-weight:900;color:#F47C2C;line-height:1;margin:0 0 6px">10\u201345 min</p><p style="font-size:13px;color:#6E6E6E;line-height:1.45;margin:0">to train your staff on the platform</p></div>' +
-              '<div style="background:#F6F2E8;border-radius:14px;padding:18px 16px"><p style="font-size:26px;font-weight:900;color:#F47C2C;line-height:1;margin:0 0 6px">0</p><p style="font-size:13px;color:#6E6E6E;line-height:1.45;margin:0">CSV exports \u2014 every response writes back to your AMS automatically</p></div>' +
+              '<div style="background:#F6F2E8;border-radius:14px;padding:18px 16px"><p style="font-size:26px;font-weight:900;color:#F47C2C;line-height:1;margin:0 0 6px">0</p><p style="font-size:13px;color:#6E6E6E;line-height:1.45;margin:0">CSV exports. Every response writes back to your AMS automatically</p></div>' +
             '</div>' +
-            '<p style="font-size:15px;color:#2F2F2F;font-style:italic;line-height:1.55;margin:0;border-left:3px solid #FBC02D;padding-left:16px">\u201CYou just gave us another staff member.\u201D <span style="font-style:normal;color:#8C8479">\u2014 Bryan Soady, Executive Director &amp; CEO, SUAA</span></p>' +
+            '<p style="font-size:15px;color:#2F2F2F;font-style:italic;line-height:1.55;margin:0;border-left:3px solid #FBC02D;padding-left:16px">\u201CYou just gave us another staff member.\u201D <span style="font-style:normal;color:#8C8479">Bryan Soady, Executive Director &amp; CEO, SUAA</span></p>' +
           '</div>' +
           '<div style="display:flex;align-items:center;justify-content:center">' +
             '<div style="max-width:400px;width:100%;font-family:DM Sans,sans-serif">' +
@@ -2195,11 +2195,11 @@
     // ═══════════════════════════════════════
     var engineSection = document.querySelector('.pf-section, .pf-feature-grid');
     if (engineSection && !document.querySelector('.po-engines-header')) {
-      var engHeaderHTML = '<div class="po-engines-header" style="text-align:center;padding:96px 48px 32px;max-width:800px;margin:0 auto">' +
-        '<h2 style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin:0 0 16px;line-height:1.4">Three Engines, One Platform</h2>' +
-        '<p style="font-size:clamp(28px,4vw,42px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.1;margin:0 0 20px">Everything You Need to Understand and Engage Your Members</p>' +
-        '<p style="font-size:18px;color:#6E6E6E;line-height:1.6;margin:0 0 16px">PropFuel unifies insights, automation, and engagement into a single platform purpose-built for associations.</p>' +
-        '<p style="font-size:16px;color:#6E6E6E;line-height:1.6;margin:0">Why one platform instead of three tools? Because the engines share one member profile. An answer captured by the Engagement Engine updates the Insights Engine instantly and can trigger the next step in the Automation Engine \u2014 no exports, no syncing between systems, and one AMS integration instead of three.</p>' +
+      var engHeaderHTML = '<div id="engines" class="po-engines-header" style="text-align:center;padding:96px 48px 32px;max-width:800px;margin:0 auto">' +
+        '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin:0 0 16px;line-height:1.4">Three engines, one platform</p>' +
+        '<h2 style="font-size:clamp(28px,4vw,42px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.1;margin:0 0 20px">Everything You Need to Understand and Engage Your Members</h2>' +
+        '<p style="font-size:18px;color:#6E6E6E;line-height:1.6;margin:0 0 16px">PropFuel unifies insights, automation, and engagement into a single online member engagement platform purpose-built for associations.</p>' +
+        '<p style="font-size:16px;color:#6E6E6E;line-height:1.6;margin:0">Why one platform instead of three tools? The engines share one member profile. An answer captured by the Engagement Engine updates the Insights Engine instantly and can trigger the next step in the Automation Engine. No exports, no syncing between systems, and one AMS integration instead of three.</p>' +
       '</div>';
       engineSection.insertAdjacentHTML('beforebegin', engHeaderHTML);
     }
@@ -2318,39 +2318,39 @@
       {
         num: 'Engine 01',
         title: 'The Insights Engine',
-        tagline: 'More Signal, Less Noise',
-        desc: 'The Insights Engine interprets member behavior and surfaces who wants what, who is at risk, and who is ready for more\u00a0\u2014\u00a0so you stop guessing and start acting.',
+        tagline: 'More signal. Less noise.',
+        desc: 'The Insights Engine interprets member behavior and surfaces who wants what, who\u2019s at risk, and who\u2019s ready for more, so you stop guessing and start acting. Each member\u2019s signal score is built from their answers, email and website activity, and your AMS data.',
         bullets: [
-          'Super Contact Profiles: unified view of every member',
-          'AI-powered response analysis and sentiment detection',
-          'Response analysis and trend tracking',
-          'At-risk member identification before they lapse'
+          'Real-time member signals and engagement scoring',
+          'At-risk members identified before they lapse',
+          'AI-powered Signals that learn from member behavior over time',
+          'Clear dashboards that show what to do next'
         ],
         cta: { text: 'Explore the Insights Engine', href: '/platform/insights' }
       },
       {
         num: 'Engine 02',
         title: 'The Automation Engine',
-        tagline: 'More Personalization, Less Busy Work',
-        desc: 'The Automation Engine builds campaigns from scratch\u00a0\u2014\u00a0segments, messaging, workflows\u00a0\u2014\u00a0using 70+ blueprints. You just approve and launch.',
+        tagline: 'More personalization. Less busy work.',
+        desc: 'The Automation Engine builds campaigns for you, with segments, messaging, and workflows, from 70+ blueprints. A blueprint is a ready-made campaign with the segment, timing, and messaging already set. You just approve and launch.',
         bullets: [
-          'Campaign builder with conditional branching based on responses',
-          '70+ Blueprint library of proven campaign templates',
-          'Real-time alerts when members respond with urgency',
-          'AMS write-back: responses flow directly into your system of record'
+          '70+ campaign blueprints ready to deploy',
+          'AI-generated messaging tailored to each segment',
+          'Conditional logic and drip sequences',
+          'One-click campaign builder with no technical skills needed'
         ],
         cta: { text: 'Explore the Automation Engine', href: '/platform/automation' }
       },
       {
         num: 'Engine 03',
         title: 'The Engagement Engine',
-        tagline: 'More Engagement, Less Silence',
-        desc: 'The Engagement Engine turns one-way communications into two-way exchanges: multichannel member communication with single-click responses across email, website, and SMS. Near-zero friction for members.',
+        tagline: 'More engagement. Less silence.',
+        desc: 'The Engagement Engine turns one-way communications into two-way exchanges. Unlike member communication software that only broadcasts, it delivers multichannel member communication with single-click responses across email, website, and SMS. Near-zero friction for members.',
         bullets: [
-          'Three channels unified: Email, Website, and SMS',
-          'One question at a time\u00a0\u2014\u00a0not surveys, not newsletters',
-          'Members respond with one tap or click',
-          'White-labeled to your association\u2019s brand'
+          'Single-click email responses members actually use',
+          'Website targeting with pop-ups, banners, and inline content',
+          'SMS engagement with opt-in management',
+          'AMS integration with automatic data write-back'
         ],
         cta: { text: 'Explore the Engagement Engine', href: '/platform/engagement' }
       }
@@ -2400,7 +2400,7 @@
       // Fix CTA link: "Learn More" → "Explore the X Engine →" (dark pill button)
       // Search in section and also in the broader feature wrapper
       var ctaLink = section.querySelector('.pf-btn-primary') || (section.parentElement ? section.parentElement.querySelector('.pf-btn-primary') : null);
-      if (ctaLink && ctaLink.textContent.trim() === 'Learn More') {
+      if (ctaLink && /^(Learn More|Explore)/.test(ctaLink.textContent.trim())) {
         ctaLink.className = 'pf-btn-dark-pill'; // Remove w-button class to avoid Webflow !important overrides
         ctaLink.href = eng.cta.href;
         ctaLink.style.cssText = 'display:inline-flex!important;align-items:center!important;gap:8px!important;background:#1A1714!important;background-image:none!important;border-radius:100px!important;' +
@@ -2437,7 +2437,7 @@
         aiTitle.style.paddingBottom = '4px';
       }
       var aiCta = (aiWrapper || aiSection).querySelector('.pf-btn-primary, .w-button');
-      if (aiCta && aiCta.textContent.trim() === 'Learn More') {
+      if (aiCta && /^(Learn More|Explore)/.test(aiCta.textContent.trim())) {
         aiCta.href = '/membership-ai';
         aiCta.style.cssText = 'display:inline-flex;align-items:center;gap:8px;background:#1A1714;border-radius:100px;' +
           'padding:12px 24px;font-size:14px;font-weight:600;letter-spacing:0.02em;color:#F4F1EA;text-decoration:none;' +
@@ -2455,33 +2455,33 @@
         '<div style="max-width:1200px;margin:0 auto">' +
         '<div style="text-align:center;margin-bottom:56px">' +
           '<h2 style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin:0 0 16px;line-height:1.4">Multichannel Member Communication</h2>' +
-          '<p style="font-size:clamp(32px,5vw,42px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.1;margin:0 0 20px">Reach Members Where They Are</p>' +
-          '<p style="font-size:18px;color:#6E6E6E;max-width:600px;margin:0 auto;line-height:1.6">Three channels, unified in one member communication platform. Every response\u00a0\u2014\u00a0regardless of channel\u00a0\u2014\u00a0flows into the same member profile.</p>' +
+          '<p style="font-size:clamp(32px,5vw,42px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.1;margin:0 0 20px">Reach members where they are.</p>' +
+          '<p style="font-size:18px;color:#6E6E6E;max-width:600px;margin:0 auto;line-height:1.6">Three channels, unified in one member communication platform. Every response, whatever the channel, flows into the same member profile. Here is what each channel does and when to use it.</p>' +
         '</div>' +
         '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">' +
           '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 32px">' +
             '<div style="width:48px;height:48px;border-radius:14px;background:rgba(249,168,37,0.12);display:flex;align-items:center;justify-content:center;margin-bottom:20px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F47C2C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22 6 12 13 2 6"/></svg></div>' +
             '<h3 style="font-size:22px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Email</h3>' +
             '<p style="font-size:16px;color:#6E6E6E;line-height:1.6;margin-bottom:20px">Conversational emails with single-click response buttons embedded right in the message. No links to click, no forms to fill out.</p>' +
-            '<p style="font-size:14px;color:#2F2F2F;line-height:1.55;margin-bottom:20px"><strong>Use it for:</strong> ongoing check-ins across the member lifecycle \u2014 onboarding, renewals, and profile updates.</p>' +
-            '<a href="/platform/email" style="font-size:14px;font-weight:600;color:#F47C2C;text-decoration:none;display:inline-flex;align-items:center;gap:6px">Learn more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>' +
+            '<p style="font-size:14px;color:#2F2F2F;line-height:1.55;margin-bottom:20px"><strong>Use it when</strong> you want to reach your whole membership, learn preferences and plans, or run onboarding and renewal campaigns.</p>' +
+            '<a href="/platform/email" style="font-size:14px;font-weight:600;color:#F47C2C;text-decoration:none;display:inline-flex;align-items:center;gap:6px">Learn more about email engagement <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>' +
           '</div>' +
           '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 32px">' +
             '<div style="width:48px;height:48px;border-radius:14px;background:rgba(249,168,37,0.12);display:flex;align-items:center;justify-content:center;margin-bottom:20px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F47C2C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>' +
             '<h3 style="font-size:22px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Website</h3>' +
             '<p style="font-size:16px;color:#6E6E6E;line-height:1.6;margin-bottom:20px">Personalized pop-ups, banners, and inline widgets that turn anonymous visitors into known, engaged members on your site.</p>' +
-            '<p style="font-size:14px;color:#2F2F2F;line-height:1.55;margin-bottom:20px"><strong>Use it for:</strong> reaching people while they\u2019re already on your site \u2014 event promotion, content, and learning who anonymous visitors are.</p>' +
-            '<a href="/platform/website" style="font-size:14px;font-weight:600;color:#F47C2C;text-decoration:none;display:inline-flex;align-items:center;gap:6px">Learn more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>' +
+            '<p style="font-size:14px;color:#2F2F2F;line-height:1.55;margin-bottom:20px"><strong>Use it when</strong> members are already on your site, such as browsing events, renewing, or reading content, and you want an answer in the moment.</p>' +
+            '<a href="/platform/website" style="font-size:14px;font-weight:600;color:#F47C2C;text-decoration:none;display:inline-flex;align-items:center;gap:6px">Learn more about website engagement <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>' +
           '</div>' +
           '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 32px">' +
             '<div style="width:48px;height:48px;border-radius:14px;background:rgba(249,168,37,0.12);display:flex;align-items:center;justify-content:center;margin-bottom:20px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F47C2C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>' +
             '<h3 style="font-size:22px;font-weight:700;color:#2F2F2F;margin-bottom:12px">SMS</h3>' +
             '<p style="font-size:16px;color:#6E6E6E;line-height:1.6;margin-bottom:20px">Event-day texts, time-sensitive questions, and real-time engagement with built-in opt-in management and compliance.</p>' +
-            '<p style="font-size:14px;color:#2F2F2F;line-height:1.55;margin-bottom:20px"><strong>Use it for:</strong> event-day logistics and time-sensitive questions that need an answer today.</p>' +
-            '<a href="/platform/sms" style="font-size:14px;font-weight:600;color:#F47C2C;text-decoration:none;display:inline-flex;align-items:center;gap:6px">Learn more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>' +
+            '<p style="font-size:14px;color:#2F2F2F;line-height:1.55;margin-bottom:20px"><strong>Use it when</strong> timing matters, such as event-day check-ins, deadline reminders, or a quick yes or no.</p>' +
+            '<a href="/platform/sms" style="font-size:14px;font-weight:600;color:#F47C2C;text-decoration:none;display:inline-flex;align-items:center;gap:6px">Learn more about SMS engagement <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>' +
           '</div>' +
         '</div>' +
-        '<p style="font-size:15px;color:#6E6E6E;line-height:1.6;max-width:720px;margin:40px auto 0;text-align:center">Members stay in control of their member communication: opt-ins, opt-outs, and channel preferences are honored across every PropFuel campaign and sync with your AMS preference center, so members only hear from you on the channels they\u2019ve chosen.</p>' +
+        '<p style="font-size:15px;color:#6E6E6E;line-height:1.6;max-width:720px;margin:40px auto 0;text-align:center">Members stay in control of their member communication. Opt-ins, opt-outs, and channel preferences are honored across every PropFuel campaign and sync with your AMS preference center, so members only hear from you on the channels they\u2019ve chosen. Letting members pick their channel is part of why response rates hold up.</p>' +
         '</div>' +
       '</section>';
       ctaSectionEl.insertAdjacentHTML('beforebegin', channelsHTML);
@@ -2497,7 +2497,7 @@
       var intHTML = '<section class="po-integrations" style="padding:96px 48px;background:#EBE6DA">' +
         '<div style="max-width:900px;margin:0 auto;text-align:center">' +
           '<h2 style="font-size:clamp(28px,4vw,36px);font-weight:700;color:#2F2F2F;letter-spacing:-0.01em;line-height:1.15;margin-bottom:20px">Built to Work With Your AMS</h2>' +
-          '<p style="font-size:17px;color:#6E6E6E;line-height:1.65;margin-bottom:40px;max-width:640px;margin-left:auto;margin-right:auto">PropFuel connects directly to your association management system with two-way data sync. Member responses write back to your AMS automatically\u00a0\u2014\u00a0no manual data entry, no CSV exports, no lost insights.</p>' +
+          '<p style="font-size:17px;color:#6E6E6E;line-height:1.65;margin-bottom:40px;max-width:640px;margin-left:auto;margin-right:auto">PropFuel connects directly to your association management system with two-way data sync. Member responses write back to your AMS automatically. No manual data entry, no CSV exports, no lost insights.</p>' +
           '<div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:36px">' +
             '<span style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:100px;background:#F6F2E8;border:1px solid #E3DDD2;font-size:13px;font-weight:600;color:#2F2F2F"><span style="width:6px;height:6px;border-radius:50%;background:#F9A825"></span> iMIS</span>' +
             '<span style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:100px;background:#F6F2E8;border:1px solid #E3DDD2;font-size:13px;font-weight:600;color:#2F2F2F"><span style="width:6px;height:6px;border-radius:50%;background:#F9A825"></span> Nimble AMS</span>' +
@@ -2530,13 +2530,13 @@
         { q: 'Does the AI write the messages or just suggest them?', a: 'Both, and your team stays in control. Membership AI can recommend what to do next, draft campaign copy, and assemble complete campaigns, but AI-built campaigns arrive as drafts. Nothing sends until someone on your team reviews and approves it.' },
         { q: 'Do we need technical staff to set this up?', a: 'No. PropFuel is built for membership professionals, not developers. Staff training takes 10\u201345 minutes, and a dedicated Customer Success Manager sets things up with you.' },
         { q: 'How long does implementation take?', a: 'Most associations have their first campaign live within 2\u20133 weeks, with full ramp-up in 2\u20133 months. Starting from one of 70+ ready-made blueprints keeps the first launch fast.' },
-        { q: 'What if our AMS isn\u2019t on the list?', a: 'PropFuel has 60+ pre-built connectors, including Salesforce, Fonteva, iMIS, Impexium, Novi, MemberSuite, Aptify, Personify, netFORUM, YourMembership, MemberClicks, GrowthZone, and HubSpot. For less common systems, a Zapier connector is available \u2014 tell us what you use and we\u2019ll confirm the best path.' }
+        { q: 'What if our AMS isn\u2019t on the list?', a: 'PropFuel has 60+ pre-built connectors, including Salesforce, Fonteva, iMIS, Impexium, Novi, MemberSuite, Aptify, Personify, netFORUM, YourMembership, MemberClicks, GrowthZone, and HubSpot. For less common systems, a Zapier connector is available. Tell us what you use and we\u2019ll confirm the best path.' }
       ];
       var poFaqHTML = '<section class="po-faq" style="padding:96px 48px">' +
         '<div style="max-width:800px;margin:0 auto">' +
           '<div style="text-align:center;margin-bottom:56px">' +
-            '<h2 style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin:0 0 16px;line-height:1.4">FAQ</h2>' +
-            '<p style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15;margin:0">Common questions about the PropFuel platform.</p>' +
+            '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin:0 0 16px;line-height:1.4">FAQ</p><h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15;margin:0 0 16px">PropFuel Platform FAQs</h2>' +
+            '<p style="font-size:17px;color:#6E6E6E;line-height:1.6;margin:0">Common questions about the PropFuel platform.</p>' +
           '</div>';
       poFaqs.forEach(function(item) {
         poFaqHTML += '<div class="pf-faq-item" style="border-bottom:1px solid #E3DDD2;padding:24px 0">' +
@@ -2559,7 +2559,7 @@
       var statsHTML = '<section class="po-stats-band pf-section-dark" style="background:#1A1713;padding:96px 48px">' +
         '<div style="max-width:1000px;margin:0 auto;text-align:center">' +
           '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#EDE8DF;letter-spacing:-0.02em;line-height:1.15;margin-bottom:12px">Proven Results Across 370+ Associations</h2>' +
-          '<p style="font-size:17px;color:#8C8479;margin-bottom:56px">Organizations that use PropFuel don\u2019t just engage more members \u2014 they grow. Explore their <a href="/client-success/case-studies" style="color:#FBC02D;font-weight:600;text-decoration:underline">success stories</a> to see how associations like yours put the platform to work.</p>' +
+          '<p style="font-size:17px;color:#8C8479;margin-bottom:56px">Organizations that use PropFuel don\u2019t just engage more members. They grow. Explore their <a href="/client-success/case-studies" style="color:#FBC02D;font-weight:600;text-decoration:underline">success stories</a> to see how associations like yours did it.</p>' +
           '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:48px">' +
             '<div><p style="font-size:clamp(40px,5vw,56px);font-weight:900;letter-spacing:-0.03em;line-height:1;background:linear-gradient(to top,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">$100M+</p><p style="font-size:14px;color:#8C8479;margin-top:8px;line-height:1.5">Revenue growth attributed to PropFuel campaigns</p></div>' +
             '<div><p style="font-size:clamp(40px,5vw,56px);font-weight:900;letter-spacing:-0.03em;line-height:1;background:linear-gradient(to top,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">370+</p><p style="font-size:14px;color:#8C8479;margin-top:8px;line-height:1.5">Associations trust PropFuel</p></div>' +
@@ -2575,11 +2575,11 @@
     // ═══════════════════════════════════════
     var ctaHeading = document.querySelector('.pf-cta-heading');
     if (ctaHeading) {
-      ctaHeading.innerHTML = 'Ready to Know and Grow<br><span style="background:linear-gradient(135deg,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Meaningful?</span>';
+      ctaHeading.innerHTML = 'Ready to Know and Grow<br><span style="background:linear-gradient(135deg,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Your Membership?</span>';
     }
     var ctaSub = document.querySelector('.pf-cta-sub');
     if (ctaSub) {
-      ctaSub.textContent = 'Most member communication solutions stop at the send. See how PropFuel helps associations understand what members want and act on it\u00a0\u2014\u00a0all in one platform.';
+      ctaSub.textContent = 'Most member communication solutions stop at the send. PropFuel helps associations understand what members want and act on it, all in one platform. Bring your AMS, and we\\u2019ll show you what your members are already telling you.';
     }
 
     // ═══════════════════════════════════════
