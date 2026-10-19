@@ -1,0 +1,54 @@
+#!/bin/sh
+# PropFuel QA Gate: brand + visual checks on what's being pushed, before it goes live.
+# Install: cp qa/hooks/pre-push .git/hooks/pre-push && chmod +x .git/hooks/pre-push
+
+echo ""
+echo "Running PropFuel QA checks..."
+echo ""
+
+ROOT="$(git rev-parse --show-toplevel)"
+ZERO=0000000000000000000000000000000000000000
+
+# Files in this push. git sends "<local ref> <local sha> <remote ref> <remote sha>" per ref on stdin.
+CHANGED=""
+while read -r local_ref local_sha remote_ref remote_sha; do
+  [ "$local_sha" = "$ZERO" ] && continue                      # deleting a branch: nothing to test
+  if [ "$remote_sha" = "$ZERO" ]; then                          # new branch: compare with origin/main
+    base="$(git merge-base "$local_sha" origin/main 2>/dev/null)"
+  else
+    base="$remote_sha"
+  fi
+  if [ -n "$base" ]; then
+    files="$(git diff --name-only "$base" "$local_sha")"
+  else
+    files="$(git ls-tree -r --name-only "$local_sha")"          # no common history: test everything
+  fi
+  CHANGED="$CHANGED
+$files"
+done
+export QA_CHANGED_FILES="$CHANGED"
+
+cd "$ROOT/qa"
+
+# Install dependencies if needed (first run only)
+if [ ! -d "node_modules" ]; then
+  echo "Installing QA dependencies (first run only)..."
+  npm install --silent
+fi
+
+node run-qa.mjs
+exit_code=$?
+
+if [ $exit_code -ne 0 ]; then
+  echo ""
+  echo "══════════════════════════════════════"
+  echo "  QA FAILED — push blocked."
+  echo "  Fix the issues above, then try again."
+  echo "  Emergency bypass: git push --no-verify"
+  echo "══════════════════════════════════════"
+  exit 1
+fi
+
+echo ""
+echo "QA passed. Pushing..."
+exit 0

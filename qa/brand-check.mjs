@@ -5,18 +5,21 @@ import { mkdirSync } from 'fs';
 import { launchBrowser } from './lib/screenshot.mjs';
 import { parseRgb, isCoolTone, isPureWhite, isPureBlack, isApprovedColor } from './lib/palette.mjs';
 import { generateBrandReport } from './lib/report.mjs';
+import { prepareSide } from './lib/branch-assets.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPORTS_DIR = path.join(__dirname, 'reports');
 const SITE_URL = 'https://propfuel-v2.webflow.io';
 
-export async function runBrandCheck() {
+// opts.side: 'main' (live files) or 'push' (working tree, what's being pushed). Unset = the real network.
+export async function runBrandCheck(opts = {}) {
   mkdirSync(REPORTS_DIR, { recursive: true });
 
   console.log('Launching browser for brand check...');
   const browser = await launchBrowser();
   const page = await browser.newPage();
   await page.setViewport({ width: 1440, height: 900, deviceScaleFactor: 1 });
+  if (opts.side) await prepareSide(page, opts.side);
   await page.goto(SITE_URL, { waitUntil: 'networkidle0', timeout: 30000 });
   await page.evaluate(() => document.fonts.ready);
   await new Promise(r => setTimeout(r, 2000));
@@ -74,7 +77,8 @@ export async function runBrandCheck() {
   passes.push({
     name: 'PASS 1: COLOR',
     status: colorViolations.length > 0 ? 'FAIL' : 'PASS',
-    violations: colorViolations.slice(0, 20), // Cap at 20
+    violations: colorViolations.slice(0, 20), // Cap at 20 for the report
+    all: colorViolations,
   });
 
   // ── PASS 2: GRADIENT ──
@@ -181,6 +185,7 @@ export async function runBrandCheck() {
     name: 'PASS 4: TYPOGRAPHY',
     status: typographyViolations.length > 0 ? 'FAIL' : 'PASS',
     violations: typographyViolations.slice(0, 20),
+    all: typographyViolations,
   });
 
   // ── PASS 5: LAYOUT ──
@@ -253,9 +258,13 @@ export async function runBrandCheck() {
   });
 
   await browser.close();
+  passes.forEach(p => { if (!p.all) p.all = p.violations; });
 
   // Report
-  const reportPath = generateBrandReport(passes, REPORTS_DIR);
+  const reportPath = generateBrandReport(passes, REPORTS_DIR, {
+    file: opts.side === 'main' ? 'brand-report-live.html' : 'brand-report.html',
+    label: SITE_URL.replace('https://', '') + (opts.side === 'main' ? ' (live main)' : opts.side === 'push' ? ' + this push' : ''),
+  });
   console.log(`\nBrand report: file://${reportPath}`);
 
   const overallPass = passes.every(p => p.status !== 'FAIL');

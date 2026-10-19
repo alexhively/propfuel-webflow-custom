@@ -72,3 +72,19 @@ head custom code (Organization), and the global canonical URL in Site Settings.
 They render server-side so AI crawlers and link unfurlers, which do not run JS,
 see them. This script only adds FAQPage schema. Do not reintroduce client-side
 title/meta/canonical injection; edit the Webflow fields instead.
+
+## QA gate (pre-push)
+
+`qa/hooks/pre-push` runs `qa/run-qa.mjs` before every push. Install it once per clone:
+
+```sh
+cp qa/hooks/pre-push .git/hooks/pre-push && chmod +x .git/hooks/pre-push
+```
+
+It tests **what's being pushed**: the staging site (propfuel-v2.webflow.io) is loaded twice, once with the live GitHub Pages files (main) and once with this repo's working-tree files swapped in.
+
+- **Brand** blocks only on violations the push *adds*. Violations already live are listed, not blocking.
+- **Visual** is a before/after diff of the push on 4 pages × 3 viewports. It's advisory: it flags any page below 99.95% (identical code scores 100%) but doesn't block. Set `QA_VISUAL_STRICT=1` to make it block.
+- **Scope:** if nothing in the push touches `js/`, `css/` or `images/`, the checks are skipped.
+- **Capture errors** (network, browser) block, so a broken run never passes silently.
+- Run by hand: `cd qa && npm run qa` (checks everything). Reports: `qa/reports/brand-report.html`, `qa/reports/visual-report.html`.

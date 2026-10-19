@@ -1,4 +1,5 @@
 import puppeteer from 'puppeteer';
+import { prepareSide } from './branch-assets.mjs';
 
 const VIEWPORTS = {
   desktop: { width: 1440, height: 900, deviceScaleFactor: 1 },
@@ -28,12 +29,14 @@ export async function launchBrowser() {
   });
 }
 
-export async function captureFullPage(browser, url, viewport = 'desktop') {
+// opts.side: 'main' (live files, the baseline) or 'push' (working tree). Unset = the real network.
+export async function captureFullPage(browser, url, viewport = 'desktop', opts = {}) {
   const vp = VIEWPORTS[viewport];
   if (!vp) throw new Error('Unknown viewport: ' + viewport);
 
   const page = await browser.newPage();
   await page.setViewport(vp);
+  if (opts.side) await prepareSide(page, opts.side);
 
   // Seed Math.random for deterministic textures
   await page.evaluateOnNewDocument(PRNG_INJECT);
@@ -47,8 +50,12 @@ export async function captureFullPage(browser, url, viewport = 'desktop') {
     });
   });
 
-  // Navigate
-  await page.goto(url, { waitUntil: 'networkidle0', timeout: 30000 });
+  // Navigate (one retry: a slow staging response shouldn't fail the run)
+  try {
+    await page.goto(url, { waitUntil: 'networkidle0', timeout: 45000 });
+  } catch (err) {
+    await page.goto(url, { waitUntil: 'networkidle0', timeout: 45000 });
+  }
 
   // Wait for fonts
   await page.evaluate(() => document.fonts.ready);

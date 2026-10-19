@@ -1,12 +1,13 @@
 import { writeFileSync } from 'fs';
 import path from 'path';
 
-export function generateVisualReport(comparisons, outputDir) {
+// Each comparison: live main (before) vs this push (after) on the same page.
+export function generateVisualReport(comparisons, outputDir, minSimilarity = 99) {
   const timestamp = new Date().toISOString().replace('T', ' ').slice(0, 19);
-  const allPass = comparisons.every(c => c.similarity >= 95);
+  const allPass = comparisons.every(c => c.similarity >= minSimilarity);
 
   let rows = comparisons.map(c => {
-    const status = c.similarity >= 95 ? 'pass' : 'fail';
+    const status = c.similarity >= minSimilarity ? 'pass' : 'fail';
     return `
       <div class="comparison">
         <div class="comp-header">
@@ -14,8 +15,8 @@ export function generateVisualReport(comparisons, outputDir) {
           <div class="similarity ${status}">${c.similarity}%</div>
         </div>
         <div class="images">
-          <div><div class="label">Original</div><img src="${c.originalFile}" loading="lazy"></div>
-          <div><div class="label">Webflow</div><img src="${c.webflowFile}" loading="lazy"></div>
+          <div><div class="label">Live (main)</div><img src="${c.originalFile}" loading="lazy"></div>
+          <div><div class="label">This push</div><img src="${c.webflowFile}" loading="lazy"></div>
           <div><div class="label">Diff</div><img src="${c.diffFile}" loading="lazy"></div>
         </div>
       </div>`;
@@ -42,8 +43,8 @@ export function generateVisualReport(comparisons, outputDir) {
   .label{font-size:11px;font-weight:700;color:#6E6E6E;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px}
 </style></head><body>
   <h1>Visual QA Report</h1>
-  <p class="meta">Generated: ${timestamp} | Original: propfuel-hero-v2-deploy.vercel.app | Webflow: propfuel-v2.webflow.io</p>
-  <div class="overall ${allPass ? 'pass' : 'fail'}">${allPass ? 'ALL PAGES PASS (≥95% similarity)' : 'SOME PAGES BELOW 95% THRESHOLD'}</div>
+  <p class="meta">Generated: ${timestamp} | propfuel-v2.webflow.io with live main files vs this push's files</p>
+  <div class="overall ${allPass ? 'pass' : 'fail'}">${allPass ? `NO VISIBLE CHANGE (all ≥${minSimilarity}%)` : `VISIBLE CHANGES: check they're intended (below ${minSimilarity}%)`}</div>
   ${rows}
 </body></html>`;
 
@@ -52,7 +53,7 @@ export function generateVisualReport(comparisons, outputDir) {
   return outPath;
 }
 
-export function generateBrandReport(passes, outputDir) {
+export function generateBrandReport(passes, outputDir, { file = 'brand-report.html', label = 'propfuel-v2.webflow.io' } = {}) {
   const timestamp = new Date().toISOString().replace('T', ' ').slice(0, 19);
   const allPass = passes.every(p => p.status !== 'FAIL');
 
@@ -92,12 +93,12 @@ export function generateBrandReport(passes, outputDir) {
   .violations li{margin-bottom:4px}
 </style></head><body>
   <h1>Brand Compliance Report</h1>
-  <p class="meta">Generated: ${timestamp} | Site: propfuel-v2.webflow.io</p>
+  <p class="meta">Generated: ${timestamp} | Site: ${label}</p>
   <div class="overall ${allPass ? 'pass' : 'fail'}">${allPass ? 'ALL PASSES CLEAR' : 'BRAND VIOLATIONS DETECTED'}</div>
   ${rows}
 </body></html>`;
 
-  const outPath = path.join(outputDir, 'brand-report.html');
+  const outPath = path.join(outputDir, file);
   writeFileSync(outPath, html);
   return outPath;
 }
