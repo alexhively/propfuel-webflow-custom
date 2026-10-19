@@ -2629,7 +2629,7 @@
     // Fix hero heading
     var heroHeading = document.querySelector('.pf-page-hero-title');
     if (heroHeading) {
-      heroHeading.innerHTML = 'More personalization.<br>Less busy work.';
+      heroHeading.innerHTML = 'Membership Renewal Automation. More Personalization. Less Busy Work.';
     }
 
     // Fix hero subtitle
@@ -3633,7 +3633,7 @@
     // Fix hero heading
     var heroHeading = document.querySelector('.pf-page-hero-title');
     if (heroHeading) {
-      heroHeading.textContent = 'Not another email tool. A listening tool that happens to use email.';
+      heroHeading.textContent = 'Personalized Member Communication, Not Another Email Tool';
     }
 
     // Fix hero subtitle
@@ -4133,7 +4133,7 @@
     var heroLabel = document.querySelector('.pf-page-hero-label');
     if (heroLabel) { heroLabel.textContent = 'The Engagement Engine'; } else { var heroTitle = document.querySelector('.pf-page-hero-title'); if (heroTitle) { var parent = heroTitle.parentElement; if (!parent.querySelector('.pf-hero-label-injected')) { var label = document.createElement('p'); label.className = 'pf-hero-label-injected fade-up'; label.style.cssText = 'display:inline-flex;align-items:center;padding:8px 20px;border-radius:100px;background:rgba(251,192,45,0.08);border:1px solid rgba(249,168,37,0.35);font-size:13px;font-weight:600;color:#2F2F2F;letter-spacing:0.04em;margin-bottom:48px;box-shadow:0 2px 8px rgba(120,110,95,0.06)'; label.textContent = 'The Engagement Engine'; parent.insertBefore(label, heroTitle); } } }
     var heroHeading = document.querySelector('.pf-page-hero-title');
-    if (heroHeading) { heroHeading.innerHTML = 'More engagement.<br>Less silence.'; }
+    if (heroHeading) { heroHeading.innerHTML = 'Member Engagement Engine. More Engagement. Less Silence.'; }
     var heroSub = document.querySelector('.pf-page-hero-sub');
     if (heroSub) { heroSub.textContent = 'PropFuel turns every communication into a meaningful opportunity to listen to, engage, and serve your members \u2014 across email, website, and SMS.'; }
     if (heroHeading) { var heroParent = heroHeading.parentElement; if (!heroParent.querySelector('.pf-hero-btns-injected')) { var btnWrap = document.createElement('div'); btnWrap.className = 'pf-hero-btns-injected fade-up'; btnWrap.style.cssText = 'display:flex;align-items:center;justify-content:center;gap:20px;margin-top:40px'; btnWrap.innerHTML = '<a href="/book-a-demo" class="pf-btn-primary" style="display:inline-flex;align-items:center;gap:8px;padding:16px 36px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:linear-gradient(to right,#F47C2C,#FBC02D);color:#fff;border:none;box-shadow:0 4px 16px rgba(240,90,40,0.2);transition:box-shadow .3s ease">See It in Action <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a><a href="/book-a-demo" style="display:inline-flex;align-items:center;gap:8px;padding:15px 35px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:transparent;color:#F47C2C;border:1.5px solid rgba(244,124,44,0.35);transition:border-color .25s ease,box-shadow .25s ease">Get Started</a>'; var sub = heroParent.querySelector('.pf-page-hero-sub'); if (sub) { sub.parentNode.insertBefore(btnWrap, sub.nextSibling); } else { heroParent.appendChild(btnWrap); } } }
@@ -4687,7 +4687,7 @@
 
     var heroHeading = document.querySelector('.pf-page-hero-title');
     if (heroHeading) {
-      heroHeading.innerHTML = 'Intelligence that connects everything.';
+      heroHeading.innerHTML = 'Membership AI and Automation for the Ones Who Do the Job of Many';
     }
 
     var heroSub = document.querySelector('.pf-page-hero-sub');
@@ -4862,7 +4862,7 @@
     if (heroLabel) { heroLabel.textContent = 'The Insights Engine'; }
     else { var heroTitle = document.querySelector('.pf-page-hero-title'); if (heroTitle) { var parent = heroTitle.parentElement; if (!parent.querySelector('.pf-hero-label-injected')) { var label = document.createElement('p'); label.className = 'pf-hero-label-injected fade-up'; label.style.cssText = 'display:inline-flex;align-items:center;padding:8px 20px;border-radius:100px;background:rgba(251,192,45,0.08);border:1px solid rgba(249,168,37,0.35);font-size:13px;font-weight:600;color:#2F2F2F;letter-spacing:0.04em;margin-bottom:48px;box-shadow:0 2px 8px rgba(120,110,95,0.06)'; label.textContent = 'The Insights Engine'; parent.insertBefore(label, heroTitle); } } }
     var heroHeading = document.querySelector('.pf-page-hero-title');
-    if (heroHeading) { heroHeading.innerHTML = 'More signal.<br>Less noise.'; }
+    if (heroHeading) { heroHeading.innerHTML = 'Your Membership Database. More Signal, Less Noise.'; }
     var heroSub = document.querySelector('.pf-page-hero-sub');
     if (heroSub) { heroSub.textContent = 'PropFuel turns messy, fragmented member data into clear insights: who wants what, who\u2019s at risk, and who\u2019s ready for more.'; }
     if (heroHeading) { var heroParent = heroHeading.parentElement; if (!heroParent.querySelector('.pf-hero-btns-injected')) { var btnWrap = document.createElement('div'); btnWrap.className = 'pf-hero-btns-injected fade-up'; btnWrap.style.cssText = 'display:flex;align-items:center;justify-content:center;gap:20px;margin-top:40px'; btnWrap.innerHTML = '<a href="/book-a-demo" class="pf-btn-primary" style="display:inline-flex;align-items:center;gap:8px;padding:16px 36px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:linear-gradient(to right,#F47C2C,#FBC02D);color:#fff;border:none;box-shadow:0 4px 16px rgba(240,90,40,0.2);transition:box-shadow .3s ease">Get Started <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a><a href="/book-a-demo" style="display:inline-flex;align-items:center;gap:8px;padding:15px 35px;font:600 15px/1 \'DM Sans\',sans-serif;border-radius:100px;text-decoration:none;background:transparent;color:#F47C2C;border:1.5px solid rgba(244,124,44,0.35);transition:border-color .25s ease,box-shadow .25s ease">See It in Action</a>'; var sub = heroParent.querySelector('.pf-page-hero-sub'); if (sub) { sub.parentNode.insertBefore(btnWrap, sub.nextSibling); } else { heroParent.appendChild(btnWrap); } } }
@@ -5709,7 +5709,7 @@
     buildUseCasePage({
       path: 'use-cases/data-intelligence',
       heroLabel: 'Data & Intelligence',
-      heroTitle: 'Every PropFuel interaction is a database update.',
+      heroTitle: 'Member Engagement Metrics. Every Interaction Is a Database Update.',
       heroSub: 'Member data decays from the moment it is entered. PropFuel keeps profiles current by collecting zero-party data through conversations \u2014 not forms members hate filling out. And every response writes back to your AMS automatically.',
       problemLabel: 'The Problem',
       problemH2: 'Your member data is bad. You know it. Your team knows it. Your board probably suspects it.',
