@@ -3991,7 +3991,7 @@
             '<div style="text-align:center">' +
               '<p style="font-size:clamp(40px,5vw,56px);font-weight:900;letter-spacing:-0.03em;line-height:1;background:linear-gradient(to top,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">$65K</p>' +
               '<p style="font-size:13px;font-weight:700;color:#F9A825;margin-top:8px">WQA</p>' +
-              '<p style="font-size:14px;color:#8C8479;line-height:1.5;margin-top:4px">Additional revenue from a 5% renewal rate increase.</p>' +
+              '<p style="font-size:14px;color:#8C8479;line-height:1.5;margin-top:4px">Additional revenue from a 5% increase in company membership renewals.</p>' +
             '</div>' +
             '<div style="text-align:center">' +
               '<p style="font-size:clamp(40px,5vw,56px);font-weight:900;letter-spacing:-0.03em;line-height:1;background:linear-gradient(to top,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">107</p>' +
