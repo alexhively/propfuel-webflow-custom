@@ -5219,11 +5219,11 @@
         }).join('') +
       '</div>' +
       '<div style="max-width:900px;margin:8px auto 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px">' +
-        '<div style="background:#FFFBF2;border:1px solid #E3DDD2;border-radius:16px;padding:24px 28px">' +
+        '<div style="background:#F6F2E8;border:1px solid #E3DDD2;border-radius:16px;padding:24px 28px">' +
           '<h3 style="font-size:17px;font-weight:700;color:#2F2F2F;margin:0 0 8px;line-height:1.3">Every interval is editable</h3>' +
           '<p style="font-size:15px;color:#6E6E6E;line-height:1.6;margin:0">Move any check-in earlier or later to match your membership cycle, or add and remove steps. The six-step blueprint is a starting point, not a fixed schedule.</p>' +
         '</div>' +
-        '<div style="background:#FFFBF2;border:1px solid #E3DDD2;border-radius:16px;padding:24px 28px">' +
+        '<div style="background:#F6F2E8;border:1px solid #E3DDD2;border-radius:16px;padding:24px 28px">' +
           '<h3 style="font-size:17px;font-weight:700;color:#2F2F2F;margin:0 0 8px;line-height:1.3">What happens to non-responders</h3>' +
           '<p style="font-size:15px;color:#6E6E6E;line-height:1.6;margin:0">Members who don’t answer get a reminder at the interval you set, and the sequence moves on to the next check-in. Silence is tracked too, so your team sees who has gone quiet and can reach out personally.</p>' +
         '</div>' +
