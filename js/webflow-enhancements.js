@@ -10435,6 +10435,12 @@
     renderMmctSessionPage();
     renderEventDemoPage();
     renderWebinarPromoPopup();
+    if (!document.getElementById('pf-webinar-popup-js')) {
+      var wp = document.createElement('script');
+      wp.id = 'pf-webinar-popup-js';
+      wp.src = 'https://alexhively.github.io/propfuel-webflow-custom/js/pages/webinar-popup.js?v=1';
+      document.head.appendChild(wp);
+    }
     fixMoreClientStories();
     renderLeadMagnets();
     initHeroDemo();
