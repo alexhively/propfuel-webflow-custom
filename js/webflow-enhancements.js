@@ -11,6 +11,10 @@
   if (window.__pfEnhancementsLoaded) return;
   window.__pfEnhancementsLoaded = true;
 
+  // Static H1 embeds (.pf-static-h1) exist only for crawlers on JS-rendered pages;
+  // drop them before the page renders its own H1 so there is never a double H1.
+  Array.prototype.forEach.call(document.querySelectorAll('.pf-static-h1'), function (h) { h.remove(); });
+
   var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // ─────────────────────────────────────────
@@ -5392,7 +5396,7 @@
         { q: 'What if a member says they are not going to renew?', a: 'That response is valuable data. PropFuel captures the reason, triggers a staff alert, and can route the member to a personalized follow-up, such as a discount offer, a call from a board member, or an exit survey.' },
         { q: 'How do we measure the impact on renewal rates?', a: 'PropFuel\u2019s Insights Engine tracks renewal intent, member signals, and actual renewal rates. You can compare cohorts that received PropFuel outreach against those that did not.' },
         { q: 'How does PropFuel know when our members expire?', a: 'PropFuel reads each member\u2019s expiration or renewal date from your AMS through its two-way sync. The sequence is scheduled relative to that date, so every member starts 90 days before their own expiration. Once your AMS shows a member as renewed, they can be removed from the sequence automatically.' },
-        { q: 'What\u2019s a good membership retention rate?', a: 'According to Marketing General Incorporated\u2019s annual Membership Marketing Benchmarking Report, the median association renewal rate is about 84%, and first-year members renew at a noticeably lower rate, around 75%. Track both numbers separately, because the gap between them is usually where the biggest retention gains are. With PropFuel, AAMFT raised its on-time renewal rate from 80.5% to 95%.' },
+        { q: 'What\u2019s a good membership retention rate?', a: 'According to Marketing General Incorporated\u2019s 2026 Membership Marketing Benchmarking Report, the median association renewal rate is about 84%, and first-year members renew at a noticeably lower rate, around 75%. Track both numbers separately, because the gap between them is usually where the biggest retention gains are. With PropFuel, AAMFT raised its on-time renewal rate from 80.5% to 95%.' },
         { q: 'Can we run different renewal campaigns for different member types?', a: 'Yes. Segment by member type, tenure, engagement level, or any AMS field. A first-year member gets a different renewal experience than a 20-year veteran.' }
       ],
       ctaH2: 'Turn Renewals<br>Into Conversations.',
