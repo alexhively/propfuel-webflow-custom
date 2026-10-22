@@ -177,10 +177,10 @@ s.insertAdjacentHTML('beforebegin',"<style>\n.af{--ch:#2F2F2F;--mg:#6E6E6E;--bg:
   document.addEventListener('click', function (e) {
     var t = e.target, a = t.closest && t.closest('a[href="#demo"]');
     if (a) {
-      e.preventDefault(); jumpAt = Date.now();
+      e.preventDefault(); e.stopPropagation(); jumpAt = Date.now(); // stop Webflow's own #anchor handler, which re-scrolls and steals focus
       var el = document.getElementById('demo'), em = document.querySelector('#af-hs-form input[name=email]');
       if (el) window.scrollTo({ top: Math.max(0, el.getBoundingClientRect().top + window.pageYOffset - 16), behavior: 'instant' });
-      if (em) { try { em.focus({ preventScroll: true }); } catch (x) { em.focus(); } }
+      if (em) { try { em.focus({ preventScroll: true }); } catch (x) { em.focus(); } setTimeout(function () { if (document.activeElement !== em) try { em.focus({ preventScroll: true }); } catch (x) {} }, 80); }
     } else if (Date.now() - jumpAt < 600 && t.closest && t.closest('#af-hs-form input[type=submit]')) {
       e.preventDefault(); e.stopImmediatePropagation();
     }
