@@ -171,6 +171,21 @@ s.insertAdjacentHTML('beforebegin',"<style>\n.af{--ch:#2F2F2F;--mg:#6E6E6E;--bg:
     vid.addEventListener('webkitbeginfullscreen', function () { try { vid.webkitExitFullscreen(); } catch (e) {} });
   });
 
+  // "Book a demo" jumps to the form instantly. The page is ~4,500px tall above the form, so a smooth scroll left the
+  // second tap of a double-tap landing on whatever passed under the thumb, often the Request Demo button (empty submit).
+  // Also swallow submit taps for 600ms after a jump.
+  var jumpAt = 0;
+  document.addEventListener('click', function (e) {
+    var t = e.target, a = t.closest && t.closest('a[href="#demo"]');
+    if (a) {
+      e.preventDefault(); jumpAt = Date.now();
+      var el = document.getElementById('demo');
+      if (el) { window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset, behavior: 'instant' }); try { history.replaceState(history.state, '', '#demo'); } catch (x) {} }
+    } else if (Date.now() - jumpAt < 600 && t.closest && t.closest('#af-hs-form input[type=submit]')) {
+      e.preventDefault(); e.stopImmediatePropagation();
+    }
+  }, true);
+
   // Sticky mobile CTA: show after the hero button leaves the screen, hide once the demo form is in view.
   var stick = document.getElementById('af-stick');
   // Park the pill on <body> so no ancestor (Webflow wrappers, transforms, overflow) can offset a fixed element.
@@ -213,6 +228,11 @@ s.insertAdjacentHTML('beforebegin',"<style>\n.af{--ch:#2F2F2F;--mg:#6E6E6E;--bg:
       if (navigator.sendBeacon) navigator.sendBeacon(CAPI, body); else fetch(CAPI, { method: 'POST', body: body, keepalive: true, mode: 'cors' });
     } catch (e) {}
   }
+  // Same LIVE gate as trackLead. Success and failure events so a dead form shows up in PostHog.
+  function ph(name, extra) {
+    if (!LIVE) return;
+    try { if (window.posthog && window.posthog.capture) window.posthog.capture(name, Object.assign({ page_path: location.pathname, lead_source: SRC, form_id: FORM }, extra || {})); } catch (e) {}
+  }
   function trackLead(email) {
     if (!LIVE) return;
     try { if (window.posthog && window.posthog.capture) window.posthog.capture('demo_requested', { page_path: location.pathname, lead_source: SRC }); } catch (e) {}
@@ -234,6 +254,7 @@ s.insertAdjacentHTML('beforebegin',"<style>\n.af{--ch:#2F2F2F;--mg:#6E6E6E;--bg:
       if (changed) history.replaceState(history.state, '', u.toString());
     } catch (e) {}
     hbspt.forms.create({ portalId: PORTAL, formId: FORM, region: 'na1', target: '#af-hs-form',
+      onFormFailedValidation: function () { setTimeout(function () { var n = []; try { document.querySelectorAll('#af-hs-form .invalid, #af-hs-form .error').forEach(function (i) { if (i.name && n.indexOf(i.name) < 0) n.push(i.name); }); } catch (e) {} ph('form_submit_failed', { fields: n.join(',') || 'unknown' }); }, 0); },
       onFormSubmitted: function ($f, data) { var v = (data && data.submissionValues) || {}; if (!v.email) { try { v.email = document.querySelector('#af-hs-form input[name=email]').value; } catch (e) {} } window.__afOnSubmitted && window.__afOnSubmitted(v); },
       // Phone keyboards: right autofill hints. Does nothing if HubSpot renders the form in an iframe.
       onFormReady: function (f) {
@@ -250,6 +271,7 @@ s.insertAdjacentHTML('beforebegin',"<style>\n.af{--ch:#2F2F2F;--mg:#6E6E6E;--bg:
   function onSubmitted(lead) {
     if (Date.now() - lastFire < 4000) return; lastFire = Date.now();
     lead = lead || {};
+    ph('form_submit_succeeded');
     trackLead(lead.email);
     for (var k in lead) { if (Array.isArray(lead[k])) lead[k] = lead[k].toString().replaceAll(',', ';'); }
     if (window.ChiliPiper) ChiliPiper.submit('propfuel', 'Inbound_Router', { map: true, lead: lead });
