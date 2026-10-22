@@ -5315,7 +5315,7 @@
       statsCta: { text: 'Read the Renewal Case Studies', href: '/client-success/case-studies' },
       heroLabel: 'Member Retention & Renewals',
       heroTitle: 'Earn the renewal. Long before the invoice.',
-      heroSub: 'PropFuel starts the renewal conversation 60 days before a membership expires, so member retention is earned long before you ask for payment. Committed members renew faster. Wavering members get the nudge that matters.',
+      heroSub: 'PropFuel starts the renewal conversation 60\u00a0days before a membership expires, so member retention is earned long before you ask for payment. Committed members renew faster. Wavering members get the nudge that matters.',
       heroNote: 'Works alongside your existing renewal emails and AMS invoices',
       problemLabel: 'The problem',
       problemH2: 'You Remind Them. You Never Ask Them.',
