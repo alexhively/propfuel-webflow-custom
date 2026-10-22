@@ -198,7 +198,8 @@ s.insertAdjacentHTML('beforebegin',"<style>\n.af{--ch:#2F2F2F;--mg:#6E6E6E;--bg:
     new IntersectionObserver(function (e) { heroVis = e[0].isIntersecting; atForm = heroVis || closeVis; upd(); }, { threshold: 0.15 }).observe(demo);
     // Also hide the pill while the closing form is on screen and once the page is scrolled past it (footer).
     var closeSec = document.getElementById('af-close');
-    if (closeSec) new IntersectionObserver(function (e) { closeVis = e[0].isIntersecting || e[0].boundingClientRect.bottom < 0; atForm = heroVis || closeVis; upd(); }, { threshold: 0.15 }).observe(closeSec);
+    // Scroll check (not IntersectionObserver): a jump straight to the footer fires no intersection change.
+    if (closeSec) window.addEventListener('scroll', function () { closeVis = closeSec.getBoundingClientRect().top < window.innerHeight * 0.9; atForm = heroVis || closeVis; upd(); }, { passive: true });
   }
 
   // UTMs: same pfUTM storage and pf_last_utm_* hidden fields as the Book a Demo page.
