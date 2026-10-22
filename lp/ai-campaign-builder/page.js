@@ -275,6 +275,12 @@ s.insertAdjacentHTML('beforebegin',"<style>\n.af{--ch:#2F2F2F;--mg:#6E6E6E;--bg:
     trackLead(lead.email);
     for (var k in lead) { if (Array.isArray(lead[k])) lead[k] = lead[k].toString().replaceAll(',', ';'); }
     if (window.ChiliPiper) ChiliPiper.submit('propfuel', 'Inbound_Router', { map: true, lead: lead });
+    // Chili Piper answers 400 for some email-only submits and then shows nothing. If no scheduler opens, confirm in place.
+    setTimeout(function () {
+      if (document.querySelector('iframe[src*="chilipiper"]')) return;
+      ph('chilipiper_not_shown');
+      [].forEach.call(document.querySelectorAll('.af-demo-card'), function (c) { if (c.querySelector('form.hs-form')) c.innerHTML = '<div class="submitted-message"><p>Thanks. We got your request and will email you shortly to schedule your demo.</p></div>'; });
+    }, 5000);
   }
   // iframe embeds post a message; raw HTML embeds call onFormSubmitted. Both end up here, once.
   window.addEventListener('message', function (event) {
