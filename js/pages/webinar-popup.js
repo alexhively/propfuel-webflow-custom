@@ -26,6 +26,8 @@
   function write(o) { try { localStorage.setItem(CFG.key, JSON.stringify(o)); } catch (e) {} }
   var seen = read();
   if (seen.clicked || (seen.shown && Date.now() - seen.shown < CFG.capMs)) return;
+  // Webinar has priority: claim the session so the lead-magnet poll (same corner) stays off.
+  try { sessionStorage.setItem('pfLM_shown', '1'); } catch (e) {}
 
   function track(event) {
     var p = { webinar: 'win-back-lapsed-members-2026-10-28', page_path: location.pathname };
@@ -43,6 +45,8 @@
     window.removeEventListener('scroll', onScroll);
     clearTimeout(timer);
     if (Date.now() >= new Date(CFG.expiresAt).getTime()) return;
+    // Another pop-up already open: skip this page view (not recorded as shown, so it returns next page).
+    if (window.pfPopupOpen && window.pfPopupOpen()) return;
 
     var st = document.createElement('style');
     st.textContent =
@@ -86,8 +90,6 @@
     });
     try { x.focus({ preventScroll: true }); } catch (e) {}
     write({ shown: Date.now() });
-    // The lead-magnet slide-in sits in the same corner; skip it this session.
-    try { sessionStorage.setItem('pfLM_shown', '1'); } catch (e) {}
     track('webinar_popup_view');
   }
 

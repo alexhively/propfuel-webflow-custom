@@ -9834,7 +9834,8 @@
 
     function show() {
       if (lmStore('local', 'pfLM_submitted') === '1') return;
-      if (shown || document.querySelector('.pf-lm-pop') || document.querySelector('.pf-wpop-overlay')) return;
+      // pfLM_shown is re-read here: webinar-popup.js loads after this is armed and claims the session.
+      if (shown || lmStore('session', 'pfLM_shown') || window.pfPopupOpen()) return;
       shown = true;
       lmStore('session', 'pfLM_shown', '1');
       lmStyles();
@@ -10434,11 +10435,13 @@
     renderReferredPage();
     renderMmctSessionPage();
     renderEventDemoPage();
+    // One pop-up at a time: every corner/overlay pop-up checks this before it shows.
+    window.pfPopupOpen = function () { return !!document.querySelector('.pf-wp-card, .pf-lm-pop, .pf-wpop-overlay'); };
     renderWebinarPromoPopup();
     if (!document.getElementById('pf-webinar-popup-js')) {
       var wp = document.createElement('script');
       wp.id = 'pf-webinar-popup-js';
-      wp.src = 'https://alexhively.github.io/propfuel-webflow-custom/js/pages/webinar-popup.js?v=1';
+      wp.src = 'https://alexhively.github.io/propfuel-webflow-custom/js/pages/webinar-popup.js?v=2';
       document.head.appendChild(wp);
     }
     fixMoreClientStories();
