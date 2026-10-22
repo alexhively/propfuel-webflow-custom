@@ -5175,7 +5175,7 @@
       heroTitle: 'Member Onboarding Starts the Retention Conversation.',
       heroSub: 'Most associations send a welcome email and then go silent until renewal. PropFuel turns new member onboarding into a year-long conversation: one question at a time, enrolled automatically from your AMS, with the right check-in at every milestone.',
       heroCta1: 'Get a Free Demo',
-      heroCta2: 'See the Six Check-ins',
+      heroCta2: 'See the 12 Check-ins',
       heroCta2Href: '#journey',
       centerpieceId: 'journey',
       heroNote: 'Launch association new member onboarding from a ready-made blueprint · Check-ins by email, SMS, and your website · New members enroll automatically from your AMS · First campaign live in 2–3 weeks',
@@ -5196,18 +5196,24 @@
       '</div>',
       centerpieceHTML: '<div style="text-align:center;margin-bottom:56px">' +
         '<h2 style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin:0 0 16px;line-height:1.4">Member Onboarding Process &amp; Checklist</h2>' +
-        '<p style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15;margin:0 0 24px">Six conversations across the first year.</p>' +
-        '<p style="font-size:17px;color:#6E6E6E;line-height:1.65;max-width:720px;margin:0 auto 16px">A good member onboarding process isn’t a welcome series. It’s a sequence of short conversations timed to how new members actually settle in. Think of it as a new member onboarding checklist that runs itself. PropFuel’s onboarding blueprint starts with six touchpoints across the first year: frequent enough to learn what each member wants, spaced out enough that none of them feels like noise.</p>' +
+        '<p style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15;margin:0 0 24px;text-wrap:balance">Twelve conversations across the first year.</p>' +
+        '<p style="font-size:17px;color:#6E6E6E;line-height:1.65;max-width:720px;margin:0 auto 16px">A good member onboarding process isn’t a welcome series. It’s a sequence of short conversations timed to how new members actually settle in. Think of it as a new member onboarding checklist that runs itself. PropFuel’s onboarding blueprint runs 12 check-ins over about nine and a half months: every two weeks while new members settle in, then once a month. Frequent enough to learn what each member wants, spaced out enough that none of them feels like noise.</p>' +
         '<p style="font-size:17px;color:#6E6E6E;line-height:1.65;max-width:720px;margin:0 auto">New members are enrolled automatically from your AMS as they join, and the sequence adapts to every answer instead of sending everyone the same thing. Association member onboarding rarely fits one track, so you can run separate journeys by chapter, member type, or credentialing path.</p>' +
       '</div>' +
       '<div style="max-width:700px;margin:0 auto;position:relative">' +
         '<div style="position:absolute;left:24px;top:24px;bottom:24px;width:2px;background:linear-gradient(to bottom,#FBC02D,#F47C2C);border-radius:1px"></div>' +
-        ['Week 1|Get Acquainted|The very first check-in. Understand what brought them to the association and what they are hoping to get from their membership.|What are you most hoping to get out of your membership this year?',
-         'Week 3|Understand Preferences|Learn how they prefer to engage: events, online resources, networking, or a mix. This shapes what content and opportunities get surfaced to them.|What’s your preferred way to stay involved: events, online resources, or networking?',
-         'Month 2|Update Their Profile|Confirm their role, focus area, and contact details. This is a database update disguised as a friendly check-in.|We want to make sure we’re sending you relevant content. Can you confirm your current role and area of focus?',
-         'Months 3–4|Get Them Involved|Surface volunteer opportunities, committees, and local chapters based on what they have already told you about their interests.|Is there a committee or volunteer opportunity you’d be interested in?',
-         'Months 5–6|Gauge Satisfaction|A mid-year pulse check. Promoters get routed to testimonial and referral requests. Detractors trigger staff alerts.|How has your membership experience been so far?',
-         'Months 8–9|Prepare for Renewal|The pre-renewal conversation. Surface hesitations, reinforce value, and give staff a heads-up on at-risk members. Then hand off to your renewal campaign so you can <a href="/use-cases/renewals" style="color:#F47C2C;font-weight:600;text-decoration:underline">prepare for renewal</a>.|Has your membership been worth it so far? We’d love your honest feedback.'
+        ['Day 1|Welcome and Goals|The welcome email and the first question ship together, the day after a member joins. Each goal routes to a matching landing page: networking, education, career, or savings.|What are you most hoping to get out of your membership this year?',
+         'Week 3|Career Stage|Early, mid-level, or experienced. Each answer gets the benefits that fit that stage of a career.|How would you describe where you are in your career journey?',
+         'Week 5|Communication Preferences|Make sure they are getting the right emails. Members who want changes get a link to their preferences page.|Are you getting the right information from us?',
+         'Week 7|Learning Preferences|Webinars, online courses, articles, or peers. Each answer points to the matching resource.|How do you prefer to learn?',
+         'Month 3|Top-of-Mind Topics|Members choose from the four issues your members care about most, or write in their own. Answers are tagged for future content.|What topic is top of mind right now?',
+         'Month 4|Volunteering|Interested members get your volunteer and committee pages. Everyone else hears about low-commitment options.|Are you interested in volunteering?',
+         'Month 5|Networking Preferences|In person, online, both, or neither. Each answer points to events, your online community, or your content library.|How do you prefer to network?',
+         'Month 6|Benefits Quiz|A playful check on five member benefits. Every answer ends with a short tour of all five.|Which of these is a member benefit?',
+         'Month 7|Profile Updates|A friendly prompt to update their profile, so your AMS record stays current.|Do you have any employment updates to share with us?',
+         'Month 8|Satisfaction (NPS)|Promoters are asked why they joined and stay. Low scores alert your team right away.|How likely would you be to recommend membership to a friend or colleague?',
+         'Month 9|Member Discounts|A reminder of the savings that come with membership, featuring three member discounts.|Could you use a discount on the products you use regularly?',
+         'Month 10|Year in Review|What they valued most this year. The answer becomes the bridge into your renewal campaign, so you can <a href="/use-cases/renewals" style="color:#F47C2C;font-weight:600;text-decoration:underline">prepare for renewal</a>.|Which of these have you found most valuable this year?'
         ].map(function(s) {
           var p = s.split('|');
           return '<div style="display:flex;gap:24px;margin-bottom:40px;position:relative">' +
@@ -5228,7 +5234,7 @@
       '<div style="max-width:900px;margin:8px auto 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px">' +
         '<div style="background:#F6F2E8;border:1px solid #E3DDD2;border-radius:16px;padding:24px 28px">' +
           '<h3 style="font-size:17px;font-weight:700;color:#2F2F2F;margin:0 0 8px;line-height:1.3">Every interval is editable</h3>' +
-          '<p style="font-size:15px;color:#6E6E6E;line-height:1.6;margin:0">Move any check-in earlier or later to match your membership cycle, or add and remove steps. The six-step blueprint is a starting point, not a fixed schedule.</p>' +
+          '<p style="font-size:15px;color:#6E6E6E;line-height:1.6;margin:0">Move any check-in earlier or later to match your membership cycle, or add and remove steps. The 12‑step blueprint is a starting point, not a fixed schedule. Organizational members get a version for the primary contact, with roster and visibility questions in place of the personal ones.</p>' +
         '</div>' +
         '<div style="background:#F6F2E8;border:1px solid #E3DDD2;border-radius:16px;padding:24px 28px">' +
           '<h3 style="font-size:17px;font-weight:700;color:#2F2F2F;margin:0 0 8px;line-height:1.3">What happens to non-responders</h3>' +
@@ -5252,7 +5258,7 @@
             '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15;margin:0">Everything You Need to Run New Member Onboarding</h2>' +
           '</div>' +
           '<div class="uc-feature-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px">' +
-          [['Onboarding blueprint','Start from a proven six-step onboarding campaign, then customize the questions, timing, and branches.'],
+          [['Onboarding blueprint','Start from a proven 12‑check‑in onboarding campaign, then customize the questions, timing, and branches.'],
            ['AMS enrollment and write-back','New members enter the sequence based on their join date, and every answer writes back to their AMS record automatically.'],
            ['One-click answers','Members reply inside the email, text, or website prompt with a single click or tap. No login, no form.'],
            ['Branching by answer','Each response routes the member to the next relevant conversation, so no two journeys have to look the same.'],
@@ -5280,7 +5286,7 @@
       faqH2: 'Member Onboarding FAQs',
       faqSub: 'Common questions about onboarding campaigns.',
       faqs: [
-        { q: 'How many check-ins should we send during onboarding?', a: 'Most successful onboarding programs use 3–11 check-ins spread across the first 3–9 months. PropFuel blueprints default to 6 touchpoints, but the sequence is fully customizable based on your membership cycle and capacity.' },
+        { q: 'How many check-ins should we send during onboarding?', a: 'PropFuel’s onboarding blueprint uses 12: one the day after a member joins, three more at two-week intervals, then one a month, for about nine and a half months in all. You can shorten it, stretch it, or add and remove steps to fit your membership cycle and your team’s capacity.' },
         { q: 'What if we already send a welcome email series?', a: 'PropFuel onboarding is different from a welcome drip. Your existing emails broadcast information. PropFuel emails ask questions and capture responses. They work alongside your existing communications, adding a listening layer on top of what you already send.' },
         { q: 'Can we customize the questions for different member types?', a: 'Yes. PropFuel supports segmentation by member type, join date, chapter, or any field in your AMS. You can run different onboarding tracks for students vs. professionals, individual vs. organizational members, or any other segment.' },
         { q: 'How do responses get back to our AMS?', a: 'Every response writes back to your AMS automatically, where your AMS supports it. No CSV exports, no manual data entry. If a member tells PropFuel they are interested in a committee, that answer is saved to their AMS record.' },
@@ -5302,14 +5308,14 @@
       engTag: 'h3',
       sequenceId: 'sequence',
       heroBtn1: 'Get a Free Demo',
-      heroBtn2: 'See the Five Steps',
+      heroBtn2: 'See the Four Steps',
       faqHeadings: true,
       ctaBtn1: 'Get a Free Demo',
       ctaBtn2: { text: 'See Win-Back Campaigns', href: '/use-cases/win-back' },
       statsCta: { text: 'Read the Renewal Case Studies', href: '/client-success/case-studies' },
       heroLabel: 'Member Retention & Renewals',
       heroTitle: 'Earn the renewal. Long before the invoice.',
-      heroSub: 'PropFuel starts the renewal conversation 90 days before the invoice, so member retention is earned long before you ask for payment. Committed members renew faster. Wavering members get the nudge that matters.',
+      heroSub: 'PropFuel starts the renewal conversation 60 days before a membership expires, so member retention is earned long before you ask for payment. Committed members renew faster. Wavering members get the nudge that matters.',
       heroNote: 'Works alongside your existing renewal emails and AMS invoices',
       problemLabel: 'The problem',
       problemH2: 'You Remind Them. You Never Ask Them.',
@@ -5319,17 +5325,16 @@
       ],
       problemGraphic: '<div style="background:rgba(255,255,255,.06);border-radius:18px;padding:26px;border:1px solid rgba(255,255,255,.1);max-width:380px;font-family:\'DM Sans\',sans-serif;box-shadow:0 20px 60px rgba(0,0,0,.3)"><div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.08)"><div style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#F47C2C,#FBC02D);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:15px;flex-shrink:0">JD</div><div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:700;color:#EDE8DF;line-height:1.2">Jennifer Davis</div><div style="font-size:11px;color:#8C8479;margin-top:2px">Member since 2019 \u00B7 Expires Apr 30</div></div><div style="background:rgba(230,81,0,.18);color:#F47C2C;font-size:10px;font-weight:800;padding:5px 9px;border-radius:6px;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap">At Risk</div></div><div style="display:flex;flex-direction:column;gap:10px"><div style="background:rgba(255,255,255,.04);border-left:3px solid #F47C2C;padding:12px 14px;border-radius:8px"><div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px"><span style="font-size:11px;color:#8C8479">no-reply@assoc.org</span><span style="font-size:11px;color:#8C8479">Apr 15</span></div><div style="font-size:13px;color:#EDE8DF;font-weight:600;margin-bottom:5px">Your membership is expiring</div><div style="display:flex;align-items:center;gap:6px;font-size:10px;color:#8C8479"><span style="width:6px;height:6px;border-radius:50%;background:#F47C2C;display:inline-block"></span>Unread</div></div><div style="background:rgba(255,255,255,.04);border-left:3px solid #F47C2C;padding:12px 14px;border-radius:8px"><div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px"><span style="font-size:11px;color:#8C8479">no-reply@assoc.org</span><span style="font-size:11px;color:#8C8479">Apr 22</span></div><div style="font-size:13px;color:#EDE8DF;font-weight:600;margin-bottom:5px">Reminder: Membership expires soon</div><div style="display:flex;align-items:center;gap:6px;font-size:10px;color:#8C8479"><span style="width:6px;height:6px;border-radius:50%;background:#F47C2C;display:inline-block"></span>Unread</div></div><div style="background:rgba(255,255,255,.04);border-left:3px solid #E65100;padding:12px 14px;border-radius:8px"><div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px"><span style="font-size:11px;color:#8C8479">no-reply@assoc.org</span><span style="font-size:11px;color:#8C8479">Apr 29</span></div><div style="font-size:13px;color:#EDE8DF;font-weight:600;margin-bottom:5px">Final notice: Renew today</div><div style="display:flex;align-items:center;gap:6px;font-size:10px;color:#8C8479"><span style="width:6px;height:6px;border-radius:50%;background:#E65100;display:inline-block"></span>Unread</div></div></div><div style="margin-top:18px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:space-between;gap:12px"><span style="font-size:12px;color:#8C8479;font-style:italic">3 messages. 0 conversations.</span><span style="font-size:10px;font-weight:800;color:#EDE8DF;text-transform:uppercase;letter-spacing:.08em;background:#E65100;padding:5px 10px;border-radius:6px">Lapsed</span></div></div>',
       centerpieceHTML: '<div style="text-align:center;margin-bottom:56px">' +
-        '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin:0 0 16px;line-height:1.4">The Sandwich Technique</p>' +
-        '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15;margin:0 0 24px">Five Renewal Conversations in Ninety Days</h2>' +
-        '<p style="font-size:17px;color:#6E6E6E;line-height:1.6;max-width:700px;margin:0 auto 16px">PropFuel\u2019s renewal approach wraps the direct renewal ask between emotional value conversations, so the payment request never arrives cold.</p>' +
-        '<p style="font-size:17px;color:#6E6E6E;line-height:1.6;max-width:700px;margin:0 auto">It adapts to every answer instead of running on a fixed schedule. A member who says at step 1 that they plan to renew can move straight to the renewal ask. Anyone who renews drops out of the sequence. Members who go quiet or signal doubt continue through every step.</p>' +
+        '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin:0 0 16px;line-height:1.4">The Renewal Blueprint</p>' +
+        '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15;margin:0 0 24px;text-wrap:balance">Four Renewal Conversations, 60 Days Out to 15 Days After</h2>' +
+        '<p style="font-size:17px;color:#6E6E6E;line-height:1.6;max-width:700px;margin:0 auto 16px">PropFuel\u2019s renewal blueprint asks members whether they plan to renew instead of telling them to. Members who say yes get the renewal link on the spot. Members on the fence tell you what\u2019s holding them back while there\u2019s still time to help.</p>' +
+        '<p style="font-size:17px;color:#6E6E6E;line-height:1.6;max-width:700px;margin:0 auto">It adapts to every answer. Anyone who renews or gives a clear answer drops out of the sequence. Members who go quiet keep getting the next check-in, through 15 days after expiration. Organizational memberships run three check-ins over four to six weeks, addressed to the primary or billing contact.</p>' +
       '</div>' +
       '<div style="max-width:800px;margin:0 auto;display:flex;flex-direction:column;gap:24px">' +
-        ['90 Days Out|Soft Intent|A low-pressure check-in that asks about the member\u2019s experience. No mention of renewal yet. Just listening.|#FBC02D|Every member, 90 days before their expiration date|How would you rate the value of your membership this year?',
-         '60 Days Out|Emotional Value|Reinforce what the membership has delivered. Surface personalized benefits based on their engagement history and their step 1 answer.|#F9A825|Members who haven\u2019t renewed yet|Which of these benefits has been most useful to you this year?',
-         '45 Days Out|Direct Action|The renewal ask. It arrives after two conversations that reminded them why they joined. Context changes everything.|#F47C2C|Members who haven\u2019t renewed yet, including anyone who confirmed at step 1|Your renewal is coming up. Can we count on you for another year?',
-         '30 Days Out|Surface Hesitations|For non-responders and anyone who signaled doubt: ask what is holding them back. The answer is written to their AMS record and triggers an alert to your membership team, so the right person can follow up with a call, a payment option, or a better-fit membership type.|#E65100|Non-responders and members who signaled doubt|Is anything holding you back from renewing: cost, relevance, or time?',
-         'Expiration|Final Notice|A last touchpoint that acknowledges the relationship and makes it easy to act, or tells you exactly why they are leaving.|#D84315|Anyone who still hasn\u2019t renewed|Before your membership expires, is there anything we can do to keep you with us?'
+        ['60 Days Out|Intent Check|Ask, don\u2019t remind. Members who say yes get the renewal link on the spot, plus a follow-up email with the same link. Members who need more time hear back later. Members who say no are asked why.|#FBC02D|Every member, about 60 days before their expiration date|Are you planning to renew your membership?',
+         '30 Days Out|Mid-Window Nudge|A second chance for anyone who hasn\u2019t said yes: ask again with a fresh framing, or ask directly what is holding them back.|#F9A825|Members who haven\u2019t renewed yet|Is now a better time to renew your membership?',
+         '5 Days Out|Surface Hesitations|With the deadline close, lead with the reason. Cost, time, unused benefits, retiring, or leaving the field each get a tailored response. \u201CSomething else\u201D asks them to explain and alerts your membership team.|#F47C2C|Anyone who still hasn\u2019t renewed|Is there something holding you back from renewing your membership?',
+         '15 Days After|Last Call|A gentle final ask after expiration. Yes gets the renewal link. No gets a graceful goodbye and is left out of future renewal pushes.|#E65100|Individual members who still haven\u2019t renewed|Would you like to rejoin?'
         ].map(function(s, i) {
           var p = s.split('|');
           return '<div style="display:flex;gap:24px;align-items:flex-start">' +
@@ -5349,7 +5354,7 @@
         }).join('') +
       '</div>' +
       '<div style="max-width:800px;margin:32px auto 0;background:#1A1713;border-radius:16px;padding:28px 32px">' +
-        '<div style="font-size:13px;font-weight:700;color:#F9A825;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px">After step 5</div>' +
+        '<div style="font-size:13px;font-weight:700;color:#F9A825;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px">After step 4</div>' +
         '<h3 style="font-size:20px;font-weight:700;color:#EDE8DF;margin:0 0 8px">Renew or win back</h3>' +
         '<p style="font-size:15px;color:#8C8479;line-height:1.6;margin:0">Members who renew roll into your ongoing engagement campaigns. Members who lapse move into a win-back campaign built to <a href="/use-cases/win-back" style="color:#F47C2C;font-weight:600;text-decoration:underline">win back lapsed members</a> with a conversation instead of another invoice.</p>' +
       '</div>',
@@ -5364,7 +5369,7 @@
             '<p style="font-size:17px;color:#6E6E6E;line-height:1.65;margin:0">That\u2019s why PropFuel works as member retention software, not just a way to automate membership renewals. Every step is designed to learn why members stay or go while there\u2019s still time to act.</p>' +
           '</div>' +
           '<div class="uc-feature-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px">' +
-          [['Listen before you ask','The 90-day sequence above is a membership retention strategy, not a reminder schedule. It learns how each member feels before the renewal ask arrives.'],
+          [['Listen before you ask','The renewal sequence above is a membership retention strategy, not a reminder schedule. It learns how each member feels before the renewal ask arrives.'],
            ['Act on early signals','Low satisfaction, silence, and shifting interests show up in PropFuel before the renewal date, so staff can step in while it still matters.'],
            ['Start on day one','<a href="/use-cases/onboarding" style="color:#F47C2C;font-weight:600;text-decoration:underline">Retention starts at onboarding</a>. Members who are asked what they want in their first year arrive at renewal already engaged.'],
            ['Plan for lapses','Some member renewals will slip anyway. A dedicated <a href="/use-cases/win-back" style="color:#F47C2C;font-weight:600;text-decoration:underline">win-back campaign</a> asks why and invites them back.']
@@ -5380,7 +5385,7 @@
       enginesH2: 'Four Engines Working Together to Run Your Renewal Conversation',
       engines: [
         { name: 'Engagement Engine', desc: 'Delivers single-question check-ins that surface intent, satisfaction, and hesitations. These are the signals that predict renewal.', href: '/platform/engagement', linkText: 'Explore the Engagement Engine' },
-        { name: 'Automation Engine', desc: 'Runs the full 90-day renewal sequence with timing, branching, and staff alerts. No manual intervention required.', href: '/platform/automation', linkText: 'Explore the Automation Engine' },
+        { name: 'Automation Engine', desc: 'Runs the full renewal sequence with timing, branching, and staff alerts. No manual intervention required.', href: '/platform/automation', linkText: 'Explore the Automation Engine' },
         { name: 'Insights Engine', desc: 'Aggregates renewal signals into dashboards. See who is likely to renew, who is wavering, and what the common objections are.', href: '/platform/insights', linkText: 'Explore the Insights Engine' },
         { name: 'Membership AI', desc: 'Scores renewal likelihood, generates personalized messaging, and flags at-risk members before staff would catch them.', href: '/membership-ai', linkText: 'Explore Membership AI' }
       ],
@@ -5394,11 +5399,11 @@
       faqH2: 'Member Renewal FAQs',
       faqSub: 'Common questions about renewal campaigns.',
       faqs: [
-        { q: 'When should we start the renewal conversation?', a: 'Ninety days before expiration. This gives you three months to build context, surface hesitations, and address concerns, instead of sending three identical payment reminders in the final weeks.' },
+        { q: 'When should we start the renewal conversation?', a: 'About 60 days before expiration. That gives members time to tell you where they stand and gives your team time to act on any hesitation, instead of sending identical payment reminders in the final weeks. The blueprint keeps going until 15 days after expiration for late renewers.' },
         { q: 'Will this replace our existing renewal emails?', a: 'It can complement or replace them. Many organizations run PropFuel\u2019s renewal sequence alongside their AMS-generated invoices. The PropFuel emails handle the conversation, and your AMS handles the transaction.' },
         { q: 'What if a member says they are not going to renew?', a: 'That response is valuable data. PropFuel captures the reason, triggers a staff alert, and can route the member to a personalized follow-up, such as a discount offer, a call from a board member, or an exit survey.' },
         { q: 'How do we measure the impact on renewal rates?', a: 'PropFuel\u2019s Insights Engine tracks renewal intent, member signals, and actual renewal rates. You can compare cohorts that received PropFuel outreach against those that did not.' },
-        { q: 'How does PropFuel know when our members expire?', a: 'PropFuel reads each member\u2019s expiration or renewal date from your AMS through its two-way sync. The sequence is scheduled relative to that date, so every member starts 90 days before their own expiration. Once your AMS shows a member as renewed, they can be removed from the sequence automatically.' },
+        { q: 'How does PropFuel know when our members expire?', a: 'PropFuel reads each member\u2019s expiration or renewal date from your AMS through its two-way sync. The sequence is scheduled relative to that date, so every member starts about 60 days before their own expiration. Once your AMS shows a member as renewed, they can be removed from the sequence automatically.' },
         { q: 'What\u2019s a good membership retention rate?', a: 'According to Marketing General Incorporated\u2019s 2026 Membership Marketing Benchmarking Report, the median association renewal rate is about 84%, and first-year members renew at a noticeably lower rate, around 75%. Track both numbers separately, because the gap between them is usually where the biggest retention gains are. With PropFuel, AAMFT raised its on-time renewal rate from 80.5% to 95%.' },
         { q: 'Can we run different renewal campaigns for different member types?', a: 'Yes. Segment by member type, tenure, engagement level, or any AMS field. A first-year member gets a different renewal experience than a 20-year veteran.' }
       ],
