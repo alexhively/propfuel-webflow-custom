@@ -267,20 +267,29 @@ s.insertAdjacentHTML('beforebegin',"<style>\n.af{--ch:#2F2F2F;--mg:#6E6E6E;--bg:
 
   // Chili Piper: same tenant and router as /book-a-demo. After the form submits, it books the meeting.
   var cp = document.createElement('script'); cp.src = 'https://js.chilipiper.com/marketing.js'; cp.type = 'text/javascript'; document.head.appendChild(cp);
+  // HubSpot sometimes hands onFormSubmitted an empty email, and Chili Piper then answers 400 ("No form data was found for values on
+  // email, firstname, lastname, company") and shows nothing. Remember what the visitor typed and use it when the callback has none.
+  var lastEmail = '';
+  var rememberEmail = function (e) { var t = e.target; if (t && t.name === 'email' && t.closest && t.closest('#af-hs-form, #af-hs-form2')) lastEmail = t.value || lastEmail; };
+  ['input', 'change', 'submit', 'click'].forEach(function (ev) { document.addEventListener(ev, function (e) { if (ev === 'submit' || ev === 'click') { var f = e.target && e.target.closest && e.target.closest('#af-hs-form, #af-hs-form2'); var i = f && f.querySelector('input[name=email]'); if (i && i.value) lastEmail = i.value; } else rememberEmail(e); }, true); });
   var lastFire = 0;
   function onSubmitted(lead) {
     if (Date.now() - lastFire < 4000) return; lastFire = Date.now();
     lead = lead || {};
+    if (!lead.email) lead.email = lastEmail;
     ph('form_submit_succeeded');
     trackLead(lead.email);
     for (var k in lead) { if (Array.isArray(lead[k])) lead[k] = lead[k].toString().replaceAll(',', ';'); }
     if (window.ChiliPiper) ChiliPiper.submit('propfuel', 'Inbound_Router', { map: true, lead: lead });
-    // Chili Piper answers 400 for some email-only submits and then shows nothing. If no scheduler opens, confirm in place.
+    // Chili Piper answers 400 ("No form data was found for values on email, firstname, lastname, company") for some email-only submits
+    // and then shows nothing. Retry once; if still no scheduler, confirm in place so the visitor isn't left on a dead form.
+    var cpShown = function () { return document.querySelector('iframe[src*="chilipiper"]'); };
+    setTimeout(function () { if (!cpShown()) { ph('chilipiper_retry'); try { ChiliPiper.submit('propfuel', 'Inbound_Router', { map: true, lead: lead }); } catch (e) {} } }, 3000);
     setTimeout(function () {
-      if (document.querySelector('iframe[src*="chilipiper"]')) return;
+      if (cpShown()) return;
       ph('chilipiper_not_shown');
       [].forEach.call(document.querySelectorAll('.af-demo-card'), function (c) { if (c.querySelector('form.hs-form')) c.innerHTML = '<div class="submitted-message"><p>Thanks. We got your request and will email you shortly to schedule your demo.</p></div>'; });
-    }, 5000);
+    }, 9000);
   }
   // iframe embeds post a message; raw HTML embeds call onFormSubmitted. Both end up here, once.
   window.addEventListener('message', function (event) {
