@@ -252,16 +252,15 @@ s.insertAdjacentHTML('beforebegin',"<style>\n.af{--ch:#2F2F2F;--mg:#6E6E6E;--bg:
   // The HubSpot embed renders in an iframe and prefills hidden fields from the page URL, so put the UTMs there.
   function loadForm() {
     if (!window.hbspt) return;
-    try {
-      var u = new URL(location.href), changed = false;
-      utmFields().concat(metaIds()).forEach(function (f) { if (!u.searchParams.has(f.name)) { u.searchParams.set(f.name, f.value); changed = true; } });
-      if (changed) history.replaceState(history.state, '', u.toString());
-    } catch (e) {}
+    // Address bar goes back to the clean URL once both forms have read it (helper lives in webflow-enhancements.js).
+    var restoreUrl = function () {};
+    try { if (window.pfPrefillUrl) restoreUrl = window.pfPrefillUrl(utmFields().concat(metaIds()), 2); } catch (e) {}
     ['#af-hs-form', '#af-hs-form2'].forEach(function (T) { hbspt.forms.create({ portalId: PORTAL, formId: FORM, region: 'na1', target: T,
       onFormFailedValidation: function () { setTimeout(function () { var n = []; try { document.querySelectorAll(T + ' .invalid, ' + T + ' .error').forEach(function (i) { if (i.name && n.indexOf(i.name) < 0) n.push(i.name); }); } catch (e) {} ph('form_submit_failed', { fields: n.join(',') || 'unknown' }); }, 0); },
       onFormSubmitted: function ($f, data) { var v = (data && data.submissionValues) || {}; if (!v.email) { try { v.email = document.querySelector(T + ' input[name=email]').value; } catch (e) {} } window.__afOnSubmitted && window.__afOnSubmitted(v); },
       // Phone keyboards: right autofill hints. Does nothing if HubSpot renders the form in an iframe.
       onFormReady: function (f) {
+        restoreUrl();
         try { var em = document.querySelector(T + ' input[name=email]'); if (em) { em.placeholder = 'you@association.org'; em.setAttribute('autocomplete', 'email'); em.setAttribute('inputmode', 'email'); } } catch (e) {}
         var m = { firstname: 'given-name', lastname: 'family-name', email: 'email', phone: 'tel', jobtitle: 'organization-title', company: 'organization' };
         try { (f[0] || f).querySelectorAll('input').forEach(function (i) { if (m[i.name]) i.setAttribute('autocomplete', m[i.name]); }); } catch (e) {}

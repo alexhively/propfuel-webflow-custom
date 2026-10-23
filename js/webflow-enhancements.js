@@ -1862,6 +1862,26 @@
       if (any) { got.ts = Date.now(); localStorage.setItem('pfUTM', JSON.stringify(got)); }
     } catch (e) {}
   })();
+  // HubSpot iframe forms prefill hidden fields from the page URL, so callers add them there with
+  // pfPrefillUrl(fields, n). It returns a restore function: after n calls (one per form) it removes only
+  // the params it added, so the address bar is clean and a shared link carries no attribution.
+  // Also restores after 10s in case a form never reports ready. Used by the demo form and /lp pages.
+  window.pfPrefillUrl = function (fields, n) {
+    var added = [], u = new URL(location.href), left = n || 1;
+    fields.forEach(function (f) { if (!u.searchParams.has(f.name)) { u.searchParams.set(f.name, f.value); added.push(f.name); } });
+    if (!added.length) return function () {};
+    history.replaceState(history.state, '', u.toString());
+    var restore = function () {
+      if (!added.length) return;
+      var c = new URL(location.href);
+      added.forEach(function (k) { c.searchParams.delete(k); });
+      added = [];
+      history.replaceState(history.state, '', c.toString());
+    };
+    setTimeout(restore, 10000);
+    return function () { if (--left <= 0) restore(); };
+  };
+
   function pfUtmFields() {
     var u = {};
     try {
@@ -1971,16 +1991,14 @@
       if (window.hbspt) {
         // The embed renders in an iframe, so its hidden pf_last_utm_* fields can't be
         // set from here. HubSpot prefills fields from the page URL, so put them there.
-        try {
-          var u = new URL(window.location.href), changed = false;
-          pfUtmFields().concat(pfMetaIdFields('f8009d2f-d93b-40b1-a669-d6c112abe6a5')).forEach(function (f) { if (!u.searchParams.has(f.name)) { u.searchParams.set(f.name, f.value); changed = true; } });
-          if (changed) history.replaceState(history.state, '', u.toString());
-        } catch (e) {}
+        var restoreUrl = function () {};
+        try { restoreUrl = window.pfPrefillUrl(pfUtmFields().concat(pfMetaIdFields('f8009d2f-d93b-40b1-a669-d6c112abe6a5')), 1); } catch (e) {}
         hbspt.forms.create({
           portalId: '21158441',
           formId: 'f8009d2f-d93b-40b1-a669-d6c112abe6a5',
           region: 'na1',
-          target: '#hs-demo-form'
+          target: '#hs-demo-form',
+          onFormReady: restoreUrl
         });
       }
     };
