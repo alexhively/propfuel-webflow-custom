@@ -69,7 +69,7 @@
                    sub: 'Newsletters go out and you hear nothing back. PropFuel sends one-question emails members answer with one click, then sends each member the next message based on what they said.' }
         }
       },
-      stats: [['370+', 'associations use PropFuel'], ['12%', 'average annual revenue growth after implementing PropFuel'], ['$100M+', 'in revenue growth across clients'], ['72%', 'of declining organizations reversed course']],
+      stats: [['370+', 'associations use PropFuel'], ['12%', 'average annual revenue growth after implementing PropFuel, vs 0.98% for the average association'], ['$100M+', 'in revenue growth across clients'], ['72%', 'of declining organizations reversed course']],
       section: { kind: 'compare', h: 'Messages out vs. answers back',
         left: ['The same newsletter for every member', 'Open and click rates, but no idea what members need', 'Segments you never have time to build', 'Member data that goes stale in the AMS'],
         right: ['One question that lets each member tell you what they need', 'Answers you can read, sorted by what members said', 'Follow-ups that branch on each answer, drafted for you', 'Every answer written back to the member record'] },
@@ -156,7 +156,7 @@
                    sub: 'It needs to know what members want. PropFuel works with the AMS you have, and a dedicated success manager builds your first campaigns with you.' }
         }
       },
-      stats: [['370+', 'associations use PropFuel'], ['4,500+', 'member profile fields updated by one client’s campaign'], ['996', 'institutions confirmed their contacts with one question (NACUBO)'], ['12%', 'average annual revenue growth after implementing PropFuel']],
+      stats: [['370+', 'associations use PropFuel'], ['4,500+', 'member profile fields updated by one client’s campaign'], ['996', 'institutions confirmed their contacts with one question (NACUBO)'], ['12%', 'average annual revenue growth after implementing PropFuel, vs 0.98% for the average association']],
       section: { kind: 'ams', h: 'Connects to the AMS you already run',
         tier1: ['iMIS', 'Salesforce', 'Nimble AMS', 'Fonteva', 'Impexium'],
         tier2: ['Novi', 'MemberSuite', 'Aptify', 'Personify', 'NetForum', 'YourMembership', 'MemberClicks', 'GrowthZone', 'Wicket'],
@@ -179,7 +179,7 @@
         formP: 'Tell us what you send with today. We’ll show you where PropFuel fits and what changes for your members.',
         v: {}, match: o.match || [], variants: o.variants || {}
       },
-      stats: [['370+', 'associations use PropFuel'], ['2,246', 'answers to one question (AWHONN)'], ['12%', 'average annual revenue growth after implementing PropFuel'], ['72%', 'of declining organizations reversed course']],
+      stats: [['370+', 'associations use PropFuel'], ['2,246', 'answers to one question (AWHONN)'], ['12%', 'average annual revenue growth after implementing PropFuel, vs 0.98% for the average association'], ['72%', 'of declining organizations reversed course']],
       section: { kind: 'compare', h: 'How they fit together', lh: 'What stays the same', rh: 'What PropFuel adds',
         left: o.stays, right: ['One question per email or website check-in, answered with one click', 'Every answer saved to the member record, not a separate report', 'A follow-up for each answer, drafted for you', 'Membership AI drafts the next campaign for your team to approve'] },
       cases: ['awhonn', 'txcpa', 'nacubo'], quote: 'ala',
@@ -250,7 +250,7 @@
                       sub: 'Many teams look at a new AMS because they can’t tell what members need. PropFuel answers that on top of ' + n + '. ' + who }
         }
       },
-      stats: [['370+', 'associations use PropFuel'], ['12%', 'average annual revenue growth after implementing PropFuel'], ['4,500+', 'member profile fields updated by one client’s campaign'], ['72%', 'of declining organizations reversed course']],
+      stats: [['370+', 'associations use PropFuel'], ['12%', 'average annual revenue growth after implementing PropFuel, vs 0.98% for the average association'], ['4,500+', 'member profile fields updated by one client’s campaign'], ['72%', 'of declining organizations reversed course']],
       section: { kind: 'compare', h: 'What syncs with ' + n, lh: 'From ' + n + ' into PropFuel', rh: 'From PropFuel back to your team',
         left: ['Member ID, name and email', 'Member type and status', 'Join, expiry and paid-through dates', 'Email preferences and other fields you choose to map'],
         right: ['Each member’s answers on their PropFuel profile', 'Segments built from what members said', 'Follow-up campaigns that start from each answer', 'Answers written back to ' + n + ' where your setup supports it'] },

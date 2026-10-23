@@ -163,7 +163,7 @@
     '<span class="pfig-eyebrow">For membership teams at associations</span>' +
     '<h1 class="pfig-h1">See it with your members.</h1>' +
     '<p class="pfig-sub">One question at a time tells you who’s at risk, who’s ready for more, and what to send next.</p>' +
-    '<ul class="pfig-proof"><li>Trusted by 370+ associations</li><li>12% average annual revenue growth<small>after implementing PropFuel</small></li></ul>' +
+    '<ul class="pfig-proof"><li>Trusted by 370+ associations</li><li>12% average annual revenue growth<small>after implementing PropFuel, vs 0.98% for the average association</small></li></ul>' +
     '<div class="pfig-fit" id="pfig-fit" aria-live="polite"></div>';
   if (col) { col.insertBefore(hero, col.firstChild); var oldH1 = col.querySelector('h1.pf-demo-title'); if (oldH1) oldH1.removeAttribute('class'); }
   var fit = hero.querySelector('#pfig-fit'), step = 0, ans = [];

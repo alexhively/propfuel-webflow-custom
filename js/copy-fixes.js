@@ -41,7 +41,6 @@
     ['/use-cases/renewals', ', which typically runs hourly', ''],
     ['/platform/insights', 'writes back to your AMS automatically in real time.', 'writes back to your AMS automatically.'],
     ['/platform/automation', 'writes back to your AMS in real time', 'writes back to your AMS automatically'],
-    ['/ig', 'after implementing PropFuel', 'after implementing PropFuel, vs 0.98% for the average association'],
     // Orphan guards: tie the last two words where text-wrap alone leaves one word on the last line.
     ['/platform/overview', 'to your AMS automatically', 'to your AMS\u00a0automatically'],
     ['/use-cases/onboarding', 'or networking?', 'or\u00a0networking?'],
@@ -57,6 +56,8 @@
     while ((n = w.nextNode())) {
       for (var i = 0; i < mine.length; i++) {
         if (n.data.indexOf(mine[i][1]) === -1) continue;
+        // A replacement that contains its search text must not re-apply on the next observer pass.
+        if (mine[i][2].indexOf(mine[i][1]) !== -1 && n.data.indexOf(mine[i][2]) !== -1) continue;
         n.data = n.data.split(mine[i][1]).join(mine[i][2]);
         if (!done[i]) { done[i] = 1; applied.push('text: ' + mine[i][1].slice(0, 50)); }
       }
