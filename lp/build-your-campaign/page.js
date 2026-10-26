@@ -6,9 +6,9 @@ s.insertAdjacentHTML('beforebegin',"<style>\n.af{--ch:#2F2F2F;--mg:#6E6E6E;--bg:
 
 (function () {
   // ===== SWAP POINT: Chili Piper for the BYO PropFuel Campaign meeting =====
-  // Today this is the standard demo router, so bookings still work. When Ryan's "BYO PropFuel Campaign" link exists,
-  // replace the value below. A router name (e.g. 'BYO_PropFuel_Campaign') uses ChiliPiper.submit; a full URL (https://...) is opened instead.
-  var BYOPFC_CHILI_PIPER = 'Inbound_Router';
+  // Ryan's BYOPFC round-robin (Oct 26). utm_source/utm_campaign/email get appended on redirect.
+  // A router name uses ChiliPiper.submit instead; a full URL (https://...) is opened after the form submits.
+  var BYOPFC_CHILI_PIPER = 'https://propfuel.chilipiper.com/round-robin/propfuel-overview-call---byopfc';
   var SRC = 'byopfc'; // lead_source + default UTM campaign so these bookings are distinguishable
   var PORTAL = '21158441', FORM = 'cd3483af-1107-452a-bc7d-6c5a1c655dce'; // same "Website Book a Demo" form as /book-a-demo
   var LIVE = /(^|\.)propfuel\.com$/.test(location.hostname);
