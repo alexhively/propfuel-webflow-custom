@@ -5096,7 +5096,7 @@
     // --- PROBLEM BAND (dark) ---
     if (!document.querySelector('.' + prefix + '-problem')) {
       var problemHTML = '<section class="' + prefix + '-problem" style="background:#1A1713;padding:96px 48px">' +
-        '<div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center">' +
+        '<div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:' + (cfg.problemGraphic ? '1fr 1fr' : 'minmax(0,760px)') + ';gap:64px;align-items:center">' +
           '<div>' +
             '<' + LBL + ' style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin:0 0 16px;line-height:1.4">' + (cfg.problemLabel || 'The Problem') + '</' + LBL + '>' +
             '<' + HD + ' style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#EDE8DF;letter-spacing:-0.02em;line-height:1.15;margin:0 0 32px">' + cfg.problemH2 + '</' + HD + '>';
@@ -5503,15 +5503,24 @@
   function fixUseCaseWinBack() {
     buildUseCasePage({
       path: 'use-cases/win-back',
+      seoTags: true,
+      headlineH2: true,
+      heroCta1: 'Get a Free Demo',
+      heroCta2: 'See the Two Tracks',
+      heroCta2Href: '#tracks',
+      sequenceId: 'tracks',
+      ctaBtn1: 'Get a Free Demo',
       heroLabel: 'Win-Back',
-      heroTitle: 'Know why they left. Win them back.',
-      heroSub: 'PropFuel asks every lapsed member why they left \u2014 and runs personalized win-back campaigns based on what they say. Not a blast email to an indifferent list. A conversation.',
+      heroTitle: 'Know why they left. Win them back with a reengagement campaign.',
+      heroSub: 'PropFuel asks every lapsed member why they left, then builds every message from what they say. Not a blast email to an indifferent list. A conversation.',
       problemLabel: 'The Problem',
-      problemH2: 'You know when members leave. You don\u2019t know why.',
+      problemH2: 'Know When Members Leave. You Don\u2019t Know Why.',
       problemBody: [
-        'An expiration date passes. A \u201Cwe miss you\u201D email goes out. Maybe someone picks up the phone. <strong>But nobody knows why the member left \u2014 so every outreach is a guess.</strong>',
-        'Some left on purpose. Some just lost track. Some would come back if anyone made it easy. <strong>The association can\u2019t tell the difference \u2014 because no one ever asked.</strong>',
-        '<strong>\u201CWe\u2019ve never actually asked lapsed members why they left.\u201D</strong> That\u2019s the starting point for most associations. PropFuel changes it \u2014 one question at a time.'
+        'An expiration date passes. A \u201Cwe miss you\u201D email goes out. Maybe someone picks up the phone. <strong>But nobody knows why the member left, so every outreach is a guess.</strong>',
+        'Some left on purpose. Some just lost track. Some would come back if anyone made it easy. <strong>The association can\u2019t tell the difference, because no one ever asked.</strong>',
+        'Many lapsed members don\u2019t even know they\u2019ve lapsed. When one medical society asked, <strong>72% of the 54 members who answered said they didn\u2019t know their membership had expired.</strong> That makes \u201CDid you know your membership expired?\u201D a better first question than a request to rejoin.',
+        'The first reason a member gives isn\u2019t always the whole story. When someone says they\u2019re retiring or leaving the field, a follow-up question can check whether cost is part of it, so the offer matches the real reason.',
+        '<strong>\u201CWe\u2019ve never actually asked lapsed members why they left.\u201D</strong> That\u2019s the starting point for most associations. PropFuel changes it, one question at a time.'
       ],
       problemGraphic: '<div style="background:rgba(255,255,255,.06);border-radius:16px;padding:32px;border:1px solid rgba(255,255,255,.1);max-width:340px;text-align:center">' +
         '<div style="font-size:64px;font-weight:900;background:linear-gradient(to top,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px">?</div>' +
@@ -5525,7 +5534,8 @@
       '</div>',
       centerpieceHTML: '<div style="text-align:center;margin-bottom:56px">' +
         '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">Two Tracks</p>' +
-        '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15">Different cadences for different lapse windows.</h2>' +
+        '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15">A Reengagement Campaign for Every Lapse Window</h2>' +
+        '<p style="font-size:17px;color:#6E6E6E;line-height:1.65;max-width:760px;margin:16px auto 0">PropFuel runs a separate reengagement campaign for each lapse window. The recently lapsed track starts automatically when an expiration date passes without renewal, so members who lapse after your <a href="/use-cases/renewals" style="color:#F47C2C;font-weight:600;text-decoration:underline">renewal sequence</a> move straight into it.</p>' +
       '</div>' +
       '<div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-bottom:56px">' +
         '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 32px">' +
@@ -5533,7 +5543,7 @@
           '<p style="font-size:14px;color:#6E6E6E;margin-bottom:20px">0\u20136 months past expiration</p>' +
           '<div style="display:flex;flex-direction:column;gap:16px">' +
             '<div style="display:flex;gap:12px;align-items:flex-start"><div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#F47C2C,#FBC02D);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff;font-size:13px;font-weight:700">1</div><div><div style="font-size:14px;font-weight:700;color:#2F2F2F">Acknowledge the Lapse</div><div style="font-size:13px;color:#6E6E6E;margin-top:2px">Warm, personal outreach that says \u201Cwe noticed.\u201D</div></div></div>' +
-            '<div style="display:flex;gap:12px;align-items:flex-start"><div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#F47C2C,#FBC02D);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff;font-size:13px;font-weight:700">2</div><div><div style="font-size:14px;font-weight:700;color:#2F2F2F">Ask Why</div><div style="font-size:13px;color:#6E6E6E;margin-top:2px">Surface the reason \u2014 cost, relevance, career change, or just forgot.</div></div></div>' +
+            '<div style="display:flex;gap:12px;align-items:flex-start"><div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#F47C2C,#FBC02D);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff;font-size:13px;font-weight:700">2</div><div><div style="font-size:14px;font-weight:700;color:#2F2F2F">Ask Why</div><div style="font-size:13px;color:#6E6E6E;margin-top:2px">Surface the reason: cost, relevance, career change, or just forgot.</div></div></div>' +
             '<div style="display:flex;gap:12px;align-items:flex-start"><div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#F47C2C,#FBC02D);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff;font-size:13px;font-weight:700">3</div><div><div style="font-size:14px;font-weight:700;color:#2F2F2F">Branch by Answer</div><div style="font-size:13px;color:#6E6E6E;margin-top:2px">Cost concerns get a payment plan. Relevance issues get a value pitch.</div></div></div>' +
             '<div style="display:flex;gap:12px;align-items:flex-start"><div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#F47C2C,#FBC02D);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff;font-size:13px;font-weight:700">4</div><div><div style="font-size:14px;font-weight:700;color:#2F2F2F">Close or Escalate</div><div style="font-size:13px;color:#6E6E6E;margin-top:2px">Auto-renewal link or staff alert for personal follow-up.</div></div></div>' +
           '</div>' +
@@ -5548,35 +5558,54 @@
           '</div>' +
         '</div>' +
       '</div>' +
-      '<div style="max-width:600px;margin:0 auto;background:#F6F2E8;border-radius:16px;padding:28px 32px">' +
-        '<h4 style="font-size:16px;font-weight:700;color:#2F2F2F;margin-bottom:16px">Example Questions</h4>' +
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:24px"><div style="background:#F6F2E8;border-radius:16px;padding:28px 32px">' +
+        '<h4 style="font-size:16px;font-weight:700;color:#2F2F2F;margin-bottom:16px">Example Questions: Recently Lapsed</h4>' +
         '<div style="display:flex;flex-direction:column;gap:10px">' +
           '<div style="background:#fff;border-radius:10px;padding:12px 16px;font-size:14px;color:#2F2F2F;border:1px solid #E3DDD2">\u201CWe noticed you haven\u2019t renewed. What was the biggest reason?\u201D</div>' +
           '<div style="background:#fff;border-radius:10px;padding:12px 16px;font-size:14px;color:#2F2F2F;border:1px solid #E3DDD2">\u201CIf we could change one thing about membership, what would it be?\u201D</div>' +
           '<div style="background:#fff;border-radius:10px;padding:12px 16px;font-size:14px;color:#2F2F2F;border:1px solid #E3DDD2">\u201CWould a multi-year or payment plan option make a difference?\u201D</div>' +
         '</div>' +
-      '</div>',
-      enginesH2: 'Four engines working together to bring members back.',
+      '</div>' +
+      '<div style="background:#F6F2E8;border-radius:16px;padding:28px 32px">' +
+        '<h4 style="font-size:16px;font-weight:700;color:#2F2F2F;margin-bottom:16px">Example Questions: Dormant</h4>' +
+        '<div style="display:flex;flex-direction:column;gap:10px">' +
+          '<div style="background:#fff;border-radius:10px;padding:12px 16px;font-size:14px;color:#2F2F2F;border:1px solid #E3DDD2">\u201CIt\u2019s been a while. What are you focused on in your career right now?\u201D</div>' +
+          '<div style="background:#fff;border-radius:10px;padding:12px 16px;font-size:14px;color:#2F2F2F;border:1px solid #E3DDD2">\u201CWhich of these would be most useful to you this year?\u201D</div>' +
+          '<div style="background:#fff;border-radius:10px;padding:12px 16px;font-size:14px;color:#2F2F2F;border:1px solid #E3DDD2">\u201CWould you like to see what\u2019s new since you were last a member?\u201D</div>' +
+        '</div>' +
+      '</div></div>',
+      extraSections: [{
+        cls: 'usecaseswinback-emails',
+        after: 'centerpiece',
+        style: 'padding:96px 48px;background:#EBE6DA',
+        html: '<div style="max-width:1100px;margin:0 auto">' + '<div style="text-align:center;margin-bottom:48px"><p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin:0 0 16px;line-height:1.4">Examples</p><h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15;margin:0">Reengagement Email Examples for Lapsed Members</h2><p style="font-size:17px;color:#6E6E6E;line-height:1.65;max-width:760px;margin:16px auto 0">These reengagement emails show how each track reads in practice. Every one asks a single question with one-click answers, and every click is saved to the member\u2019s record in your AMS, so the next message matches what they said.</p></div><div style="display:grid;grid-template-columns:repeat(2,1fr);gap:24px"><div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:32px 28px"><p style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#F47C2C;margin:0 0 8px">Email 1 · Recently lapsed</p><h3 style="font-size:18px;font-weight:700;color:#2F2F2F;margin:0 0 12px">Acknowledge the lapse</h3><p style="font-size:15px;color:#2F2F2F;line-height:1.55;background:#EBE6DA;border-radius:10px;padding:12px 16px;margin:0 0 10px">\u201CHi Jordan, your membership expired on March 31. Did you know it had lapsed?\u201D</p><p style="font-size:13px;color:#6E6E6E;margin:0 0 14px">Answers: Yes, I knew · No, I didn\u2019t know</p><p style="font-size:13px;color:#6E6E6E;line-height:1.55;margin:0;border-top:1px solid #E3DDD2;padding-top:12px"><strong style="color:#2F2F2F">Writes back:</strong> Lapse awareness is saved to the member record. Members who didn\u2019t know get a one-click renewal link right away.</p></div><div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:32px 28px"><p style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#F47C2C;margin:0 0 8px">Email 2 · Recently lapsed</p><h3 style="font-size:18px;font-weight:700;color:#2F2F2F;margin:0 0 12px">Ask why</h3><p style="font-size:15px;color:#2F2F2F;line-height:1.55;background:#EBE6DA;border-radius:10px;padding:12px 16px;margin:0 0 10px">\u201CThanks for letting us know. What was the biggest reason you didn\u2019t renew?\u201D</p><p style="font-size:13px;color:#6E6E6E;margin:0 0 14px">Answers: Cost · Not using the benefits · Changed jobs or retired · Just haven\u2019t gotten to it</p><p style="font-size:13px;color:#6E6E6E;line-height:1.55;margin:0;border-top:1px solid #E3DDD2;padding-top:12px"><strong style="color:#2F2F2F">Writes back:</strong> The lapse reason is saved to the member record and decides which email comes next.</p></div><div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:32px 28px"><p style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#F47C2C;margin:0 0 8px">Email 3 · Recently lapsed</p><h3 style="font-size:18px;font-weight:700;color:#2F2F2F;margin:0 0 12px">Branch by answer</h3><p style="font-size:15px;color:#2F2F2F;line-height:1.55;background:#EBE6DA;border-radius:10px;padding:12px 16px;margin:0 0 10px">For members who chose cost: \u201CWould a payment plan make it easier to come back?\u201D</p><p style="font-size:13px;color:#6E6E6E;margin:0 0 14px">Answers: Yes, show me the options · No, thanks</p><p style="font-size:13px;color:#6E6E6E;line-height:1.55;margin:0;border-top:1px solid #E3DDD2;padding-top:12px"><strong style="color:#2F2F2F">Writes back:</strong> Interest in a payment plan is saved, and a yes sends the payment plan link.</p></div><div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:32px 28px"><p style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#F47C2C;margin:0 0 8px">Email 4 · Dormant</p><h3 style="font-size:18px;font-weight:700;color:#2F2F2F;margin:0 0 12px">Re-introduce, lead with value</h3><p style="font-size:15px;color:#2F2F2F;line-height:1.55;background:#EBE6DA;border-radius:10px;padding:12px 16px;margin:0 0 10px">\u201CHi Sam, it\u2019s been a while since you were a member. A lot has changed, from new CE courses to local chapter events. Which would be most useful to you now?\u201D</p><p style="font-size:13px;color:#6E6E6E;margin:0 0 14px">Answers: CE courses · Networking and events · Industry news · None of these</p><p style="font-size:13px;color:#6E6E6E;line-height:1.55;margin:0;border-top:1px solid #E3DDD2;padding-top:12px"><strong style="color:#2F2F2F">Writes back:</strong> The interest is saved as a tag, and the rejoin link that follows is tailored to it. \u201CNone of these\u201D removes the member from the track.</p></div></div><p style="font-size:13px;color:#8C8479;text-align:center;margin:24px 0 0;font-style:italic">Illustrative examples. Names and dates are made up.</p>' + '</div>'
+      }, {
+        cls: 'usecaseswinback-ams',
+        after: 'engines',
+        style: 'padding:96px 48px',
+        html: '<div style="max-width:1100px;margin:0 auto">' + '<div style="text-align:center;margin-bottom:48px"><p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin:0 0 16px;line-height:1.4">Your AMS</p><h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15;margin:0">Built to Work With Your AMS</h2></div><p style="font-size:17px;color:#6E6E6E;line-height:1.7;max-width:760px;margin:0 auto;text-align:center">PropFuel reads each member\u2019s expiration date and lapse status from your association management system (AMS), then writes every answer back to the member record where your AMS supports it. Your AMS stays the system of record, so staff see why a member left in the tool they already use, and every reengagement campaign starts from current data. PropFuel <a href="/integrations" style="color:#F47C2C;font-weight:600;text-decoration:underline">works with your AMS</a> through 60+ integrations, including Nimble AMS, Salesforce, Fonteva, iMIS, Impexium, Personify, and YourMembership.</p>' + '</div>'
+      }],
+      enginesH2: 'Four Engines Working Together to Bring Members Back',
       engines: [
-        { name: 'Engagement Engine', desc: 'Delivers personalized outreach that acknowledges the lapse and opens a real conversation \u2014 not just another blast.' },
+        { name: 'Engagement Engine', desc: 'Delivers personalized outreach that acknowledges the lapse and opens a real conversation, not another blast.' },
         { name: 'Automation Engine', desc: 'Manages two separate cadences for recently lapsed and dormant members, with branching based on responses.' },
         { name: 'Insights Engine', desc: 'Captures why members left, identifies common patterns, and reports on win-back conversion rates.' },
         { name: 'Membership AI', desc: 'Scores re-engagement likelihood and recommends personalized messaging for each lapsed segment.' }
       ],
-      statsH2: 'Proof that conversations bring members back.',
+      statsH2: 'Proof That Conversations Bring Members Back',
       stats: [
-        { num: '80%', org: 'AAP', desc: 'Win-back rate on lapsed members who were re-engaged through PropFuel conversations.' },
-        { num: '$15K', org: 'INCOSE', desc: 'Revenue recovered from a single win-back campaign targeting recently lapsed members.' },
-        { num: '50', org: 'MSTA', desc: 'Members re-engaged in one campaign \u2014 members who had been silent for over a year.' },
-        { num: '$100M+', org: 'All Clients', desc: 'Total revenue growth across PropFuel clients, including win-back contributions.' }
+        { num: '80%', org: '<a href="/client-success/case-studies" style="color:inherit;text-decoration:underline">AAP</a>', desc: 'Win-back rate on lapsed members who were re-engaged through PropFuel conversations.' },
+        { num: '$15K', org: 'INCOSE', desc: 'Revenue recovered from a single win-back campaign targeting lapsed members.' },
+        { num: '50', org: 'MSTA', desc: 'Members rejoined in one win-back campaign, 10+ of them in the first hour.' },
+        { num: '42', org: '<a href="/case-studies/medical-society-lapsed-member-win-back" style="color:inherit;text-decoration:underline">Medical society</a>', desc: 'Lapsed members rejoined in seven weeks, worth $18,438 in dues.' }
       ],
-      faqH2: 'Common questions about win-back campaigns.',
+      faqH2: 'Questions About Win-Back Campaigns',
       faqs: [
-        { q: 'How soon after lapse should we reach out?', a: 'Immediately \u2014 within the first 30 days. The longer you wait, the harder it gets. PropFuel\u2019s recently lapsed track starts automatically when a member\u2019s expiration passes without renewal.' },
-        { q: 'What about members who lapsed years ago?', a: 'PropFuel\u2019s dormant member track uses a different approach \u2014 re-introduction rather than reminder. The messaging acknowledges the time gap and leads with value rather than payment.' },
-        { q: 'How do we handle members who say they left intentionally?', a: 'That response is captured and categorized. You learn the reason, the data feeds your retention strategy, and the member is removed from further outreach. Not every lapsed member should be won back \u2014 but you should always know why they left.' },
+        { q: 'How soon after lapse should we reach out?', a: 'Immediately, within the first 30 days. The longer you wait, the harder it gets. PropFuel\u2019s recently lapsed track starts sending reengagement emails automatically when a member\u2019s expiration passes without renewal.' },
+        { q: 'What about members who lapsed years ago?', a: 'PropFuel\u2019s dormant member track uses a different approach: re-introduction rather than reminder. Its reengagement emails acknowledge the time gap and lead with value rather than payment.' },
+        { q: 'How do we handle members who say they left intentionally?', a: 'That response is captured and categorized. You learn the reason, the data feeds your retention strategy, and the member is removed from further outreach. Not every lapsed member should be won back, but you should always know why they left.' },
         { q: 'Can we offer discounts or payment plans through PropFuel?', a: 'Yes. PropFuel can branch based on the stated reason for lapsing. If a member says cost is the issue, the follow-up can include a payment plan link or discount code. If they say irrelevance, they get a different value-focused message.' },
-        { q: 'What win-back rates are realistic?', a: 'Recently lapsed members (0\u20136 months) typically see 15\u201330% re-engagement rates. Long-dormant members are harder \u2014 5\u201315% is a strong result. The key insight is that even members who do not rejoin provide data that improves your retention strategy.' }
+        { q: 'What win-back rates are realistic?', a: 'Results depend on your list and how long members have been gone. In PropFuel case studies, a medical society saw a 23% engagement rate on its lapsed list and AWHONN saw 18%, and 88% of AWHONN\u2019s lapsed members who answered said yes to rejoining. Even members who do not rejoin provide data that improves your retention strategy.' }
       ],
       ctaH2: 'Bring them back.',
       ctaSub: 'Every lapsed member is a relationship that ended without a conversation. Some left on purpose. Some lost track. Some would come back if anyone asked. PropFuel asks.'
@@ -5589,17 +5618,24 @@
   function fixUseCaseAcquisition() {
     buildUseCasePage({
       path: 'use-cases/acquisition',
+      seoTags: true,
+      headlineH2: true,
+      heroCta1: 'Get a Free Demo',
+      heroCta2: 'See the Five Steps',
+      heroCta2Href: '#process',
+      ctaBtn1: 'Get a Free Demo',
       heroLabel: 'Acquisition',
-      heroTitle: 'Turn warm prospects into new members.',
-      heroSub: 'Non-members attend your events, subscribe to your newsletter, browse your website, and take your CE courses. PropFuel identifies them and nurtures them into membership \u2014 through conversation, not campaigns.',
+      heroTitle: 'Membership acquisition that turns warm prospects into new members.',
+      heroSub: 'Non-members attend your events, subscribe to your newsletter, browse your website, and take your CE courses. PropFuel identifies them and turns them into members through conversation, not campaigns.',
       problemLabel: 'The Problem',
-      problemH2: 'Your best prospects are already in the room. You just don\u2019t know who they are.',
+      problemH2: 'Your Best Prospects Are Already in the Room. You Just Don\u2019t Know Who They Are.',
       problemBody: [
-        '8,500 people visit your site this month. 2,000 show up at your conference. Hundreds more subscribe to your newsletter \u2014 without a membership. <strong>Most of them quietly leave: unidentified, untracked, unengaged.</strong>',
-        'Your team burns budget on paid ads and partnerships chasing new prospects \u2014 while the warmest ones already raised their hands. <strong>You just don\u2019t have a mechanism to capture the signal.</strong>'
+        '8,500 people visit your site this month. 2,000 show up at your conference. Hundreds more subscribe to your newsletter without a membership. <strong>Most of them quietly leave: unidentified, untracked, unengaged.</strong>',
+        'Your team burns budget on paid ads and partnerships chasing new prospects, while the warmest ones already raised their hands. <strong>You just don\u2019t have a mechanism to capture the signal.</strong>'
       ],
       problemGraphic: '<div style="background:rgba(255,255,255,.05);border-radius:18px;padding:28px 24px;border:1px solid rgba(255,255,255,.1);max-width:380px">' +
         '<div style="font-size:13px;font-weight:700;color:#F9A825;text-transform:uppercase;letter-spacing:.08em;margin-bottom:22px;text-align:center">Prospects, Unseen</div>' +
+        '<div style="font-size:11px;color:#8C8479;text-align:center;margin:-14px 0 18px;font-style:italic">Example association</div>' +
         '<div style="display:flex;justify-content:space-between;align-items:baseline;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:14px">' +
           '<div><div style="font-size:13px;font-weight:600;color:#EDE8DF">Website</div><div style="font-size:11px;color:#8C8479">monthly visitors</div></div>' +
           '<div style="text-align:right"><div style="font-size:22px;font-weight:900;color:#FBC02D;line-height:1">8,500</div><div style="font-size:11px;color:#F47C2C;margin-top:3px">\u2192 0 identified</div></div>' +
@@ -5615,7 +5651,8 @@
       '</div>',
       centerpieceHTML: '<div style="text-align:center;margin-bottom:56px">' +
         '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">Three Paths</p>' +
-        '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15">Every prospect has a starting point. PropFuel meets them there.</h2>' +
+        '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15">Association Member Acquisition From Every Starting Point</h2>' +
+        '<p style="font-size:17px;color:#6E6E6E;line-height:1.65;max-width:700px;margin:16px auto 0">Association member acquisition works best when it starts where prospects already are. PropFuel meets each one at their first touchpoint.</p>' +
       '</div>' +
       '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:56px">' +
         '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:32px 28px">' +
@@ -5626,25 +5663,26 @@
         '</div>' +
         '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:32px 28px">' +
           '<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#FBC02D,#F47C2C);display:flex;align-items:center;justify-content:center;margin-bottom:20px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,6 12,13 2,6"/></svg></div>' +
-          '<h3 style="font-size:20px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Newsletter & Content Subscribers</h3>' +
-          '<p style="font-size:14px;color:#6E6E6E;line-height:1.6;margin-bottom:16px">Non-members already reading your content are warm leads. PropFuel runs personalized check-ins that surface membership as the obvious next step \u2014 on their timeline, not yours.</p>' +
+          '<h3 style="font-size:20px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Newsletter and Content Subscribers</h3>' +
+          '<p style="font-size:14px;color:#6E6E6E;line-height:1.6;margin-bottom:16px">Non-members already reading your content are warm leads. PropFuel runs personalized check-ins that surface membership as the obvious next step, on their timeline, not yours.</p>' +
           '<div style="background:#EBE6DA;border-radius:10px;padding:12px 16px;font-size:13px;color:#2F2F2F;font-weight:600">Conversations, not drip campaigns</div>' +
         '</div>' +
         '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:32px 28px">' +
           '<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#F47C2C,#FBC02D);display:flex;align-items:center;justify-content:center;margin-bottom:20px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>' +
           '<h3 style="font-size:20px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Anonymous Website Visitors</h3>' +
-          '<p style="font-size:14px;color:#6E6E6E;line-height:1.6;margin-bottom:16px">A single conversational question on your site \u2014 \u201CWhat brought you here today?\u201D \u2014 captures intent from anonymous traffic and turns the warmest visits into identified prospects.</p>' +
-          '<div style="background:#EBE6DA;border-radius:10px;padding:12px 16px;font-size:13px;color:#2F2F2F;font-weight:600">7\u201314\u00d7 more engagement than typical pop-ups</div>' +
+          '<p style="font-size:14px;color:#6E6E6E;line-height:1.6;margin-bottom:16px">A single conversational question on your site (\u201CWhat brought you here today?\u201D) captures intent from anonymous traffic and turns the warmest visits into identified prospects.</p>' +
+          '<div style="background:#EBE6DA;border-radius:10px;padding:12px 16px;font-size:13px;color:#2F2F2F;font-weight:600">AMA: 14% engagement vs. the typical 1\u20132% for pop-ups</div>' +
         '</div>' +
       '</div>' +
       '<div style="max-width:700px;margin:0 auto">' +
-        '<h3 style="font-size:20px;font-weight:700;color:#2F2F2F;text-align:center;margin-bottom:32px">5-Step Nurture Flow</h3>' +
+        '<h2 id="process" style="font-size:clamp(24px,3vw,30px);font-weight:700;color:#2F2F2F;text-align:center;margin:0 0 16px;letter-spacing:-0.02em;scroll-margin-top:96px">A Membership Acquisition Process in Five Steps</h2>' +
+        '<p style="font-size:16px;color:#6E6E6E;line-height:1.65;text-align:center;margin:0 0 32px">Every path feeds the same membership acquisition process, so membership recruitment runs on what prospects tell you, and each prospect moves from first answer to new member at their own pace.</p>' +
         '<div style="display:flex;flex-direction:column;gap:16px">' +
-          ['1|Capture Interest|A check-in at any touchpoint \u2014 event, newsletter, website, or CE course \u2014 asks what brought them to your association.',
+          ['1|Capture Interest|A check-in at any touchpoint, event, newsletter, website, or CE course, asks what brought them to your association. On your website, this is where an anonymous visitor becomes an identified prospect: they answer the question and share their name and email.',
            '2|Qualify Intent|Follow-up asks about their role, industry, and what they are looking for.',
-           '3|Deliver Value|Share a relevant resource \u2014 event, publication, or community \u2014 based on their answers.',
+           '3|Deliver Value|Share a relevant resource, such as an event, publication, or community, based on their answers.',
            '4|Surface Membership|Position membership as the natural next step for what they have already shown interest in.',
-           '5|Convert or Nurture|Ready prospects get a join link. Not-yet-ready prospects stay in the conversation.'
+           '5|Convert or Nurture|Ready prospects get a join link, and your team can be alerted when someone needs a personal follow-up. Not-yet-ready prospects stay in the conversation until they join or opt out. Once they join, <a href="/use-cases/onboarding" style="color:#F47C2C;font-weight:600;text-decoration:underline">onboarding</a> takes over.'
           ].map(function(s) {
             var p = s.split('|');
             return '<div style="display:flex;gap:16px;align-items:center">' +
@@ -5657,29 +5695,35 @@
           }).join('') +
         '</div>' +
       '</div>',
-      enginesH2: 'Three engines working together to turn prospects into members.',
+      extraSections: [{
+        cls: 'usecasesacquisition-ams',
+        after: 'engines',
+        style: 'padding:96px 48px;background:#EBE6DA',
+        html: '<div style="max-width:1100px;margin:0 auto">' + '<div style="text-align:center;margin-bottom:48px"><p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin:0 0 16px;line-height:1.4">Your AMS</p><h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15;margin:0">Built to Work With Your AMS</h2></div><p style="font-size:17px;color:#6E6E6E;line-height:1.7;max-width:760px;margin:0 auto;text-align:center">Before PropFuel treats anyone as a prospect, it checks your association management system (AMS), so existing members go to engagement and <a href="/use-cases/renewals" style="color:#F47C2C;font-weight:600;text-decoration:underline">renewals</a> campaigns instead of acquisition flows. Answers are written back to your AMS where your AMS supports it. PropFuel <a href="/integrations" style="color:#F47C2C;font-weight:600;text-decoration:underline">works with your AMS</a> through 60+ integrations, including Nimble AMS, Salesforce, Fonteva, iMIS, and Impexium.</p>' + '</div>'
+      }],
+      enginesH2: 'Three Engines Working Together to Turn Prospects Into Members',
       engines: [
-        { name: 'Engagement Engine', desc: 'Captures interest through check-ins across email, SMS, and the website \u2014 meeting prospects wherever they already are.' },
+        { name: 'Engagement Engine', desc: 'Captures interest through check-ins across email, SMS, and the website, meeting prospects wherever they already are.' },
         { name: 'Automation Engine', desc: 'Runs nurture sequences automatically, branching by interest and channel to keep every prospect moving toward membership.' },
-        { name: 'Insights Engine', desc: 'Tracks the full acquisition funnel \u2014 from first touchpoint to new member \u2014 with attribution by channel and campaign.' }
+        { name: 'Insights Engine', desc: 'Tracks the full association member acquisition funnel, from first touchpoint to new member, with attribution by channel and campaign.' }
       ],
-      statsH2: 'Proof that conversations convert prospects.',
+      statsH2: 'Proof That Conversations Convert Prospects',
       stats: [
-        { num: '$304K', org: 'AMA', desc: 'Membership revenue generated from website visitor capture and nurture campaigns.' },
+        { num: '$304K', org: '<a href="/case-studies/ama-website-engagement-membership-revenue" style="color:inherit;text-decoration:underline">AMA</a>', desc: 'Membership revenue generated from website visitor capture and nurture campaigns.' },
         { num: '107', org: 'NAPNAP', desc: 'New members in 45 days from a PropFuel acquisition campaign, generating $21.4K.' },
-        { num: '14%', org: 'AMA', desc: 'Conversion rate from website visitor capture to qualified prospect.' },
-        { num: '2x', org: 'A|B Test', desc: 'Higher engagement from PropFuel widget vs. traditional website pop-ups.' }
+        { num: '14%', org: '<a href="/case-studies/ama-website-engagement-membership-revenue" style="color:inherit;text-decoration:underline">AMA</a>', desc: 'Engagement rate on the website check-in, vs. the typical 1–2% for pop-ups.' }
       ],
-      faqH2: 'Common questions about acquisition.',
+      faqH2: 'Questions About Membership Acquisition',
       faqs: [
         { q: 'What channels does PropFuel use to acquire members?', a: 'Wherever non-members show up: your website, your events, your newsletter, your CE courses, and your content library. PropFuel deploys lightweight check-ins to any of those touchpoints and routes the responses into the same nurture engine.' },
         { q: 'How do you follow up with non-member event attendees?', a: 'After your conference, webinar, or CE course, PropFuel sends attendees a single-question check-in (\u201CWhat was your biggest takeaway?\u201D or similar). Responses kick off a personalized nurture that positions membership as the next step based on what they said.' },
-        { q: 'How does the website widget work?', a: 'A lightweight conversational embed asks one question \u2014 \u201CWhat brought you here today?\u201D or similar \u2014 and captures the visitor\u2019s email and interest. No login, no form, no friction. Our team handles setup with you.' },
+        { q: 'How does PropFuel identify anonymous website visitors?', a: 'By asking. A single question appears on your site, such as \u201CWhat brought you here today?\u201D When a visitor answers and shares their name and email, they become an identified prospect and enter a nurture campaign matched to their answer. At AMA, this captured 7,416 names and emails.' },
+        { q: 'How does the website widget work?', a: 'A lightweight conversational embed asks one question, \u201CWhat brought you here today?\u201D or similar, and captures the visitor\u2019s email and interest. No login, no form, no friction. Our team handles setup with you.' },
         { q: 'How is this different from an email drip?', a: 'A drip broadcasts the same sequence to everyone. PropFuel starts with a single question, branches based on what the prospect tells you, and keeps the conversation going until they convert or opt out. It reads less like marketing and more like a human follow-up.' },
         { q: 'What if someone is already a member?', a: 'PropFuel cross-references captures against your AMS. Known members are routed to engagement campaigns instead of acquisition flows. No duplicate outreach, no confusion.' }
       ],
       ctaH2: 'Turn every touchpoint<br>into a member.',
-      ctaSub: 'Every event, every subscriber, every visitor is a potential member. PropFuel makes sure none of them slip away \u2014 and turns the warmest ones into dues-paying members.'
+      ctaSub: 'Every event, every subscriber, every visitor is a potential member. PropFuel makes sure none of them slip away, and turns the warmest ones into dues-paying members.'
     });
   }
 
@@ -5689,16 +5733,57 @@
   function fixUseCaseEvents() {
     buildUseCasePage({
       path: 'use-cases/events',
+      seoTags: true,
+      headlineH2: true,
+      heroCta1: 'Get a Free Demo',
+      heroCta2: 'See the Three Phases',
+      heroCta2Href: '#phases',
+      sequenceId: 'phases',
+      ctaBtn1: 'Get a Free Demo',
       heroLabel: 'Events',
       heroTitle: 'Your biggest event. Your richest signal.',
-      heroSub: 'Capture what members tell you before, during, and after \u2014 so every session, booth, and survey turns into data that outlasts the event.',
+      heroSub: 'Capture what members tell you before, during, and after your member events, so every session, booth, and survey becomes data that shapes your association event strategy.',
       problemLabel: 'The Problem',
       problemH2: 'Your event is loaded with signal. Most of it vanishes the day it ends.',
       problemBody: [
-        'Registration tells you who signed up. Attendance tells you who showed up. But <strong>nobody captures what attendees hoped to get \u2014 or whether they got it.</strong>',
+        'Registration tells you who signed up. Attendance tells you who showed up. An association event strategy built on those two numbers cannot tell you what to repeat, change or drop. But <strong>nobody captures what attendees hoped to get, or whether they got it.</strong>',
         '<strong>\u201CWe know 2,000 people attended. We have no idea what 2,000 people thought.\u201D</strong> That is the gap PropFuel closes.'
       ],
-      problemGraphic: '<div style="background:rgba(255,255,255,.05);border-radius:18px;padding:28px 24px;border:1px solid rgba(255,255,255,.1);max-width:360px">' +
+
+      centerpieceHTML: '<div style="text-align:center;margin-bottom:56px">' +
+        '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">Three Phases</p>' +
+        '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15">Before. During. After.</h2>' +
+        '<p style="font-size:17px;color:#6E6E6E;line-height:1.65;max-width:760px;margin:16px auto 0">Every member event has three phases. Your event management system handles registration and badges. PropFuel asks one question in each phase, so your association event strategy is built on what members said, not just who showed up.</p>' +
+      '</div>' +
+      '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-bottom:56px">' +
+        '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 28px">' +
+          '<div style="font-size:13px;font-weight:700;color:#F47C2C;text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px">Before</div>' +
+          '<h3 style="font-size:20px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Build Anticipation</h3>' +
+          '<ul style="font-size:14px;color:#6E6E6E;line-height:1.8;padding-left:18px"><li>Drive registrations from interested non-attendees</li><li>Ask which sessions matter most, then shape the agenda and promotion around the answers</li><li>Surface networking and volunteer interests</li><li>Pre-event profile enrichment</li><li>Interests written back to the member profile</li></ul>' +
+        '</div>' +
+        '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 28px">' +
+          '<div style="font-size:13px;font-weight:700;color:#F47C2C;text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px">During</div>' +
+          '<h3 style="font-size:20px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Capture In Real Time</h3>' +
+          '<ul style="font-size:14px;color:#6E6E6E;line-height:1.8;padding-left:18px"><li><a href="/platform/sms" style="color:#F47C2C;font-weight:600;text-decoration:underline">SMS check-ins</a> during sessions</li><li>Real-time satisfaction pulse</li><li>Session-specific feedback</li><li>Exhibitor and sponsor engagement</li><li>Every response saved to the member\u2019s record</li></ul>' +
+        '</div>' +
+        '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 28px">' +
+          '<div style="font-size:13px;font-weight:700;color:#F47C2C;text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px">After</div>' +
+          '<h3 style="font-size:20px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Convert and Follow Up</h3>' +
+          '<ul style="font-size:14px;color:#6E6E6E;line-height:1.8;padding-left:18px"><li><a href="/blog-posts/what-is-satisfaction-data-and-how-can-it-be-used-for-deeper-member-engagement" style="color:#F47C2C;font-weight:600;text-decoration:underline">NPS</a> with branching follow-up</li><li>Promoters routed to testimonials</li><li>Detractors trigger staff alerts</li><li>Non-attendees get \u201C<a href="/use-cases/acquisition" style="color:#F47C2C;font-weight:600;text-decoration:underline">what you missed</a>\u201D outreach</li><li>Responses written back to the AMS profile</li><li>Results feed next year\u2019s event strategy</li></ul>' +
+        '</div>' +
+      '</div>' +
+      '<div class="pf-card" style="background:#1A1713;border-radius:20px;padding:40px;max-width:700px;margin:0 auto;text-align:center">' +
+        '<div style="font-size:13px;font-weight:700;color:#F9A825;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px">Case Study</div>' +
+        '<div style="font-size:clamp(34px,3.6vw,44px);font-weight:900;line-height:1.15;padding:6px 0;background:linear-gradient(to top,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px">$315,300</div>' +
+        '<div style="font-size:18px;font-weight:700;color:#EDE8DF;margin-bottom:8px">VECCS Conference Revenue</div>' +
+        '<p style="font-size:14px;color:#8C8479;line-height:1.6">10% of total conference registrations came through PropFuel\u2019s website engagement widget, turning casual website visitors into registered attendees.</p>' +
+        '<a href="/case-studies/how-veccs-drove-10-of-conference-registrations-with-website-engagement" style="display:inline-block;margin-top:16px;font-size:14px;font-weight:700;color:#F9A825;text-decoration:underline">Read the VECCS case study</a>' +
+      '</div>',
+      extraSections: [{
+        cls: 'usecasesevents-signal',
+        after: 'engines',
+        style: 'padding:96px 48px',
+        html: '<div style="max-width:1100px;margin:0 auto;display:flex;flex-direction:column;align-items:center">' + '<div style="background:#1A1713;border-radius:18px;padding:28px 24px;max-width:360px;width:100%">' +
         '<div style="font-size:13px;font-weight:700;color:#F9A825;text-transform:uppercase;letter-spacing:.08em;margin-bottom:22px;text-align:center">Signal, Captured</div>' +
         '<div style="margin-bottom:18px">' +
           '<div style="font-size:11px;font-weight:700;color:#F9A825;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Before</div>' +
@@ -5715,58 +5800,34 @@
           '<div style="background:rgba(255,255,255,.05);border-radius:10px;padding:10px 12px;font-size:13px;color:#EDE8DF;line-height:1.45">\u201CWhat one thing will you take back to your work?\u201D</div>' +
           '<div style="font-size:12px;color:#F47C2C;font-style:italic;margin-top:6px">\u2192 1,508 responses</div>' +
         '</div>' +
-      '</div>',
-      centerpieceHTML: '<div style="text-align:center;margin-bottom:56px">' +
-        '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">Three Phases</p>' +
-        '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15">Before. During. After.</h2>' +
-      '</div>' +
-      '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-bottom:56px">' +
-        '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 28px">' +
-          '<div style="font-size:13px;font-weight:700;color:#F47C2C;text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px">Before</div>' +
-          '<h3 style="font-size:20px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Build Anticipation</h3>' +
-          '<ul style="font-size:14px;color:#6E6E6E;line-height:1.8;padding-left:18px"><li>Drive registrations from interested non-attendees</li><li>Ask what sessions matter most</li><li>Surface networking and volunteer interests</li><li>Pre-event profile enrichment</li></ul>' +
-        '</div>' +
-        '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 28px">' +
-          '<div style="font-size:13px;font-weight:700;color:#F47C2C;text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px">During</div>' +
-          '<h3 style="font-size:20px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Capture In Real Time</h3>' +
-          '<ul style="font-size:14px;color:#6E6E6E;line-height:1.8;padding-left:18px"><li>SMS check-ins during sessions</li><li>Real-time satisfaction pulse</li><li>Session-specific feedback</li><li>Exhibitor and sponsor engagement</li></ul>' +
-        '</div>' +
-        '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 28px">' +
-          '<div style="font-size:13px;font-weight:700;color:#F47C2C;text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px">After</div>' +
-          '<h3 style="font-size:20px;font-weight:700;color:#2F2F2F;margin-bottom:12px">Convert and Follow Up</h3>' +
-          '<ul style="font-size:14px;color:#6E6E6E;line-height:1.8;padding-left:18px"><li>NPS with branching follow-up</li><li>Promoters routed to testimonials</li><li>Detractors trigger staff alerts</li><li>Non-attendees get \u201Cwhat you missed\u201D outreach</li></ul>' +
-        '</div>' +
-      '</div>' +
-      '<div class="pf-card" style="background:#1A1713;border-radius:20px;padding:40px;max-width:700px;margin:0 auto;text-align:center">' +
-        '<div style="font-size:13px;font-weight:700;color:#F9A825;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px">Case Study</div>' +
-        '<div style="font-size:clamp(34px,3.6vw,44px);font-weight:900;line-height:1.15;padding:6px 0;background:linear-gradient(to top,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px">$315,300</div>' +
-        '<div style="font-size:18px;font-weight:700;color:#EDE8DF;margin-bottom:8px">VECCS Conference Revenue</div>' +
-        '<p style="font-size:14px;color:#8C8479;line-height:1.6">10% of total conference registrations came through PropFuel\u2019s website engagement widget \u2014 turning casual website visitors into registered attendees.</p>' +
-      '</div>',
-      enginesH2: 'Four engines working together to maximize your event ROI.',
+      '</div>' + '<p style="font-size:13px;color:#8C8479;margin:16px 0 0;font-style:italic">Example conference. Response counts are illustrative.</p></div>'
+      }],
+      enginesH2: 'Four Engines Working Together to Maximize Your Event ROI',
       engines: [
-        { name: 'Engagement Engine', desc: 'Delivers check-ins via email before and after, and SMS during \u2014 capturing signal at every phase of the event lifecycle.' },
-        { name: 'Automation Engine', desc: 'Runs pre-event registration drives, day-of SMS sequences, and post-event follow-up \u2014 all automatically.' },
-        { name: 'Insights Engine', desc: 'Aggregates event feedback into actionable reports \u2014 session ratings, NPS trends, and sponsor engagement data.' },
-        { name: 'Membership AI', desc: 'Analyzes open-ended feedback, identifies themes, and generates summary reports for leadership and sponsors.' }
+        { name: 'Engagement Engine', desc: 'Delivers check-ins via email before and after, and SMS during, capturing signal at every phase of the event lifecycle across your member events.' },
+        { name: 'Automation Engine', desc: 'Runs pre-event registration drives, day-of SMS sequences, and post-event follow-up, all automatically.' },
+        { name: 'Insights Engine', desc: 'Aggregates event feedback into event reporting: session ratings, NPS trends, and sponsor engagement data.' },
+        { name: 'Membership AI', desc: 'Analyzes open-ended feedback, identifies themes, and generates summary reports for leadership and sponsors. Themes show what to repeat, change or drop in your association event strategy.' }
       ],
-      statsH2: 'Proof that events generate intelligence.',
+      statsH2: 'Proof That Events Generate Intelligence',
       stats: [
-        { num: '$315K', org: 'VECCS', desc: 'Conference revenue from website engagement \u2014 10% of total registrations.' },
+        { num: '$315K', org: '<a href="/case-studies/how-veccs-drove-10-of-conference-registrations-with-website-engagement" style="color:inherit;text-decoration:underline">VECCS</a>', desc: 'Conference revenue from website engagement, 10% of total registrations.' },
         { num: '830%', org: 'G2 Review', desc: 'Increase in webinar registrations using PropFuel engagement campaigns.' },
-        { num: '27%', org: 'VECCS', desc: 'Response rate on post-event satisfaction check-ins \u2014 far above survey benchmarks.' },
-        { num: '12%', org: 'ALA', desc: 'Conversion rate from event follow-up to new member or renewed member.' }
+        { num: '27%', org: '<a href="/case-studies/how-veccs-drove-10-of-conference-registrations-with-website-engagement" style="color:inherit;text-decoration:underline">VECCS</a>', desc: 'Engagement rate on the conference website check-in, against a typical 2–3%.' },
+        { num: '12%', org: '<a href="/case-studies/12-response-rate-on-a-website-pop-up-heres-how-ala-did-it" style="color:inherit;text-decoration:underline">ALA</a>', desc: 'Response rate on a website pop-up, including a conference registration prompt.' }
       ],
-      faqH2: 'Common questions about event campaigns.',
+      faqH2: 'Questions About Member Event Campaigns',
       faqs: [
-        { q: 'Can we use PropFuel for day-of event communication?', a: 'Yes. PropFuel SMS is designed for real-time event engagement \u2014 session reminders, satisfaction pulses, and feedback collection. Text messages get read within minutes, making them ideal for conference-day communication.' },
-        { q: 'How does event data connect back to member profiles?', a: 'Every event interaction writes back to your AMS. A member who said they loved the keynote, rated the networking a 9/10, and wants more CE content \u2014 all of that becomes part of their profile and shapes future outreach.' },
-        { q: 'What about non-member event attendees?', a: 'They are some of your warmest acquisition prospects. PropFuel captures their information during the event and nurtures them toward membership afterward \u2014 based on what they told you they cared about.' },
+        { q: 'How do we measure whether our member events are working?', a: 'Track response rate by phase, satisfaction and NPS trends across before, during and after, and the themes PropFuel surfaces from open-ended answers. Together they show what to repeat, change or drop, which is what an association event strategy needs.' },
+        { q: 'Can we reach registrants who didn\u2019t attend?', a: 'Yes, where attendance is recorded in your AMS. Registrants who did not attend can get a follow-up question about what got in the way and what they would want next, and non-members are routed toward membership.' },
+        { q: 'Can we use PropFuel for day-of event communication?', a: 'Yes. PropFuel SMS is designed for real-time event engagement: session reminders, satisfaction pulses, and feedback collection. Text messages get read within minutes, making them ideal for conference-day communication.' },
+        { q: 'How does event data connect back to member profiles?', a: 'Every event interaction writes back to your AMS. A member who said they loved the keynote, rated the networking a 9/10, and wants more CE content: all of that becomes part of their profile and shapes future outreach.' },
+        { q: 'What about non-member event attendees?', a: 'They are some of your warmest acquisition prospects. PropFuel captures their information during the event and nurtures them toward membership afterward, based on what they told you they cared about.' },
         { q: 'How do we handle NPS branching?', a: 'Promoters (9-10) automatically get routed to testimonial or referral requests. Passives (7-8) get a follow-up asking what would make it a 10. Detractors (0-6) trigger a staff alert for personal outreach.' },
         { q: 'Can we share event feedback with sponsors?', a: 'Yes. The Insights Engine can generate reports segmented by session, sponsor, or topic. This data makes your sponsorship packages more valuable because you can show sponsors exactly how attendees engaged with their content.' }
       ],
       ctaH2: 'Make every<br>event count.',
-      ctaSub: 'Your next conference generates more than revenue \u2014 it generates thousands of data points about what your members care about. PropFuel makes sure that intelligence shapes every interaction that follows.'
+      ctaSub: 'Your next conference generates more than revenue. It generates thousands of data points about what your members care about. PropFuel makes sure that intelligence shapes every interaction that follows.'
     });
   }
 
@@ -5776,17 +5837,47 @@
   function fixUseCaseCertifications() {
     buildUseCasePage({
       path: 'use-cases/certifications',
+      seoTags: true,
+      headlineH2: true,
+      heroCta1: 'Get a Free Demo',
+      heroCta2: 'See the Four Stages',
+      heroCta2Href: '#lifecycle',
+      sequenceId: 'lifecycle',
+      ctaBtn1: 'Get a Free Demo',
       heroLabel: 'Certifications',
-      heroTitle: 'A credential earned through you. A career built with you.',
-      heroSub: 'PropFuel engages certification candidates from first interest through credential renewal \u2014 so every credential deepens the tie to your association.',
+      heroTitle: 'Association certification programs, from first interest to credential renewal.',
+      heroSub: 'A credential earned through you. A career built with you. PropFuel engages members in your membership certification program from first interest through credential renewal, so every credential deepens their tie to your association.',
       problemLabel: 'The Problem',
       problemH2: 'Certifications are one of your most valuable non-dues revenue streams. They are also one of the most neglected parts of the member experience.',
       problemBody: [
-        'A member hears about your certification program. They visit the page. Maybe they download a guide. Then nothing. <strong>You have no mechanism to nurture that interest into registration \u2014 because your marketing tools were not built for individual follow-up.</strong>',
-        'For members who do enroll, the experience is often transactional. They study, they test, they get a credential. <strong>Nobody checks in during the learning process. Nobody asks how it is going. Nobody connects the certification back to their broader membership experience.</strong>',
-        'And when the credential comes up for renewal? <strong>The same problem as membership renewal \u2014 a payment notice with no conversation about whether the credential still matters to their career.</strong>'
+        'A member hears about your membership certification program. They visit the page. Maybe they download a guide. Then nothing. <strong>You have no mechanism to nurture that interest into registration, because your marketing tools were not built for individual follow-up.</strong>',
+        'For members who do enroll, the experience is often transactional. They study, they test, they get a credential. <strong>Nobody checks in during the learning process. Nobody asks how it is going. Nobody connects the certification back to their broader membership experience.</strong> Whether it is a membership certificate on the wall or a credential on a resume, it only keeps its value while the member keeps the relationship.',
+        'And when the credential comes up for renewal? <strong>The same problem as <a href="/use-cases/renewals" style="color:#F9A825;text-decoration:underline">membership renewal</a>: a payment notice with no conversation about whether the credential still matters to their career.</strong>'
       ],
-      problemGraphic: '<div style="background:rgba(255,255,255,.06);border-radius:16px;padding:32px;border:1px solid rgba(255,255,255,.1);max-width:340px;text-align:center">' +
+
+      centerpieceHTML: '<div style="text-align:center;margin-bottom:56px">' +
+        '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">Four-Stage Lifecycle</p>' +
+        '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15">From Discovery to Certification Renewal</h2>' +
+        '<p style="font-size:17px;color:#6E6E6E;line-height:1.65;max-width:760px;margin:16px auto 0">A membership certification is a journey with four moments where a conversation changes the outcome. PropFuel is there for each one, so more of your certification program\u2019s interested members register, finish and renew.</p>' +
+      '</div>' +
+      '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-bottom:56px">' +
+        '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 24px;text-align:center"><div style="font-size:36px;margin-bottom:12px">\uD83D\uDD0D</div><h3 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:10px">Discovery</h3><p style="font-size:14px;color:#6E6E6E;line-height:1.6">Surface certification interest in onboarding and engagement campaigns. Ask members about their career goals and professional development priorities.</p></div>' +
+        '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 24px;text-align:center"><div style="font-size:36px;margin-bottom:12px">\uD83D\uDCDD</div><h3 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:10px">Registration</h3><p style="font-size:14px;color:#6E6E6E;line-height:1.6">Nurture interested members from exploration to enrollment. Address objections (time, cost, relevance) with personalized follow-up based on what they told you.</p></div>' +
+        '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 24px;text-align:center"><div style="font-size:36px;margin-bottom:12px">\uD83D\uDCDA</div><h3 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:10px">Learner Engagement</h3><p style="font-size:14px;color:#6E6E6E;line-height:1.6">Check in during the certification process. Ask how the experience is going. Surface resources. Identify members who may be struggling before they drop out.</p></div>' +
+        '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 24px;text-align:center"><div style="font-size:36px;margin-bottom:12px">\uD83D\uDD04</div><h3 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:10px">Credential Renewal</h3><p style="font-size:14px;color:#6E6E6E;line-height:1.6">Start the credential renewal conversation before expiration. Reinforce how the certification has shaped their career and make renewal frictionless.</p></div>' +
+      '</div>' +
+      '<div class="pf-card" style="background:#1A1713;border-radius:20px;padding:40px;max-width:700px;margin:0 auto;text-align:center">' +
+        '<div style="font-size:13px;font-weight:700;color:#F9A825;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px">Case Study: ARN</div>' +
+        '<div style="font-size:clamp(34px,3.6vw,44px);font-weight:900;line-height:1.15;padding:6px 0;background:linear-gradient(to top,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px">32% Increase</div>' +
+        '<div style="font-size:18px;font-weight:700;color:#EDE8DF;margin-bottom:8px">In Certification Exam Applications</div>' +
+        '<p style="font-size:14px;color:#8C8479;line-height:1.6">ARN asked new members why they joined, moved certification-focused members into a CRRN nurture track, and ran a five-week quiz campaign with a 72% engagement rate. The 32% increase came alongside targeted digital advertising.</p>' +
+        '<a href="/case-studies/how-arn-boosted-certification-applications" style="display:inline-block;margin-top:16px;font-size:14px;font-weight:700;color:#F9A825;text-decoration:underline">Read the ARN case study</a>' +
+      '</div>',
+      extraSections: [{
+        cls: 'usecasescertifications-funnel',
+        after: 'centerpiece',
+        style: 'padding:72px 48px',
+        html: '<div style="max-width:1100px;margin:0 auto;display:flex;flex-direction:column;align-items:center">' + '<div style="background:#1A1713;border-radius:16px;padding:32px;max-width:340px;width:100%;text-align:center">' +
         '<div style="font-size:13px;font-weight:700;color:#F9A825;text-transform:uppercase;letter-spacing:.08em;margin-bottom:20px">Certification Funnel</div>' +
         '<div style="display:flex;flex-direction:column;gap:12px;align-items:center">' +
           '<div style="width:240px;background:rgba(251,192,45,.15);border-radius:8px;padding:10px;font-size:13px;color:#FBC02D;font-weight:600">Interested: 500</div>' +
@@ -5795,47 +5886,34 @@
           '<div style="width:100px;background:rgba(244,124,44,.2);border-radius:8px;padding:10px;font-size:13px;color:#F47C2C;font-weight:600">Renewed: ?</div>' +
         '</div>' +
         '<div style="font-size:12px;color:#8C8479;margin-top:16px;font-style:italic">380 interested members lost without a conversation</div>' +
-      '</div>',
-      centerpieceHTML: '<div style="text-align:center;margin-bottom:56px">' +
-        '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">Four-Stage Lifecycle</p>' +
-        '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15">From discovery to credential renewal.</h2>' +
-      '</div>' +
-      '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-bottom:56px">' +
-        '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 24px;text-align:center"><div style="font-size:36px;margin-bottom:12px">\uD83D\uDD0D</div><h3 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:10px">Discovery</h3><p style="font-size:14px;color:#6E6E6E;line-height:1.6">Surface certification interest in onboarding and engagement campaigns. Ask members about their career goals and professional development priorities.</p></div>' +
-        '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 24px;text-align:center"><div style="font-size:36px;margin-bottom:12px">\uD83D\uDCDD</div><h3 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:10px">Registration</h3><p style="font-size:14px;color:#6E6E6E;line-height:1.6">Nurture interested members from exploration to enrollment. Address objections \u2014 time, cost, relevance \u2014 with personalized follow-up based on what they told you.</p></div>' +
-        '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 24px;text-align:center"><div style="font-size:36px;margin-bottom:12px">\uD83D\uDCDA</div><h3 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:10px">Learner Engagement</h3><p style="font-size:14px;color:#6E6E6E;line-height:1.6">Check in during the certification process. Ask how the experience is going. Surface resources. Identify members who may be struggling before they drop out.</p></div>' +
-        '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 24px;text-align:center"><div style="font-size:36px;margin-bottom:12px">\uD83D\uDD04</div><h3 style="font-size:18px;font-weight:700;color:#2F2F2F;margin-bottom:10px">Credential Renewal</h3><p style="font-size:14px;color:#6E6E6E;line-height:1.6">Start the credential renewal conversation before expiration. Reinforce how the certification has shaped their career and make renewal frictionless.</p></div>' +
-      '</div>' +
-      '<div class="pf-card" style="background:#1A1713;border-radius:20px;padding:40px;max-width:700px;margin:0 auto;text-align:center">' +
-        '<div style="font-size:13px;font-weight:700;color:#F9A825;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px">Case Study: ARN</div>' +
-        '<div style="font-size:clamp(34px,3.6vw,44px);font-weight:900;line-height:1.15;padding:6px 0;background:linear-gradient(to top,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px">32% Increase</div>' +
-        '<div style="font-size:18px;font-weight:700;color:#EDE8DF;margin-bottom:8px">Certification Engagement</div>' +
-        '<p style="font-size:14px;color:#8C8479;line-height:1.6">ARN used PropFuel to engage certification candidates throughout the learning process \u2014 resulting in a 32% increase in engagement and significantly higher completion rates.</p>' +
-      '</div>',
-      enginesH2: 'Four engines working together to build certification relationships.',
+      '</div>' + '<p style="font-size:13px;color:#8C8479;margin:16px 0 0;font-style:italic">Example program. Numbers are illustrative.</p></div>'
+      }],
+      enginesH2: 'Four Engines Working Together to Build Certification Relationships',
       engines: [
-        { name: 'Engagement Engine', desc: 'Delivers check-ins at every stage of the certification lifecycle \u2014 from initial interest through credential renewal.' },
+        { name: 'Engagement Engine', desc: 'Delivers check-ins at every stage of the certification lifecycle, from initial interest through credential renewal.' },
         { name: 'Automation Engine', desc: 'Runs nurture sequences, learner check-ins, and renewal campaigns automatically based on certification milestones.' },
-        { name: 'Insights Engine', desc: 'Tracks the full certification funnel \u2014 interest to enrollment to completion to renewal \u2014 with drop-off analysis at every stage.' },
+        { name: 'Insights Engine', desc: 'Tracks the full certification funnel, interest to enrollment to completion to renewal, with drop-off analysis at every stage.' },
         { name: 'Membership AI', desc: 'Identifies at-risk learners, generates personalized encouragement, and predicts credential renewal likelihood.' }
       ],
-      statsH2: 'Proof that engagement drives certification success.',
+      statsH2: 'Proof That Engagement Drives Certification Success',
       stats: [
-        { num: '32%', org: 'ARN', desc: 'Increase in certification engagement through PropFuel learner check-ins.' },
-        { num: '100%', org: 'AAGO', desc: 'Engagement rate on a targeted certification interest campaign.' },
-        { num: '72%', org: 'ARN', desc: 'Response rate on weekly certification-related engagement campaigns.' },
-        { num: '30%', org: 'CSI', desc: 'Increase in certification program awareness through PropFuel outreach.' }
+        { num: '32%', org: '<a href="/case-studies/how-arn-boosted-certification-applications" style="color:inherit;text-decoration:underline">ARN</a>', desc: 'Increase in certification exam applications.' },
+        { num: '100%', org: 'AAGO', desc: 'Conversion on CAM exam scheduling, with a 22% click rate.' },
+        { num: '72%', org: '<a href="/case-studies/how-arn-boosted-certification-applications" style="color:inherit;text-decoration:underline">ARN</a>', desc: 'Engagement rate on a five-week certification quiz campaign.' },
+        { num: '1,300+', org: '<a href="/case-studies/how-arn-boosted-certification-applications" style="color:inherit;text-decoration:underline">ARN</a>', desc: 'Quiz sign-ups, with nearly 3,500 responses over five weeks.' }
       ],
-      faqH2: 'Common questions about certification campaigns.',
+      faqH2: 'Questions About Certification Campaigns',
       faqs: [
-        { q: 'How do we identify members interested in certification?', a: 'PropFuel weaves certification interest questions into your existing campaigns \u2014 onboarding, engagement, and renewal check-ins. When a member says they are interested in professional development or credential advancement, that signal triggers the certification nurture track.' },
-        { q: 'Can we engage learners during the certification process?', a: 'Yes. PropFuel sends periodic check-ins during the learning and preparation phase \u2014 asking how the experience is going, surfacing study resources, and identifying members who may need additional support before they drop out.' },
-        { q: 'How does this connect to certification renewal?', a: 'PropFuel starts the credential renewal conversation before the expiration date \u2014 just like membership renewal. The conversation reinforces the credential\u2019s career value and makes the renewal frictionless.' },
-        { q: 'What if a member shows interest but does not register?', a: 'That is exactly the use case for PropFuel\u2019s nurture automation. Members who express interest but do not register get a follow-up sequence that addresses common objections \u2014 time commitment, cost, relevance \u2014 based on what they told you.' },
-        { q: 'Does certification data sync with our AMS?', a: 'Yes. Every certification-related interaction writes back to your AMS \u2014 interest expressed, registration status, learner engagement, and credential renewal intent. Your team has a complete picture of each member\u2019s certification journey.' }
+        { q: 'How do we identify members interested in certification?', a: 'PropFuel weaves certification interest questions into your existing campaigns: onboarding, engagement, and renewal check-ins. When a member says they are interested in professional development or credential advancement, that signal triggers the certification nurture track.' },
+        { q: 'Can we engage learners during the certification process?', a: 'Yes. PropFuel sends periodic check-ins during the learning and preparation phase, asking how the experience is going, surfacing study resources, and identifying members who may need additional support before they drop out.' },
+        { q: 'How does this connect to certification renewal?', a: 'PropFuel starts the credential renewal conversation before the expiration date, just like membership renewal. The conversation reinforces the credential\u2019s career value and makes the renewal frictionless.' },
+        { q: 'How can an association increase membership certification renewals?', a: 'Start before the expiration date and make it a conversation, not a notice. PropFuel asks certified members how the credential has helped their career and whether anything stands in the way of renewing. Members who plan to renew get a one-click link, and anyone unsure can be flagged for staff follow-up.' },
+        { q: 'Which certification milestones can trigger campaigns automatically?', a: 'Campaigns can start from dates and statuses PropFuel reads from your AMS, such as a credential expiration date, and from a member\u2019s own answer, such as \u201CI\u2019m interested in certification.\u201D PropFuel then runs the matching check-in.' },
+        { q: 'What if a member shows interest but does not register?', a: 'That is exactly the use case for PropFuel\u2019s nurture automation. Members who express interest but do not register get a follow-up sequence that addresses common objections (time commitment, cost, relevance), based on what they told you.' },
+        { q: 'Does certification data sync with our AMS?', a: 'Yes. Every certification-related interaction writes back to your AMS: interest expressed, registration status, learner engagement, and credential renewal intent. Your team has a complete picture of each member\u2019s certification journey.' }
       ],
       ctaH2: 'Turn certifications into<br>career commitments.',
-      ctaSub: 'When a credential is tied to your association, membership stops being an annual decision and starts being a professional identity. PropFuel helps more members get there \u2014 and stay there.'
+      ctaSub: 'When a credential is tied to your association, membership stops being an annual decision and starts being a professional identity. PropFuel helps more members get there, and stay there.'
     });
   }
 
@@ -5845,18 +5923,26 @@
   function fixUseCaseDataIntelligence() {
     buildUseCasePage({
       path: 'use-cases/data-intelligence',
+      seoTags: true,
+      headlineH2: true,
+      heroCta1: 'Get a Free Demo',
+      heroCta2: 'See the Three Metrics',
+      heroCta2Href: '#metrics',
+      ctaBtn1: 'Get a Free Demo',
       heroLabel: 'Data & Intelligence',
       heroTitle: 'Member Engagement Metrics. Every Interaction Is a Database Update.',
-      heroSub: 'Member data decays from the moment it is entered. PropFuel keeps profiles current by collecting zero-party data through conversations \u2014 not forms members hate filling out. And every response writes back to your AMS automatically.',
+      heroSub: 'Member data decays from the moment it is entered. PropFuel keeps profiles current by collecting zero-party data through conversations, not forms members hate filling out. Every response writes back to your AMS automatically, so your member engagement metrics rest on data you can trust.',
       problemLabel: 'The Problem',
       problemH2: 'Your member data is bad. You know it. Your team knows it. Your board probably suspects it.',
       problemBody: [
-        'Job titles are three years old. Email addresses bounce. Industry codes are wrong. <strong>And the fields that would actually help you personalize \u2014 interests, goals, engagement preferences \u2014 are mostly blank.</strong>',
+        'Job titles are three years old. Email addresses bounce. Industry codes are wrong. <strong>And the fields that would actually help you personalize, interests, goals, engagement preferences, are mostly blank.</strong>',
         'You have tried profile update forms. The response rate was abysmal. You have tried surveys. Members are tired of them. <strong>The data keeps decaying because you have no passive, ongoing mechanism to keep it fresh.</strong>',
-        '<strong>\u201CWe don\u2019t trust our own database.\u201D</strong> That is the confession behind most association data problems. PropFuel gives you a way to rebuild that trust \u2014 one conversation at a time.'
+        'And engagement reports built on stale profiles mislead. <strong>You cannot measure what members do if you do not know who they are.</strong>',
+        '<strong>\u201CWe don\u2019t trust our own database.\u201D</strong> That is the confession behind most association data problems. PropFuel gives you a way to rebuild that trust, one conversation at a time.'
       ],
       problemGraphic: '<div style="background:rgba(255,255,255,.06);border-radius:16px;padding:32px;border:1px solid rgba(255,255,255,.1);max-width:340px;text-align:center">' +
         '<div style="font-size:13px;font-weight:700;color:#F9A825;text-transform:uppercase;letter-spacing:.08em;margin-bottom:20px">Data Decay</div>' +
+        '<div style="font-size:11px;color:#8C8479;text-align:center;margin:-12px 0 16px;font-style:italic">Example association</div>' +
         '<div style="display:flex;flex-direction:column;gap:10px;text-align:left">' +
           '<div style="display:flex;align-items:center;gap:10px"><div style="flex:1;height:8px;background:rgba(255,255,255,.1);border-radius:4px;overflow:hidden"><div style="width:35%;height:100%;background:#F47C2C;border-radius:4px"></div></div><span style="font-size:11px;color:#8C8479;width:80px">Job titles: 35%</span></div>' +
           '<div style="display:flex;align-items:center;gap:10px"><div style="flex:1;height:8px;background:rgba(255,255,255,.1);border-radius:4px;overflow:hidden"><div style="width:22%;height:100%;background:#F47C2C;border-radius:4px"></div></div><span style="font-size:11px;color:#8C8479;width:80px">Interests: 22%</span></div>' +
@@ -5867,18 +5953,7 @@
       '</div>',
       centerpieceHTML: '<div style="text-align:center;margin-bottom:56px">' +
         '<p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin-bottom:16px">How It Works</p>' +
-        '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15">Every conversation makes your database better.</h2>' +
-      '</div>' +
-      '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:40px;max-width:800px;margin:0 auto 56px;text-align:center">' +
-        '<h3 style="font-size:20px;font-weight:700;color:#2F2F2F;margin-bottom:24px">AMS Write-Back Flow</h3>' +
-        '<div style="display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap">' +
-          '<div style="background:#fff;border-radius:12px;padding:20px;border:2px solid #FBC02D;min-width:140px"><div style="font-size:14px;font-weight:700;color:#2F2F2F">Member</div><div style="font-size:12px;color:#6E6E6E;margin-top:4px">Responds to check-in</div></div>' +
-          '<div style="font-size:24px;color:#F47C2C;font-weight:700">\u2192</div>' +
-          '<div style="background:#fff;border-radius:12px;padding:20px;border:2px solid #F47C2C;min-width:140px"><div style="font-size:14px;font-weight:700;color:#2F2F2F">PropFuel</div><div style="font-size:12px;color:#6E6E6E;margin-top:4px">Captures + categorizes</div></div>' +
-          '<div style="font-size:24px;color:#F47C2C;font-weight:700">\u2192</div>' +
-          '<div style="background:#fff;border-radius:12px;padding:20px;border:2px solid #2F2F2F;min-width:140px"><div style="font-size:14px;font-weight:700;color:#2F2F2F">Your AMS</div><div style="font-size:12px;color:#6E6E6E;margin-top:4px">Profile updated automatically</div></div>' +
-        '</div>' +
-        '<p style="font-size:14px;color:#6E6E6E;margin-top:20px">No CSV exports. No manual entry. No batch processing. Automatic write-back.</p>' +
+        '<h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15">Every Conversation Makes Your Database Better</h2>' +
       '</div>' +
       '<div style="display:grid;grid-template-columns:1fr 1fr;gap:40px">' +
         '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 32px">' +
@@ -5888,11 +5963,12 @@
             '<div style="background:#EBE6DA;border-radius:10px;padding:12px 16px;font-size:14px;color:#2F2F2F">\u201CWhat is your current job title?\u201D</div>' +
             '<div style="background:#EBE6DA;border-radius:10px;padding:12px 16px;font-size:14px;color:#2F2F2F">\u201CWhich topics matter most to you this year?\u201D</div>' +
             '<div style="background:#EBE6DA;border-radius:10px;padding:12px 16px;font-size:14px;color:#2F2F2F">\u201CAre you still based in [city]?\u201D</div>' +
+            '<div style="background:#EBE6DA;border-radius:10px;padding:12px 16px;font-size:14px;color:#2F2F2F">\u201CHow would you describe your involvement with us this year?\u201D</div>' +
           '</div>' +
         '</div>' +
         '<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:36px 32px">' +
           '<h3 style="font-size:22px;font-weight:700;color:#2F2F2F;margin-bottom:12px">NPS and Satisfaction</h3>' +
-          '<p style="font-size:15px;color:#6E6E6E;line-height:1.6;margin-bottom:20px">Run ongoing satisfaction measurement that feeds directly into member profiles. NPS scores, satisfaction ratings, and open-ended feedback \u2014 all captured and acted on automatically.</p>' +
+          '<p style="font-size:15px;color:#6E6E6E;line-height:1.6;margin-bottom:20px">Run ongoing satisfaction measurement that feeds directly into member profiles. NPS scores, satisfaction ratings, and open-ended feedback, all captured and acted on automatically. Your NPS trend over time is one of the core member engagement metrics, so every score is saved to the member record. Learn how <a href="/blog-posts/what-is-satisfaction-data-and-how-can-it-be-used-for-deeper-member-engagement" style="color:#F47C2C;font-weight:600;text-decoration:underline">NPS and satisfaction</a> data drives deeper engagement.</p>' +
           '<div style="display:flex;flex-direction:column;gap:10px">' +
             '<div style="background:#EBE6DA;border-radius:10px;padding:12px 16px;font-size:14px;color:#2F2F2F">\u201COn a scale of 0-10, how likely are you to recommend us?\u201D</div>' +
             '<div style="background:#EBE6DA;border-radius:10px;padding:12px 16px;font-size:14px;color:#2F2F2F">Promoters \u2192 testimonial request</div>' +
@@ -5900,26 +5976,45 @@
           '</div>' +
         '</div>' +
       '</div>',
-      enginesH2: 'Four engines working together to keep your data clean.',
+      extraSections: [{
+        cls: 'usecasesdataintelligence-metrics',
+        after: 'centerpiece',
+        style: 'padding:96px 48px;background:#EBE6DA',
+        html: '<div id="metrics" style="max-width:1100px;margin:0 auto;scroll-margin-top:96px">' + '<div style="text-align:center;margin-bottom:48px"><p style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#F9A825;margin:0 0 16px;line-height:1.4">Member engagement metrics</p><h2 style="font-size:clamp(28px,4vw,38px);font-weight:700;color:#2F2F2F;letter-spacing:-0.02em;line-height:1.15;margin:0">How to Measure Member Engagement Without Sending Another Survey</h2><p style="font-size:17px;color:#6E6E6E;line-height:1.65;max-width:760px;margin:16px auto 0">Most associations measure activity: email opens, logins, event attendance. Activity is not engagement, so PropFuel measures what members say and turns it into three member engagement metrics you can track.</p></div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:56px"><div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:32px 28px"><h3 style="font-size:18px;font-weight:700;color:#2F2F2F;margin:0 0 10px">Response rate</h3><p style="font-size:14px;color:#6E6E6E;line-height:1.6;margin:0">Who joins the conversation. A member who answers a question is engaged in a way an email open never shows. NACUBO\u2019s one-question contact check drew a 62% engagement rate. <a href="/case-studies/nacubo-chief-business-officer-contact-check-in" style="color:#F47C2C;font-weight:600;text-decoration:underline">Read the case study</a>.</p></div><div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:32px 28px"><h3 style="font-size:18px;font-weight:700;color:#2F2F2F;margin:0 0 10px">Profile completeness</h3><p style="font-size:14px;color:#6E6E6E;line-height:1.6;margin:0">Data completeness scores show which fields are filled and current, which segments have gaps, and how fast your database is improving.</p></div><div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:32px 28px"><h3 style="font-size:18px;font-weight:700;color:#2F2F2F;margin:0 0 10px">NPS and satisfaction trend</h3><p style="font-size:14px;color:#6E6E6E;line-height:1.6;margin:0">How members feel, tracked over time instead of once a year, so you see a drop before it shows up in renewals.</p></div></div><div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:32px 36px"><h3 style="font-size:22px;font-weight:700;color:#2F2F2F;margin:0 0 14px">Member Engagement Reporting That Updates Itself</h3><ul style="font-size:15px;color:#6E6E6E;line-height:1.8;padding-left:20px;margin:0"><li>Reports are built from the answers written back to your AMS, so the numbers update as campaigns run.</li><li>Open-ended answers are grouped into themes and sentiment you can report on.</li><li>Spot who needs attention well before <a href="/use-cases/renewals" style="color:#F47C2C;font-weight:600;text-decoration:underline">renewals</a>.</li></ul></div>' + '<div style="height:56px"></div>' + 
+'<div class="pf-card" style="background:#F6F2E8;border-radius:20px;padding:40px;max-width:800px;margin:0 auto;text-align:center">' +
+        '<h3 style="font-size:20px;font-weight:700;color:#2F2F2F;margin-bottom:24px">AMS Write-Back Flow</h3>' +
+        '<div style="display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap">' +
+          '<div style="background:#fff;border-radius:12px;padding:20px;border:2px solid #FBC02D;min-width:140px"><div style="font-size:14px;font-weight:700;color:#2F2F2F">Member</div><div style="font-size:12px;color:#6E6E6E;margin-top:4px">Responds to check-in</div></div>' +
+          '<div style="font-size:24px;color:#F47C2C;font-weight:700">\u2192</div>' +
+          '<div style="background:#fff;border-radius:12px;padding:20px;border:2px solid #F47C2C;min-width:140px"><div style="font-size:14px;font-weight:700;color:#2F2F2F">PropFuel</div><div style="font-size:12px;color:#6E6E6E;margin-top:4px">Captures + categorizes</div></div>' +
+          '<div style="font-size:24px;color:#F47C2C;font-weight:700">\u2192</div>' +
+          '<div style="background:#fff;border-radius:12px;padding:20px;border:2px solid #2F2F2F;min-width:140px"><div style="font-size:14px;font-weight:700;color:#2F2F2F">Your AMS</div><div style="font-size:12px;color:#6E6E6E;margin-top:4px">Profile updated automatically</div></div>' +
+        '</div>' +
+        '<p style="font-size:14px;color:#6E6E6E;margin-top:20px">No CSV exports. No manual entry. No batch processing. Automatic write-back.</p>' +
+      '</div>' + '</div>'
+      }],
+      enginesH2: 'Four Engines Working Together to Keep Your Data Clean',
       engines: [
-        { name: 'Engagement Engine', desc: 'Delivers data capture questions within existing campaigns \u2014 so profile updates happen naturally, not through forms.' },
+        { name: 'Engagement Engine', desc: 'Delivers data capture questions within existing campaigns, so profile updates happen naturally, not through forms.' },
         { name: 'Automation Engine', desc: 'Schedules data refresh cycles, triggers profile update requests, and manages the write-back to your AMS automatically.' },
-        { name: 'Insights Engine', desc: 'Shows data completeness scores, identifies gaps, and measures how fast your database is improving over time.' },
-        { name: 'Membership AI', desc: 'Analyzes open-ended responses, categorizes free-text answers, and identifies patterns across thousands of member interactions.' }
+        { name: 'Insights Engine', desc: 'Shows data completeness scores and member engagement reporting, identifies gaps, and measures how fast your database is improving over time.' },
+        { name: 'Membership AI', desc: 'Analyzes open-ended responses, categorizes free-text answers, and identifies patterns across thousands of member interactions. Open-ended answers become themes you can report on.' }
       ],
-      statsH2: 'Proof that conversations clean your data.',
+      statsH2: 'Proof That Conversations Clean Your Data',
       stats: [
-        { num: '44%', org: 'NACUBO', desc: 'Response rate in 24 hours on a data capture campaign \u2014 no forms, no surveys.' },
+        { num: '62%', org: '<a href="/case-studies/nacubo-chief-business-officer-contact-check-in" style="color:inherit;text-decoration:underline">NACUBO</a>', desc: 'Engagement rate on a one-question contact check, with 996 answers and 67 new decision-maker contacts.' },
         { num: '4,500+', org: 'INS', desc: 'Member profile fields updated through PropFuel conversations, all synced automatically.' },
-        { num: '400+', org: 'Chattanooga', desc: 'Member profiles enriched in a single campaign cycle through targeted questions.' },
+        { num: '400+', org: 'Chattanooga Chamber', desc: 'Responses in a single data cleanup campaign.' },
         { num: '60+', org: 'Connectors', desc: 'AMS integrations that write PropFuel responses back automatically, where supported.' }
       ],
-      faqH2: 'Common questions about data intelligence.',
+      faqH2: 'Questions About Member Engagement Metrics and Data',
       faqs: [
+        { q: 'Which member engagement metrics should we track?', a: 'Start with three: response rate, profile completeness, and NPS and satisfaction trend. Together they show who is participating, how much you know about them, and how they feel. Activity like opens and attendance is useful context, but it does not tell you why a member is engaged.' },
+        { q: 'What does member engagement reporting include?', a: 'PropFuel reporting covers campaign and engagement analytics such as response rates, NPS and satisfaction over time, and AI-grouped themes and sentiment from open-ended answers. Because responses write back to your AMS, the reports stay current as campaigns run.' },
         { q: 'Do we need to run separate data capture campaigns?', a: 'No. PropFuel weaves data capture questions into your existing engagement campaigns. A renewal check-in can include a profile update question. An onboarding sequence can confirm job title and interests. Data gets collected as a byproduct of the conversation.' },
-        { q: 'How does the write-back work?', a: 'When a member responds to a PropFuel check-in, the response writes back to your AMS automatically, where your AMS supports it. The specific field mapping is configured during setup \u2014 you control exactly which fields get updated and in which direction.' },
-        { q: 'What about open-ended responses?', a: 'PropFuel\u2019s AI automatically categorizes open-ended text responses into themes and sentiment. Your team does not need to read every response individually \u2014 the system surfaces patterns and flags outliers.' },
-        { q: 'How do we measure data quality improvement?', a: 'The Insights Engine tracks data completeness scores over time \u2014 showing which fields are improving, which segments have gaps, and how fast your database is getting better.' },
+        { q: 'How does the write-back work?', a: 'When a member responds to a PropFuel check-in, the response writes back to your AMS automatically, where your AMS supports it. The specific field mapping is configured during setup. You control exactly which fields get updated and in which direction.' },
+        { q: 'What about open-ended responses?', a: 'PropFuel\u2019s AI automatically categorizes open-ended text responses into themes and sentiment. Your team does not need to read every response individually. The system surfaces patterns and flags outliers.' },
+        { q: 'How do we measure data quality improvement?', a: 'The Insights Engine tracks data completeness scores over time, showing which fields are improving, which segments have gaps, and how fast your database is getting better.' },
         { q: 'Will this work with our AMS?', a: 'PropFuel integrates with 60+ external systems with two-way sync. The write-back works with Salesforce, Fonteva, iMIS, Impexium, Nimble, Novi, and many more. Our team handles setup with you.' }
       ],
       ctaH2: 'Clean data without<br>the cleanup.',
@@ -10042,6 +10137,7 @@
     var best = null, bestD = 1;
     for (var i = 1; i < secs.length; i++) {
       if (/faq/i.test(secs[i].className + ' ' + (secs[i].id || '') + ' ' + (secs[i].innerText || '').slice(0, 40))) continue;
+      if (/-(emails|funnel|metrics)\b/.test(secs[i].className)) continue; // Mamba revamps: these must sit directly after the centerpiece
       var d = Math.abs((secs[i].getBoundingClientRect().top + window.pageYOffset) / H - 0.35);
       if (d < bestD) { best = secs[i]; bestD = d; }
     }
