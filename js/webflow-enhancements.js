@@ -94,6 +94,17 @@
       '.pf-dd-ai-title{display:block;font-size:14px;font-weight:700;color:#4A7FA5}' +
       '.pf-dd-ai-desc{display:block;font-size:12px;color:#6E6E6E;margin-top:1px}' +
 
+      /* Solutions: featured full-width row at the top of the Use Cases dropdown (same pattern as Membership AI under Platform),
+         then Professional Assn + Trade Assn. Hidden until the pages are live (html.pf-sol-live, set by the check below). */
+      '.pf-dd-feat{display:flex;align-items:center;gap:12px;padding:12px 16px;margin:-8px -20px 12px;' +
+        'border-radius:12px;background:rgba(244,124,44,.09);border:1px solid rgba(244,124,44,.20);text-decoration:none;transition:background .15s ease}' +
+      '.pf-dd-feat:hover{background:rgba(244,124,44,.16)}' +
+      '.pf-dd-feat-icon{flex:none;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:14px;font-weight:700;color:#FBF8F1;background:linear-gradient(to right,#F47C2C,#FBC02D)}' +
+      '.pf-dd-feat-title{display:block;font-size:14px;font-weight:700;color:#B04A16}' +
+      '.pf-dd-feat-desc{display:block;font-size:12px;color:#6E6E6E;margin-top:1px}' +
+      '.pf-dd-pair{padding-bottom:12px;margin-bottom:16px;border-bottom:1px solid #E3DDD2}' +
+      'html:not(.pf-sol-live) .pf-dd-new{display:none!important}' +
+
       /* Platform tabs */
       '.pf-tab{padding:12px 28px;border-radius:100px;font-size:15px;font-weight:600;font-family:DM Sans,sans-serif;' +
         'border:1.5px solid #E3DDD2;background:transparent;color:#2F2F2F;cursor:pointer;' +
@@ -318,6 +329,8 @@
         '.pf-mp-sub-title{display:block;font:600 16px/1.3 "DM Sans",sans-serif;color:#2F2F2F}' +
         '.pf-mp-sub-desc{display:block;margin-top:2px;font:400 13px/1.4 "DM Sans",sans-serif;color:#6E6E6E}' +
         '.pf-mp-sublink-ai .pf-mp-sub-title{color:#4A7FA5}' +
+        '.pf-mp-sublink-feat{background:rgba(244,124,44,.09);border:1px solid rgba(244,124,44,.20);margin:4px 0 6px}' +
+        '.pf-mp-sublink-feat .pf-mp-sub-title{color:#B04A16;font-weight:700}' +
         '.pf-mp-footer{padding:16px 20px 24px;border-top:1px solid rgba(0,0,0,0.08);display:flex;flex-direction:column;gap:10px;background:#F6F2E8;flex-shrink:0;position:sticky;bottom:0}' +
         '.pf-mp-cta-ghost{display:flex;align-items:center;justify-content:center;min-height:48px;padding:12px 20px;border:1.5px solid rgba(0,0,0,0.14);border-radius:100px;font:600 15px/1 "DM Sans",sans-serif;color:#2F2F2F!important;text-decoration:none;box-sizing:border-box}' +
         '.pf-mp-cta-primary{display:flex;align-items:center;justify-content:center;min-height:52px;padding:14px 24px;background:linear-gradient(to right,#F47C2C,#FBC02D);border-radius:100px;font:700 16px/1 "DM Sans",sans-serif;color:#fff!important;text-decoration:none;box-shadow:0 4px 14px rgba(240,90,40,0.25);box-sizing:border-box}' +
@@ -902,6 +915,26 @@
       navLinksContainer.style.transform = 'translateX(-50%)';
     }
 
+    // Solutions nav items only show once the three /solutions pages are published (HEAD check, cached per tab).
+    // Preview before publish: add ?pfsol=1 to any URL.
+    (function() {
+      var root = document.documentElement, K = 'pfSolLive', now = Date.now();
+      if (/[?&]pfsol=1/.test(location.search)) { root.classList.add('pf-sol-live'); return; }
+      try {
+        var c = sessionStorage.getItem(K);
+        if (c === 'ok') { root.classList.add('pf-sol-live'); return; }
+        if (c && now - Number(c) < 600000) return; // failed <10 min ago, don't re-ask
+      } catch (e) {}
+      var paths = ['/solutions', '/solutions/trade-associations', '/solutions/professional-associations'];
+      Promise.all(paths.map(function(u) {
+        return fetch(u, { method: 'HEAD', redirect: 'manual' }).then(function(r) { return r.ok; }, function() { return false; });
+      })).then(function(res) {
+        var ok = res.every(Boolean);
+        if (ok) root.classList.add('pf-sol-live');
+        try { sessionStorage.setItem(K, ok ? 'ok' : String(now)); } catch (e) {}
+      });
+    })();
+
     // Inject dropdown menus
     var dropdowns = {
       'Platform': {
@@ -922,6 +955,11 @@
         ]
       },
       'Use Cases': {
+        feature: { title: 'Solutions', desc: 'Built for every kind of association', href: '/solutions' },
+        pair: [
+          { title: 'Professional Assn', desc: 'Engage members at every career stage', href: '/solutions/professional-associations' },
+          { title: 'Trade Assn', desc: 'Reach every contact at every member company', href: '/solutions/trade-associations' }
+        ],
         cols: [
           { links: [
             { title: 'Onboarding', desc: 'Guide new members from day one', href: '/use-cases/onboarding' },
@@ -980,6 +1018,19 @@
           '<span class="pf-dd-ai-icon">&#x2726;</span>' +
           '<span><span class="pf-dd-ai-title">' + dd.ai.title + '</span>' +
           '<span class="pf-dd-ai-desc">' + dd.ai.desc + '</span></span></a>';
+      }
+      if (dd.feature) {
+        html += '<a href="' + dd.feature.href + '" class="pf-dd-feat pf-dd-new">' +
+          '<span class="pf-dd-feat-icon">&#x2192;</span>' +
+          '<span><span class="pf-dd-feat-title">' + dd.feature.title + '</span>' +
+          '<span class="pf-dd-feat-desc">' + dd.feature.desc + '</span></span></a>';
+      }
+      if (dd.pair) {
+        html += '<div class="pf-dd-cols pf-dd-pair pf-dd-new">';
+        dd.pair.forEach(function(l) {
+          html += '<div class="pf-dd-col"><a href="' + l.href + '" class="pf-dd-link"><span class="pf-dd-title">' + l.title + '</span><span class="pf-dd-desc">' + l.desc + '</span></a></div>';
+        });
+        html += '</div>';
       }
       html += '<div class="pf-dd-cols">';
       dd.cols.forEach(function(col) {
@@ -1128,6 +1179,22 @@
               '</a>'
             );
           }
+          if (dd.feature) {
+            htmlParts.push(
+              '<a class="pf-mp-sublink pf-mp-sublink-feat pf-dd-new" href="' + dd.feature.href + '">' +
+                '<span class="pf-mp-sub-title">' + dd.feature.title + '</span>' +
+                '<span class="pf-mp-sub-desc">' + dd.feature.desc + '</span>' +
+              '</a>'
+            );
+          }
+          (dd.pair || []).forEach(function(l) {
+            htmlParts.push(
+              '<a class="pf-mp-sublink pf-dd-new" href="' + l.href + '">' +
+                '<span class="pf-mp-sub-title">' + l.title + '</span>' +
+                '<span class="pf-mp-sub-desc">' + l.desc + '</span>' +
+              '</a>'
+            );
+          });
           (dd.cols || []).forEach(function(col) {
             if (col.heading) htmlParts.push('<div class="pf-mp-subhead">' + col.heading + '</div>');
             (col.links || []).forEach(function(l) {
