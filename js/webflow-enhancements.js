@@ -95,7 +95,7 @@
       '.pf-dd-ai-desc{display:block;font-size:12px;color:#6E6E6E;margin-top:1px}' +
 
       /* Solutions: featured full-width row at the top of the Use Cases dropdown (same pattern as Membership AI under Platform),
-         then Professional Assn + Trade Assn. Hidden until the pages are live (html.pf-sol-live, set by the check below). */
+         then Professional Association + Trade Association. Hidden until the pages are live (html.pf-sol-live, set by the check below). */
       '.pf-dd-feat{display:flex;align-items:center;gap:12px;padding:12px 16px;margin:-8px -20px 12px;' +
         'border-radius:12px;background:rgba(244,124,44,.09);border:1px solid rgba(244,124,44,.20);text-decoration:none;transition:background .15s ease}' +
       '.pf-dd-feat:hover{background:rgba(244,124,44,.16)}' +
@@ -957,8 +957,8 @@
       'Use Cases': {
         feature: { title: 'Solutions', desc: 'Built for every kind of association', href: '/solutions' },
         pair: [
-          { title: 'Professional Assn', desc: 'Engage members at every career stage', href: '/solutions/professional-associations' },
-          { title: 'Trade Assn', desc: 'Reach every contact at every member company', href: '/solutions/trade-associations' }
+          { title: 'Professional Association', desc: 'Engage members at every career stage', href: '/solutions/professional-associations' },
+          { title: 'Trade Association', desc: 'Reach every contact at every member company', href: '/solutions/trade-associations' }
         ],
         cols: [
           { links: [
