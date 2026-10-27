@@ -8724,7 +8724,7 @@
           '<h2 class="pf-rf-ch">Refer an association. Win <span class="accent">$2,500 more.</span></h2>' +
           '<div class="pf-rf-cgrid">' +
             '<div class="pf-rf-cc"><div class="pf-rf-camt">$250</div><div class="t">For every qualified referral</div><div class="d">Paid whether or not you win. Pick lunch for your team, a gift card, money back on PropFuel, or a donation to your association.</div></div>' +
-            '<div class="pf-rf-cc pf-rf-cc-big"><div class="pf-rf-camt">+$2,500</div><div class="t">Grand prize</div><div class="d">The client who sends the most qualified referrals in November gets another $2,500 on top.</div></div>' +
+            '<div class="pf-rf-cc pf-rf-cc-big"><div class="pf-rf-camt">+$2,500</div><div class="t">Grand prize</div><div class="d">The client who sends the most qualified referrals by Nov 30 gets another $2,500 on top.</div></div>' +
           '</div>' +
           '<p class="pf-rf-cfine"><b>What counts:</b> your referral books and attends a demo and becomes a qualified opportunity, as long as we&rsquo;re a fit for them and they&rsquo;re a fit for us.</p>' +
           '<p class="pf-rf-cdates">Opens Oct 28. Runs through Nov&nbsp;30,&nbsp;2026.</p>' +
