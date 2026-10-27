@@ -8681,11 +8681,25 @@
       ".pf-rf-err{display:none;font-size:13px;font-weight:600;color:#C0392B;margin-top:16px}" +
       ".pf-rf-fine{border-left:4px solid #FBC02D;background:#F6F2E8;border-radius:0 14px 14px 0;padding:24px 28px;margin:36px 0 0;font-size:16.5px;line-height:1.65;color:#4a4a48}" +
       ".pf-rf-fine b{color:#2F2F2F}" +
+      ".pf-rf-contest{padding:24px 0 8px}" +
+      ".pf-rf-cbox{background:#2F2F2F;color:#F4F1EA;border-radius:22px;padding:36px 32px;text-align:left;box-shadow:0 12px 48px rgba(47,47,47,0.18)}" +
+      ".pf-rf-cbox .pf-rf-eyebrow{color:#FBC02D;margin-bottom:12px}" +
+      ".pf-rf-ch{font-size:clamp(26px,3.6vw,38px);font-weight:800;letter-spacing:-0.02em;line-height:1.12;margin:0 0 22px;color:#fff;text-wrap:balance}" +
+      ".pf-rf-cgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}" +
+      ".pf-rf-cc{background:rgba(255,255,255,0.07);border:1px solid rgba(244,241,234,0.16);border-radius:16px;padding:20px}" +
+      ".pf-rf-cc-big{border-color:#FBC02D;background:rgba(251,192,45,0.10)}" +
+      ".pf-rf-camt{font-size:clamp(34px,4.6vw,46px);font-weight:800;letter-spacing:-0.03em;line-height:1;background:linear-gradient(to right,#F47C2C,#FBC02D);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;margin-bottom:10px}" +
+      ".pf-rf-cc .t{font-size:16px;font-weight:700;margin-bottom:4px;text-wrap:balance}" +
+      ".pf-rf-cc .d{font-size:14px;line-height:1.5;color:#CFC6B6;text-wrap:pretty}" +
+      ".pf-rf-cfine{font-size:15px;line-height:1.6;color:#E6E0D2;margin:20px 0 0;text-wrap:pretty}" +
+      ".pf-rf-cfine b{color:#fff}" +
+      ".pf-rf-cdates{font-size:13px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#FBC02D;margin:14px 0 0;text-wrap:balance}" +
       ".pf-rf-bottom{padding:16px 0 96px}" +
       "@media (max-width:720px){" +
       ".pf-rf-hero{padding:90px 0 32px}" +
       ".pf-rf-steps{grid-template-columns:1fr;gap:10px}" +
       ".pf-rf-2col,.pf-rf-opts,.pf-rf-paths{grid-template-columns:1fr}" +
+      ".pf-rf-cgrid{grid-template-columns:1fr}.pf-rf-cbox{padding:26px 20px;border-radius:18px}" +
       ".pf-rf-linkrow{flex-direction:column}" +
       ".pf-rf-card{padding:26px 20px;border-radius:18px}" +
       ".pf-rf-tag{font-size:11.5px}.pf-rf-openin{font-size:12px}" +
@@ -8702,6 +8716,18 @@
           '<div class="pf-rf-step"><div class="k">01</div><div class="t">Tell us who you are</div></div>' +
           '<div class="pf-rf-step"><div class="k">02</div><div class="t">Pick your reward</div></div>' +
           '<div class="pf-rf-step"><div class="k">03</div><div class="t">Make the intro</div></div>' +
+        '</div>' +
+      '</div></section>' +
+      '<section class="pf-rf-contest" id="pf-rf-contest"><div class="pf-rf-container">' +
+        '<div class="pf-rf-cbox">' +
+          '<div class="pf-rf-eyebrow">November Referral Contest</div>' +
+          '<h2 class="pf-rf-ch">Refer an association. Win <span class="accent">$2,500 more.</span></h2>' +
+          '<div class="pf-rf-cgrid">' +
+            '<div class="pf-rf-cc"><div class="pf-rf-camt">$250</div><div class="t">For every qualified referral</div><div class="d">Paid whether or not you win. Pick lunch for your team, a gift card, money back on PropFuel, or a donation to your association.</div></div>' +
+            '<div class="pf-rf-cc pf-rf-cc-big"><div class="pf-rf-camt">+$2,500</div><div class="t">Grand prize</div><div class="d">The client who sends the most qualified referrals in November gets another $2,500 on top.</div></div>' +
+          '</div>' +
+          '<p class="pf-rf-cfine"><b>What counts:</b> your referral books and attends a demo and becomes a qualified opportunity, as long as we&rsquo;re a fit for them and they&rsquo;re a fit for us.</p>' +
+          '<p class="pf-rf-cdates">Opens Oct 28. Runs through Nov&nbsp;30,&nbsp;2026.</p>' +
         '</div>' +
       '</div></section>' +
       '<section class="pf-rf-bottom"><div class="pf-rf-container">' +
