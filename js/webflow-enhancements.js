@@ -5028,8 +5028,28 @@
   // ─────────────────────────────────────────
   // USE CASE PAGE SHARED HELPER
   // ─────────────────────────────────────────
+  // Mamba SEO use-case pages render from lp/use-cases-<slug>/page.js (shared .mm system, CSS-only motion).
+  // Until the markup is pasted into a native Webflow Code Embed, load the same file from here.
+  function loadMambaUseCase(slug) {
+    if (document.querySelector('.mm[data-mm="' + slug + '"]') || document.getElementById('mm-uc-js')) return;
+    var anchor = document.querySelector('.pf-cta-section');
+    if (!anchor || !anchor.parentNode) return;
+    var s = document.createElement('script');
+    s.id = 'mm-uc-js';
+    s.src = 'https://alexhively.github.io/propfuel-webflow-custom/lp/' + slug + '/page.js?v=1';
+    s.onload = function () { // the lead-magnet block may have rendered before the page did: move it to the page's slot
+      var lm = document.querySelector('.pf-lm-section'), slot = document.querySelector('.mm-lm-slot');
+      if (lm && slot && slot.parentNode) slot.parentNode.insertBefore(lm, slot);
+    };
+    anchor.parentNode.insertBefore(s, anchor);
+  }
+
   function buildUseCasePage(cfg) {
     if (window.location.pathname.indexOf(cfg.path) === -1) return;
+    if (/^use-cases\/(win-back|acquisition|events|certifications|data-intelligence)$/.test(cfg.path)) {
+      loadMambaUseCase('use-cases-' + cfg.path.split('/')[1]);
+      return;
+    }
 
     var prefix = cfg.path.replace(/[^a-z]/g, '');
     // SEO heading structure (Mamba outlines): opted-in pages render the small
@@ -10145,6 +10165,8 @@
   // the closing CTA where few readers reach it. Blog posts get it inside the article, before the
   // subheading nearest the middle; other pages at the section boundary closest to 35% down the page.
   function lmInlineAnchor() {
+    var mmSlot = document.querySelector('.mm-lm-slot'); // Mamba pages mark where the block belongs
+    if (mmSlot) return mmSlot;
     var cta = document.querySelector('.pf-cta-section');
     var fallback = document.querySelector('.cs-more-section') || cta;
     var rt = /^\/blog-posts\//.test(window.location.pathname) && document.querySelector('.w-richtext');
