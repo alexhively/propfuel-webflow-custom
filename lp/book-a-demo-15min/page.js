@@ -328,8 +328,8 @@ s.insertAdjacentHTML('beforebegin',"<style>\n.af{--ch:#2F2F2F;--mg:#6E6E6E;--bg:
         a.setAttribute('data-cta15', '1');
         a.setAttribute('href', '/book-a-demo-15min');
         if (a.classList.contains('pf-mp-cta-primary')) { a.textContent = 'Book a 15-minute intro call'; return; }
-        a.innerHTML = 'Book a <span style="white-space:nowrap">15-minute</span> intro call';
-        if (!a.classList.contains('pf-mobile-started')) a.style.cssText += ';white-space:normal;max-width:132px;line-height:1.15;text-align:center;font-size:13px;padding:7px 14px';
+        a.innerHTML = '<span>Book a <span style="white-space:nowrap">15-minute</span> intro call</span>';
+        if (!a.classList.contains('pf-mobile-started')) a.style.cssText += ';white-space:normal;max-width:158px;line-height:1.15;text-align:center;font-size:13px;padding:7px 12px';
       });
     } catch (e) {}
   }
