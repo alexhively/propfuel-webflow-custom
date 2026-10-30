@@ -319,11 +319,20 @@ s.insertAdjacentHTML('beforebegin',"<style>\n.af{--ch:#2F2F2F;--mg:#6E6E6E;--bg:
 })();
 
 
-/* CTA split variant B: relabel the site nav "Get a Free Demo" pill too, and keep nav clicks on this variant (not /book-a-demo). */
+/* CTA split variant B: relabel the site nav CTAs (desktop pill, mobile pill, mobile menu button) and keep nav clicks on this variant (not /book-a-demo). */
 (function () {
-  var n = 0;
-  var t = setInterval(function () {
-    try { document.querySelectorAll('a.pf-btn-nav[href="/book-a-demo"]').forEach(function (a) { a.innerHTML = 'Book a <span style="white-space:nowrap">15-minute</span> intro call'; a.setAttribute('href', '/book-a-demo-15min'); if (!a.classList.contains('pf-mobile-started')) a.style.cssText += ';white-space:normal;max-width:132px;line-height:1.15;text-align:center;font-size:13px;padding:7px 14px'; }); } catch (e) {}
-    if (++n > 40) clearInterval(t);
-  }, 250);
+  function fix() {
+    try {
+      document.querySelectorAll('a.pf-btn-nav[href^="/book-a-demo"], a.pf-mp-cta-primary[href^="/book-a-demo"]').forEach(function (a) {
+        if (a.getAttribute('data-cta15')) return;
+        a.setAttribute('data-cta15', '1');
+        a.setAttribute('href', '/book-a-demo-15min');
+        if (a.classList.contains('pf-mp-cta-primary')) { a.textContent = 'Book a 15-minute intro call'; return; }
+        a.innerHTML = 'Book a <span style="white-space:nowrap">15-minute</span> intro call';
+        if (!a.classList.contains('pf-mobile-started')) a.style.cssText += ';white-space:normal;max-width:132px;line-height:1.15;text-align:center;font-size:13px;padding:7px 14px';
+      });
+    } catch (e) {}
+  }
+  fix();
+  try { new MutationObserver(fix).observe(document.documentElement, { childList: true, subtree: true }); } catch (e) {}
 })();
