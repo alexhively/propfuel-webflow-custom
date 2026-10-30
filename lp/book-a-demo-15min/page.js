@@ -318,3 +318,12 @@ s.insertAdjacentHTML('beforebegin',"<style>\n.af{--ch:#2F2F2F;--mg:#6E6E6E;--bg:
   window.__afOnSubmitted = onSubmitted;
 })();
 
+
+/* CTA split variant B: relabel the site nav "Get a Free Demo" pill too, and keep nav clicks on this variant (not /book-a-demo). */
+(function () {
+  var n = 0;
+  var t = setInterval(function () {
+    try { document.querySelectorAll('a.pf-btn-nav[href="/book-a-demo"]').forEach(function (a) { a.innerHTML = 'Book a <span style="white-space:nowrap">15-minute</span> intro call'; a.setAttribute('href', '/book-a-demo-15min'); if (!a.classList.contains('pf-mobile-started')) a.style.cssText += ';white-space:normal;max-width:132px;line-height:1.15;text-align:center;font-size:13px;padding:7px 14px'; }); } catch (e) {}
+    if (++n > 40) clearInterval(t);
+  }, 250);
+})();
