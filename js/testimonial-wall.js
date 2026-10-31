@@ -63,12 +63,15 @@
     '.tm-wall-cta{text-align:center;margin-top:64px}' +
     '.tm-wall-cta h3{font-size:clamp(24px,3vw,30px);font-weight:700;color:#2F2F2F;letter-spacing:-.02em;margin:0 0 8px;text-wrap:balance}' +
     '.tm-wall-cta p{font-size:16px;color:#5C564D;margin:0 0 28px}' +
-    '.tm-wall-btn{display:inline-flex;align-items:center;gap:8px;padding:16px 36px;font:600 15px/1 "DM Sans",sans-serif;border-radius:100px;text-decoration:none;background:linear-gradient(to right,#F47C2C,#FBC02D);color:#fff;box-shadow:0 4px 16px rgba(240,90,40,.2)}' +
+    '.tm-wall a.tm-wall-btn{color:#fff!important;display:inline-flex;align-items:center;gap:8px;padding:16px 36px;font:600 15px/1 "DM Sans",sans-serif;border-radius:100px;text-decoration:none;background:linear-gradient(to right,#F47C2C,#FBC02D);color:#fff;box-shadow:0 4px 16px rgba(240,90,40,.2)}' +
+    '.tm-card.tm-more{display:none}.tm-wall.tm-open .tm-card.tm-more{display:flex}' +
+    '.tm-showall{display:block;margin:40px auto 0;padding:14px 28px;font:600 15px/1 "DM Sans",sans-serif;border-radius:100px;background:transparent;color:#F47C2C;border:1.5px solid rgba(244,124,44,.45);cursor:pointer}' +
+    '.tm-wall.tm-open .tm-showall{display:none}' +
     '@media(max-width:1100px){.tm-grid{grid-template-columns:repeat(3,1fr)}}' +
     '@media(max-width:820px){.tm-grid{grid-template-columns:repeat(2,1fr);gap:16px}.tm-wall{padding:64px 16px}}' +
     '@media(max-width:480px){.tm-grid{grid-template-columns:1fr}.tm-card{max-width:360px;margin:0 auto;width:100%}}';
 
-  function card(c) {
+  function card(c, i) {
     var meta = '<div class="tm-meta"><p class="tm-q">' + esc(c.q) + '</p><p class="tm-who">' + esc(c.who) + '</p><p class="tm-sub">' +
       (c.title ? esc(c.title) + '<br>' : '') + esc(c.org) + '</p></div>';
     var top = c.yt
@@ -76,13 +79,14 @@
         '<img src="https://i.ytimg.com/vi/' + c.yt + '/hqdefault.jpg" alt="" loading="lazy"><span class="tm-play"></span>' +
         (c.audio ? '<span class="tm-audio">Audio only</span>' : '') + '</button>'
       : '<div class="tm-txt"><p>' + esc(c.q) + '</p></div>';
-    return '<article class="tm-card">' + top + meta + '</article>';
+    return '<article class="tm-card' + (i >= 8 ? ' tm-more' : '') + '">' + top + meta + '</article>';
   }
 
   var html = '<section class="tm-wall"><style>' + css + '</style><div class="tm-wall-in">' +
     '<div class="tm-wall-head"><p class="tm-wall-eye">In their own words</p><h2>Hear it from the people who use PropFuel.</h2>' +
     '<p>Membership teams across 370+ associations, on camera.</p></div>' +
     '<div class="tm-grid">' + CLIPS.map(card).join('') + '</div>' +
+    '<button class="tm-showall" type="button">See all ' + CLIPS.length + ' clips</button>' +
     '<div class="tm-wall-cta"><h3>See what PropFuel would do for your members.</h3><p>Book a demo and we’ll show you.</p>' +
     '<a class="tm-wall-btn" href="' + DEMO + 'wall-cta">Book a demo</a></div></div></section>';
 
@@ -91,6 +95,7 @@
   anchor.insertAdjacentHTML('beforebegin', html);
 
   document.querySelector('.tm-wall').addEventListener('click', function (e) {
+    if (e.target.closest('.tm-showall')) { this.classList.add('tm-open'); return; }
     var b = e.target.closest('.tm-vid');
     if (!b || b.querySelector('iframe')) return;
     b.innerHTML = '<iframe src="https://www.youtube.com/embed/' + b.getAttribute('data-yt') + '?autoplay=1&rel=0&playsinline=1" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen title="Testimonial"></iframe>';
