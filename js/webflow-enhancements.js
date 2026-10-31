@@ -8259,6 +8259,7 @@
     document.querySelectorAll('.tm-quotes-grid').forEach(function(n){n.remove();});
     var ctaHeading=document.querySelector('.pf-cta-heading');if(ctaHeading){ctaHeading.innerHTML='Ready to<br>Join <span style="background:linear-gradient(135deg,#F47C2C,#FBC02D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Them?</span>';}var ctaSub2=document.querySelector('.pf-cta-sub');if(ctaSub2){ctaSub2.textContent='See why 370+ associations trust PropFuel to drive member engagement and revenue.';}
     var ctaSecBtn=document.querySelector('.pf-cta-section .pf-btn-secondary, .pf-cta-section .w-button:not(.pf-btn-primary)');if(ctaSecBtn&&ctaSecBtn.textContent.trim()==='Learn More'){ctaSecBtn.textContent='See the ROI';ctaSecBtn.href='/roi';}
+    if(!document.querySelector('script[src*="testimonial-wall.js"]')){var tw=document.createElement('script');tw.src='https://alexhively.github.io/propfuel-webflow-custom/js/testimonial-wall.js?v=1';tw.async=true;document.body.appendChild(tw);}
     document.querySelectorAll('.pf-section').forEach(function(s){s.style.display='none';});
   }
 
