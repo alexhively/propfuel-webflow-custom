@@ -10069,7 +10069,7 @@
 
     function show() {
       if (lmStore('local', 'pfLM_submitted') === '1') return;
-      // pfLM_shown is re-read here: webinar-popup.js loads after this is armed and claims the session.
+      // pfLM_shown is re-read here: popups.js loads after this is armed and claims the session.
       if (shown || lmStore('session', 'pfLM_shown') || window.pfPopupOpen()) return;
       shown = true;
       lmStore('session', 'pfLM_shown', '1');
@@ -10676,10 +10676,11 @@
     // One pop-up at a time: every corner/overlay pop-up checks this before it shows.
     window.pfPopupOpen = function () { return !!document.querySelector('.pf-wp-card, .pf-lm-pop, .pf-wpop-overlay'); };
     renderWebinarPromoPopup();
-    if (!document.getElementById('pf-webinar-popup-js')) {
+    // Pop-ups come from the Marketing OS (js/pages/popups.js); make them there with update_popup, not here.
+    if (!document.getElementById('pf-popups-js')) {
       var wp = document.createElement('script');
-      wp.id = 'pf-webinar-popup-js';
-      wp.src = 'https://alexhively.github.io/propfuel-webflow-custom/js/pages/webinar-popup.js?v=2';
+      wp.id = 'pf-popups-js';
+      wp.src = 'https://alexhively.github.io/propfuel-webflow-custom/js/pages/popups.js?v=1';
       document.head.appendChild(wp);
     }
     fixMoreClientStories();
