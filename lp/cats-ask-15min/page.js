@@ -233,7 +233,9 @@ s.insertAdjacentHTML('beforebegin',"<style>\n.af{--ch:#2F2F2F;--mg:#6E6E6E;--bg:
     } catch (e) {}
   }
   // Same LIVE gate as trackLead. Success and failure events so a dead form shows up in PostHog.
+  var stallT;
   function ph(name, extra) {
+    if (name === 'form_submit_succeeded' || name === 'form_submit_failed') clearTimeout(stallT);
     if (!LIVE) return;
     try { if (window.posthog && window.posthog.capture) window.posthog.capture(name, Object.assign({ page_path: location.pathname, lead_source: SRC, form_id: FORM }, extra || {})); } catch (e) {}
   }
@@ -253,6 +255,28 @@ s.insertAdjacentHTML('beforebegin',"<style>\n.af{--ch:#2F2F2F;--mg:#6E6E6E;--bg:
   // Facebook/Instagram autofill fills the personal address, so say plainly what is wrong and keep a record of it.
   var FREE_RE = /@(gmail|googlemail|yahoo|ymail|hotmail|outlook|live|msn|icloud|me|mac|aol|proton|protonmail|pm|gmx|mail|zoho|comcast|verizon|att|sbcglobal|bellsouth|cox)\.[a-z.]+$/i;
   document.head.appendChild(Object.assign(document.createElement('style'), { textContent: '.af-free-on .hs-error-msgs{display:none!important}' }));
+  // Personal emails are accepted: flag them in a hidden pf_email_type field (if the HubSpot form has it) so sales can see which are personal.
+  function flagEmail(T) {
+    try {
+      var i = document.querySelector(T + ' input[name=email]'), h = document.querySelector(T + ' input[name=pf_email_type]');
+      if (!i || !h) return;
+      h.value = FREE_RE.test(i.value.trim()) ? 'personal' : 'work';
+      h.dispatchEvent(new Event('input', { bubbles: true }));
+    } catch (e) {}
+  }
+  // Buffalo case: submit tapped three times, then neither success nor failure. If nothing resolves in 8s, log it and tell the visitor.
+  document.addEventListener('submit', function (e) {
+    var f = e.target && e.target.closest && e.target.closest('#af-hs-form, #af-hs-form2'); if (!f) return;
+    clearTimeout(stallT);
+    stallT = setTimeout(function () {
+      ph('form_submit_stalled');
+      if (f.querySelector('.af-stall-note')) return;
+      var p = document.createElement('p'); p.className = 'af-stall-note'; p.setAttribute('role', 'alert');
+      p.style.cssText = 'margin:8px 0 0;font-size:15px;line-height:1.4;font-weight:600;color:#B04A16;text-wrap:balance';
+      p.textContent = "That didn't go through. Check your connection and tap Request Demo again.";
+      f.appendChild(p); setTimeout(function () { p.remove(); }, 12000);
+    }, 8000);
+  }, true);
   function freeEmailNote(T) {
     try {
       var i = document.querySelector(T + ' input[name=email]'), n = document.querySelector(T + ' .af-free-note');
@@ -260,7 +284,7 @@ s.insertAdjacentHTML('beforebegin',"<style>\n.af{--ch:#2F2F2F;--mg:#6E6E6E;--bg:
       if (!n) {
         n = document.createElement('p'); n.className = 'af-free-note'; n.setAttribute('role', 'alert');
         n.style.cssText = 'margin:8px 0 0;font-size:15px;line-height:1.4;font-weight:600;color:#B04A16;text-wrap:balance';
-        n.textContent = 'That looks like a personal email. Please use your work email, like you@yourassociation.org.';
+        n.textContent = 'This form can\'t take that email address yet. Please try your work email, like you@yourassociation.org.';
         var fld = i.closest('.hs-form-field') || i.parentNode; fld.appendChild(n); fld.classList.add('af-free-on');
         i.addEventListener('input', function () { n.remove(); fld.classList.remove('af-free-on'); }, { once: true });
         ph('form_submit_free_email_blocked', { email_domain: i.value.trim().split('@')[1].toLowerCase() });
@@ -281,7 +305,7 @@ s.insertAdjacentHTML('beforebegin',"<style>\n.af{--ch:#2F2F2F;--mg:#6E6E6E;--bg:
         restoreUrl();
         // CTA split variant B: label only. Form, handlers and tracking are unchanged.
         try { document.querySelectorAll(T+' input.hs-button, '+T+' button[type=submit]').forEach(function (b) { if (b.tagName==='INPUT') b.value='Book a 15-minute intro call'; else b.textContent='Book a 15-minute intro call'; }); } catch (e) {}
-        try { var em = document.querySelector(T + ' input[name=email]'); if (em) { em.placeholder = 'you@association.org'; em.setAttribute('autocomplete', 'email'); em.setAttribute('inputmode', 'email'); em.addEventListener('blur', function () { setTimeout(function () { freeEmailNote(T); }, 300); }); } } catch (e) {}
+        try { var em = document.querySelector(T + ' input[name=email]'); if (em) { em.placeholder = 'you@association.org'; em.setAttribute('autocomplete', 'email'); em.setAttribute('inputmode', 'email'); em.addEventListener('blur', function () { flagEmail(T); }); em.addEventListener('input', function () { flagEmail(T); }); } } catch (e) {}
         var m = { firstname: 'given-name', lastname: 'family-name', email: 'email', phone: 'tel', jobtitle: 'organization-title', company: 'organization' };
         try { (f[0] || f).querySelectorAll('input').forEach(function (i) { if (m[i.name]) i.setAttribute('autocomplete', m[i.name]); }); } catch (e) {}
       } }); });
@@ -300,7 +324,7 @@ s.insertAdjacentHTML('beforebegin',"<style>\n.af{--ch:#2F2F2F;--mg:#6E6E6E;--bg:
     if (Date.now() - lastFire < 4000) return; lastFire = Date.now();
     lead = lead || {};
     if (!lead.email) lead.email = lastEmail;
-    ph('form_submit_succeeded');
+    ph('form_submit_succeeded', { personal_email: FREE_RE.test(String(lead.email || '').trim()) });
     trackLead(lead.email);
     for (var k in lead) { if (Array.isArray(lead[k])) lead[k] = lead[k].toString().replaceAll(',', ';'); }
     if (window.ChiliPiper) ChiliPiper.submit('propfuel', 'Inbound_Router', { map: true, lead: lead });
