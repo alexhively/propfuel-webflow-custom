@@ -233,7 +233,9 @@ s.insertAdjacentHTML('beforebegin',"<style>\n.af{--ch:#2F2F2F;--mg:#6E6E6E;--bg:
     } catch (e) {}
   }
   // Same LIVE gate as trackLead. Success and failure events so a dead form shows up in PostHog.
+  var stallT;
   function ph(name, extra) {
+    if (name === 'form_submit_succeeded' || name === 'form_submit_failed') clearTimeout(stallT);
     if (!LIVE) return;
     try { if (window.posthog && window.posthog.capture) window.posthog.capture(name, Object.assign({ page_path: location.pathname, lead_source: SRC, form_id: FORM }, extra || {})); } catch (e) {}
   }
@@ -249,6 +251,46 @@ s.insertAdjacentHTML('beforebegin',"<style>\n.af{--ch:#2F2F2F;--mg:#6E6E6E;--bg:
     try { if (typeof window.lintrk === 'function') window.lintrk('track', { conversion_id: 31101610 }); } catch (e) {}
   }
 
+  // The HubSpot email field blocks free providers (gmail, yahoo, icloud...) and only says "Please enter a valid email address." in small type.
+  // Facebook/Instagram autofill fills the personal address, so say plainly what is wrong and keep a record of it.
+  var FREE_RE = /@(gmail|googlemail|yahoo|ymail|hotmail|outlook|live|msn|icloud|me|mac|aol|proton|protonmail|pm|gmx|mail|zoho|comcast|verizon|att|sbcglobal|bellsouth|cox)\.[a-z.]+$/i;
+  document.head.appendChild(Object.assign(document.createElement('style'), { textContent: '.af-free-on .hs-error-msgs{display:none!important}' }));
+  // Personal emails are accepted: flag them in a hidden pf_email_type field (if the HubSpot form has it) so sales can see which are personal.
+  function flagEmail(T) {
+    try {
+      var i = document.querySelector(T + ' input[name=email]'), h = document.querySelector(T + ' input[name=pf_email_type]');
+      if (!i || !h) return;
+      h.value = FREE_RE.test(i.value.trim()) ? 'personal' : 'work';
+      h.dispatchEvent(new Event('input', { bubbles: true }));
+    } catch (e) {}
+  }
+  // Buffalo case: submit tapped three times, then neither success nor failure. If nothing resolves in 8s, log it and tell the visitor.
+  document.addEventListener('submit', function (e) {
+    var f = e.target && e.target.closest && e.target.closest('#af-hs-form, #af-hs-form2'); if (!f) return;
+    clearTimeout(stallT);
+    stallT = setTimeout(function () {
+      ph('form_submit_stalled');
+      if (f.querySelector('.af-stall-note')) return;
+      var p = document.createElement('p'); p.className = 'af-stall-note'; p.setAttribute('role', 'alert');
+      p.style.cssText = 'margin:8px 0 0;font-size:15px;line-height:1.4;font-weight:600;color:#B04A16;text-wrap:balance';
+      p.textContent = "That didn't go through. Check your connection and tap Request Demo again.";
+      f.appendChild(p); setTimeout(function () { p.remove(); }, 12000);
+    }, 8000);
+  }, true);
+  function freeEmailNote(T) {
+    try {
+      var i = document.querySelector(T + ' input[name=email]'), n = document.querySelector(T + ' .af-free-note');
+      if (!i || !FREE_RE.test(i.value.trim())) { if (n) n.remove(); return; }
+      if (!n) {
+        n = document.createElement('p'); n.className = 'af-free-note'; n.setAttribute('role', 'alert');
+        n.style.cssText = 'margin:8px 0 0;font-size:15px;line-height:1.4;font-weight:600;color:#B04A16;text-wrap:balance';
+        n.textContent = 'This form can\'t take that email address yet. Please try your work email, like you@yourassociation.org.';
+        var fld = i.closest('.hs-form-field') || i.parentNode; fld.appendChild(n); fld.classList.add('af-free-on');
+        i.addEventListener('input', function () { n.remove(); fld.classList.remove('af-free-on'); }, { once: true });
+        ph('form_submit_free_email_blocked', { email_domain: i.value.trim().split('@')[1].toLowerCase() });
+      }
+    } catch (e) {}
+  }
   // The HubSpot embed renders in an iframe and prefills hidden fields from the page URL, so put the UTMs there.
   function loadForm() {
     if (!window.hbspt) return;
@@ -256,12 +298,12 @@ s.insertAdjacentHTML('beforebegin',"<style>\n.af{--ch:#2F2F2F;--mg:#6E6E6E;--bg:
     var restoreUrl = function () {};
     try { if (window.pfPrefillUrl) restoreUrl = window.pfPrefillUrl(utmFields().concat(metaIds()), 2); } catch (e) {}
     ['#af-hs-form', '#af-hs-form2'].forEach(function (T) { hbspt.forms.create({ portalId: PORTAL, formId: FORM, region: 'na1', target: T,
-      onFormFailedValidation: function () { setTimeout(function () { var n = []; try { document.querySelectorAll(T + ' .invalid, ' + T + ' .error').forEach(function (i) { if (i.name && n.indexOf(i.name) < 0) n.push(i.name); }); } catch (e) {} ph('form_submit_failed', { fields: n.join(',') || 'unknown' }); }, 0); },
+      onFormFailedValidation: function () { setTimeout(function () { var n = []; try { document.querySelectorAll(T + ' .invalid, ' + T + ' .error').forEach(function (i) { if (i.name && n.indexOf(i.name) < 0) n.push(i.name); }); } catch (e) {} ph('form_submit_failed', { fields: n.join(',') || 'unknown' }); freeEmailNote(T); }, 0); },
       onFormSubmitted: function ($f, data) { var v = (data && data.submissionValues) || {}; if (!v.email) { try { v.email = document.querySelector(T + ' input[name=email]').value; } catch (e) {} } window.__afOnSubmitted && window.__afOnSubmitted(v); },
       // Phone keyboards: right autofill hints. Does nothing if HubSpot renders the form in an iframe.
       onFormReady: function (f) {
         restoreUrl();
-        try { var em = document.querySelector(T + ' input[name=email]'); if (em) { em.placeholder = 'you@association.org'; em.setAttribute('autocomplete', 'email'); em.setAttribute('inputmode', 'email'); } } catch (e) {}
+        try { var em = document.querySelector(T + ' input[name=email]'); if (em) { em.placeholder = 'you@association.org'; em.setAttribute('autocomplete', 'email'); em.setAttribute('inputmode', 'email'); em.addEventListener('blur', function () { flagEmail(T); }); em.addEventListener('input', function () { flagEmail(T); }); } } catch (e) {}
         var m = { firstname: 'given-name', lastname: 'family-name', email: 'email', phone: 'tel', jobtitle: 'organization-title', company: 'organization' };
         try { (f[0] || f).querySelectorAll('input').forEach(function (i) { if (m[i.name]) i.setAttribute('autocomplete', m[i.name]); }); } catch (e) {}
       } }); });
@@ -280,7 +322,7 @@ s.insertAdjacentHTML('beforebegin',"<style>\n.af{--ch:#2F2F2F;--mg:#6E6E6E;--bg:
     if (Date.now() - lastFire < 4000) return; lastFire = Date.now();
     lead = lead || {};
     if (!lead.email) lead.email = lastEmail;
-    ph('form_submit_succeeded');
+    ph('form_submit_succeeded', { personal_email: FREE_RE.test(String(lead.email || '').trim()) });
     trackLead(lead.email);
     for (var k in lead) { if (Array.isArray(lead[k])) lead[k] = lead[k].toString().replaceAll(',', ';'); }
     if (window.ChiliPiper) ChiliPiper.submit('propfuel', 'Inbound_Router', { map: true, lead: lead });
