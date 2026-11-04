@@ -19,6 +19,7 @@
     { k: 'wai',        yt: 'E_kQzAwmnKc', who: 'Molly Martin', title: 'Director of Member Engagement', org: 'Women in Aviation International (WAI)', q: '“We paid for PropFuel with one lapsed member win back campaign.”' },
     { k: 'afsa',       yt: 'tXoBVw64RGQ', who: 'Meda Merritt', title: 'Manager of Membership & Chapter Relations', org: 'American Fire Sprinkler Association (AFSA)', q: '“I’m anti-survey. PropFuel is a godsend.”' },
     { k: 'wafla',      yt: 'Qq1kR7aySsA', who: 'Kim Bresler', title: 'Chief Marketing and Membership Officer', org: 'WAFLA', q: '“This is what we wanted. We were blown away.”' },
+    { k: 'camft',      yt: 'OqxxDstIRcI', who: 'Victoria “Vic” McKellips', title: 'Membership Outreach Manager', org: 'California Association of Marriage and Family Therapists (CAMFT)', q: '“It’s been magical.”' },
     { k: 'nace',       yt: 'ZI7JwzbPuqI', who: 'Michelle Newhard', title: 'Director of Marketing & Creative Services', org: 'NACE', q: '“This system anticipated every decision I needed to make, which is awesome.”' },
     { k: 'anfp',       yt: 'x5DFNPtgwUs', who: 'Emmy Bender', title: 'Director of Marketing & Member Engagement', org: 'Association of Nutrition & Foodservice Professionals', q: '“We did see a higher retention rate for one to two year members.”' },
     { k: 'aopa',       yt: 'dz9fjbiInU8', who: 'Madison McTernan', title: 'Manager of Membership', org: 'American Orthotics & Prosthetics Association', q: '“I like that it’s pretty much built out everything much more to my specifications.”' },
