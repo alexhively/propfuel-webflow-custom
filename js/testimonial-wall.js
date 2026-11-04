@@ -14,6 +14,8 @@
     { k: 'suaa',       yt: 'wQc519e-JC0', who: 'Bryan Soady', title: '', org: 'State Universities Annuitants Association', q: '“You guys aren’t just an onboard and leave us.”' },
     { k: 'orcpa-leah', yt: 'BPxMnrvQrgs', who: 'Leah Moore', title: '', org: 'Oregon Society of CPAs', q: '“PropFuel has been a game changer for us, for our renewals.”' },
     { k: 'acsm',       yt: '5TrDiiEBU0Y', who: 'Caitlin Kinser', title: '', org: 'American College of Sports Medicine', q: 'Her friend at NATA: “Couldn’t survive without it. It’s a lifeline.”' },
+    { k: 'ishlt',      yt: 'B2H1R0TL_CM', who: 'Jess Burke', title: 'Director of Marketing and Communications', org: 'ISHLT', q: '“Hopefully a game changer for our bandwidth and mental peace.”' },
+    { k: 'tsae',       yt: 'XjQOHPMYfcE', who: 'Brandon Owens', title: 'Director, Membership & Engagement', org: 'Texas Society of Association Executives (TSAE)', q: '“I built a campaign before the call. 7% had already responded.”' },
     { k: 'nace',       yt: 'ZI7JwzbPuqI', who: 'Michelle Newhard', title: 'Director of Marketing & Creative Services', org: 'NACE', q: '“This system anticipated every decision I needed to make, which is awesome.”' },
     { k: 'anfp',       yt: 'x5DFNPtgwUs', who: 'Emmy Bender', title: 'Director of Marketing & Member Engagement', org: 'Association of Nutrition & Foodservice Professionals', q: '“We did see a higher retention rate for one to two year members.”' },
     { k: 'aopa',       yt: 'dz9fjbiInU8', who: 'Madison McTernan', title: 'Manager of Membership', org: 'American Orthotics & Prosthetics Association', q: '“I like that it’s pretty much built out everything much more to my specifications.”' },
