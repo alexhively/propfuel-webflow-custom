@@ -16,6 +16,7 @@
     { k: 'acsm',       yt: '5TrDiiEBU0Y', who: 'Caitlin Kinser', title: '', org: 'American College of Sports Medicine', q: 'Her friend at NATA: “Couldn’t survive without it. It’s a lifeline.”' },
     { k: 'ishlt',      yt: 'B2H1R0TL_CM', who: 'Jess Burke', title: 'Director of Marketing and Communications', org: 'ISHLT', q: '“Hopefully a game changer for our bandwidth and mental peace.”' },
     { k: 'tsae',       yt: 'XjQOHPMYfcE', who: 'Brandon Owens', title: 'Director, Membership & Engagement', org: 'Texas Society of Association Executives (TSAE)', q: '“I built a campaign before the call. 7% had already responded.”' },
+    { k: 'wai',        yt: 'E_kQzAwmnKc', who: 'Molly Martin', title: 'Director of Member Engagement', org: 'Women in Aviation International (WAI)', q: '“We paid for PropFuel with one lapsed member win back campaign.”' },
     { k: 'nace',       yt: 'ZI7JwzbPuqI', who: 'Michelle Newhard', title: 'Director of Marketing & Creative Services', org: 'NACE', q: '“This system anticipated every decision I needed to make, which is awesome.”' },
     { k: 'anfp',       yt: 'x5DFNPtgwUs', who: 'Emmy Bender', title: 'Director of Marketing & Member Engagement', org: 'Association of Nutrition & Foodservice Professionals', q: '“We did see a higher retention rate for one to two year members.”' },
     { k: 'aopa',       yt: 'dz9fjbiInU8', who: 'Madison McTernan', title: 'Manager of Membership', org: 'American Orthotics & Prosthetics Association', q: '“I like that it’s pretty much built out everything much more to my specifications.”' },
