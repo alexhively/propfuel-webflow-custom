@@ -1,13 +1,13 @@
 /* Testimonials page: video wall. Loaded by fixTestimonials() in webflow-enhancements.js.
    Every clip here has client consent recorded in the OS proof queue. CSI is text-only by the client's request;
-   TPCSA is the audio-only cut. Add a clip by adding a row; yt = YouTube video id (null = text card). */
+   TPCSA is the audio-only cut. Add a clip by adding a row; yt = YouTube video id (null = text card); poster = optional hosted still in images/testimonials/ when the YouTube auto-thumbnail is a bad frame. */
 (function () {
   if (!/^\/client-success\/testimonials(\/|$)/.test(location.pathname)) return;
   if (document.querySelector('.tm-wall')) return;
 
   var CLIPS = [
     { k: 'mike-s1',    yt: 'EAgd_VL-mzc', who: 'Mike Donovan', title: 'Director, Membership Services and Development', org: 'Association of Legal Administrators (ALA)', q: '“If I was wearing a wig, it would have blown off.”' },
-    { k: 'txcpa',      yt: 'cPBLgJ4iXzQ', who: 'Kristie Estrada', title: 'Manager, Membership Operations & Acquisition', org: 'Texas Society of CPAs', q: '“It’s working. Best thing ever.”' },
+    { k: 'txcpa',      yt: 'cPBLgJ4iXzQ', poster: 'txcpa-kristie-poster.jpg', who: 'Kristie Estrada', title: 'Manager, Membership Operations & Acquisition', org: 'Texas Society of CPAs', q: '“It’s working. Best thing ever.”' },
     { k: 'fei',        yt: '-Bih8Lc-xg4', who: 'Sofia Nyland', title: 'Chapter Administrator', org: 'Financial Executives International, Detroit Chapter', q: '“I set it up once and then it just does everything for me.”' },
     { k: 'sedona',     yt: 'puFYRjFuC48', who: 'Makenna Drake', title: '', org: 'Sedona Chamber of Commerce', q: '“Our event survey response rate is so much higher than it could ever possibly be without this.”' },
     { k: 'hisac',      yt: 'VXOCrWIJVvI', who: 'Melanie Conlogue', title: 'Member Engagement Team Manager', org: 'Health-ISAC', q: '“Check-in response rates went from 10% to 50%.”' },
@@ -82,7 +82,7 @@
       (c.title ? esc(c.title) + '<br>' : '') + esc(c.org) + '</p></div>';
     var top = c.yt
       ? '<button class="tm-vid" type="button" data-yt="' + c.yt + '" data-k="' + c.k + '" aria-label="Play: ' + esc(c.who) + ', ' + esc(c.org) + '">' +
-        '<img src="https://i.ytimg.com/vi/' + c.yt + '/oardefault.jpg" onerror="this.onerror=null;this.src=\'https://i.ytimg.com/vi/' + c.yt + '/hqdefault.jpg\'" alt="" loading="lazy"><span class="tm-play"></span>' +
+        '<img src="' + (c.poster ? 'https://alexhively.github.io/propfuel-webflow-custom/images/testimonials/' + c.poster : 'https://i.ytimg.com/vi/' + c.yt + '/oardefault.jpg') + '" onerror="this.onerror=null;this.src=\'https://i.ytimg.com/vi/' + c.yt + '/hqdefault.jpg\'" alt="" loading="lazy"><span class="tm-play"></span>' +
         (c.audio ? '<span class="tm-audio">Audio only</span>' : '') + '</button>'
       : '<div class="tm-txt"><p>' + esc(c.q) + '</p></div>';
     return '<article class="tm-card' + (i >= 8 ? ' tm-more' : '') + '">' + top + meta + '</article>';
